@@ -1,0 +1,14 @@
+[
+  { "id": "1", "name": "What is computation?", "prerequisites": [] },
+  { "id": "2", "name": "Branching and Iteration", "prerequisites": ["1"] },
+  { "id": "3", "name": "String Manipulation, Guess and Check, Approximations, Bisection", "prerequisites": ["2"] },
+  { "id": "4", "name": "Decomposition, Abstractions, Functions", "prerequisites": ["3"] },
+  { "id": "5", "name": "Tuples, Lists, Aliasing, Mutability, Cloning", "prerequisites": ["4"] },
+  { "id": "6", "name": "Recursion, Dictionaries", "prerequisites": ["5"] },
+  { "id": "7", "name": "Testing, Debugging, Exceptions, Assertions", "prerequisites": ["6"] },
+  { "id": "8", "name": "Object Oriented Programming", "prerequisites": ["7"] },
+  { "id": "9", "name": "Python Classes and Inheritance", "prerequisites": ["8"] },
+  { "id": "10", "name": "Understanding Program Efficiency, Part 1", "prerequisites": ["9"] },
+  { "id": "11", "name": "Understanding Program Efficiency, Part 2", "prerequisites": ["10"] },
+  { "id": "12", "name": "Searching and Sorting", "prerequisites": ["11"] }
+]
