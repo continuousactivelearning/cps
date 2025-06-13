@@ -1,3 +1,5 @@
+// Developed by Manjistha Bidkar
+
 // extracting text from pdf
 
 // import express, { Request, Response } from 'express';
