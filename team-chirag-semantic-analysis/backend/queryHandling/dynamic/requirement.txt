@@ -1,0 +1,7 @@
+sentence-transformers==2.2.2
+faiss-cpu==1.7.4
+numpy==1.26.4
+ollama==0.1.7
+
+transformers>=4.30.0
+torch>=1.13.0
