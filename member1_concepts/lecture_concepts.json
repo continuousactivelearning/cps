@@ -1,24 +1,128 @@
 {
-  "Lecture 1": [
-    "Variables",
-    "Conditionals",
-    "Loops",
-    "Object-Oriented",
-    "Sorting"
-  ],
-  "Lecture 2": [
-    "Variables",
-    "Conditionals",
-    "Branching",
-    "Loops",
-    "Object-Oriented",
-    "Sorting"
-  ],
-  "Lecture 3": [
-    "Variables",
-    "Conditionals",
-    "Loops",
-    "Object-Oriented",
-    "Sorting"
-  ]
+  "Lecture 1": {
+    "concepts": [
+      "Variables",
+      "Expressions"
+    ],
+    "quiz": [
+      {
+        "question": "What is a variable in Python?",
+        "concept": "Variables",
+        "difficulty": "easy",
+        "options": [
+          "A reserved keyword",
+          "A container for storing values",
+          "A function"
+        ],
+        "answer": "A container for storing values"
+      },
+      {
+        "question": "Which symbol is used for assignment in Python?",
+        "concept": "Variables",
+        "difficulty": "easy",
+        "options": [
+          "=",
+          "==",
+          ":="
+        ],
+        "answer": "="
+      },
+      {
+        "question": "What will be the result of 3 + 2 * 2?",
+        "concept": "Expressions",
+        "difficulty": "medium",
+        "options": [
+          "10",
+          "7",
+          "9"
+        ],
+        "answer": "7"
+      }
+    ]
+  },
+  "Lecture 2": {
+    "concepts": [
+      "Conditionals",
+      "Branching",
+      "Loops"
+    ],
+    "quiz": [
+      {
+        "question": "Which statement is used for conditional branching in Python?",
+        "concept": "Conditionals",
+        "difficulty": "easy",
+        "options": [
+          "for",
+          "while",
+          "if"
+        ],
+        "answer": "if"
+      },
+      {
+        "question": "Which keyword is used for alternate branch in if statements?",
+        "concept": "Branching",
+        "difficulty": "easy",
+        "options": [
+          "elif",
+          "else",
+          "elseif"
+        ],
+        "answer": "elif"
+      },
+      {
+        "question": "How many times will this loop run: for i in range(3)?",
+        "concept": "Loops",
+        "difficulty": "medium",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "answer": "3"
+      }
+    ]
+  },
+  "Lecture 3": {
+    "concepts": [
+      "String Manipulation",
+      "Guess and Check",
+      "Loops",
+      "Sorting"
+    ],
+    "quiz": [
+      {
+        "question": "Which method returns the number of characters in a string?",
+        "concept": "String Manipulation",
+        "difficulty": "easy",
+        "options": [
+          "length()",
+          "count()",
+          "len()"
+        ],
+        "answer": "len()"
+      },
+      {
+        "question": "What does s.upper() do to a string 's'?",
+        "concept": "String Manipulation",
+        "difficulty": "easy",
+        "options": [
+          "Converts to lowercase",
+          "Converts to uppercase",
+          "Reverses it"
+        ],
+        "answer": "Converts to uppercase"
+      },
+      {
+        "question": "Which technique is used in binary search?",
+        "concept": "Sorting",
+        "difficulty": "medium",
+        "options": [
+          "Divide and conquer",
+          "Linear scan",
+          "Hashing"
+        ],
+        "answer": "Divide and conquer"
+      }
+    ]
+  }
 }
