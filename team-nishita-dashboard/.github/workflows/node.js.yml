@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "team-nishita-dashboard" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "team-nishita-dashboard" ]
 
 jobs:
   build:
