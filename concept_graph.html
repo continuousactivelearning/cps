@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 800px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Computation", "label": "Computation", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Algorithms", "label": "Algorithms", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Problem Solving", "label": "Problem Solving", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Conditionals", "label": "Conditionals", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Loops", "label": "Loops", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Control Flow", "label": "Control Flow", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "String Manipulation", "label": "String Manipulation", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Guess and Check", "label": "Guess and Check", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Approximation", "label": "Approximation", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Bisection Search", "label": "Bisection Search", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Decomposition", "label": "Decomposition", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Abstraction", "label": "Abstraction", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Functions", "label": "Functions", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Tuples", "label": "Tuples", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Lists", "label": "Lists", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Aliasing", "label": "Aliasing", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Mutability", "label": "Mutability", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Cloning", "label": "Cloning", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Recursion", "label": "Recursion", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Dictionaries", "label": "Dictionaries", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Testing", "label": "Testing", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Debugging", "label": "Debugging", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Exceptions", "label": "Exceptions", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Assertions", "label": "Assertions", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Classes", "label": "Classes", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "OOP", "label": "OOP", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Encapsulation", "label": "Encapsulation", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Inheritance", "label": "Inheritance", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Subclasses", "label": "Subclasses", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Class Hierarchies", "label": "Class Hierarchies", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Big-O Notation", "label": "Big-O Notation", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Efficiency", "label": "Efficiency", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Space Complexity", "label": "Space Complexity", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Search Algorithms", "label": "Search Algorithms", "shape": "dot", "size": 20}, {"borderColor": "#2B7CE9", "borderWidth": 2, "color": "#97C2FC", "font": {"size": 12}, "id": "Sorting Algorithms", "label": "Sorting Algorithms", "shape": "dot", "size": 20}]);
+                  edges = new vis.DataSet([{"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Computation", "smooth": {"type": "continuous"}, "to": "Algorithms", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Algorithms", "smooth": {"type": "continuous"}, "to": "Problem Solving", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Problem Solving", "smooth": {"type": "continuous"}, "to": "Conditionals", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Problem Solving", "smooth": {"type": "continuous"}, "to": "Loops", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Problem Solving", "smooth": {"type": "continuous"}, "to": "Control Flow", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Conditionals", "smooth": {"type": "continuous"}, "to": "Loops", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Loops", "smooth": {"type": "continuous"}, "to": "Control Flow", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Control Flow", "smooth": {"type": "continuous"}, "to": "String Manipulation", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Control Flow", "smooth": {"type": "continuous"}, "to": "Guess and Check", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Control Flow", "smooth": {"type": "continuous"}, "to": "Approximation", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Control Flow", "smooth": {"type": "continuous"}, "to": "Bisection Search", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "String Manipulation", "smooth": {"type": "continuous"}, "to": "Guess and Check", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Guess and Check", "smooth": {"type": "continuous"}, "to": "Approximation", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Approximation", "smooth": {"type": "continuous"}, "to": "Bisection Search", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Bisection Search", "smooth": {"type": "continuous"}, "to": "Decomposition", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Bisection Search", "smooth": {"type": "continuous"}, "to": "Abstraction", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Bisection Search", "smooth": {"type": "continuous"}, "to": "Functions", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Decomposition", "smooth": {"type": "continuous"}, "to": "Abstraction", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Abstraction", "smooth": {"type": "continuous"}, "to": "Functions", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Functions", "smooth": {"type": "continuous"}, "to": "Tuples", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Functions", "smooth": {"type": "continuous"}, "to": "Lists", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Functions", "smooth": {"type": "continuous"}, "to": "Aliasing", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Functions", "smooth": {"type": "continuous"}, "to": "Mutability", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Functions", "smooth": {"type": "continuous"}, "to": "Cloning", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Tuples", "smooth": {"type": "continuous"}, "to": "Lists", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Lists", "smooth": {"type": "continuous"}, "to": "Aliasing", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Aliasing", "smooth": {"type": "continuous"}, "to": "Mutability", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Mutability", "smooth": {"type": "continuous"}, "to": "Cloning", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Cloning", "smooth": {"type": "continuous"}, "to": "Recursion", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Cloning", "smooth": {"type": "continuous"}, "to": "Dictionaries", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Recursion", "smooth": {"type": "continuous"}, "to": "Dictionaries", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Dictionaries", "smooth": {"type": "continuous"}, "to": "Testing", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Dictionaries", "smooth": {"type": "continuous"}, "to": "Debugging", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Dictionaries", "smooth": {"type": "continuous"}, "to": "Exceptions", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Dictionaries", "smooth": {"type": "continuous"}, "to": "Assertions", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Testing", "smooth": {"type": "continuous"}, "to": "Debugging", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Debugging", "smooth": {"type": "continuous"}, "to": "Exceptions", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Exceptions", "smooth": {"type": "continuous"}, "to": "Assertions", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Assertions", "smooth": {"type": "continuous"}, "to": "Classes", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Assertions", "smooth": {"type": "continuous"}, "to": "OOP", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Assertions", "smooth": {"type": "continuous"}, "to": "Encapsulation", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Classes", "smooth": {"type": "continuous"}, "to": "OOP", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "OOP", "smooth": {"type": "continuous"}, "to": "Encapsulation", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Encapsulation", "smooth": {"type": "continuous"}, "to": "Inheritance", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Encapsulation", "smooth": {"type": "continuous"}, "to": "Subclasses", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Encapsulation", "smooth": {"type": "continuous"}, "to": "Class Hierarchies", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Inheritance", "smooth": {"type": "continuous"}, "to": "Subclasses", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Subclasses", "smooth": {"type": "continuous"}, "to": "Class Hierarchies", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Class Hierarchies", "smooth": {"type": "continuous"}, "to": "Big-O Notation", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Class Hierarchies", "smooth": {"type": "continuous"}, "to": "Efficiency", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Big-O Notation", "smooth": {"type": "continuous"}, "to": "Efficiency", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Efficiency", "smooth": {"type": "continuous"}, "to": "Efficiency", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Efficiency", "smooth": {"type": "continuous"}, "to": "Space Complexity", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Space Complexity", "smooth": {"type": "continuous"}, "to": "Search Algorithms", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Space Complexity", "smooth": {"type": "continuous"}, "to": "Sorting Algorithms", "width": 1}, {"arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}, "color": "#848484", "from": "Search Algorithms", "smooth": {"type": "continuous"}, "to": "Sorting Algorithms", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"enabled": true, "stabilization": {"iterations": 100}, "barnesHut": {"gravitationalConstant": -2000, "springConstant": 0.04, "springLength": 95}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,90 @@
+from bs4 import BeautifulSoup
+from bs4.element import Tag
+import networkx as nx
+import matplotlib.pyplot as plt
+
+
+with open("lecture_slides_code.html", "r", encoding='utf-8') as f:
+    html_content = f.read()
+soup = BeautifulSoup(html_content, 'html.parser')
+
+rows = soup.find_all("tr")
+
+# Extract lecture titles
+lecture_titles = []
+
+
+for row in rows:
+    if isinstance(row, Tag):
+        cols = row.find_all("td")
+        if len(cols) >= 2:
+            title = cols[1].get_text(strip=True)
+            if title:  # Only consider non-empty titles
+                lecture_titles.append(title)
+
+# Save the lecture titles to a text file
+with open("lecture_titles.txt", "w", encoding='utf-8') as f:
+    for title in lecture_titles:
+        f.write(title + "\n")
+
+print(f"Extracted {len(lecture_titles)} lecture titles and saved to lecture_titles.txt")
+
+
+'''
+G = nx.DiGraph()
+
+# Added nodes and linear edges
+for i in range(len(lecture_titles)):
+    G.add_node(lecture_titles[i])
+    if i > 0:
+        G.add_edge(lecture_titles[i - 1], lecture_titles[i])
+
+# TO visualize the graph
+plt.figure(figsize=(16, 8))
+pos = nx.spring_layout(G, k=0.8, seed=42)
+nx.draw(G, pos, with_labels=True, node_color='lightgreen', edge_color='gray',node_size=5000, font_size=4, font_weight='bold', arrows=True)
+
+plt.title("MIT 6.0001 Lecture Prerequisite Graph", fontsize=12)
+plt.axis('off')
+plt.tight_layout()
+plt.show()
+'''
+
+G = nx.DiGraph()
+
+# Added nodes and linear edges
+for i in range(len(lecture_titles)):
+    G.add_node(lecture_titles[i])
+    if i > 0:
+        G.add_edge(lecture_titles[i - 1], lecture_titles[i])
+
+# TO visualize the graph
+plt.figure(figsize=(20, 12))  # Increased figure size
+
+# Create a hierarchical layout with more vertical spacing
+pos = nx.kamada_kawai_layout(G)
+pos_dict = {}
+import random
+for i, node in enumerate(G.nodes()):
+    x, y = pos[node]
+    pos_dict[node] = (x, y + i * 0.1)  # Add increasing vertical displacement
+
+# Draw with adjusted parameters
+nx.draw(G, pos_dict, 
+        with_labels=True, 
+        node_color='lightgreen', 
+        edge_color='gray',
+        node_size=2000, 
+        font_size=8,  # Increased font size
+        font_weight='bold', 
+        arrows=True,
+        width=2,  # Thicker edges
+        arrowsize=10,  # Larger arrows
+        node_shape='o',  # Circular nodes
+        alpha=0.9)  # Slight transparency
+
+plt.title("MIT 6.0001 Lecture Prerequisite Graph", fontsize=14, pad=20)
+plt.axis('off')
+plt.margins(0.2)  # Add margins around the graph
+plt.tight_layout()
+plt.show()
