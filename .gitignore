@@ -1,1 +1,3 @@
 "cps/" 
+node_modules/
+*.env

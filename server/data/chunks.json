@@ -1,0 +1,146 @@
+[
+  {
+    "topic": "Computation",
+    "content": "This topic appears in lecture: \"What is computation?\"."
+  },
+  {
+    "topic": "Algorithms",
+    "content": "This topic appears in lecture: \"What is computation?\"."
+  },
+  {
+    "topic": "Problem Solving",
+    "content": "This topic appears in lecture: \"What is computation?\"."
+  },
+  {
+    "topic": "Conditionals",
+    "content": "This topic appears in lecture: \"Branching and Iteration\"."
+  },
+  {
+    "topic": "Loops",
+    "content": "This topic appears in lecture: \"Branching and Iteration\"."
+  },
+  {
+    "topic": "Control Flow",
+    "content": "This topic appears in lecture: \"Branching and Iteration\"."
+  },
+  {
+    "topic": "String Manipulation",
+    "content": "This topic appears in lecture: \"String Manipulation, Guess and Check, Approximations, Bisection\"."
+  },
+  {
+    "topic": "Guess and Check",
+    "content": "This topic appears in lecture: \"String Manipulation, Guess and Check, Approximations, Bisection\"."
+  },
+  {
+    "topic": "Approximation",
+    "content": "This topic appears in lecture: \"String Manipulation, Guess and Check, Approximations, Bisection\"."
+  },
+  {
+    "topic": "Bisection Search",
+    "content": "This topic appears in lecture: \"String Manipulation, Guess and Check, Approximations, Bisection\"."
+  },
+  {
+    "topic": "Decomposition",
+    "content": "This topic appears in lecture: \"Decomposition, Abstractions, Functions\"."
+  },
+  {
+    "topic": "Abstraction",
+    "content": "This topic appears in lecture: \"Decomposition, Abstractions, Functions\"."
+  },
+  {
+    "topic": "Functions",
+    "content": "This topic appears in lecture: \"Decomposition, Abstractions, Functions\"."
+  },
+  {
+    "topic": "Tuples",
+    "content": "This topic appears in lecture: \"Tuples, Lists, Aliasing, Mutability, Cloning\"."
+  },
+  {
+    "topic": "Lists",
+    "content": "This topic appears in lecture: \"Tuples, Lists, Aliasing, Mutability, Cloning\"."
+  },
+  {
+    "topic": "Aliasing",
+    "content": "This topic appears in lecture: \"Tuples, Lists, Aliasing, Mutability, Cloning\"."
+  },
+  {
+    "topic": "Mutability",
+    "content": "This topic appears in lecture: \"Tuples, Lists, Aliasing, Mutability, Cloning\"."
+  },
+  {
+    "topic": "Cloning",
+    "content": "This topic appears in lecture: \"Tuples, Lists, Aliasing, Mutability, Cloning\"."
+  },
+  {
+    "topic": "Recursion",
+    "content": "This topic appears in lecture: \"Recursion, Dictionaries\"."
+  },
+  {
+    "topic": "Dictionaries",
+    "content": "This topic appears in lecture: \"Recursion, Dictionaries\"."
+  },
+  {
+    "topic": "Testing",
+    "content": "This topic appears in lecture: \"Testing, Debugging, Exceptions, Assertions\"."
+  },
+  {
+    "topic": "Debugging",
+    "content": "This topic appears in lecture: \"Testing, Debugging, Exceptions, Assertions\"."
+  },
+  {
+    "topic": "Exceptions",
+    "content": "This topic appears in lecture: \"Testing, Debugging, Exceptions, Assertions\"."
+  },
+  {
+    "topic": "Assertions",
+    "content": "This topic appears in lecture: \"Testing, Debugging, Exceptions, Assertions\"."
+  },
+  {
+    "topic": "Classes",
+    "content": "This topic appears in lecture: \"Object Oriented Programming\"."
+  },
+  {
+    "topic": "OOP",
+    "content": "This topic appears in lecture: \"Object Oriented Programming\"."
+  },
+  {
+    "topic": "Encapsulation",
+    "content": "This topic appears in lecture: \"Object Oriented Programming\"."
+  },
+  {
+    "topic": "Inheritance",
+    "content": "This topic appears in lecture: \"Python Classes and Inheritance\"."
+  },
+  {
+    "topic": "Subclasses",
+    "content": "This topic appears in lecture: \"Python Classes and Inheritance\"."
+  },
+  {
+    "topic": "Class Hierarchies",
+    "content": "This topic appears in lecture: \"Python Classes and Inheritance\"."
+  },
+  {
+    "topic": "Big-O Notation",
+    "content": "This topic appears in lecture: \"Understanding Program Efficiency, Part 1\"."
+  },
+  {
+    "topic": "Efficiency",
+    "content": "This topic appears in lecture: \"Understanding Program Efficiency, Part 1\"."
+  },
+  {
+    "topic": "Efficiency",
+    "content": "This topic appears in lecture: \"Understanding Program Efficiency, Part 2\"."
+  },
+  {
+    "topic": "Space Complexity",
+    "content": "This topic appears in lecture: \"Understanding Program Efficiency, Part 2\"."
+  },
+  {
+    "topic": "Search Algorithms",
+    "content": "This topic appears in lecture: \"Searching and Sorting\"."
+  },
+  {
+    "topic": "Sorting Algorithms",
+    "content": "This topic appears in lecture: \"Searching and Sorting\"."
+  }
+]

@@ -2,6 +2,10 @@
   "Lecture 1": {
     "concepts": [
       "Variables",
+      "Conditionals",
+      "Loops",
+      "Object-Oriented",
+      "Sorting",
       "Expressions"
     ],
     "quiz": [
@@ -42,9 +46,12 @@
   },
   "Lecture 2": {
     "concepts": [
+      "Variables",
       "Conditionals",
       "Branching",
-      "Loops"
+      "Loops",
+      "Object-Oriented",
+      "Sorting"
     ],
     "quiz": [
       {
@@ -84,10 +91,13 @@
   },
   "Lecture 3": {
     "concepts": [
-      "String Manipulation",
-      "Guess and Check",
+      "Variables",
+      "Conditionals",
       "Loops",
-      "Sorting"
+      "Object-Oriented",
+      "Sorting",
+      "String Manipulation",
+      "Guess and Check"
     ],
     "quiz": [
       {
