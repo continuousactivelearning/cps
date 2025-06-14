@@ -12,6 +12,8 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@langchain/langgraph": "^0.3.3",
+    "axios": "^1.10.0",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
@@ -19,7 +21,9 @@
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.15.1"
+    "langchain": "^0.3.28",
+    "mongoose": "^8.15.1",
+    "pdf-ts": "^0.0.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
