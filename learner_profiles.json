@@ -1,0 +1,853 @@
+[
+    {
+        "learner_id": "L001",
+        "mastered_concepts": [
+            "Complexity Analysis",
+            "Data Types",
+            "Graphs",
+            "Memoization",
+            "Queues",
+            "Sorting",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Backtracking",
+            "DFS",
+            "Quick Sort"
+        ]
+    },
+    {
+        "learner_id": "L002",
+        "mastered_concepts": [
+            "Big O Notation",
+            "Binary Search",
+            "Complexity Analysis",
+            "Searching",
+            "Trees"
+        ],
+        "weak_concepts": [
+            "BFS",
+            "Binary Search Trees",
+            "Greedy Algorithms",
+            "Memoization"
+        ]
+    },
+    {
+        "learner_id": "L003",
+        "mastered_concepts": [
+            "Arrays",
+            "BFS",
+            "Backtracking",
+            "DFS",
+            "Graph Traversal",
+            "Greedy Algorithms",
+            "Hash Tables"
+        ],
+        "weak_concepts": [
+            "Complexity Analysis",
+            "Dynamic Programming",
+            "Variables"
+        ]
+    },
+    {
+        "learner_id": "L004",
+        "mastered_concepts": [
+            "Backtracking",
+            "Divide and Conquer",
+            "Graph Traversal",
+            "Loops",
+            "Operators",
+            "Quick Sort"
+        ],
+        "weak_concepts": [
+            "Arrays",
+            "Dynamic Programming",
+            "Greedy Algorithms",
+            "Memoization",
+            "Stacks"
+        ]
+    },
+    {
+        "learner_id": "L005",
+        "mastered_concepts": [
+            "Big O Notation",
+            "Binary Trees",
+            "Bit Manipulation",
+            "Linked Lists",
+            "Memoization",
+            "Quick Sort",
+            "Searching"
+        ],
+        "weak_concepts": [
+            "DFS",
+            "Dynamic Programming",
+            "Merge Sort"
+        ]
+    },
+    {
+        "learner_id": "L006",
+        "mastered_concepts": [
+            "BFS",
+            "Binary Search Trees",
+            "Functions",
+            "Variables"
+        ],
+        "weak_concepts": [
+            "Backtracking",
+            "Control Flow",
+            "Hash Tables",
+            "Merge Sort"
+        ]
+    },
+    {
+        "learner_id": "L007",
+        "mastered_concepts": [
+            "Big O Notation",
+            "Graphs",
+            "Quick Sort",
+            "Trees"
+        ],
+        "weak_concepts": [
+            "Backtracking",
+            "Binary Trees",
+            "Stacks"
+        ]
+    },
+    {
+        "learner_id": "L008",
+        "mastered_concepts": [
+            "Binary Search",
+            "Control Flow",
+            "Heaps",
+            "Merge Sort",
+            "Quick Sort",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Big O Notation",
+            "Hash Tables",
+            "Queues",
+            "Recursion"
+        ]
+    },
+    {
+        "learner_id": "L009",
+        "mastered_concepts": [
+            "Arrays",
+            "BFS",
+            "Binary Search",
+            "Graph Traversal",
+            "Memoization",
+            "Merge Sort",
+            "Variables"
+        ],
+        "weak_concepts": [
+            "Dynamic Programming",
+            "Recursion",
+            "Searching"
+        ]
+    },
+    {
+        "learner_id": "L010",
+        "mastered_concepts": [
+            "BFS",
+            "Backtracking",
+            "Binary Search",
+            "Complexity Analysis",
+            "Data Types",
+            "Stacks",
+            "Trees"
+        ],
+        "weak_concepts": [
+            "Bit Manipulation",
+            "Divide and Conquer",
+            "Dynamic Programming",
+            "Hash Tables",
+            "Operators"
+        ]
+    },
+    {
+        "learner_id": "L011",
+        "mastered_concepts": [
+            "Backtracking",
+            "Binary Search",
+            "Complexity Analysis",
+            "Divide and Conquer",
+            "Heaps",
+            "Sorting",
+            "Variables"
+        ],
+        "weak_concepts": [
+            "Dynamic Programming",
+            "Graph Traversal",
+            "Linked Lists",
+            "Recursion"
+        ]
+    },
+    {
+        "learner_id": "L012",
+        "mastered_concepts": [
+            "BFS",
+            "Binary Search",
+            "Functions",
+            "Loops",
+            "Memoization",
+            "Queues",
+            "Quick Sort",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Binary Search Trees",
+            "Binary Trees",
+            "Graph Traversal",
+            "Operators"
+        ]
+    },
+    {
+        "learner_id": "L013",
+        "mastered_concepts": [
+            "Control Flow",
+            "Functions",
+            "Graphs",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Divide and Conquer",
+            "Linked Lists"
+        ]
+    },
+    {
+        "learner_id": "L014",
+        "mastered_concepts": [
+            "Arrays",
+            "Backtracking",
+            "Bit Manipulation",
+            "Data Types",
+            "Loops",
+            "Quick Sort",
+            "Recursion",
+            "Trees"
+        ],
+        "weak_concepts": [
+            "Binary Search Trees",
+            "Binary Trees",
+            "Functions",
+            "Graph Traversal",
+            "Linked Lists"
+        ]
+    },
+    {
+        "learner_id": "L015",
+        "mastered_concepts": [
+            "Greedy Algorithms",
+            "Heaps",
+            "Operators",
+            "Recursion",
+            "Searching"
+        ],
+        "weak_concepts": [
+            "Arrays",
+            "BFS",
+            "Data Types",
+            "Dynamic Programming",
+            "Functions"
+        ]
+    },
+    {
+        "learner_id": "L016",
+        "mastered_concepts": [
+            "Dynamic Programming",
+            "Queues",
+            "Recursion",
+            "Searching"
+        ],
+        "weak_concepts": [
+            "Binary Search Trees",
+            "Data Types",
+            "Graph Traversal",
+            "Greedy Algorithms"
+        ]
+    },
+    {
+        "learner_id": "L017",
+        "mastered_concepts": [
+            "Arrays",
+            "Backtracking",
+            "Big O Notation",
+            "Binary Search",
+            "Graph Traversal",
+            "Memoization",
+            "Queues",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Dynamic Programming",
+            "Graphs",
+            "Greedy Algorithms",
+            "Linked Lists",
+            "Merge Sort"
+        ]
+    },
+    {
+        "learner_id": "L018",
+        "mastered_concepts": [
+            "Bit Manipulation",
+            "Functions",
+            "Hash Tables",
+            "Memoization",
+            "Operators",
+            "Sorting",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Binary Search",
+            "Merge Sort",
+            "Queues",
+            "Searching"
+        ]
+    },
+    {
+        "learner_id": "L019",
+        "mastered_concepts": [
+            "Binary Search",
+            "DFS",
+            "Functions",
+            "Loops",
+            "Searching"
+        ],
+        "weak_concepts": [
+            "Big O Notation",
+            "Bit Manipulation",
+            "Complexity Analysis",
+            "Linked Lists",
+            "Stacks"
+        ]
+    },
+    {
+        "learner_id": "L020",
+        "mastered_concepts": [
+            "Binary Search Trees",
+            "Dynamic Programming",
+            "Linked Lists",
+            "Queues",
+            "Trees",
+            "Variables"
+        ],
+        "weak_concepts": [
+            "BFS",
+            "Graph Traversal",
+            "Heaps"
+        ]
+    },
+    {
+        "learner_id": "L021",
+        "mastered_concepts": [
+            "Big O Notation",
+            "Control Flow",
+            "Quick Sort",
+            "Stacks",
+            "Trees"
+        ],
+        "weak_concepts": [
+            "Backtracking",
+            "Dynamic Programming",
+            "Graphs"
+        ]
+    },
+    {
+        "learner_id": "L022",
+        "mastered_concepts": [
+            "Arrays",
+            "Backtracking",
+            "Data Types",
+            "Greedy Algorithms",
+            "Operators",
+            "Searching",
+            "Sorting"
+        ],
+        "weak_concepts": [
+            "BFS",
+            "Control Flow",
+            "Graphs",
+            "Merge Sort"
+        ]
+    },
+    {
+        "learner_id": "L023",
+        "mastered_concepts": [
+            "Binary Search Trees",
+            "Functions",
+            "Greedy Algorithms",
+            "Merge Sort",
+            "Operators",
+            "Quick Sort",
+            "Recursion",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Big O Notation",
+            "Binary Trees",
+            "Dynamic Programming"
+        ]
+    },
+    {
+        "learner_id": "L024",
+        "mastered_concepts": [
+            "Arrays",
+            "Backtracking",
+            "Big O Notation",
+            "Functions",
+            "Hash Tables",
+            "Linked Lists",
+            "Sorting"
+        ],
+        "weak_concepts": [
+            "DFS",
+            "Divide and Conquer",
+            "Graphs"
+        ]
+    },
+    {
+        "learner_id": "L025",
+        "mastered_concepts": [
+            "Arrays",
+            "Binary Search Trees",
+            "Bit Manipulation",
+            "Complexity Analysis",
+            "Graphs",
+            "Greedy Algorithms",
+            "Queues",
+            "Trees"
+        ],
+        "weak_concepts": [
+            "BFS",
+            "Binary Search",
+            "Dynamic Programming",
+            "Heaps",
+            "Recursion"
+        ]
+    },
+    {
+        "learner_id": "L026",
+        "mastered_concepts": [
+            "Big O Notation",
+            "Binary Search",
+            "Complexity Analysis",
+            "DFS",
+            "Heaps",
+            "Recursion",
+            "Trees"
+        ],
+        "weak_concepts": [
+            "Hash Tables",
+            "Linked Lists",
+            "Queues"
+        ]
+    },
+    {
+        "learner_id": "L027",
+        "mastered_concepts": [
+            "Control Flow",
+            "Data Types",
+            "Graphs",
+            "Memoization",
+            "Recursion",
+            "Searching",
+            "Stacks",
+            "Variables"
+        ],
+        "weak_concepts": [
+            "Binary Search",
+            "Greedy Algorithms",
+            "Hash Tables"
+        ]
+    },
+    {
+        "learner_id": "L028",
+        "mastered_concepts": [
+            "Big O Notation",
+            "Binary Trees",
+            "Heaps",
+            "Loops",
+            "Searching"
+        ],
+        "weak_concepts": [
+            "Control Flow",
+            "Divide and Conquer",
+            "Greedy Algorithms"
+        ]
+    },
+    {
+        "learner_id": "L029",
+        "mastered_concepts": [
+            "Binary Trees",
+            "Complexity Analysis",
+            "Control Flow",
+            "Divide and Conquer",
+            "Memoization",
+            "Quick Sort",
+            "Sorting",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Binary Search",
+            "Searching"
+        ]
+    },
+    {
+        "learner_id": "L030",
+        "mastered_concepts": [
+            "Binary Search Trees",
+            "Bit Manipulation",
+            "DFS",
+            "Greedy Algorithms",
+            "Quick Sort",
+            "Recursion"
+        ],
+        "weak_concepts": [
+            "Arrays",
+            "Graphs",
+            "Trees"
+        ]
+    },
+    {
+        "learner_id": "L031",
+        "mastered_concepts": [
+            "Arrays",
+            "BFS",
+            "Binary Search",
+            "DFS",
+            "Dynamic Programming",
+            "Linked Lists",
+            "Memoization"
+        ],
+        "weak_concepts": [
+            "Binary Search Trees",
+            "Merge Sort",
+            "Operators"
+        ]
+    },
+    {
+        "learner_id": "L032",
+        "mastered_concepts": [
+            "BFS",
+            "Big O Notation",
+            "Bit Manipulation",
+            "Complexity Analysis",
+            "Trees"
+        ],
+        "weak_concepts": [
+            "Arrays",
+            "Hash Tables",
+            "Searching"
+        ]
+    },
+    {
+        "learner_id": "L033",
+        "mastered_concepts": [
+            "BFS",
+            "DFS",
+            "Data Types",
+            "Dynamic Programming",
+            "Quick Sort"
+        ],
+        "weak_concepts": [
+            "Binary Search",
+            "Complexity Analysis",
+            "Memoization",
+            "Searching"
+        ]
+    },
+    {
+        "learner_id": "L034",
+        "mastered_concepts": [
+            "Greedy Algorithms",
+            "Hash Tables",
+            "Merge Sort",
+            "Quick Sort",
+            "Searching"
+        ],
+        "weak_concepts": [
+            "Complexity Analysis",
+            "Dynamic Programming"
+        ]
+    },
+    {
+        "learner_id": "L035",
+        "mastered_concepts": [
+            "Binary Trees",
+            "Graph Traversal",
+            "Hash Tables",
+            "Loops",
+            "Operators",
+            "Queues",
+            "Sorting"
+        ],
+        "weak_concepts": [
+            "Big O Notation",
+            "Binary Search",
+            "Bit Manipulation",
+            "Heaps",
+            "Stacks"
+        ]
+    },
+    {
+        "learner_id": "L036",
+        "mastered_concepts": [
+            "BFS",
+            "Complexity Analysis",
+            "Control Flow",
+            "Greedy Algorithms",
+            "Searching",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Arrays",
+            "Binary Trees",
+            "Queues"
+        ]
+    },
+    {
+        "learner_id": "L037",
+        "mastered_concepts": [
+            "Binary Trees",
+            "Bit Manipulation",
+            "DFS",
+            "Merge Sort",
+            "Operators",
+            "Variables"
+        ],
+        "weak_concepts": [
+            "Data Types",
+            "Divide and Conquer",
+            "Functions",
+            "Queues",
+            "Searching"
+        ]
+    },
+    {
+        "learner_id": "L038",
+        "mastered_concepts": [
+            "BFS",
+            "Graph Traversal",
+            "Memoization",
+            "Operators",
+            "Stacks",
+            "Variables"
+        ],
+        "weak_concepts": [
+            "Big O Notation",
+            "Heaps"
+        ]
+    },
+    {
+        "learner_id": "L039",
+        "mastered_concepts": [
+            "Binary Search Trees",
+            "Bit Manipulation",
+            "Complexity Analysis",
+            "Dynamic Programming",
+            "Hash Tables",
+            "Memoization",
+            "Recursion",
+            "Variables"
+        ],
+        "weak_concepts": [
+            "Control Flow",
+            "Merge Sort"
+        ]
+    },
+    {
+        "learner_id": "L040",
+        "mastered_concepts": [
+            "Functions",
+            "Linked Lists",
+            "Loops",
+            "Merge Sort",
+            "Operators",
+            "Trees"
+        ],
+        "weak_concepts": [
+            "Control Flow",
+            "DFS"
+        ]
+    },
+    {
+        "learner_id": "L041",
+        "mastered_concepts": [
+            "Backtracking",
+            "Big O Notation",
+            "Complexity Analysis",
+            "Data Types",
+            "Divide and Conquer",
+            "Recursion",
+            "Searching",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Binary Search",
+            "Control Flow",
+            "Dynamic Programming",
+            "Heaps",
+            "Memoization"
+        ]
+    },
+    {
+        "learner_id": "L042",
+        "mastered_concepts": [
+            "Backtracking",
+            "Graph Traversal",
+            "Graphs",
+            "Heaps",
+            "Operators",
+            "Recursion",
+            "Stacks",
+            "Variables"
+        ],
+        "weak_concepts": [
+            "Binary Search Trees",
+            "Binary Trees",
+            "Greedy Algorithms"
+        ]
+    },
+    {
+        "learner_id": "L043",
+        "mastered_concepts": [
+            "Arrays",
+            "Backtracking",
+            "Dynamic Programming",
+            "Greedy Algorithms",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Recursion",
+            "Sorting",
+            "Trees"
+        ]
+    },
+    {
+        "learner_id": "L044",
+        "mastered_concepts": [
+            "BFS",
+            "Big O Notation",
+            "Bit Manipulation",
+            "Control Flow",
+            "Hash Tables",
+            "Queues",
+            "Stacks",
+            "Variables"
+        ],
+        "weak_concepts": [
+            "Divide and Conquer",
+            "Heaps",
+            "Memoization",
+            "Quick Sort",
+            "Trees"
+        ]
+    },
+    {
+        "learner_id": "L045",
+        "mastered_concepts": [
+            "Arrays",
+            "Big O Notation",
+            "DFS",
+            "Merge Sort",
+            "Operators",
+            "Sorting"
+        ],
+        "weak_concepts": [
+            "Binary Trees",
+            "Functions",
+            "Graph Traversal",
+            "Graphs",
+            "Variables"
+        ]
+    },
+    {
+        "learner_id": "L046",
+        "mastered_concepts": [
+            "Binary Search Trees",
+            "Divide and Conquer",
+            "Greedy Algorithms",
+            "Heaps",
+            "Searching"
+        ],
+        "weak_concepts": [
+            "Bit Manipulation",
+            "Graphs",
+            "Linked Lists",
+            "Variables"
+        ]
+    },
+    {
+        "learner_id": "L047",
+        "mastered_concepts": [
+            "Big O Notation",
+            "Complexity Analysis",
+            "Control Flow",
+            "Data Types",
+            "Divide and Conquer",
+            "Hash Tables",
+            "Merge Sort",
+            "Queues"
+        ],
+        "weak_concepts": [
+            "Backtracking",
+            "Memoization",
+            "Recursion",
+            "Stacks"
+        ]
+    },
+    {
+        "learner_id": "L048",
+        "mastered_concepts": [
+            "Binary Search",
+            "Graph Traversal",
+            "Hash Tables",
+            "Linked Lists",
+            "Queues",
+            "Trees"
+        ],
+        "weak_concepts": [
+            "Dynamic Programming",
+            "Merge Sort",
+            "Quick Sort",
+            "Variables"
+        ]
+    },
+    {
+        "learner_id": "L049",
+        "mastered_concepts": [
+            "Binary Trees",
+            "Complexity Analysis",
+            "Data Types",
+            "Graph Traversal",
+            "Merge Sort",
+            "Queues",
+            "Sorting"
+        ],
+        "weak_concepts": [
+            "BFS",
+            "Dynamic Programming",
+            "Operators",
+            "Trees"
+        ]
+    },
+    {
+        "learner_id": "L050",
+        "mastered_concepts": [
+            "Complexity Analysis",
+            "Functions",
+            "Loops",
+            "Memoization",
+            "Queues",
+            "Sorting",
+            "Stacks"
+        ],
+        "weak_concepts": [
+            "Graph Traversal",
+            "Greedy Algorithms",
+            "Merge Sort"
+        ]
+    }
+]

@@ -1,0 +1,32 @@
+### Test learning path endpoint with valid concepts
+POST http://localhost:5000/api/learning-path
+Content-Type: application/json
+
+{
+  "start": "Computation",
+  "end": "Algorithms"
+}
+### Test learning path endpoint with missing start concept
+POST  http://localhost:5000/api/learning-path
+Content-Type: application/json
+
+{
+    "end": "algorithms"
+}
+
+### Test learning path endpoint with missing end concept
+POST  http://localhost:5000/api/learning-path
+Content-Type: application/json
+
+{
+    "start": "python"
+}
+
+### Test learning path endpoint with invalid concepts
+POST  http://localhost:5000/api/learning-path
+Content-Type: application/json
+
+{
+    "start": "invalid_concept",
+    "end": "another_invalid_concept"
+}
