@@ -1,8 +1,0 @@
-[
-  { "id": 1, "title": "Introduction to Python" },
-  { "id": 2, "title": "Data Types and Variables" },
-  { "id": 3, "title": "Control Structures" },
-  { "id": 4, "title": "Functions" },
-  { "id": 5, "title": "Modules and Packages" },
-  { "id": 6, "title": "Object-Oriented Programming" }
-]

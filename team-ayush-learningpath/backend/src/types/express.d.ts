@@ -1,13 +1,9 @@
-import "express";
+import { IUser } from '../';
 
 declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        id: string;
-        email: string;
-        role: "student" | "admin";
-      };
+    namespace Express {
+        interface Request {
+            user?: IUser | null;
+        }
     }
-  }
 }

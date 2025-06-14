@@ -1,4 +1,3 @@
-// src/validators/authValidator.ts
 import { body, validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 
@@ -20,10 +19,8 @@ export const changePasswordRules = () => [
 
 export const validate = (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
-    if (errors.isEmpty()) {
-        return next();
-    }
+    if (errors.isEmpty()) return next();
     const extractedErrors: object[] = [];
-    errors.array().map(err => extractedErrors.push({ [err.type === 'field' ? err.path : '']: err.msg }));
+    errors.array().map(err => extractedErrors.push({ [(err as any).path]: err.msg }));
     return res.status(422).json({ errors: extractedErrors });
 };
