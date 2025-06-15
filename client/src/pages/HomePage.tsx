@@ -1,21 +1,36 @@
 import { useNavigate } from 'react-router-dom';
-// No Navbar, HeroSection, Footer imports here as their content is now integrated or removed
-// Navbar will be a standalone element wrapping the main content implicitly or explicitly in App.tsx layout
-// Footer content is moved to the end of this component
+import { useAuthStore } from '../store/authStore';
+//import Footer from '../components/Footer';
+import { motion } from 'framer-motion';
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  const handleQuizNavigation = () => {
+    navigate(isAuthenticated ? '/quiz-select' : '/login');
+  };
+
+  const handleExploreNavigation = () => {
+    navigate('/explore');
+  };
+
+  const handleRecommendationNavigation = () => {
+    navigate(isAuthenticated ? '/recommend' : '/login');
+  };
 
   return (
-    <div className="dashboard-container"> {/* Main container for dashboard-like style */}
+    <div className="dashboard-container">
       <h2>Welcome to LearnFlow!</h2>
-      <p style={{ fontSize: '1.1em', color: '#b0b0b0', marginBottom: '2.5rem' }}>Your personalized learning journey starts here.</p>
+      <p style={{ fontSize: '1.1em', color: '#b0b0b0', marginBottom: '2.5rem' }}>
+        Your personalized learning journey starts here.
+      </p>
 
-      {/* Get Started Section - Mimicking dashboard's card grid */}
+      {/* Get Started Section */}
       <div className="dashboard-section">
         <h3>Start Your Learning Journey</h3>
         <div className="card-grid">
-          <div className="card-base"> {/* Card for new users */}
+          <div className="card-base">
             <h4>New to LearnFlow?</h4>
             <p style={{ fontSize: '0.95em', color: '#b0b0b0', marginBottom: '1.5rem' }}>
               Create your free account and embark on a personalized learning adventure tailored just for you.
@@ -24,7 +39,7 @@ const HomePage = () => {
               Register Now
             </button>
           </div>
-          <div className="card-base"> {/* Card for returning users */}
+          <div className="card-base">
             <h4>Already a Member?</h4>
             <p style={{ fontSize: '0.95em', color: '#b0b0b0', marginBottom: '1.5rem' }}>
               Welcome back! Log in to pick up where you left off and continue mastering new concepts.
@@ -36,38 +51,59 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Features Section - Mimicking dashboard lists */}
+      {/* Features Section */}
       <div className="dashboard-section">
         <h3>Unlock Your Potential with LearnFlow</h3>
         <ul className="mastery-list" style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
-          <li style={{ justifyContent: 'center' }}>
-            <strong style={{ color: '#a8c8e9' }}>Personalized Paths:</strong> Discover the most efficient learning path from your current knowledge to your desired expertise.
+          <li>
+            <strong style={{ color: '#a8c8e9' }}>Personalized Paths:</strong> Discover the shortest learning path from your current knowledge to your target concept.
           </li>
-          <li style={{ justifyContent: 'center' }}>
-            <strong style={{ color: '#a8c8e9' }}>Adaptive Quizzes:</strong> Master concepts with dynamically generated quizzes that adapt to your performance.
+          <li>
+            <strong style={{ color: '#a8c8e9' }}>Adaptive Quizzes:</strong> Test your understanding and adapt your progress path based on quiz performance.
           </li>
-          <li style={{ justifyContent: 'center' }}>
-            <strong style={{ color: '#a8c8e9' }}>Comprehensive Progress Tracking:</strong> Visualize your mastery over time and identify areas for improvement.
+          <li>
+            <strong style={{ color: '#a8c8e9' }}>Progress Tracking:</strong> Visualize your journey through quizzes, weights, and time recommendations.
           </li>
-          <li style={{ justifyContent: 'center' }}>
-            <strong style={{ color: '#a8c8e9' }}>Concept Mastery:</strong> Build strong, interconnected foundations with our knowledge graph-powered learning.
+          <li>
+            <strong style={{ color: '#a8c8e9' }}>Knowledge Graph:</strong> Build deep conceptual understanding through connected topic paths.
           </li>
         </ul>
       </div>
 
-      {/* Direct Quiz Call to Action - Similar to dashboard's actions-group */}
-      <div className="dashboard-section actions-group">
-        <button onClick={() => navigate("/quiz-select")} className="btn btn-warning">
-          Or, Choose Your Own Quiz Topic
-        </button>
+      {/* Action Buttons */}
+      <div className="dashboard-section">
+        <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">Ready to Start?</h3>
+        <div className="actions-group flex flex-col sm:flex-row justify-center items-center gap-4">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleQuizNavigation}
+            className="btn btn-warning hover:bg-yellow-600 transition-colors duration-200 w-full sm:w-auto px-8 py-3"
+          >
+            Take a Quiz
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleExploreNavigation}
+            className="btn btn-info hover:bg-blue-600 transition-colors duration-200 w-full sm:w-auto px-8 py-3"
+          >
+            Explore Topics
+          </motion.button>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleRecommendationNavigation}
+            className="btn btn-primary hover:bg-purple-700 transition-colors duration-200 w-full sm:w-auto px-8 py-3"
+          >
+            Get Recommendation
+          </motion.button>
+        </div>
       </div>
 
-      {/* Integrated Footer Content (minimal) */}
-      <div className="dashboard-section" style={{ borderTop: 'none', paddingTop: '2rem', marginBottom: '0' }}>
-        <p style={{ color: '#b0b0b0', fontSize: '0.9em', textAlign: 'center' }}>
-          © {new Date().getFullYear()} LearnFlow. All rights reserved.
-        </p>
-      </div>
+      {/* Footer */}
     </div>
   );
 };
