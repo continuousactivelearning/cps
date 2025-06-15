@@ -15,5 +15,4 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { has
     return this.props.children;
   }
 }
-
 export default ErrorBoundary;
