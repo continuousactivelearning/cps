@@ -1,0 +1,58 @@
+/* MyCourses.css */
+
+/* Smooth card hover effect */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress bar animation */
+.progress-bar {
+  transition: width 0.5s ease-in-out;
+}
+
+/* Tab button interaction */
+.tab-button {
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.tab-button:hover {
+  color: #1e40af; /* Tailwind blue-800 */
+  border-color: #cbd5e1; /* Tailwind slate-300 */
+}
+
+/* Button hover */
+.button-hover {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.button-hover:hover {
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.2); /* Tailwind blue-500 with alpha */
+}
+
+/* Search input focus ring */
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); /* Tailwind blue-500 with alpha */
+}
+
+/* Image fade-in animation */
+.course-image {
+  opacity: 0;
+  transform: scale(0.98);
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive font smoothing */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
