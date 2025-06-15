@@ -1,0 +1,18 @@
+import requests
+import time
+#from fake_useragent import UserAgent
+from bs4 import BeautifulSoup
+from bs4.element import Tag
+import networkx as nx
+import matplotlib.pyplot as plt
+
+url = "https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/pages/lecture-slides-code/"
+
+session = requests.Session()
+# Use a fake user agent to avoid being blocked by the server
+time.sleep(2)  # Sleep to avoid overwhelming the server
+r = session.get(url)
+
+with open("lecture_slides_code.html", "w", encoding='utf-8') as f:
+    f.write(r.text)
+print("HTML content retrieved and saved to lecture_slides_code.html")
