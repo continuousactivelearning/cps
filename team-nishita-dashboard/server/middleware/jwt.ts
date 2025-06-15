@@ -7,6 +7,7 @@ const JWT_EXPIRY = '1h';
 export interface JWTPayload {
   id: string;
   username: string;
+  role: string;
   sub: string;
 }
 interface AuthenticatedRequest extends Request {
@@ -32,6 +33,6 @@ export function jwtMiddleware(req: AuthenticatedRequest, res: Response, next: Ne
     return;
   }
 }
-export function tokenGeneration(payload: { id: string, username: string }) {
+export function tokenGeneration(payload: { id: string, username: string, role: string }) {
   return jwt.sign({ id: payload.id, username: payload.username, sub: payload.username }, JWT_SECRET, { expiresIn: JWT_EXPIRY })
 }

@@ -7,7 +7,7 @@ export const authRouter = Router();
 
 
 authRouter.post('/register', async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
   const user = await User.findOne({ username });
   if (user) {
     res.status(400).json({
@@ -18,9 +18,10 @@ authRouter.post('/register', async (req: Request, res: Response) => {
   const hashedPassword = await bcrypt.hash(password, SALT);
   const newUser = await User.create({
     username: username,
-    password: hashedPassword
+    password: hashedPassword,
+    role: role,
   });
-  const token = tokenGeneration({ id: newUser._id as string, username: newUser.username });
+  const token = tokenGeneration({ id: newUser._id as string, username: newUser.username, role: newUser.role });
   res.status(201).json({
     message: `${username} registered successfully`,
     access_token: token,
@@ -30,7 +31,7 @@ authRouter.post('/register', async (req: Request, res: Response) => {
 
 
 authRouter.post('/login', async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
   const user = await User.findOne({ username });
   if (!user || !user.password) {
     res.status(404).json({
@@ -46,10 +47,11 @@ authRouter.post('/login', async (req: Request, res: Response) => {
     })
     return;
   }
-  const token = tokenGeneration({ id: user._id as string, username: user.username })
+  const token = tokenGeneration({ id: user._id as string, username: user.username, role: user.role })
   res.status(200).json({
     message: 'Login Successful',
-    access_token: token
+    access_token: token,
+    role: user.role,
   });
   return;
 })

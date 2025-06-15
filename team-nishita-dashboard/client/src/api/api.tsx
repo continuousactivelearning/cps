@@ -17,10 +17,17 @@ api.interceptors.request.use((config) => {
   return config;
 })
 
-export interface Credentials {
+export interface SignUpCredentials {
+  username: string,
+  password: string,
+  role: string | undefined,
+};
+
+
+export interface LoginCredentials {
   username: string,
   password: string
 };
-export const login = (credentials: Credentials) => api.post('/login', credentials);
-export const signup = (credentials: Credentials) => api.post('/register', credentials);
+export const login = (credentials: LoginCredentials) => api.post('/login', credentials);
+export const signup = (credentials: SignUpCredentials) => api.post('/register', credentials);
 export default api;
