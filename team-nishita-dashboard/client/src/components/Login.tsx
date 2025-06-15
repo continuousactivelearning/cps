@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { login } from '../api/api';
-import type { Credentials as FormData } from '../api/api'
+import type { LoginCredentials as FormData } from '../api/api'
 
+type UserRole = 'user' | 'admin';
 
 interface LoginProps {
   onLogin: (user: { username: string }) => void;
@@ -14,7 +15,7 @@ const Login = ({ onLogin }: LoginProps) => {
   const [status, setStatus] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
@@ -24,7 +25,12 @@ const Login = ({ onLogin }: LoginProps) => {
       const response = await login(formData);
       localStorage.setItem('token', response.data.access_token);
       onLogin({ username: formData.username });
-      navigate('/home');
+      const role: UserRole = response.data.role;
+      if (role === 'user') {
+        navigate('/userHome')
+      } else {
+        navigate('/adminHome')
+      }
     } catch (error) {
       console.error(error);
       setStatus("Login failed. Please check your credentials.");

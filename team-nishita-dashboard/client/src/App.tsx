@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode'
 import Navbar from './components/Navbar';
-import Home from './components/Home';
+import UserHome from './components/UserHome';
+import AdminHome from './components/AdminHome';
 import Signup from './components/Signup';
 import Login from './components/Login';
 interface User {
@@ -59,7 +60,8 @@ function App() {
       <Navbar user={user} onLogout={handleLogout} />
       <div>
         <Routes>
-          <Route path='/home' element={<Home />} />
+          <Route path='/userHome' element={<UserHome />} />
+          <Route path='/adminHome' element={<AdminHome />} />
           <Route path='/login' element={<Login onLogin={handleLogin} />} />
           <Route path='/signup' element={<Signup onLogin={handleLogin} />} />
         </Routes>

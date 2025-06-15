@@ -1,7 +1,6 @@
-import { Globe, Lock, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+const AdminHome = () => {
 
   const logged = Boolean(localStorage.getItem('token'));
   return (
@@ -33,4 +32,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AdminHome;

@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../api/api';
-import type { Credentials as FormData } from '../api/api'
+import type { SignUpCredentials as FormData } from '../api/api'
 
 
 interface SignupProps {
-  onLogin: (user: { username: string }) => void;
+  onLogin: (user: { username: string, role: string }) => void;
 }
 
 const Signup = ({ onLogin }: SignupProps) => {
-  const [formData, setFormData] = useState<FormData>({ username: "", password: "" });
+  const [formData, setFormData] = useState<FormData>({ username: "", password: "", role: "" });
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
@@ -23,7 +23,10 @@ const Signup = ({ onLogin }: SignupProps) => {
     try {
       const response = await signup(formData);
       localStorage.setItem('token', response.data.access_token);
-      onLogin({ username: formData.username });
+      if (formData.role === undefined) {
+        throw new Error('Provide User Role');
+      }
+      onLogin({ username: formData.username, role: formData.role });
       navigate('/home');
     } catch (error) {
       console.error(error);
@@ -83,6 +86,23 @@ const Signup = ({ onLogin }: SignupProps) => {
                 >
                   {showPassword ? 'Hide' : 'Show'}
                 </button>
+              </div>
+              <div>
+                <label className="block mb-2 text-sm font-medium text-emerald-700" htmlFor="username">
+                  Role
+                </label>
+                <select
+                  className="py-2 px-3 w-full rounded-lg border border-emerald-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-emerald-100/50"
+                  id="role"
+                  // type=""
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  required
+                > <option value="">Select a role</option>
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
               </div>
             </div>
             <div>
