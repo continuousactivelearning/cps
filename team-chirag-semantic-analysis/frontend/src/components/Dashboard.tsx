@@ -1,21 +1,21 @@
 import {
-    Psychology,
-    TrendingUp,
-    VideoLibrary,
-    Whatshot,
+  Psychology,
+  TrendingUp,
+  VideoLibrary,
+  Whatshot,
 } from '@mui/icons-material';
 import {
-    Box,
-    Card,
-    CardContent,
-    Chip,
-    Container,
-    Grid,
-    LinearProgress,
-    List,
-    ListItem,
-    ListItemText,
-    Typography,
+  Box,
+  Card,
+  CardContent,
+  Chip,
+  Container,
+  Grid,
+  LinearProgress,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { type MouseEvent, useEffect, useState } from 'react';
@@ -27,7 +27,6 @@ type Query = {
   difficulty: 'Easy' | 'Medium' | 'Hard' | string;
   concepts: string[];
 };
-
 type Stats = {
   conceptsLearned: number;
   gapsIdentified: number;
