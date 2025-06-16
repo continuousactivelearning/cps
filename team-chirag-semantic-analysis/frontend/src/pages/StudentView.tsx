@@ -18,6 +18,25 @@ import axios from 'axios';
 import {useState, type FormEvent } from 'react';
 import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
+import UserProfileMenu from '../components/UserProfileMenu';
+import { AppBar, Toolbar } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { useThemeContext } from '../contexts/ThemeContext';
+
+const ThemeToggleButton = () => {
+  const { toggleTheme, mode } = useThemeContext();
+
+  return (
+    <Tooltip title="Toggle light/dark mode">
+      <IconButton onClick={toggleTheme} color="inherit" sx={{ ml: 1 }}>
+        {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton>
+    </Tooltip>
+  );
+};
+
 
 interface Concept {
   name: string;
@@ -89,7 +108,23 @@ const StudentView: React.FC = () => {
     suggestion => tabValue === 'all' || suggestion.difficulty === tabValue
   );
 
-  return (
+  return ( 
+   <>
+    <AppBar position="static">
+  <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+      DSA Learn Portal
+    </Typography>
+
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+      <ThemeToggleButton />
+      <UserProfileMenu />
+    </Box>
+  </Toolbar>
+</AppBar>
+
+    
+
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
         <Typography variant="h4" gutterBottom sx={{ color: 'primary.main' }}>
@@ -228,6 +263,7 @@ const StudentView: React.FC = () => {
         </Grid>
       </Paper>
     </Container>
+     </>
   );
 };
 
