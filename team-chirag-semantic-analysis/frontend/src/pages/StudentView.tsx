@@ -1,28 +1,30 @@
 // src/pages/StudentView.tsx
 
 
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import {
+  AppBar,
   Box,
   Button,
   Chip,
   CircularProgress,
   Container,
   Grid,
+  IconButton,
   Paper,
   Tab,
   Tabs,
   TextField,
+  Toolbar,
+  Tooltip,
   Typography
 } from '@mui/material';
 import axios from 'axios';
-import {useState, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
 import UserProfileMenu from '../components/UserProfileMenu';
-import { AppBar, Toolbar } from '@mui/material';
-import { IconButton, Tooltip } from '@mui/material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { useThemeContext } from '../contexts/ThemeContext';
 
 const ThemeToggleButton = () => {

@@ -1,11 +1,11 @@
 import PersonIcon from '@mui/icons-material/Person';
 import {
-    AppBar,
-    Avatar,
-    Box,
-    Button,
-    Toolbar,
-    Typography,
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Toolbar,
+  Typography,
 } from '@mui/material';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -16,9 +16,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'HOME', path: '/' },
-  { label: 'DASHBOARD', path: '/dashboard' },
-  { label: 'ABOUT', path: '/about' }
+  { label: 'HOME', path: '/' }
 ];
 
 const Header: React.FC = () => {

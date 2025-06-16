@@ -1,6 +1,6 @@
 // src/App.tsx
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import StudentView from './pages/StudentView';
@@ -17,3 +17,5 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+
