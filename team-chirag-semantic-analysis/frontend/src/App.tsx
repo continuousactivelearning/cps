@@ -3,6 +3,8 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import StudentView from './pages/StudentView';
+import { Header } from './components/Header';
+import { ChatContainer } from './components/ChatContainer';
 
 const App = () => {
   return (
@@ -12,6 +14,10 @@ const App = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/student" element={<StudentView />} />
       <Route path="*" element={<Navigate to="/" />} />
+      <Route path="/chat" element={<div className="h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
+      <Header />
+      <ChatContainer />
+    </div>} />
     </Routes>
   );
 };
