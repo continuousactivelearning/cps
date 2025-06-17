@@ -19,7 +19,7 @@ const features = [
     icon: <School fontSize="large" color="primary" />
   }
 ];
-  
+    
 const Features = () => (
   <Box sx={{ py: 8 }}>
     <Typography variant="h4" align="center" gutterBottom>
