@@ -11,7 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
-
+ollama_dsa_yt.cpython-313.pyc
+server.cpython-313.pyc
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

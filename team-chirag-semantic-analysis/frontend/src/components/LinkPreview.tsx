@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExternalLink, AlertCircle } from 'lucide-react';
 import type { LinkPreview as LinkPreviewType } from '../types/chat';
-import { getYouTubeVideoId } from '../utils/linkUtils'; // update path if needed
+import { getYouTubeVideoId } from '../utils/linkUtils';
 
 interface LinkPreviewProps {
   preview: LinkPreviewType;
@@ -46,7 +46,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ preview }) => {
       target="_blank"
       rel="noopener noreferrer"
       className={`relative block border rounded-lg overflow-hidden transition-colors group ${
-        preview.badge === 'YouTube'
+        isYouTube
           ? 'border-red-500'
           : preview.badge === 'DSA'
           ? 'border-blue-500'
@@ -57,15 +57,15 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ preview }) => {
       {preview.badge && (
         <div
           className={`absolute top-2 left-2 px-2 py-0.5 text-xs font-bold text-white rounded ${
-            preview.badge === 'YouTube' ? 'bg-red-600' : 'bg-blue-600'
+            isYouTube ? 'bg-red-600' : 'bg-blue-600'
           }`}
         >
           {preview.badge}
         </div>
       )}
 
-      {/* Image or embed */}
-      <div className="aspect-video w-full overflow-hidden">
+      {/* Media (YouTube embed or image) */}
+      <div className="aspect-video w-full overflow-hidden bg-black">
         {isYouTube && videoId ? (
           <iframe
             src={`https://www.youtube.com/embed/${videoId}`}
@@ -73,18 +73,17 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ preview }) => {
             className="w-full h-full"
             allowFullScreen
           />
-        ) : (
-          preview.image && (
-            <img
-              src={preview.image}
-              alt={preview.title || 'Link preview'}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-              loading="lazy"
-            />
-          )
-        )}
+        ) : preview.image ? (
+          <img
+            src={preview.image}
+            alt={preview.title || 'Link preview'}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+            loading="lazy"
+          />
+        ) : null}
       </div>
 
+      {/* Meta info */}
       <div className="p-3">
         <div className="flex items-center space-x-2 mb-2">
           <span className="text-lg">{preview.favicon || '🌐'}</span>

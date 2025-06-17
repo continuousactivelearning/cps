@@ -12,15 +12,56 @@ export const extractUrls = (text: string): string[] => {
 // Simple cache for link previews
 const linkPreviewCache = new Map<string, LinkPreview>();
 
-// Mock link preview fetcher (in a real app, this would call your backend)
+// Get YouTube video ID from URL
+export const getYouTubeVideoId = (url: string): string | null => {
+  try {
+    const parsedUrl = new URL(url);
+    if (parsedUrl.hostname.includes('youtube.com')) {
+      return parsedUrl.searchParams.get('v');
+    } else if (parsedUrl.hostname === 'youtu.be') {
+      return parsedUrl.pathname.slice(1);
+    }
+  } catch {
+    return null;
+  }
+  return null;
+};
+
+// Get YouTube thumbnail from URL
+export const getYouTubeThumbnail = (url: string): string | null => {
+  const videoId = getYouTubeVideoId(url);
+  return videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : null;
+};
+
+// Fetch preview (mock or backend)
 export const fetchLinkPreview = async (url: string): Promise<LinkPreview> => {
-  // Check cache first
+  // Check cache
   if (linkPreviewCache.has(url)) {
     return linkPreviewCache.get(url)!;
   }
 
   const domain = new URL(url).hostname.replace('www.', '');
 
+  // Handle YouTube links locally
+  const videoId = getYouTubeVideoId(url);
+  if (videoId) {
+    const thumbnail = getYouTubeThumbnail(url);
+    const preview: LinkPreview = {
+      url,
+      domain,
+      title: 'YouTube Video',
+      description: '',
+      image: thumbnail ?? '',
+      favicon: '🎥',
+      badge: 'YouTube',
+      loading: false,
+      error: false
+    };
+    linkPreviewCache.set(url, preview);
+    return preview;
+  }
+
+  // Fallback to backend for other URLs
   try {
     const response = await fetch(`/api/link-preview?url=${encodeURIComponent(url)}`);
 
@@ -57,7 +98,6 @@ export const fetchLinkPreview = async (url: string): Promise<LinkPreview> => {
   }
 };
 
-
 // Copy text to clipboard
 export const copyToClipboard = async (text: string): Promise<boolean> => {
   try {
@@ -70,28 +110,14 @@ export const copyToClipboard = async (text: string): Promise<boolean> => {
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
-    
+
     try {
       const successful = document.execCommand('copy');
       document.body.removeChild(textArea);
       return successful;
-    } catch (fallbackErr) {
+    } catch {
       document.body.removeChild(textArea);
       return false;
     }
   }
-};
-
-export const getYouTubeVideoId = (url: string): string | null => {
-  try {
-    const parsedUrl = new URL(url);
-    if (parsedUrl.hostname.includes('youtube.com')) {
-      return parsedUrl.searchParams.get('v');
-    } else if (parsedUrl.hostname === 'youtu.be') {
-      return parsedUrl.pathname.slice(1);
-    }
-  } catch {
-    return null;
-  }
-  return null;
 };
