@@ -9,5 +9,5 @@ const CTASection = () => (
     <Button variant="contained" size="large" component={Link} to="/signup">Join Now</Button>
   </Box>
 );
-
+  
 export default CTASection;

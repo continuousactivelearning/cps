@@ -9,7 +9,7 @@ const HeroSection = () => {
         py: 10,
         background: 'linear-gradient(135deg, #2196f3 30%, #21cbf3 90%)',
         color: '#fff'
-      }}
+      }} 
     >
       <Typography variant="h3" gutterBottom>Master DSA with AI-Powered Guidance</Typography>
       <Typography variant="h6" mb={4}>Ask questions, get video recommendations, and personalized learning paths.</Typography>
@@ -17,7 +17,7 @@ const HeroSection = () => {
         variant="contained"
         color="secondary"
         size="large"
-        component={Link}
+        component={Link}  
         to="/signup"
       >
         Get Started
