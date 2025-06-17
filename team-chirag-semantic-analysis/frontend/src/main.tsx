@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { ThemeProviderWrapper } from './contexts/ThemeContext';
+import './index.css'
 
 const theme = createTheme();
 

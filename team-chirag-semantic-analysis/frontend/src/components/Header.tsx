@@ -1,89 +1,39 @@
-import PersonIcon from '@mui/icons-material/Person';
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Toolbar,
-  Typography,
-} from '@mui/material';
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { MessageCircle, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../hooks/useTheme';
 
-interface NavItem {
-  label: string;
-  path: string;
-}
-
-const navItems: NavItem[] = [
-  { label: 'HOME', path: '/' }
-];
-
-const Header: React.FC = () => {
-  const location = useLocation();
+export const Header: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <AppBar position="static" sx={{ background: '#232c3d', boxShadow: 'none' }}>
-      <Toolbar>
-        {/* Logo and Title */}
-        <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: 700,
-              color: '#4fd1c7',
-              mr: 1,
-              letterSpacing: 1,
-            }}
-          >
-            ConceptBridge
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            sx={{ color: 'rgba(255,255,255,0.7)' }}
-          >
-            Semantic Learning Assistant
-          </Typography>
-        </Box>
+    <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 py-3">
+      <div className="max-w-4xl mx-auto flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <div className="bg-gradient-to-r from-blue-600 to-green-600 p-2 rounded-lg">
+            <MessageCircle className="w-6 h-6 text-white" />
+          </div>
+          <div>
+            <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+              Query2Concept 
+            </h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Semantic mapping of learner queries to concept gaps
+            </p>
+          </div>
+        </div>
 
-        {/* Navigation Buttons */}
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          {navItems.map((item) => (
-            <Button
-              key={item.path}
-              component={Link}
-              to={item.path}
-              sx={{
-                color: 'white',
-                background:
-                  location.pathname === item.path
-                    ? 'rgba(79,209,199,0.2)'
-                    : 'transparent',
-                fontWeight: location.pathname === item.path ? 700 : 400,
-                borderRadius: 2,
-                px: 3,
-                '&:hover': {
-                  background: 'rgba(79,209,199,0.15)'
-                }
-              }}
-            >
-              {item.label}
-            </Button>
-          ))}
-        </Box>
-
-        {/* Student/Profile Section */}
-        <Box sx={{ display: 'flex', alignItems: 'center', ml: 3 }}>
-          <Avatar sx={{ bgcolor: '#4fd1c7', width: 36, height: 36, mr: 1 }}>
-            <PersonIcon sx={{ color: '#232c3d' }} />
-          </Avatar>
-          <Typography variant="body1" sx={{ color: 'white' }}>
-            Student
-          </Typography>
-        </Box>
-      </Toolbar>
-    </AppBar>
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+          title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+        >
+          {theme === 'light' ? (
+            <Moon className="w-5 h-5" />
+          ) : (
+            <Sun className="w-5 h-5" />
+          )}
+        </button>
+      </div>
+    </header>
   );
 };
-
-export default Header;
