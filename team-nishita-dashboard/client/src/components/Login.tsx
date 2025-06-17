@@ -8,12 +8,12 @@ interface LoginProps {
 }
 
 const Login = ({ onLogin }: LoginProps) => {
-  const [formData, setFormData] = useState<FormData>({ username: "", password: "" });
+  const [formData, setFormData] = useState<FormData>({ username: "", password: "", role: "user" });
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [status, setStatus] = useState<string>("");
   const navigate = useNavigate();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
@@ -88,6 +88,7 @@ const Login = ({ onLogin }: LoginProps) => {
               }}
             />
           </div>
+
           <div style={{ marginBottom: '1rem' }}>
             <label htmlFor="password" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Password</label>
             <div style={{ position: 'relative' }}>
@@ -123,6 +124,27 @@ const Login = ({ onLogin }: LoginProps) => {
               </button>
             </div>
           </div>
+
+    
+          <div style={{ marginBottom: '1rem' }}>
+            <label htmlFor="role" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>Role</label>
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              style={{
+                width: '100%',
+                padding: '0.5rem',
+                borderRadius: '5px',
+                border: '1px solid #ccc'
+              }}
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
           <button
             type="submit"
             style={{
