@@ -1,0 +1,270 @@
+{
+    "nodes": [
+        {
+            "id": "Variables",
+            "label": "Variables"
+        },
+        {
+            "id": "Data Types",
+            "label": "Data Types"
+        },
+        {
+            "id": "Operators",
+            "label": "Operators"
+        },
+        {
+            "id": "Control Flow",
+            "label": "Control Flow"
+        },
+        {
+            "id": "Loops",
+            "label": "Loops"
+        },
+        {
+            "id": "Functions",
+            "label": "Functions"
+        },
+        {
+            "id": "Recursion",
+            "label": "Recursion"
+        },
+        {
+            "id": "Arrays",
+            "label": "Arrays"
+        },
+        {
+            "id": "Linked Lists",
+            "label": "Linked Lists"
+        },
+        {
+            "id": "Stacks",
+            "label": "Stacks"
+        },
+        {
+            "id": "Queues",
+            "label": "Queues"
+        },
+        {
+            "id": "Trees",
+            "label": "Trees"
+        },
+        {
+            "id": "Binary Trees",
+            "label": "Binary Trees"
+        },
+        {
+            "id": "Binary Search Trees",
+            "label": "Binary Search Trees"
+        },
+        {
+            "id": "Heaps",
+            "label": "Heaps"
+        },
+        {
+            "id": "Hash Tables",
+            "label": "Hash Tables"
+        },
+        {
+            "id": "Graphs",
+            "label": "Graphs"
+        },
+        {
+            "id": "Graph Traversal",
+            "label": "Graph Traversal"
+        },
+        {
+            "id": "DFS",
+            "label": "DFS"
+        },
+        {
+            "id": "BFS",
+            "label": "BFS"
+        },
+        {
+            "id": "Sorting",
+            "label": "Sorting"
+        },
+        {
+            "id": "Merge Sort",
+            "label": "Merge Sort"
+        },
+        {
+            "id": "Quick Sort",
+            "label": "Quick Sort"
+        },
+        {
+            "id": "Searching",
+            "label": "Searching"
+        },
+        {
+            "id": "Binary Search",
+            "label": "Binary Search"
+        },
+        {
+            "id": "Greedy Algorithms",
+            "label": "Greedy Algorithms"
+        },
+        {
+            "id": "Dynamic Programming",
+            "label": "Dynamic Programming"
+        },
+        {
+            "id": "Backtracking",
+            "label": "Backtracking"
+        },
+        {
+            "id": "Memoization",
+            "label": "Memoization"
+        },
+        {
+            "id": "Complexity Analysis",
+            "label": "Complexity Analysis"
+        },
+        {
+            "id": "Big O Notation",
+            "label": "Big O Notation"
+        },
+        {
+            "id": "Divide and Conquer",
+            "label": "Divide and Conquer"
+        },
+        {
+            "id": "Bit Manipulation",
+            "label": "Bit Manipulation"
+        }
+    ],
+    "links": [
+        {
+            "source": "Variables",
+            "target": "Data Types"
+        },
+        {
+            "source": "Data Types",
+            "target": "Operators"
+        },
+        {
+            "source": "Operators",
+            "target": "Control Flow"
+        },
+        {
+            "source": "Control Flow",
+            "target": "Loops"
+        },
+        {
+            "source": "Loops",
+            "target": "Functions"
+        },
+        {
+            "source": "Functions",
+            "target": "Recursion"
+        },
+        {
+            "source": "Data Types",
+            "target": "Arrays"
+        },
+        {
+            "source": "Arrays",
+            "target": "Linked Lists"
+        },
+        {
+            "source": "Linked Lists",
+            "target": "Stacks"
+        },
+        {
+            "source": "Stacks",
+            "target": "Queues"
+        },
+        {
+            "source": "Queues",
+            "target": "Trees"
+        },
+        {
+            "source": "Trees",
+            "target": "Binary Trees"
+        },
+        {
+            "source": "Binary Trees",
+            "target": "Binary Search Trees"
+        },
+        {
+            "source": "Binary Trees",
+            "target": "Heaps"
+        },
+        {
+            "source": "Arrays",
+            "target": "Hash Tables"
+        },
+        {
+            "source": "Hash Tables",
+            "target": "Graphs"
+        },
+        {
+            "source": "Graphs",
+            "target": "Graph Traversal"
+        },
+        {
+            "source": "Graph Traversal",
+            "target": "DFS"
+        },
+        {
+            "source": "Graph Traversal",
+            "target": "BFS"
+        },
+        {
+            "source": "Functions",
+            "target": "Sorting"
+        },
+        {
+            "source": "Sorting",
+            "target": "Merge Sort"
+        },
+        {
+            "source": "Sorting",
+            "target": "Quick Sort"
+        },
+        {
+            "source": "Arrays",
+            "target": "Searching"
+        },
+        {
+            "source": "Searching",
+            "target": "Binary Search"
+        },
+        {
+            "source": "Functions",
+            "target": "Greedy Algorithms"
+        },
+        {
+            "source": "Functions",
+            "target": "Dynamic Programming"
+        },
+        {
+            "source": "Dynamic Programming",
+            "target": "Memoization"
+        },
+        {
+            "source": "Functions",
+            "target": "Backtracking"
+        },
+        {
+            "source": "Backtracking",
+            "target": "Memoization"
+        },
+        {
+            "source": "Functions",
+            "target": "Complexity Analysis"
+        },
+        {
+            "source": "Complexity Analysis",
+            "target": "Big O Notation"
+        },
+        {
+            "source": "Functions",
+            "target": "Divide and Conquer"
+        },
+        {
+            "source": "Operators",
+            "target": "Bit Manipulation"
+        }
+    ]
+}

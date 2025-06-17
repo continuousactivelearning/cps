@@ -1,11 +1,13 @@
 📘 Dependency Aware Assessment Generator
 
+
 Team Members: 
 Alakh Mathur(Team Lead)->worked on home,login,register,dashboard pages,authentication and their integrations along with database management, 
 Omkar Kumar->worked on prerequisite generation, 
 Anand Jangid->worked on quiz ui,
 Pavithra Krishnappa->worked on quiz generation (alongside Alakh Mathur),
 Aditya Kumar Das->worked on quiz controller(alongside Alakh Mathur)
+
 
 🔍 Problem Statement
 Create a system that generates formative assessments based on the prerequisite concepts of a target learning objective to ensure readiness before progression.
