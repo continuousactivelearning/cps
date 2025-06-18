@@ -20,12 +20,17 @@ import {
   Tooltip,
   Typography
 } from '@mui/material';
+const [feedback, setFeedback] = useState<'like' | 'dislike' | null>(null);
+
 import axios from 'axios';
 import { useState, type FormEvent } from 'react';
 import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
 import UserProfileMenu from '../components/UserProfileMenu';
 import { useThemeContext } from '../contexts/ThemeContext';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+
 
 const ThemeToggleButton = () => {
   const { toggleTheme, mode } = useThemeContext();
@@ -184,33 +189,60 @@ const StudentView: React.FC = () => {
       {results && (
         <Paper elevation={3} sx={{ p: 3, mb: 4 }}>
           {results.video ? (
-            <>
-              <Typography variant="h5" gutterBottom>
-                Recommended Video: {results.video.title}
-              </Typography>
+  <>
+    <Typography variant="h5" gutterBottom>
+      Recommended Video: {results.video.title}
+    </Typography>
 
-              <Box sx={{ mb: 3 }}>
-                <ReactPlayer
-                  url={results.video.url}
-                  controls
-                  width="100%"
-                  height="400px"
-                />
-              </Box>
+    <Box sx={{ mb: 3 }}>
+      <ReactPlayer
+        url={results.video.url}
+        controls
+        width="100%"
+        height="400px"
+      />
+    </Box>
 
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="subtitle1">Mapped Concepts:</Typography>
-                {results.concepts.map((concept, i) => (
-                  <Chip
-                    key={i}
-                    label={`${concept.name} (${Math.round(concept.confidence * 100)}%)`}
-                    sx={{ mr: 1, mb: 1 }}
-                    color="primary"
-                  />
-                ))}
-              </Box>
-            </>
-          ) : (
+    <Box sx={{ mb: 2 }}>
+      <Typography variant="subtitle1">Mapped Concepts:</Typography>
+      {results.concepts.map((concept, i) => (
+        <Chip
+          key={i}
+          label={`${concept.name} (${Math.round(concept.confidence * 100)}%)`}
+          sx={{ mr: 1, mb: 1 }}
+          color="primary"
+        />
+      ))}
+    </Box>
+
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 1 }}>
+      <Tooltip title="Helpful">
+        <IconButton
+          onClick={() => setFeedback('like')}
+          color={feedback === 'like' ? 'success' : 'default'}
+        >
+          <ThumbUpIcon />
+        </IconButton>
+      </Tooltip>
+
+      <Tooltip title="Not Helpful">
+        <IconButton
+          onClick={() => setFeedback('dislike')}
+          color={feedback === 'dislike' ? 'error' : 'default'}
+        >
+          <ThumbDownIcon />
+        </IconButton>
+      </Tooltip>
+
+      {feedback && (
+        <Typography variant="body2" color="text.secondary">
+          You marked this as {feedback === 'like' ? 'helpful 👍' : 'not helpful 👎'}
+        </Typography>
+      )}
+    </Box>
+  </>
+) : (
+
             <Typography variant="h6" color="textSecondary">
               Sorry, we couldn't find a video for your query
             </Typography>
