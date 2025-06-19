@@ -2,10 +2,8 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import Navbar from './components/Navbar';
+// import Navbar from './components/Navbar';
 import Home from './components/Home';
-import Signup from './components/Signup';
-import Login from './components/Login';
 import LandingPage from './components/LandingPage';
 
 interface User {
@@ -28,11 +26,11 @@ function App() {
     navigate('/home');
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-    navigate('/login');
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem('token');
+  //   setUser(null);
+  //   navigate('/');
+  // };
 
   useEffect(() => {
     document.title = 'Personal Learning Path';
@@ -44,7 +42,7 @@ function App() {
           console.log('Token expired');
           localStorage.removeItem('token');
           setUser(null);
-          navigate('/login');
+          navigate('/');
         } else {
           console.log('Token valid');
           setUser({ username: decodedToken.username });
@@ -53,7 +51,10 @@ function App() {
         console.error('Error decoding token:', err);
         localStorage.removeItem('token');
         setUser(null);
-        navigate('/login');
+        navigate('/');
+        //temp fix
+        console.log(user)
+        //temp fix
       }
     }
   }, [navigate]);
@@ -62,12 +63,10 @@ function App() {
 
   return (
     <div>
-      {!isLandingPage && <Navbar user={user} onLogout={handleLogout} />}
+      {!isLandingPage}
       <Routes>
         <Route path="/" element={<LandingPage onLogin={handleLogin} />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
       </Routes>
     </div>
   );

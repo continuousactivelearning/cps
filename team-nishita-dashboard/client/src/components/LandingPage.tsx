@@ -4,9 +4,10 @@ import { signup, login } from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { motion } from 'framer-motion';
+import Navbar from './Navbar'
+import type { Credentials as Credentials } from '../api/api'
 
 import {
-  Compass,
   LogIn,
   UserPlus,
   LineChart,
@@ -22,18 +23,26 @@ interface Props {
   onLogin: (user: { username: string }) => void;
 }
 
+
 const LandingPage: React.FC<Props> = ({ onLogin }) => {
   const [modalType, setModalType] = useState<'login' | 'signup' | null>(null);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [credentials, setCredentials] = useState<Credentials>({
+    username: '',
+    password: '',
+    role: 'user'
+  })
+
   const [error, setError] = useState<string | null>(null);
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
 
   const closeModal = () => {
     setModalType(null);
-    setUsername('');
-    setPassword('');
+    setCredentials({
+      username: '',
+      password: '',
+      role: 'user'
+    })
     setError(null);
   };
 
@@ -41,7 +50,6 @@ const LandingPage: React.FC<Props> = ({ onLogin }) => {
     e.preventDefault();
     setError(null);
     try {
-      const credentials = { username, password };
       const response =
         modalType === 'login' ? await login(credentials) : await signup(credentials);
       const token = response.data.access_token;
@@ -54,6 +62,11 @@ const LandingPage: React.FC<Props> = ({ onLogin }) => {
       setError(err.response?.data?.message || 'Something went wrong');
     }
   };
+
+  useEffect(() => {
+    const logged = Boolean(localStorage.getItem('token'));
+    if (logged) navigate('/home')
+  }, [])
 
   useEffect(() => {
     const hero = document.querySelector('.hero') as HTMLElement;
@@ -78,47 +91,10 @@ const LandingPage: React.FC<Props> = ({ onLogin }) => {
         position: 'relative'
       }}
     >
-      <header className="header">
-        <div className="logo">
-          <Compass size={24} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
-          <span>PathPilot</span>
-        </div>
-        <nav>
-          <button
-            onClick={() => setModalType('login')}
-            style={{
-              backgroundColor: '#014d4d',
-              color: '#fff',
-              border: 'none',
-              padding: '0.5rem 1rem',
-              marginRight: '0.5rem',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}
-          >
-            <LogIn size={16} />
-            Login
-          </button>
-          <button
-            onClick={() => setModalType('signup')}
-            style={{
-              backgroundColor: '#014d4d',
-              color: '#fff',
-              border: 'none',
-              padding: '0.5rem 1rem',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}
-          >
-            <UserPlus size={16} />
-            Sign Up
-          </button>
-        </nav>
-      </header>
+      <Navbar
+        onLoginClick={() => setModalType('login')}
+        onSignUpClick={() => setModalType('signup')}
+      />
 
       <motion.section
         className="hero"
@@ -213,17 +189,23 @@ const LandingPage: React.FC<Props> = ({ onLogin }) => {
                 <input
                   type="text"
                   placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={credentials.username}
+                  onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
                   required
                 />
                 <input
                   type="password"
                   placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={credentials.password}
+                  onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
                   required
                 />
+                <select
+                  value={credentials.role}
+                  onChange={(e) => { setCredentials({ ...credentials, role: e.target.value as 'user' | 'admin' }) }}
+                > <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
                 <button
                   type="submit"
                   style={{
