@@ -20,16 +20,15 @@ import {
   Tooltip,
   Typography
 } from '@mui/material';
-const [feedback, setFeedback] = useState<'like' | 'dislike' | null>(null);
+import React, { useState, type FormEvent } from 'react';
 
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import axios from 'axios';
-import { useState, type FormEvent } from 'react';
 import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
 import UserProfileMenu from '../components/UserProfileMenu';
 import { useThemeContext } from '../contexts/ThemeContext';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 
 
 const ThemeToggleButton = () => {
@@ -75,6 +74,8 @@ const StudentView: React.FC = () => {
   const [recentQueries, setRecentQueries] = useState<string[]>([]);
   const [tabValue, setTabValue] = useState<string>('all');
   const navigate = useNavigate();
+  const [feedback, setFeedback] = useState<'like' | 'dislike' | null>(null);
+
 
   const [suggestions] = useState<Suggestion[]>([
     {
