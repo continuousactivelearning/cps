@@ -20,7 +20,7 @@ const Signup: React.FC = () => {
     if (!isValidEmail || !isStrongPassword || !isMatchingPasswords) return;
 
     // Simulate successful signup
-    navigate('/student');
+    navigate('/chat');
   };
 
   return (

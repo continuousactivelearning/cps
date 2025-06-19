@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     if (!isValidEmail || !isStrongPassword) return;
 
     // Simulate successful login
-    navigate('/student');
+    navigate('/chat');
   };
 
   return (

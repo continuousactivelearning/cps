@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { Message as MessageType, LinkPreview } from '../types/chat';
-import { Message } from './Message';
-import { MessageInput } from './MessageInput';
-import { TypingIndicator } from './TypingIndicator';
+import { Message } from '../components/Message';
+import { MessageInput } from '../components/MessageInput';
+import { TypingIndicator } from '../components/TypingIndicator';
 import { extractUrls, fetchLinkPreview } from '../utils/linkUtils';
 
 export const ChatContainer: React.FC = () => {
