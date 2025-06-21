@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
-import {
-  Box, Container, TextField, Button, Typography, Paper,
-  IconButton, InputAdornment, Snackbar, Alert, CircularProgress, Link
-} from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  IconButton, InputAdornment,
+  Link,
+  Paper,
+  Snackbar,
+  TextField,
+  Typography
+} from '@mui/material';
 import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 
 const LoginSchema = z.object({
   email: z.string().email({ message: 'Enter a valid email address' }),
@@ -40,6 +49,10 @@ const Login: React.FC = () => {
     try {
       // Simulate async login
       await new Promise((res) => setTimeout(res, 1000));
+      
+      // FIX 1: Store authentication token
+      localStorage.setItem('token', 'dummy-auth-token');
+      
       setSnackbarMsg('Login successful!');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
@@ -56,7 +69,9 @@ const Login: React.FC = () => {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
     if (navigateOnSnackbarClose && snackbarSeverity === 'success') {
-      navigate('/chat');
+      // FIX 2: Check onboarding status before navigation
+      const onboardingCompleted = localStorage.getItem('onboardingCompleted') === 'true';
+      navigate(onboardingCompleted ? '/chat' : '/onboarding');
     }
   };
 

@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
-import type { Message as MessageType, LinkPreview } from '../types/chat';
+import React, { useEffect, useRef, useState } from 'react';
 import { Message } from '../components/Message';
 import { MessageInput } from '../components/MessageInput';
 import { TypingIndicator } from '../components/TypingIndicator';
+import type { LinkPreview, Message as MessageType } from '../types/chat';
 import { extractUrls, fetchLinkPreview } from '../utils/linkUtils';
 
 export const ChatContainer: React.FC = () => {
@@ -119,8 +119,8 @@ export const ChatContainer: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto px-4 py-6">
+    <div className="flex flex-col h-full relative">
+      <div className="flex-1 overflow-y-auto px-4 py-6 pb-28"> {/* Add extra bottom padding */}
         <div className="max-w-4xl mx-auto">
           {messages.map((message) => (
             <Message key={message.id} message={message} />
@@ -142,11 +142,19 @@ export const ChatContainer: React.FC = () => {
         </div>
       </div>
 
-      <MessageInput
-        onSendMessage={handleSendMessage}
-        disabled={isTyping}
-        placeholder="Type your DSA topic or question..."
-      />
+      {/* Fixed footer */}
+      <div
+        className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 z-10 px-4 py-3"
+        style={{ maxWidth: '100vw' }}
+      >
+        <div className="max-w-4xl mx-auto">
+          <MessageInput
+            onSendMessage={handleSendMessage}
+            disabled={isTyping}
+            placeholder="Type your DSA topic or question..."
+          />
+        </div>
+      </div>
     </div>
   );
 };
