@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
-import {
-  Box, Container, TextField, Button, Typography, Paper,
-  IconButton, InputAdornment, Snackbar, Alert, CircularProgress
-} from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  IconButton, InputAdornment,
+  Paper,
+  Snackbar,
+  TextField,
+  Typography
+} from '@mui/material';
 import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 
 // Zod schema
 const SignupSchema = z.object({
@@ -45,7 +53,11 @@ const Signup: React.FC = () => {
     setLoading(true);
     try {
       await new Promise((res) => setTimeout(res, 1000)); // Simulate API
-      setSnackbarMsg('Signup successful! Redirecting...');
+      
+      // FIX 1: Store authentication token
+      localStorage.setItem('token', 'dummy-auth-token');
+      localStorage.setItem('onboardingCompleted', 'false');
+      setSnackbarMsg('Signup successful! Redirecting to onboarding...');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
       setNavigateOnSnackbarClose(true);
@@ -61,7 +73,8 @@ const Signup: React.FC = () => {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
     if (navigateOnSnackbarClose && snackbarSeverity === 'success') {
-      navigate('/chat');
+      // FIX 2: Always redirect to onboarding after signup
+      navigate('/onboarding');
     }
   };
 
