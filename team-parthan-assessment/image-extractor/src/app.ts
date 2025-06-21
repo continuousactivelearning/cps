@@ -1,36 +1,45 @@
 // Developed by Manjistha Bidkar
-import express, { Request, Response } from "express";
-import multer from "multer";
-import path from "path";
-import fs from "fs";
-import { preprocessImage } from "./utils/preprocess";
-import { extractTextFromImage } from "./utils/ocr";
+import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import { preprocessImage } from './utils/preprocess';
+import { extractTextFromImage } from './utils/ocr';
 
 const app = express();
-const upload = multer({ dest: "uploads/" });
+const PORT = 3000;
 
-app.post("/upload", upload.single("image"), async (req: Request, res: Response): Promise<void> => {
-  if (!req.file) {
-    res.status(400).json({ error: "No file uploaded" });
-    return;
-  }
+// Create images folder if not exists
+const IMAGE_DIR = path.join(__dirname, '../images');
+if (!fs.existsSync(IMAGE_DIR)) fs.mkdirSync(IMAGE_DIR);
 
-  const rawPath = path.join(__dirname, "..", req.file.path);
-  const processedPath = rawPath + "_processed.png";
+// Multer setup for file upload
+const upload = multer({ dest: IMAGE_DIR });
 
+app.post('/extract-text', upload.single('image'), async (req, res) => {
   try {
-    await preprocessImage(rawPath, processedPath);
-    const text = await extractTextFromImage(processedPath);
-    res.json({ extracted_text: text });
-  } catch (error) {
-    console.error("OCR failed:", error);
-    res.status(500).json({ error: "OCR failed" });
-  } finally {
-    fs.unlink(rawPath, () => {});
-    fs.unlink(processedPath, () => {});
+    if (!req.file) {
+      res.status(400).send('No file uploaded');
+      return;
+    }
+
+    const originalPath = req.file.path;
+    const processedPath = path.join(__dirname, '../images/processed-' + Date.now() + '.png');
+
+    await preprocessImage(originalPath, processedPath);
+    const extractedText = await extractTextFromImage(processedPath);
+
+    fs.unlinkSync(originalPath);
+    fs.unlinkSync(processedPath);
+
+    res.json({ text: extractedText.trim() });  
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error processing image');
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server running at http://localhost:3000");
+
+app.listen(PORT, () => {
+  console.log(` Server running at http://localhost:${PORT}`);
 });
