@@ -3,34 +3,37 @@
 import readline from 'readline';
 import fetch from 'node-fetch';
 
-interface MCQ {
+// Define the structure of each quiz question
+interface QuizQuestion {
+  id: string;
   question: string;
   options: string[];
   correctAnswer: number;
   explanation: string;
-  concept: string;
 }
 
+// Setup readline interface for terminal input
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
+// Helper function to wrap readline in a Promise
 function ask(question: string): Promise<string> {
   return new Promise(resolve => rl.question(question, resolve));
 }
 
-async function fetchQuiz(topic: string): Promise<MCQ[]> {
+// Function to fetch quiz from Ollama API
+async function fetchQuiz(topic: string): Promise<QuizQuestion[]> {
   const prompt = `
-Generate 5 MCQs on the topic "${topic}".Make sure the options are correct and that only one option is correct answer and also make sure you have the right and precise answer
+Generate 5 MCQs on the topic "${topic}". Make sure only one option is the correct answer. Provide explanation too.
 Format:
 [
   {
     "question": "...",
     "options": ["A", "B", "C", "D"],
     "correctAnswer": 1,
-    "explanation": "...",
-    "concept": "..."
+    "explanation": "..."
   }
 ]
 Return only valid JSON.
@@ -48,16 +51,38 @@ Return only valid JSON.
 
   const data = await res.json() as { response: string };
   const match = data.response.match(/\[\s*{[\s\S]*}\s*\]/);
-  if (!match) throw new Error('Could not parse JSON response');
 
-  return JSON.parse(match[0]);
+  if (!match) throw new Error('❌ Could not parse JSON response from Ollama.');
+
+  const rawQuiz = JSON.parse(match[0]);
+
+  // Assign IDs to each question
+  const quiz: QuizQuestion[] = rawQuiz.map((q, index) => ({
+    id: (index + 1).toString(),
+    question: q.question,
+    options: q.options,
+    correctAnswer: q.correctAnswer,
+    explanation: q.explanation
+  }));
+
+  return quiz;
 }
 
+// Function to run the quiz in the terminal
 async function runQuiz() {
   const topic = await ask('📝 Enter the topic you want a quiz on: ');
   console.log(`\n🎯 Generating quiz for "${topic}"...\n`);
 
-  const quiz = await fetchQuiz(topic);
+  let quiz: QuizQuestion[];
+
+  try {
+    quiz = await fetchQuiz(topic);
+  } catch (error) {
+    console.error('🚫 Error fetching quiz:', error);
+    rl.close();
+    return;
+  }
+
   let score = 0;
 
   for (let i = 0; i < quiz.length; i++) {
@@ -73,10 +98,8 @@ async function runQuiz() {
       console.log('✅ Correct!\n');
       score++;
     } else {
-      if (!isCorrect) {
-  console.log(`❌ Incorrect. ✅ Correct Answer: ${q.options[q.correctAnswer]}\n`);
-}
-
+      console.log(`❌ Incorrect. ✅ Correct Answer: ${q.options[q.correctAnswer]}`);
+      console.log(`📘 Explanation: ${q.explanation}\n`);
     }
   }
 
@@ -92,7 +115,9 @@ async function runQuiz() {
   rl.close();
 }
 
+// Start the quiz
 runQuiz();
+
 
 /* async function fetchQuiz(topic: string): Promise<{
   question: string;
