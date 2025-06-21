@@ -1,0 +1,2808 @@
+{
+    "directed": true,
+    "multigraph": false,
+    "graph": {},
+    "nodes": [
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Variables"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Data Types"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Primitive Types"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Non-Primitive Types"
+        },
+        {
+            "level": "Basic",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Arrays"
+        },
+        {
+            "level": "Basic",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Linked List"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Operators"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Bit Manipulation"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Control Flow"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Conditional Statements"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Loops"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Functions"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Recursion"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Scope & Lifetime"
+        },
+        {
+            "level": "Basic",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Strings"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Dynamic Arrays"
+        },
+        {
+            "level": "Basic",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "1D Arrays"
+        },
+        {
+            "level": "Basic",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "2D Arrays"
+        },
+        {
+            "level": "Basic",
+            "category": "Patterns",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Matrix Traversal"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Linear Data Structures",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "String Matching"
+        },
+        {
+            "level": "Basic",
+            "category": "Linear Data Structures",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "String Operations"
+        },
+        {
+            "id": "KMP Algorithm"
+        },
+        {
+            "id": "Z-Algorithm"
+        },
+        {
+            "level": "Basic",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Singly Linked List"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Doubly Linked List"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Circular Linked List"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Stack"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Patterns",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Monotonic Stack"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Queue"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Priority Queue"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Patterns",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Monotonic Queue"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Heap"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Deque"
+        },
+        {
+            "id": "Sliding Window Maximum"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Hashing"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Hash Maps"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Hash Sets"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Trees"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Binary Tree"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "N-ary Tree"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Binary Search Tree"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "AVL Tree"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Red-Black Tree"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Segment Tree"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 5.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Segment Tree with Lazy Propagation"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Range Minimum Query (RMQ)"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Fenwick Tree"
+        },
+        {
+            "id": "Fenwick Tree (BIT) 2D"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Trie"
+        },
+        {
+            "id": "Aho-Corasick Algorithm"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Ternary Search Tree"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Heap Sort"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Graphs"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Directed Graph"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Undirected Graph"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Topological Sort"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Weighted Graph"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Dijkstra"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Unweighted Graph"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "BFS"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "DFS"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Backtracking"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Articulation Point"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Bellman-Ford"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Floyd-Warshall"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Kruskal's Algorithm"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Disjoint Set"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Prim's Algorithm"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Union-Find (Optimized)"
+        },
+        {
+            "level": "Basic",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Searching"
+        },
+        {
+            "level": "Basic",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 0.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Linear Search"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Binary Search"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Sorting"
+        },
+        {
+            "level": "Advanced",
+            "category": "Techniques",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Binary Search on Answer"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Ternary Search"
+        },
+        {
+            "level": "Basic",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Bubble Sort"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Merge Sort"
+        },
+        {
+            "level": "Basic",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Selection Sort"
+        },
+        {
+            "level": "Basic",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Insertion Sort"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Divide and Conquer"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Quick Sort"
+        },
+        {
+            "level": "Advanced",
+            "category": "Patterns",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Counting Inversions"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Recursion Trees"
+        },
+        {
+            "level": "Advanced",
+            "category": "Techniques",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Backtracking with Pruning"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Greedy"
+        },
+        {
+            "level": "Basic",
+            "category": "Techniques",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Greedy Approach"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 5.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Dynamic Programming"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Memoization"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Tabulation"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Bitmask DP"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Bitwise Operators"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Patterns",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "XOR Pattern"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Number Theory"
+        },
+        {
+            "level": "Basic",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "GCD & LCM"
+        },
+        {
+            "level": "Advanced",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Modular Arithmetic"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "B-Trees"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "B+ Trees"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Threaded Binary Tree"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Bridges in Graph"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Tarjan\u2019s Algorithm"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Strongly Connected Components (SCC)"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Kosaraju\u2019s Algorithm"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Eulerian Path/Circuit"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Hamiltonian Path"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Cycle Detection (Graphs)"
+        },
+        {
+            "level": "Advanced",
+            "category": "Graph Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 4.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "2-SAT"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Digit DP"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 4.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "DP on Trees"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 4.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "DP on Graphs"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Sliding Window DP"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Techniques",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Sliding Window Technique"
+        },
+        {
+            "id": "Kadane\u2019s Algorithm"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Euclidean Algorithm"
+        },
+        {
+            "level": "Advanced",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Extended Euclidean Algorithm"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Sieve of Eratosthenes"
+        },
+        {
+            "level": "Basic",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Primality Test"
+        },
+        {
+            "level": "Advanced",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Modular Exponentiation"
+        },
+        {
+            "level": "Advanced",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Chinese Remainder Theorem"
+        },
+        {
+            "level": "Advanced",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Fermat\u2019s Little Theorem"
+        },
+        {
+            "level": "Advanced",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Miller-Rabin Primality Test"
+        },
+        {
+            "level": "Advanced",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Pollard\u2019s Rho Factorization"
+        },
+        {
+            "level": "Advanced",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Totient Function (Euler\u2019s Phi)"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Techniques",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Two Pointer Technique"
+        },
+        {
+            "level": "Basic",
+            "category": "Techniques",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Prefix Sum"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Techniques",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Difference Array Technique"
+        },
+        {
+            "id": "Subsets Generation using Bits"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Patterns",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Dutch National Flag Algorithm"
+        },
+        {
+            "id": "Algorithms"
+        },
+        {
+            "level": "Basic",
+            "category": "Techniques",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "In-place Algorithms"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Longest Common Subsequence (LCS)"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Longest Increasing Subsequence (LIS)"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Patterns",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Merge Intervals"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Suffix Array"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 5.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Suffix Tree"
+        },
+        {
+            "level": "Advanced",
+            "category": "String Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "LCP Array"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Sparse Table"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 4.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Persistent Data Structures"
+        },
+        {
+            "level": "Advanced",
+            "category": "Non-linear Data Structures",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Skip List"
+        },
+        {
+            "id": "RMQ"
+        },
+        {
+            "level": "Advanced",
+            "category": "Techniques",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "SQRT Decomposition"
+        },
+        {
+            "id": "Mo\u2019s Algorithm"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Meet in the Middle"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Binary Lifting"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 4.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "MO's Algorithm"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 5.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Heavy-Light Decomposition"
+        },
+        {
+            "level": "Advanced",
+            "category": "Trees",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Centroid Decomposition"
+        },
+        {
+            "level": "Advanced",
+            "category": "Algorithms",
+            "concept_type": "Technique",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Euler Tour Technique"
+        },
+        {
+            "level": "Advanced",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Fast Exponentiation"
+        },
+        {
+            "level": "Advanced",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Matrix Exponentiation"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Combinatorics (Permutations)"
+        },
+        {
+            "id": "Factorials"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Math Algorithms",
+            "concept_type": "Mathematical Foundation",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Combinatorics (Combinations)"
+        },
+        {
+            "level": "Advanced",
+            "category": "Computational Geometry",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Convex Hull (Graham Scan, Jarvis March)"
+        },
+        {
+            "id": "Geometry"
+        },
+        {
+            "level": "Advanced",
+            "category": "Computational Geometry",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Line Sweep Algorithm"
+        },
+        {
+            "level": "Advanced",
+            "category": "Concurrency",
+            "concept_type": "Programming Concept",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Multithreading"
+        },
+        {
+            "level": "Advanced",
+            "category": "Concurrency",
+            "concept_type": "Programming Concept",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Mutex & Locks"
+        },
+        {
+            "level": "Advanced",
+            "category": "Concurrency",
+            "concept_type": "Programming Concept",
+            "est_learning_time_hours": 2.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Race Condition Handling"
+        },
+        {
+            "level": "Advanced",
+            "category": "Concurrency",
+            "concept_type": "Problem Pattern",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Producer-Consumer Problem"
+        },
+        {
+            "level": "Advanced",
+            "category": "Concurrency",
+            "concept_type": "Problem Pattern",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Deadlock Detection & Avoidance"
+        },
+        {
+            "level": "Advanced",
+            "category": "External Memory Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "External Merge Sort"
+        },
+        {
+            "level": "Intermediate",
+            "category": "External Memory Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Counting Sort with Buckets"
+        },
+        {
+            "level": "Advanced",
+            "category": "Streaming Algorithms",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Bloom Filter"
+        },
+        {
+            "level": "Advanced",
+            "category": "Streaming Algorithms",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "HyperLogLog"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Memory Efficiency",
+            "concept_type": "Optimization Technique",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Cache-Friendly Traversal"
+        },
+        {
+            "level": "Intermediate",
+            "category": "Memory Efficiency",
+            "concept_type": "Optimization Technique",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Row-Major vs Column-Major"
+        },
+        {
+            "level": "Advanced",
+            "category": "Memory Efficiency",
+            "concept_type": "Optimization Technique",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Cache Oblivious Algorithms"
+        },
+        {
+            "level": "Advanced",
+            "category": "Automata",
+            "concept_type": "Algorithm",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Aho-Corasick Automaton"
+        },
+        {
+            "level": "Advanced",
+            "category": "Automata",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 5.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Suffix Automaton"
+        },
+        {
+            "level": "Advanced",
+            "category": "Trees",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 4.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Wavelet Tree"
+        },
+        {
+            "level": "Advanced",
+            "category": "Dynamic Graphs",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 5.0,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Dynamic Connectivity (Link-Cut Tree)"
+        },
+        {
+            "level": "Advanced",
+            "category": "Dynamic Graphs",
+            "concept_type": "Data Structure",
+            "est_learning_time_hours": 3.5,
+            "is_fundamental": false,
+            "learning_resources": [],
+            "id": "Euler Tour Tree"
+        },
+        {
+            "level": "Basic",
+            "category": "Basics",
+            "concept_type": "Fundamental Programming",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Pointers"
+        },
+        {
+            "level": "Basic",
+            "category": "Fundamentals",
+            "concept_type": "Analysis",
+            "est_learning_time_hours": 2.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Time Complexity Analysis"
+        },
+        {
+            "level": "Basic",
+            "category": "Fundamentals",
+            "concept_type": "Analysis",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Big O Notation"
+        },
+        {
+            "level": "Basic",
+            "category": "Fundamentals",
+            "concept_type": "Analysis",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Space Complexity Analysis"
+        },
+        {
+            "level": "Basic",
+            "category": "Fundamentals",
+            "concept_type": "Conceptual",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Recursion vs Iteration"
+        },
+        {
+            "level": "Basic",
+            "category": "Problem Solving",
+            "concept_type": "Problem Solving",
+            "est_learning_time_hours": 1.0,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Problem Decomposition"
+        },
+        {
+            "level": "Basic",
+            "category": "Problem Solving",
+            "concept_type": "Practical Skill",
+            "est_learning_time_hours": 1.5,
+            "is_fundamental": true,
+            "learning_resources": [],
+            "id": "Debugging Techniques"
+        }
+    ],
+    "links": [
+        {
+            "relation": "prerequisite",
+            "source": "Variables",
+            "target": "Data Types"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Variables",
+            "target": "Pointers"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Data Types",
+            "target": "Primitive Types"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Data Types",
+            "target": "Non-Primitive Types"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Data Types",
+            "target": "Operators"
+        },
+        {
+            "relation": "related",
+            "source": "Non-Primitive Types",
+            "target": "Arrays"
+        },
+        {
+            "relation": "related",
+            "source": "Non-Primitive Types",
+            "target": "Linked List"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Strings"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Dynamic Arrays"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "1D Arrays"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "2D Arrays"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Linked List"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Hashing"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Searching"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Sliding Window DP"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Sieve of Eratosthenes"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Sliding Window Technique"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Two Pointer Technique"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Prefix Sum"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Dutch National Flag Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "In-place Algorithms"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "SQRT Decomposition"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Arrays",
+            "target": "Cache-Friendly Traversal"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Linked List",
+            "target": "Singly Linked List"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Linked List",
+            "target": "Doubly Linked List"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Linked List",
+            "target": "Circular Linked List"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Linked List",
+            "target": "Stack"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Linked List",
+            "target": "Queue"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Linked List",
+            "target": "Trees"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Linked List",
+            "target": "Skip List"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Operators",
+            "target": "Bit Manipulation"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Operators",
+            "target": "Control Flow"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Bit Manipulation",
+            "target": "Bitwise Operators"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Bit Manipulation",
+            "target": "XOR Pattern"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Bit Manipulation",
+            "target": "Number Theory"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Bit Manipulation",
+            "target": "Bitmask DP"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Bit Manipulation",
+            "target": "Fast Exponentiation"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Bit Manipulation",
+            "target": "Bloom Filter"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Control Flow",
+            "target": "Conditional Statements"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Control Flow",
+            "target": "Loops"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Control Flow",
+            "target": "Functions"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Loops",
+            "target": "Recursion vs Iteration"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Functions",
+            "target": "Recursion"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Functions",
+            "target": "Scope & Lifetime"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Functions",
+            "target": "Arrays"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Recursion",
+            "target": "Backtracking"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Recursion",
+            "target": "Divide and Conquer"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Recursion",
+            "target": "Recursion Trees"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Recursion",
+            "target": "Dynamic Programming"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Recursion",
+            "target": "Modular Exponentiation"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Recursion",
+            "target": "Recursion vs Iteration"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Strings",
+            "target": "String Matching"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Strings",
+            "target": "String Operations"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Strings",
+            "target": "Trie"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Strings",
+            "target": "Suffix Array"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "2D Arrays",
+            "target": "Matrix Traversal"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "2D Arrays",
+            "target": "Row-Major vs Column-Major"
+        },
+        {
+            "relation": "related",
+            "source": "String Matching",
+            "target": "KMP Algorithm"
+        },
+        {
+            "relation": "related",
+            "source": "String Matching",
+            "target": "Z-Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "String Matching",
+            "target": "Aho-Corasick Automaton"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Stack",
+            "target": "Monotonic Stack"
+        },
+        {
+            "relation": "related",
+            "source": "Monotonic Stack",
+            "target": "Monotonic Queue"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Queue",
+            "target": "Priority Queue"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Queue",
+            "target": "Monotonic Queue"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Queue",
+            "target": "Deque"
+        },
+        {
+            "relation": "related",
+            "source": "Priority Queue",
+            "target": "Heap"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Priority Queue",
+            "target": "Dijkstra"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Priority Queue",
+            "target": "Prim's Algorithm"
+        },
+        {
+            "relation": "related",
+            "source": "Monotonic Queue",
+            "target": "Monotonic Stack"
+        },
+        {
+            "relation": "related",
+            "source": "Heap",
+            "target": "Priority Queue"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Heap",
+            "target": "Heap Sort"
+        },
+        {
+            "relation": "related",
+            "source": "Deque",
+            "target": "Sliding Window Maximum"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Hashing",
+            "target": "Hash Maps"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Hashing",
+            "target": "Hash Sets"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Hashing",
+            "target": "Bloom Filter"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Hashing",
+            "target": "HyperLogLog"
+        },
+        {
+            "relation": "related",
+            "source": "Hash Maps",
+            "target": "Hash Sets"
+        },
+        {
+            "relation": "related",
+            "source": "Hash Sets",
+            "target": "Hash Maps"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "Binary Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "N-ary Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "Graphs"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "B-Trees"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "DP on Trees"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "Persistent Data Structures"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "Binary Lifting"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "Heavy-Light Decomposition"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "Euler Tour Technique"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "Centroid Decomposition"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "Dynamic Connectivity (Link-Cut Tree)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trees",
+            "target": "Euler Tour Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Binary Tree",
+            "target": "Binary Search Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Binary Tree",
+            "target": "Heap"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Binary Tree",
+            "target": "Segment Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Binary Tree",
+            "target": "Fenwick Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Binary Tree",
+            "target": "Threaded Binary Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Binary Search Tree",
+            "target": "AVL Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Binary Search Tree",
+            "target": "Red-Black Tree"
+        },
+        {
+            "relation": "related",
+            "source": "AVL Tree",
+            "target": "Red-Black Tree"
+        },
+        {
+            "relation": "related",
+            "source": "Red-Black Tree",
+            "target": "AVL Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Segment Tree",
+            "target": "Segment Tree with Lazy Propagation"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Segment Tree",
+            "target": "Range Minimum Query (RMQ)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Segment Tree",
+            "target": "Wavelet Tree"
+        },
+        {
+            "relation": "related",
+            "source": "Range Minimum Query (RMQ)",
+            "target": "Sparse Table"
+        },
+        {
+            "relation": "related",
+            "source": "Fenwick Tree",
+            "target": "Fenwick Tree (BIT) 2D"
+        },
+        {
+            "relation": "related",
+            "source": "Trie",
+            "target": "Aho-Corasick Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trie",
+            "target": "Ternary Search Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Trie",
+            "target": "Aho-Corasick Automaton"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Directed Graph"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Undirected Graph"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Weighted Graph"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Unweighted Graph"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "DFS"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "BFS"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Topological Sort"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Kruskal's Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Prim's Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Disjoint Set"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Articulation Point"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Bridges in Graph"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Tarjan\u2019s Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Kosaraju\u2019s Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Strongly Connected Components (SCC)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Eulerian Path/Circuit"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Hamiltonian Path"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "Cycle Detection (Graphs)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "2-SAT"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Graphs",
+            "target": "DP on Graphs"
+        },
+        {
+            "relation": "related",
+            "source": "Directed Graph",
+            "target": "Topological Sort"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Weighted Graph",
+            "target": "Dijkstra"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dijkstra",
+            "target": "Bellman-Ford"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dijkstra",
+            "target": "Floyd-Warshall"
+        },
+        {
+            "relation": "related",
+            "source": "Unweighted Graph",
+            "target": "BFS"
+        },
+        {
+            "relation": "related",
+            "source": "Unweighted Graph",
+            "target": "DFS"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "BFS",
+            "target": "Dijkstra"
+        },
+        {
+            "relation": "related",
+            "source": "DFS",
+            "target": "Backtracking"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "DFS",
+            "target": "Articulation Point"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "DFS",
+            "target": "Topological Sort"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "DFS",
+            "target": "Bridges in Graph"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "DFS",
+            "target": "Tarjan\u2019s Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "DFS",
+            "target": "Kosaraju\u2019s Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "DFS",
+            "target": "Binary Lifting"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "DFS",
+            "target": "Heavy-Light Decomposition"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "DFS",
+            "target": "Euler Tour Technique"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "DFS",
+            "target": "Euler Tour Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Backtracking",
+            "target": "Backtracking with Pruning"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Backtracking",
+            "target": "Hamiltonian Path"
+        },
+        {
+            "relation": "related",
+            "source": "Articulation Point",
+            "target": "Bridges in Graph"
+        },
+        {
+            "relation": "related",
+            "source": "Kruskal's Algorithm",
+            "target": "Prim's Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Disjoint Set",
+            "target": "Kruskal's Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Disjoint Set",
+            "target": "Union-Find (Optimized)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Disjoint Set",
+            "target": "Dynamic Connectivity (Link-Cut Tree)"
+        },
+        {
+            "relation": "related",
+            "source": "Prim's Algorithm",
+            "target": "Kruskal's Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Searching",
+            "target": "Linear Search"
+        },
+        {
+            "relation": "related",
+            "source": "Searching",
+            "target": "Binary Search"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Searching",
+            "target": "Sorting"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Binary Search",
+            "target": "Binary Search on Answer"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Binary Search",
+            "target": "Ternary Search"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Binary Search"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Bubble Sort"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Merge Sort"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Selection Sort"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Insertion Sort"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Quick Sort"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Greedy"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Two Pointer Technique"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Merge Intervals"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Convex Hull (Graham Scan, Jarvis March)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Line Sweep Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sorting",
+            "target": "Counting Sort with Buckets"
+        },
+        {
+            "relation": "related",
+            "source": "Bubble Sort",
+            "target": "Selection Sort"
+        },
+        {
+            "relation": "related",
+            "source": "Bubble Sort",
+            "target": "Insertion Sort"
+        },
+        {
+            "relation": "related",
+            "source": "Merge Sort",
+            "target": "Quick Sort"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Merge Sort",
+            "target": "Counting Inversions"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Merge Sort",
+            "target": "External Merge Sort"
+        },
+        {
+            "relation": "related",
+            "source": "Divide and Conquer",
+            "target": "Merge Sort"
+        },
+        {
+            "relation": "related",
+            "source": "Divide and Conquer",
+            "target": "Quick Sort"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Divide and Conquer",
+            "target": "Meet in the Middle"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Divide and Conquer",
+            "target": "Cache Oblivious Algorithms"
+        },
+        {
+            "relation": "related",
+            "source": "Quick Sort",
+            "target": "Merge Sort"
+        },
+        {
+            "relation": "related",
+            "source": "Greedy",
+            "target": "Greedy Approach"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dynamic Programming",
+            "target": "Memoization"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dynamic Programming",
+            "target": "Tabulation"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dynamic Programming",
+            "target": "Bitmask DP"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dynamic Programming",
+            "target": "Digit DP"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dynamic Programming",
+            "target": "DP on Trees"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dynamic Programming",
+            "target": "DP on Graphs"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dynamic Programming",
+            "target": "Sliding Window DP"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dynamic Programming",
+            "target": "Longest Common Subsequence (LCS)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dynamic Programming",
+            "target": "Longest Increasing Subsequence (LIS)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Dynamic Programming",
+            "target": "Matrix Exponentiation"
+        },
+        {
+            "relation": "related",
+            "source": "Bitmask DP",
+            "target": "Digit DP"
+        },
+        {
+            "relation": "related",
+            "source": "XOR Pattern",
+            "target": "Subsets Generation using Bits"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Number Theory",
+            "target": "GCD & LCM"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Number Theory",
+            "target": "Modular Arithmetic"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Number Theory",
+            "target": "Euclidean Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Number Theory",
+            "target": "Sieve of Eratosthenes"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Number Theory",
+            "target": "Fermat\u2019s Little Theorem"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Number Theory",
+            "target": "Primality Test"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Number Theory",
+            "target": "Pollard\u2019s Rho Factorization"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Number Theory",
+            "target": "Totient Function (Euler\u2019s Phi)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "GCD & LCM",
+            "target": "Euclidean Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "GCD & LCM",
+            "target": "Extended Euclidean Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Modular Arithmetic",
+            "target": "Modular Exponentiation"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Modular Arithmetic",
+            "target": "Chinese Remainder Theorem"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Modular Arithmetic",
+            "target": "Fermat\u2019s Little Theorem"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "B-Trees",
+            "target": "B+ Trees"
+        },
+        {
+            "relation": "related",
+            "source": "Bridges in Graph",
+            "target": "Articulation Point"
+        },
+        {
+            "relation": "related",
+            "source": "Tarjan\u2019s Algorithm",
+            "target": "Strongly Connected Components (SCC)"
+        },
+        {
+            "relation": "related",
+            "source": "Strongly Connected Components (SCC)",
+            "target": "Tarjan\u2019s Algorithm"
+        },
+        {
+            "relation": "related",
+            "source": "Strongly Connected Components (SCC)",
+            "target": "Kosaraju\u2019s Algorithm"
+        },
+        {
+            "relation": "related",
+            "source": "Kosaraju\u2019s Algorithm",
+            "target": "Strongly Connected Components (SCC)"
+        },
+        {
+            "relation": "related",
+            "source": "Cycle Detection (Graphs)",
+            "target": "DFS"
+        },
+        {
+            "relation": "related",
+            "source": "Cycle Detection (Graphs)",
+            "target": "BFS"
+        },
+        {
+            "relation": "related",
+            "source": "Sliding Window DP",
+            "target": "Kadane\u2019s Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Sliding Window Technique",
+            "target": "Sliding Window DP"
+        },
+        {
+            "relation": "related",
+            "source": "Sliding Window Technique",
+            "target": "Two Pointer Technique"
+        },
+        {
+            "relation": "related",
+            "source": "Sliding Window Technique",
+            "target": "Sliding Window Maximum"
+        },
+        {
+            "relation": "related",
+            "source": "Euclidean Algorithm",
+            "target": "Extended Euclidean Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Extended Euclidean Algorithm",
+            "target": "Chinese Remainder Theorem"
+        },
+        {
+            "relation": "related",
+            "source": "Sieve of Eratosthenes",
+            "target": "Primality Test"
+        },
+        {
+            "relation": "related",
+            "source": "Primality Test",
+            "target": "Sieve of Eratosthenes"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Primality Test",
+            "target": "Miller-Rabin Primality Test"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Modular Exponentiation",
+            "target": "Miller-Rabin Primality Test"
+        },
+        {
+            "relation": "related",
+            "source": "Two Pointer Technique",
+            "target": "Sliding Window Technique"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Prefix Sum",
+            "target": "Difference Array Technique"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Algorithms",
+            "target": "Greedy Approach"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Suffix Array",
+            "target": "Suffix Tree"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Suffix Array",
+            "target": "LCP Array"
+        },
+        {
+            "relation": "related",
+            "source": "Suffix Tree",
+            "target": "Aho-Corasick Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Suffix Tree",
+            "target": "Suffix Automaton"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "RMQ",
+            "target": "Sparse Table"
+        },
+        {
+            "relation": "related",
+            "source": "SQRT Decomposition",
+            "target": "Mo\u2019s Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "SQRT Decomposition",
+            "target": "MO's Algorithm"
+        },
+        {
+            "relation": "related",
+            "source": "Heavy-Light Decomposition",
+            "target": "Centroid Decomposition"
+        },
+        {
+            "relation": "related",
+            "source": "Centroid Decomposition",
+            "target": "Heavy-Light Decomposition"
+        },
+        {
+            "relation": "related",
+            "source": "Fast Exponentiation",
+            "target": "Modular Exponentiation"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Factorials",
+            "target": "Combinatorics (Permutations)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Factorials",
+            "target": "Combinatorics (Combinations)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Geometry",
+            "target": "Convex Hull (Graham Scan, Jarvis March)"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Geometry",
+            "target": "Line Sweep Algorithm"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Multithreading",
+            "target": "Mutex & Locks"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Multithreading",
+            "target": "Race Condition Handling"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Multithreading",
+            "target": "Producer-Consumer Problem"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Multithreading",
+            "target": "Deadlock Detection & Avoidance"
+        },
+        {
+            "relation": "related",
+            "source": "Mutex & Locks",
+            "target": "Race Condition Handling"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Mutex & Locks",
+            "target": "Producer-Consumer Problem"
+        },
+        {
+            "relation": "related",
+            "source": "Race Condition Handling",
+            "target": "Producer-Consumer Problem"
+        },
+        {
+            "relation": "related",
+            "source": "Bloom Filter",
+            "target": "HyperLogLog"
+        },
+        {
+            "relation": "related",
+            "source": "Cache-Friendly Traversal",
+            "target": "Row-Major vs Column-Major"
+        },
+        {
+            "relation": "related",
+            "source": "Aho-Corasick Automaton",
+            "target": "Suffix Automaton"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Time Complexity Analysis",
+            "target": "Big O Notation"
+        },
+        {
+            "relation": "prerequisite",
+            "source": "Space Complexity Analysis",
+            "target": "Big O Notation"
+        }
+    ]
+}

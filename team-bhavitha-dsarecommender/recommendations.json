@@ -1,0 +1,10 @@
+[
+  {
+    "learner_id": "L001",
+    "recommended_path": ["Problem Solving", "Conditionals", "Loops", "Control Flow"]
+  },
+  {
+    "learner_id": "L002",
+    "recommended_path": ["Algorithms", "Problem Solving", "Conditionals"]
+  }
+]

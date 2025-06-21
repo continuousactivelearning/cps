@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept Spotlight Dropdown</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        select { padding: 8px; margin-right: 5px; }
+        button { padding: 8px 15px; cursor: pointer; }
+        #conceptInfo { margin-top: 20px; border: 1px solid #ccc; padding: 15px; }
+        #conceptNameDisplay { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Search Concept Spotlight</h1>
+
+    <label for="conceptSelect">Select a Concept:</label>
+    <select id="conceptSelect">
+        <option value="">-- Loading Concepts --</option>
+    </select>
+    <button onclick="getConceptSpotlight()">Get Fact</button>
+
+    <div id="conceptInfo">
+        <p>Concept: <span id="conceptNameDisplay"></span></p>
+        <p>Fact: <span id="conceptFactDisplay"></span></p>
+        <p id="errorMessage" style="color: red;"></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await populateConceptDropdown();
+            // Automatically get fact for the first concept once loaded (if any)
+            const firstConcept = document.getElementById('conceptSelect').value;
+            if (firstConcept) {
+                getConceptSpotlight();
+            }
+        });
+
+        async function populateConceptDropdown() {
+            const conceptSelect = document.getElementById('conceptSelect');
+            conceptSelect.innerHTML = '<option value="">-- Loading Concepts --</option>'; // Reset loading state
+
+            try {
+                const response = await fetch('http://localhost:5001/api/concepts/all');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const concepts = await response.json();
+
+                conceptSelect.innerHTML = '<option value="">-- Select a Concept --</option>'; // Default option
+                concepts.sort().forEach(conceptName => { // Sort alphabetically
+                    const option = document.createElement('option');
+                    option.value = conceptName;
+                    option.textContent = conceptName;
+                    conceptSelect.appendChild(option);
+                });
+
+                if (concepts.length > 0) {
+                    conceptSelect.value = concepts[0]; // Select the first concept by default
+                }
+
+            } catch (error) {
+                console.error("Error fetching concepts for dropdown:", error);
+                conceptSelect.innerHTML = '<option value="">-- Error loading concepts --</option>';
+                document.getElementById('errorMessage').textContent = `Error loading concepts: ${error.message}`;
+            }
+        }
+
+        async function getConceptSpotlight() {
+            const conceptSelect = document.getElementById('conceptSelect');
+            const conceptName = conceptSelect.value; // Get value from dropdown
+            const conceptNameDisplay = document.getElementById('conceptNameDisplay');
+            const conceptFactDisplay = document.getElementById('conceptFactDisplay');
+            const errorMessage = document.getElementById('errorMessage');
+
+            conceptNameDisplay.textContent = '';
+            conceptFactDisplay.textContent = '';
+            errorMessage.textContent = '';
+
+            if (!conceptName) {
+                errorMessage.textContent = 'Please select a concept from the dropdown.';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5001/api/concept-spotlight/${conceptName}`);
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                conceptNameDisplay.textContent = data.concept;
+                conceptFactDisplay.textContent = data.fact;
+
+            } catch (error) {
+                console.error("Error fetching concept:", error);
+                errorMessage.textContent = `Failed to fetch concept spotlight: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

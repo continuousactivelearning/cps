@@ -1,0 +1,2 @@
+OPENAI_API_KEY=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
+MONGO_URI=mongodb+srv://akssrf2025:Aks1234@cluster0.vg4zbcx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0s
