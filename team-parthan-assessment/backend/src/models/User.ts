@@ -12,9 +12,10 @@ export interface IUser extends Document {
   password: string;
   comparePassword(candidatePassword: string): Promise<boolean>;
   avatar:string;
-  masteredTopics:Number;
-  totalScore:Number;
-  streak:Number;
+  masteredTopics:number;
+  totalScore:number;
+  streak:number;
+  lastLogin:string;
 }
 
 const userSchema: Schema = new Schema({
@@ -25,6 +26,7 @@ const userSchema: Schema = new Schema({
   masteredTopics:{type: Number,required:false,default:0},
   totalScore:{type: Number,required:false,default:0},
   streak:{type: Number,required:false,default:0},
+  lastLogin:{type:String,required:false,default:''}
 });
 
 // Hash password before saving

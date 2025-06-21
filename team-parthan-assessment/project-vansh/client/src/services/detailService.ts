@@ -10,4 +10,4 @@ export const uploadPhoto = async(photo:string)=>{
 };
 export const updateDetails= async({item,value}:{item:string, value:number})=>{
     await api.post('/me/update',{item,value});
-}
+};

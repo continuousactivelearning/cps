@@ -92,13 +92,20 @@ const MainPage: React.FC = () => {
   }, []);
 
   const [userProfile, setUserProfile] = useState<UserProfile>({
-    name: "Vansh Tuteja",
+    name: "",
     masteredTopics: topics
       .filter((t) => t.status === "mastered")
       .map((t) => t.name).length,
     totalScore: 0,
     streak: 0,
   });
+  useEffect(() => {
+  const setstreak = async () => {
+    await api.get("/me/streak");
+    mutate("/me");
+  };
+  setstreak();
+}, []); 
   useEffect(() => {
     const profile = async () => {
       try {

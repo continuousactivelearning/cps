@@ -12,6 +12,7 @@ import {
 import AuthWrapper from '../auth/AuthWrapper';
 import { getDetails } from '../services/detailService';
 import { Navigate, useNavigate } from 'react-router-dom';
+import useSWR from 'swr';
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -55,8 +56,9 @@ const HomePage: React.FC = () => {
   useEffect(()=>{
     const item = localStorage.getItem('id');
     if (!item) {
-      setIsOpen(true); // show AuthWrapper only if no id
+      setIsOpen(true); 
     } else {
+      
       getDetails().then((details) => {
         setName(details.name);
       }).catch(err => {
