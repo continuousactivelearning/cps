@@ -57,6 +57,10 @@ const Signup: React.FC = () => {
       // FIX 1: Store authentication token
       localStorage.setItem('token', 'dummy-auth-token');
       localStorage.setItem('onboardingCompleted', 'false');
+      localStorage.setItem('signupEmail', data.email);
+// You could also add a name field in signup if you want
+localStorage.setItem('signupName', data.email.split('@')[0]);
+
       setSnackbarMsg('Signup successful! Redirecting to onboarding...');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);

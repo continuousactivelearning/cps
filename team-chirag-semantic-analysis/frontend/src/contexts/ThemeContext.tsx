@@ -1,61 +1,35 @@
-import { createContext, useContext, useMemo, useState, useEffect, type ReactNode } from 'react';
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+// src/contexts/ThemeContext.tsx
+import { createContext, useContext, useState, type ReactNode, useMemo } from "react";
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 
-interface ThemeContextProps {
-  toggleTheme: () => void;
-  mode: 'light' | 'dark';
-}
+const ThemeContext = createContext({ theme: "light", toggleTheme: () => {} });
 
-const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
-
-export const useThemeContext = () => {
-  const context = useContext(ThemeContext);
-  if (!context) throw new Error('useThemeContext must be used within ThemeProviderWrapper');
-  return context;
-};
-
-export const ThemeProviderWrapper = ({ children }: { children: ReactNode }) => {
-  const [mode, setMode] = useState<'light' | 'dark'>(
-    () => (localStorage.getItem('themeMode') as 'light' | 'dark') || 'light'
-  );
-
-  const toggleTheme = () => {
-    setMode(prev => {
-      const newMode = prev === 'light' ? 'dark' : 'light';
-      localStorage.setItem('themeMode', newMode);
-      return newMode;
-    });
-  };
+export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
+  const [themeMode, setThemeMode] = useState<"light"|"dark">("light");
 
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
-          mode,
-          ...(mode === 'dark'
-            ? {
-                background: {
-                  default: '#121212',
-                  paper: '#1e1e1e',
-                },
-              }
-            : {}),
-        },
-        components: {
-          MuiPaper: {
-            styleOverrides: {
-              root: {
-                transition: 'all 0.3s ease-in-out',
-              },
-            },
+          mode: themeMode,
+          background: {
+            default: themeMode === "light" ? "#f7f7f7" : "#121212",
+            paper: themeMode === "light" ? "#ffffff" : "#1e1e1e",
           },
+          primary: { main: "#1976d2" },
+          secondary: { main: "#9c27b0" }
         },
+        typography: {
+          fontFamily: "'Inter', sans-serif"
+        }
       }),
-    [mode]
+    [themeMode]
   );
 
+  const toggleTheme = () => setThemeMode((prev) => (prev === "light" ? "dark" : "light"));
+
   return (
-    <ThemeContext.Provider value={{ toggleTheme, mode }}>
+    <ThemeContext.Provider value={{ theme: themeMode, toggleTheme }}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {children}
@@ -63,3 +37,5 @@ export const ThemeProviderWrapper = ({ children }: { children: ReactNode }) => {
     </ThemeContext.Provider>
   );
 };
+
+export const useTheme = () => useContext(ThemeContext);

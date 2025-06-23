@@ -28,16 +28,17 @@ import axios from 'axios';
 import ReactPlayer from 'react-player';
 import { useNavigate } from 'react-router-dom';
 import UserProfileMenu from '../components/UserProfileMenu';
-import { useThemeContext } from '../contexts/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 
 const ThemeToggleButton = () => {
-  const { toggleTheme, mode } = useThemeContext();
+  const { theme, toggleTheme } = useTheme();
+
 
   return (
     <Tooltip title="Toggle light/dark mode">
       <IconButton onClick={toggleTheme} color="inherit" sx={{ ml: 1 }}>
-        {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+        {theme === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
       </IconButton>
     </Tooltip>
   );
