@@ -53,6 +53,8 @@ const UserProfileMenu: React.FC = () => {
         <MenuItem onClick={() => { setProfileOpen(true); handleCloseMenu(); }}>
           View Profile
         </MenuItem>
+        <MenuItem onClick={() => { navigate('/student/profile'); setProfileOpen(false); }}>View Profile</MenuItem>
+
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
 

@@ -147,7 +147,9 @@ export const OnboardingPage: React.FC = () => {
 
       // Mark onboarding as completed in localStorage
       localStorage.setItem('onboardingCompleted', 'true');
-      
+      // Save profile data for profile page:
+localStorage.setItem('userProfile', JSON.stringify({ ...formData, email: localStorage.getItem('signupEmail'), name: localStorage.getItem('signupName') }));
+
       // Navigate to main app
       navigate('/chat');
     } catch (err) {
