@@ -1,0 +1,501 @@
+[
+  {
+    "learner_id": "L001",
+    "mastered_concepts": [
+      "Computation",
+      "Variables",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L002",
+    "mastered_concepts": [
+      "Variables",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Variables",
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L003",
+    "mastered_concepts": [
+      "Variables",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Variables",
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L004",
+    "mastered_concepts": [
+      "Variables",
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Computation",
+      "Variables",
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L005",
+    "mastered_concepts": [
+      "Loops",
+      "Variables",
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L006",
+    "mastered_concepts": [
+      "Variables",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Variables",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L007",
+    "mastered_concepts": [],
+    "weak_concepts": [
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L008",
+    "mastered_concepts": [
+      "Variables",
+      "Loops",
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Computation",
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L009",
+    "mastered_concepts": [
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L010",
+    "mastered_concepts": [
+      "Variables"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Computation",
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L011",
+    "mastered_concepts": [
+      "Variables",
+      "Loops",
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Variables",
+      "Computation",
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L012",
+    "mastered_concepts": [
+      "Variables",
+      "Loops"
+    ],
+    "weak_concepts": []
+  },
+  {
+    "learner_id": "L013",
+    "mastered_concepts": [],
+    "weak_concepts": [
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L014",
+    "mastered_concepts": [
+      "Variables",
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L015",
+    "mastered_concepts": [
+      "Loops",
+      "Variables",
+      "Computation"
+    ],
+    "weak_concepts": []
+  },
+  {
+    "learner_id": "L016",
+    "mastered_concepts": [
+      "Computation",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L017",
+    "mastered_concepts": [
+      "Loops",
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L018",
+    "mastered_concepts": [
+      "Variables"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Variables",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L019",
+    "mastered_concepts": [],
+    "weak_concepts": [
+      "Loops",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L020",
+    "mastered_concepts": [],
+    "weak_concepts": [
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L021",
+    "mastered_concepts": [
+      "Variables",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Variables",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L022",
+    "mastered_concepts": [
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Variables",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L023",
+    "mastered_concepts": [
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L024",
+    "mastered_concepts": [
+      "Computation",
+      "Variables"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Computation",
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L025",
+    "mastered_concepts": [
+      "Computation"
+    ],
+    "weak_concepts": []
+  },
+  {
+    "learner_id": "L026",
+    "mastered_concepts": [
+      "Variables",
+      "Loops",
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L027",
+    "mastered_concepts": [
+      "Loops",
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Computation",
+      "Variables",
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L028",
+    "mastered_concepts": [
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L029",
+    "mastered_concepts": [],
+    "weak_concepts": [
+      "Computation",
+      "Loops",
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L030",
+    "mastered_concepts": [],
+    "weak_concepts": [
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L031",
+    "mastered_concepts": [
+      "Variables"
+    ],
+    "weak_concepts": [
+      "Variables",
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L032",
+    "mastered_concepts": [],
+    "weak_concepts": [
+      "Computation",
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L033",
+    "mastered_concepts": [],
+    "weak_concepts": [
+      "Loops",
+      "Computation",
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L034",
+    "mastered_concepts": [
+      "Computation",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Computation",
+      "Variables",
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L035",
+    "mastered_concepts": [],
+    "weak_concepts": [
+      "Loops",
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L036",
+    "mastered_concepts": [
+      "Variables"
+    ],
+    "weak_concepts": []
+  },
+  {
+    "learner_id": "L037",
+    "mastered_concepts": [
+      "Loops",
+      "Variables"
+    ],
+    "weak_concepts": [
+      "Variables",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L038",
+    "mastered_concepts": [
+      "Computation",
+      "Loops",
+      "Variables"
+    ],
+    "weak_concepts": []
+  },
+  {
+    "learner_id": "L039",
+    "mastered_concepts": [
+      "Variables",
+      "Computation",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Variables",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L040",
+    "mastered_concepts": [
+      "Variables"
+    ],
+    "weak_concepts": [
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L041",
+    "mastered_concepts": [
+      "Variables",
+      "Computation"
+    ],
+    "weak_concepts": [
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L042",
+    "mastered_concepts": [
+      "Variables",
+      "Computation",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Variables",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L043",
+    "mastered_concepts": [
+      "Variables",
+      "Loops",
+      "Computation"
+    ],
+    "weak_concepts": []
+  },
+  {
+    "learner_id": "L044",
+    "mastered_concepts": [
+      "Variables",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Computation",
+      "Loops"
+    ]
+  },
+  {
+    "learner_id": "L045",
+    "mastered_concepts": [],
+    "weak_concepts": [
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L046",
+    "mastered_concepts": [
+      "Variables",
+      "Computation",
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Computation",
+      "Loops",
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L047",
+    "mastered_concepts": [
+      "Computation"
+    ],
+    "weak_concepts": []
+  },
+  {
+    "learner_id": "L048",
+    "mastered_concepts": [
+      "Computation",
+      "Variables"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Computation"
+    ]
+  },
+  {
+    "learner_id": "L049",
+    "mastered_concepts": [
+      "Loops"
+    ],
+    "weak_concepts": [
+      "Loops",
+      "Computation",
+      "Variables"
+    ]
+  },
+  {
+    "learner_id": "L050",
+    "mastered_concepts": [
+      "Variables"
+    ],
+    "weak_concepts": [
+      "Computation",
+      "Loops",
+      "Variables"
+    ]
+  }
+]

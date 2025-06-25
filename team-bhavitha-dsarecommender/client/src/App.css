@@ -1,0 +1,33 @@
+/* App.css - All custom styles removed, rely on Bootstrap */
+/* Basic dark theme adjustments for the body and root if Bootstrap's defaults aren't enough */
+body {
+  background-color: #1a1a1a; /* Dark background for the entire page */
+  color: #e0e0e0; /* Default light text color for most elements */
+}
+
+#root {
+  background-color: #1a1a1a; /* Ensure the root element also has the dark background */
+  color: #e0e0e0; /* Light text color for root content */
+}
+
+/* Custom text color for better contrast on subtle dark backgrounds */
+.text-dark-contrast {
+  color: #333333 !important; /* A dark grey, almost black */
+}
+
+/* Custom purple color for headings */
+.text-purple {
+  color: #a872e6 !important; /* !important to override Bootstrap if needed */
+}
+.border-dashed {
+  border-style: dashed !important;
+}
+
+/* --- Placeholder Text Color Fix --- */
+/* Target placeholders specifically and make them a noticeable light grey */
+.form-control::placeholder,
+.form-control:-ms-input-placeholder, /* For IE 10-11 */
+.form-control::-ms-input-placeholder { /* For Microsoft Edge */
+  color: #aaaaaa; /* A clear, light grey */
+  opacity: 1; /* Ensure opacity is 1, as some browsers reduce it by default */
+}
