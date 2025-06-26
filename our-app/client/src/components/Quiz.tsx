@@ -3,12 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "../styles/card";
 import { Button } from "../styles/button";
 import { getQuestionsByLanguageAndDifficulty } from '../data/questions';
-
+//import quizData from "../../server/src/data/java/advanced/Arrays";
 
 interface Question {
   id: number;
   question: string;
-  options: string[];
+  options:string[];
   correctAnswer: number;
   explanation: string;
   language: string;
@@ -83,7 +83,7 @@ const Quiz: React.FC = () => {
 
  if (showResult) {
   const score = calculateScore();
-  const percentage = Math.round((score / questions.length) * 100);
+  const percentage  = Math.round((score / questions.length) * 100);
 
   return (
     <div className="bg-light d-flex flex-column justify-content-center align-items-center min-vh-100 p-4">

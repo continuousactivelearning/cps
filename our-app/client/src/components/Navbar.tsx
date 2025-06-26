@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
+import GoogleTranslateWidget from "./GoogleTranslateWidget";
 
 const Navbar: React.FC = () => {
   const { userId, logout } = useContext(AuthContext);
@@ -70,6 +71,9 @@ const Navbar: React.FC = () => {
           )}
         </ul>
       </div>
+      <div className="ms-3">
+          <GoogleTranslateWidget />
+        </div>
     </nav>
   );
 };
