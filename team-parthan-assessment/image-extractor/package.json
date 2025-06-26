@@ -15,7 +15,8 @@
     "multer": "^2.0.1",
     "sharp": "^0.34.2",
     "tesseract.js": "^2.1.5",
-    "tesseract.js-core": "^6.0.0"
+    "tesseract.js-core": "^6.0.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
