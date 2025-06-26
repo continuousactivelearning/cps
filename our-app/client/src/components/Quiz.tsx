@@ -1,14 +1,15 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from "../styles/card";
 import { Button } from "../styles/button";
 import { getQuestionsByLanguageAndDifficulty } from '../data/questions';
-//import quizData from "../../server/src/data/java/advanced/Arrays";
+
 
 interface Question {
   id: number;
   question: string;
-  options:string[];
+  options: string[];
   correctAnswer: number;
   explanation: string;
   language: string;
@@ -68,6 +69,13 @@ const Quiz: React.FC = () => {
     });
   };
 
+const handleTopicSelection = () => {
+  navigate(`/topic-selection`, {
+    state: { language }
+  });
+};
+
+
   if (questions.length === 0) {
     return (
       <div className="min-h-screen bg-light d-flex justify-content-center align-items-center">
@@ -83,7 +91,7 @@ const Quiz: React.FC = () => {
 
  if (showResult) {
   const score = calculateScore();
-  const percentage  = Math.round((score / questions.length) * 100);
+  const percentage = Math.round((score / questions.length) * 100);
 
   return (
     <div className="bg-light d-flex flex-column justify-content-center align-items-center min-vh-100 p-4">
@@ -100,14 +108,18 @@ const Quiz: React.FC = () => {
                 Language: <strong>{language}</strong> | Difficulty: <strong>{difficulty}</strong>
               </p>
             </div>
-            <div className="d-flex gap-3 justify-content-center">
-              <Button onClick={handleReviewTest} variant="outline">
-                Review Test
-              </Button>
-              <Button onClick={() => navigate('/')}>
-                Take Another Quiz
-              </Button>
-            </div>
+           <div className="d-flex gap-3 justify-content-center flex-wrap">
+  <Button onClick={handleReviewTest} variant="outline">
+    Review Test
+  </Button>
+  <Button onClick={() => navigate('/')}>
+    Take Another Quiz
+  </Button>
+  <Button variant="outline" onClick={handleTopicSelection}>
+    Choose Topic
+  </Button>
+</div>
+
           </CardContent>
         </Card>
       </div>

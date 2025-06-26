@@ -101,7 +101,7 @@ const QuizReview: React.FC = () => {
                   <div className="d-grid gap-2 mb-3">
                     {question.options.map((option, optionIndex) => {
                       let className = "p-2 border rounded";
-                     let iconElement: React.ReactNode = null;
+                      let iconElement:any = null;
                       
                       if (optionIndex === question.correctAnswer) {
                         className += " border-success bg-success bg-opacity-10";
@@ -137,7 +137,7 @@ const QuizReview: React.FC = () => {
         </div>
 
         <div className="text-center mt-4">
-          <Button onClick={() => navigate('/')} >
+          <Button onClick={() => navigate('/')}>
             Take Another Quiz
           </Button>
         </div>
