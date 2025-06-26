@@ -1,18 +1,16 @@
 // Header.tsx
 import React, { useState } from 'react';
 import { MessageCircle, Sun, Moon, Menu as MenuIcon } from 'lucide-react';
-import { useTheme } from '../hooks/useTheme';
+import { useTheme } from '../hooks/useTheme'; // using custom hook for theme
 import { useNavigate } from 'react-router-dom';
 import { Tooltip, IconButton } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
-import { SideMenu } from '../components/SideMenu'; // <-- Import your SideMenu
+import { SideMenu } from '../components/SideMenu'; // side menu component
 
 export const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
-
-  // 👇 Add this state to control SideMenu
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false); // control for side menu
 
   return (
     <>
@@ -25,14 +23,18 @@ export const Header: React.FC = () => {
               <MessageCircle className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Query2Concept</h1>
-              <p className="text-sm text-gray-500 dark:text-gray-400">Semantic mapping of learner queries to concept gaps</p>
+              <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+                Query2Concept
+              </h1>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Semantic mapping of learner queries to concept gaps
+              </p>
             </div>
           </div>
 
-          {/* Right side */}
+          {/* Right: Icons */}
           <div className="flex items-center space-x-2">
-            {/* 🧑‍🎓 Student profile */}
+            {/* 🎓 Student Profile */}
             <Tooltip title="Your Student Profile">
               <IconButton
                 color="inherit"
@@ -44,7 +46,7 @@ export const Header: React.FC = () => {
               </IconButton>
             </Tooltip>
 
-            {/* 🎨 Toggle theme */}
+            {/* 🌙 Theme Toggle */}
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -53,7 +55,7 @@ export const Header: React.FC = () => {
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
             </button>
 
-            {/* 🍔 Menu icon to open SideMenu */}
+            {/* 🍔 Side Menu */}
             <IconButton
               color="inherit"
               onClick={() => setMenuOpen(true)}
@@ -67,7 +69,7 @@ export const Header: React.FC = () => {
         </div>
       </header>
 
-      {/* ⬇ Render SideMenu here */}
+      {/* Side Menu */}
       <SideMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
   );
