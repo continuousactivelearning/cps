@@ -31,12 +31,6 @@ const Navbar: React.FC = () => {
             </Link>
           </li>
 
-          <li className="nav-item">
-            <Link className="nav-link" to="/select-language">
-              Languages
-            </Link>
-          </li>
-
           {userId ? (
             <>
               <li className="nav-item">
