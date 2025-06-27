@@ -12,4 +12,4 @@ const seedCourses = async () => {
     }
 };
 
-export default seedCourses; 
+export default seedCourses;

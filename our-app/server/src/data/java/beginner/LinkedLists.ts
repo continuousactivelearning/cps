@@ -1,4 +1,4 @@
-import { QuizDocument } from "../../../models/Quiz";
+import { QuizDocument } from "../../../types/interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {

@@ -34,7 +34,7 @@ const sampleUsers = [
             },
             {
                 courseId: new mongoose.Types.ObjectId("607f1f77bcf86cd799439012"),
-                courseName: "Linked List",
+                courseName: "Linked Lists",
                 status: "in-progress" as const,
                 result: 65
             }

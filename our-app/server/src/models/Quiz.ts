@@ -1,38 +1,11 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
-import { OptionTag, Level, Language } from "../types/customTypes";
-
-interface Option {
-    optionText: string;
-    optionTag: OptionTag;
-}
-
-interface Question {
-    questionText: string;
-    options: Option[];
-    correctOption: OptionTag;
-    score: number;
-}
-
-export interface QuizDocument extends Document {
-    title: string;
-    level: Level;
-    language: Language;
-    description?: string;
-    topic: {
-        courseID: mongoose.Types.ObjectId;
-        courseName: string;
-    }
-    questions: Question[];
-    createdAt: Date;
-    updatedAt: Date;
-    quizScore: number;
-}
+import mongoose, { Schema, Model } from "mongoose";
+import { QuizDocument } from "../interfaces/Document_Interfaces";
 
 const quizSchema = new Schema<QuizDocument>(
     {
         title: {
             type: String,
-            // required: true,
+            required: true,
             trim: true
         },
         level: {
@@ -97,6 +70,28 @@ const quizSchema = new Schema<QuizDocument>(
         versionKey: false
     }
 );
+
+// Add indexes for better query performance
+quizSchema.index({ level: 1 });
+quizSchema.index({ language: 1 });
+quizSchema.index({ 'topic.courseID': 1 });
+quizSchema.index({ 'topic.courseName': 1 });
+quizSchema.index({ title: 1 });
+quizSchema.index({ createdAt: -1 });
+quizSchema.index({ quizScore: -1 });
+
+// Compound indexes for common query patterns
+quizSchema.index({ level: 1, language: 1 });
+quizSchema.index({ 'topic.courseID': 1, level: 1 });
+quizSchema.index({ language: 1, level: 1, createdAt: -1 });
+quizSchema.index({ 'topic.courseName': 1, level: 1 });
+
+// Text index for full-text search on title and description
+quizSchema.index({
+    title: 'text',
+    description: 'text',
+    'topic.courseName': 'text'
+});
 
 const Quiz: Model<QuizDocument> = mongoose.model<QuizDocument>("Quiz", quizSchema);
 

@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export const coursesData = [
     { title: "Arrays", description: "Core concept for storing elements in contiguous memory.", level: "beginner", prerequisites: [] },
     { title: "Recursion", description: "Technique of solving problems by breaking them into subproblems.", level: "beginner", prerequisites: [] },
@@ -20,15 +22,15 @@ export const coursesData = [
 
     { title: "Divide and Conquer", description: "Algorithm design paradigm.", level: "intermediate", prerequisites: ["Recursion", "Sorting Algorithms"] },
     { title: "Greedy Algorithms", description: "Algorithm design using local optimum.", level: "intermediate", prerequisites: ["Sorting Algorithms"] },
-    { title: "Backtracking", description: "Exploration of all possibilities.", level: "advanced", prerequisites: ["Recursion", "DFS"] },
+    { title: "Backtracking", description: "Exploration of all possibilities.", level: "advanced", prerequisites: ["Recursion", "Depth-First Search (DFS)"] },
     { title: "Dynamic Programming", description: "Optimizing overlapping subproblems.", level: "advanced", prerequisites: ["Divide and Conquer", "Recursion"] },
 
-    { title: "Dijkstra's Algorithm", description: "Shortest path algorithm.", level: "advanced", prerequisites: ["Graphs", "Heaps", "BFS"] },
+    { title: "Dijkstra's Algorithm", description: "Shortest path algorithm.", level: "advanced", prerequisites: ["Graphs", "Heaps", "Breadth-First Search (BFS)"] },
     { title: "Bellman-Ford Algorithm", description: "Shortest path in negative weights.", level: "advanced", prerequisites: ["Graphs"] },
     { title: "Floyd-Warshall Algorithm", description: "All-pairs shortest paths.", level: "advanced", prerequisites: ["Graphs", "Matrices"] },
     { title: "Prim's Algorithm", description: "MST using greedy and heap.", level: "advanced", prerequisites: ["Graphs", "Heaps"] },
     { title: "Kruskal's Algorithm", description: "MST using DSU and sorting.", level: "advanced", prerequisites: ["Graphs", "Disjoint Set Union", "Sorting Algorithms"] },
-    { title: "Topological Sort", description: "Ordering DAG nodes.", level: "advanced", prerequisites: ["Graphs", "DFS"] },
+    { title: "Topological Sort", description: "Ordering DAG nodes.", level: "advanced", prerequisites: ["Graphs", "Depth-First Search (DFS)"] },
 
     { title: "AVL Trees", description: "Self-balancing BST.", level: "advanced", prerequisites: ["Binary Search Trees"] },
     { title: "Red-Black Trees", description: "Balanced BST with color properties.", level: "advanced", prerequisites: ["Binary Search Trees"] },
@@ -46,5 +48,5 @@ export const coursesData = [
 
 export const coursesDataWithIds = coursesData.map((course, index) => ({
     ...course,
-    _id: `course-${index + 1}` // Simulating MongoDB ObjectId
+    _id: new mongoose.Types.ObjectId() // Generate proper MongoDB ObjectIds
 }));

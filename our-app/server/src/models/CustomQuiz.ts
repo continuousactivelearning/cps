@@ -1,35 +1,5 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
-
-type OptionTag = 'A' | 'B' | 'C' | 'D';
-type Language = 'cpp' | 'python' | 'javascript' | 'java';
-type Difficulty = 'beginner' | 'intermediate' | 'advanced';
-
-interface Option {
-    optionText: string;
-    optionTag: OptionTag;
-}
-
-interface CustomQuestion {
-    questionText: string;
-    options: Option[];
-    correctOption: OptionTag;
-    level: Difficulty;
-    score: number;
-    topic: {
-        courseID: mongoose.Types.ObjectId;
-        courseName: string;
-    }
-}
-
-export interface CustomQuizDocument extends Document {
-    title: string;
-    description?: string;
-    language: Language;
-    customQuestions: CustomQuestion[];
-    createdAt: Date;
-    updatedAt: Date;
-    quizScore: number;
-}
+import mongoose, { Schema, Model } from "mongoose";
+import { CustomQuizDocument } from "../interfaces/Document_Interfaces";
 
 const customQuizSchema = new Schema<CustomQuizDocument>(
     {
@@ -105,6 +75,27 @@ const customQuizSchema = new Schema<CustomQuizDocument>(
         versionKey: false
     }
 );
+
+// Add indexes for better query performance
+customQuizSchema.index({ language: 1 });
+customQuizSchema.index({ title: 1 });
+customQuizSchema.index({ createdAt: -1 });
+customQuizSchema.index({ quizScore: -1 });
+customQuizSchema.index({ 'customQuestions.level': 1 });
+customQuizSchema.index({ 'customQuestions.topic.courseID': 1 });
+customQuizSchema.index({ 'customQuestions.topic.courseName': 1 });
+
+// Compound indexes for common query patterns
+customQuizSchema.index({ language: 1, createdAt: -1 });
+customQuizSchema.index({ 'customQuestions.topic.courseID': 1, 'customQuestions.level': 1 });
+customQuizSchema.index({ language: 1, quizScore: -1 });
+
+// Text index for full-text search on title and description
+customQuizSchema.index({
+    title: 'text',
+    description: 'text',
+    'customQuestions.topic.courseName': 'text'
+});
 
 const CustomQuiz: Model<CustomQuizDocument> = mongoose.model<CustomQuizDocument>(
     "CustomQuiz",
