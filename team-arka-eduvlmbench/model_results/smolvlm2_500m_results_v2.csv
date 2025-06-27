@@ -1,0 +1,231 @@
+question_id,ground_truth,predicted,is_correct,match_type,timestamp
+0,Addition,'Addition',True,Partial Match,2025-06-24T18:21:52.393614
+1,Division,Ratios,False,No Match,2025-06-24T18:21:52.435125
+2,Word Problem Comprehension,$15$,False,No Match,2025-06-24T18:21:52.513639
+3,Subtraction,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:52.582638
+4,Word Problem Comprehension,Multiplication.,False,No Match,2025-06-24T18:21:52.613772
+5,Percentage Calculations,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:52.682771
+6,Addition,$50$,False,No Match,2025-06-24T18:21:52.717285
+7,Multiplication,Addition.,False,No Match,2025-06-24T18:21:52.744284
+8,Addition,Addition,True,Exact Match,2025-06-24T18:21:52.787288
+9,Multiplication,Overtime.,False,No Match,2025-06-24T18:21:52.830794
+10,Solving Equations,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:52.903832
+11,Addition,$Addition$,True,Partial Match,2025-06-24T18:21:52.952833
+12,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)
+
+The student's wrong answer was incorrect in their computation of the total number of trees on Randy's farm. They mistakenly added 27 mango trees to 60 mango trees instead of correctly subtracting 5 from half as many mango trees. This error led to an incorrect total of 87 trees, which is not what the problem stated.",False,No Match,2025-06-24T18:21:53.214376
+13,Word Problem Comprehension,$20$,False,No Match,2025-06-24T18:21:53.248376
+14,Unit Rate,"1. Computational Errors
+
+The student's wrong answer was due to a computational error where they incorrectly divided 8 pages by 20 minutes instead of multiplying 8 pages by 4 hours/minute. This mistake led to the incorrect conversion of time units and ultimately resulted in an incorrect answer.",False,No Match,2025-06-24T18:21:53.430593
+15,Multiplication,Multiplication.,True,Partial Match,2025-06-24T18:21:53.475593
+16,Ratios,Ratio,True,Partial Match,2025-06-24T18:21:53.514105
+17,Addition,"1. Computational Errors (wrong operations, calculation mistakes)
+
+The student's wrong answer was incorrect in their arithmetic calculations. They took away 4 pink hats and then twice as many green hats as pink hats, which resulted in a total of 8 green hats instead of the correct 4. This error led to the incorrect computation of the number of hard hats left in the truck.",False,No Match,2025-06-24T18:21:53.756441
+18,Multiplication,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:53.829956
+19,Division,24,False,No Match,2025-06-24T18:21:53.873953
+20,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:53.939467
+21,Order of Operations,"1. Computational Errors
+
+The student's wrong answer was due to a computational error in their calculation of the number of beetles eaten by each jaguar. They incorrectly multiplied 6 times 5, which resulted in an incorrect total of 302, not 216 as required. This error led to the incorrect answer and missed the opportunity for the student to understand the correct mathematical principle underlying the problem.",False,No Match,2025-06-24T18:21:54.197012
+22,Substitution,'Substitution',True,Partial Match,2025-06-24T18:21:54.243522
+23,Multiplication,14,False,No Match,2025-06-24T18:21:54.295037
+24,Word Problem Comprehension,subtraction,False,No Match,2025-06-24T18:21:54.333545
+25,Fractions,"The student made a procedural error by incorrectly subtracting the number of hits he got from the first hundred from the total number of balls Ralph had, resulting in an incorrect calculation for Ralph's total hits from the machine.",False,No Match,2025-06-24T18:21:54.783434
+26,Unit Conversion,Percentage,False,No Match,2025-06-24T18:21:54.811924
+27,Percentages,Percentages,True,Exact Match,2025-06-24T18:21:54.854924
+28,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:54.909441
+29,Ratio and Proportion,Percentages,False,No Match,2025-06-24T18:21:54.957439
+30,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:55.023953
+31,Multiplication,Multiplication.,True,Partial Match,2025-06-24T18:21:55.068957
+32,Subtraction,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:55.135466
+33,Word Problem Comprehension,'Conceptual Understanding',False,No Match,2025-06-24T18:21:55.185470
+34,Addition,$1942$,False,No Match,2025-06-24T18:21:55.235982
+35,Percentage,Percentage,True,Exact Match,2025-06-24T18:21:55.262981
+36,Fractions,$45$,False,No Match,2025-06-24T18:21:55.296496
+37,Division,$1.20$,False,No Match,2025-06-24T18:21:55.350669
+38,Unit Conversion,1/8 cup per person,False,No Match,2025-06-24T18:21:55.408182
+39,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:55.477181
+40,Subtraction,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:55.544692
+41,Word Problem Comprehension,'Addition',False,No Match,2025-06-24T18:21:55.590695
+42,Division,12,False,No Match,2025-06-24T18:21:55.635204
+43,Addition,$28$,False,No Match,2025-06-24T18:21:55.682204
+44,Percentage to Decimal Conversion,Percentage Calculation,False,No Match,2025-06-24T18:21:55.728716
+45,Word Problem Comprehension,Addition,False,No Match,2025-06-24T18:21:55.751715
+46,Word Problem Comprehension,Unit Conversion,False,No Match,2025-06-24T18:21:55.776714
+47,Division,"1. Computational errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:55.833233
+48,Division,'Addition',False,No Match,2025-06-24T18:21:55.867231
+49,Word Problem Comprehension,Multiplication.,False,No Match,2025-06-24T18:21:55.910653
+50,Subtraction,10,False,No Match,2025-06-24T18:21:55.953655
+51,Multiplication,Area Calculation,False,No Match,2025-06-24T18:21:55.997658
+52,Subtraction,"10x + 10 = 40
+
+$\boxed{3}$",False,No Match,2025-06-24T18:21:56.088768
+53,Multiplication,$19$,False,No Match,2025-06-24T18:21:56.121277
+54,Subtraction,$1$,False,No Match,2025-06-24T18:21:56.165278
+55,Percentage,Percentage,True,Exact Match,2025-06-24T18:21:56.196280
+56,Word Problem Comprehension,Unit Conversion,False,No Match,2025-06-24T18:21:56.222790
+57,Fractions,"Liza used half for chocolate chip cookies and one-fifth for peanut butter cookies, but she used only two kilos of butter for both types of cookies.",False,No Match,2025-06-24T18:21:56.359812
+58,Weighted Average,Fractions,False,No Match,2025-06-24T18:21:56.386819
+59,Addition,Addition,True,Exact Match,2025-06-24T18:21:56.410325
+60,Multiplication,Multiplication.,True,Partial Match,2025-06-24T18:21:56.442325
+61,Multiplication,1/2,False,No Match,2025-06-24T18:21:56.492329
+62,Subtraction,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:56.561838
+63,Subtraction,Addition,False,No Match,2025-06-24T18:21:56.599348
+64,Percentage,Percentage,True,Exact Match,2025-06-24T18:21:56.627351
+65,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:21:56.654353
+66,Word Problem Comprehension,'Addition',False,No Match,2025-06-24T18:21:56.702864
+67,Fractions,Average of averages,False,No Match,2025-06-24T18:21:56.748862
+68,Division,1/4,False,No Match,2025-06-24T18:21:56.796865
+69,Addition,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:56.852995
+70,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:21:56.881993
+71,Addition,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:56.948506
+72,Fractions,Volume Calculation,False,No Match,2025-06-24T18:21:56.993509
+73,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:57.060019
+74,Division,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:57.127118
+75,Addition,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:57.181118
+76,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:57.251630
+77,Word Problem Comprehension,Subtraction,False,No Match,2025-06-24T18:21:57.283143
+78,Word Problem Comprehension,Addition.,False,No Match,2025-06-24T18:21:57.308659
+79,Word Problem Comprehension,Subtraction,False,No Match,2025-06-24T18:21:57.335657
+80,Ratios and Proportions,"1. Computational Errors (wrong operations, calculation mistakes)
+
+The student's wrong answer was incorrect because they added the numbers together incorrectly. They should have added the numbers correctly to get 40 + 150 = 290, not 300. This error led to the misunderstanding of how many cans of milk Jennifer brought home from the store.",False,No Match,2025-06-24T18:21:57.576681
+81,Addition,Average,False,No Match,2025-06-24T18:21:57.614195
+82,Addition,$10$,False,No Match,2025-06-24T18:21:57.649197
+83,Word Problem Comprehension,Multiplication.,False,No Match,2025-06-24T18:21:57.694202
+84,Multiplication,Multiplication.,True,Partial Match,2025-06-24T18:21:57.723713
+85,Subtraction,"1. Computational Errors
+
+The student's wrong answer was due to a computational error where they incorrectly added two instead of subtracting one. This mistake led them to conclude that Jolyn is 2 months older than Leon, which was not the correct calculation based on the information provided in the problem.",False,No Match,2025-06-24T18:21:57.911738
+86,Division,"1. Computational Errors
+
+The student's wrong answer was due to a computational error where he subtracted $0.50 from $1.50 instead of dividing $1.50 by $.25. This mistake led him to get the incorrect result of $1.25, which is not what he needed to find.",False,No Match,2025-06-24T18:21:58.145765
+87,Decimal Multiplication,Multiplication,True,Partial Match,2025-06-24T18:21:58.174766
+88,Multiplication,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:58.230277
+89,Multiplication,Percentage Increase,False,No Match,2025-06-24T18:21:58.276284
+90,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:58.332905
+91,Division,"The student made a mistake by incorrectly dividing $100 by 10 instead of multiplying by 2. This error led to an incorrect calculation of the hourly rate, resulting in the wrong answer.",False,No Match,2025-06-24T18:21:58.487762
+92,Multiplication,$500$,False,No Match,2025-06-24T18:21:58.538271
+93,Multiplication,Multiplication.,True,Partial Match,2025-06-24T18:21:58.582269
+94,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:21:58.610781
+95,Multiplication,Percentage,False,No Match,2025-06-24T18:21:58.656783
+96,Multiplication,Unit Conversion (implied),False,No Match,2025-06-24T18:21:58.708296
+97,Deduction,Addition,False,No Match,2025-06-24T18:21:58.745295
+98,Multiplication,"1. Computational Errors
+
+The student's wrong answer was due to a computational error in their calculation. They incorrectly added 4 and 8 instead of multiplying 4 by 2, which resulted in an incorrect total of 19 gumballs. This error led to the incorrect computation of 19 - 7 = 12, which was then multiplied by 7 to get 81, not 19.",False,No Match,2025-06-24T18:21:59.022834
+99,Ratios,One of the most critical missing prerequisites is understanding how to calculate the number of fish that can fit in a tank based on their size and the amount of water they consume per gallon. This skill is crucial for accurately determining the capacity of each tank and ensuring that Gail has enough space for her two fish tanks.,False,No Match,2025-06-24T18:21:59.230859
+100,Word Problem Comprehension,Perpendicularity,False,No Match,2025-06-24T18:21:59.264864
+101,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:21:59.303888
+102,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:59.358889
+103,Addition,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:59.428399
+104,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:21:59.457402
+105,Addition,Addition,True,Exact Match,2025-06-24T18:21:59.495405
+106,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:21:59.549914
+107,Word Problem Comprehension,The missing prerequisite skill is 'Addition'.,False,No Match,2025-06-24T18:21:59.612427
+108,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:21:59.653427
+109,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)
+
+The student's wrong answer was due to a computational error where they incorrectly multiplied 20 by 5 instead of dividing by 5. This led to an incorrect calculation and resulted in the incorrect answer of 100 nuggets.",False,No Match,2025-06-24T18:21:59.860449
+110,Word Problem Comprehension,Unit Rate,False,No Match,2025-06-24T18:21:59.900960
+111,Subtraction,$24$,False,No Match,2025-06-24T18:21:59.934960
+112,Addition,Addition,True,Exact Match,2025-06-24T18:21:59.971960
+113,Subtraction,Percentages,False,No Match,2025-06-24T18:22:00.000475
+114,Word Problem Comprehension,Addition.,False,No Match,2025-06-24T18:22:00.029480
+115,Algebraic Thinking,"The student made a mistake by incorrectly calculating the number of red jelly beans based on the incorrect fraction of the red jelly beans. They should have used the correct formula for finding the total number of jelly beans, which is $3000 = \frac{750}{4}$.",False,No Match,2025-06-24T18:22:00.246505
+116,Variable Assignment,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:00.317533
+117,Variable Assignment,29,False,No Match,2025-06-24T18:22:00.550191
+118,Pattern Recognition,Addition,False,No Match,2025-06-24T18:22:00.575193
+119,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:00.626087
+120,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:22:00.670087
+121,Rate,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:00.742597
+122,Subtraction,1/5 of the chairs were not occupied.,False,No Match,2025-06-24T18:22:00.805115
+123,Subtraction,Unit Rate,False,No Match,2025-06-24T18:22:00.848113
+124,Fractions,"1. Computational Errors
+
+The student's wrong answer was due to a computational error where they incorrectly multiplied the third ball by three instead of multiplying it by two. This led to an incorrect calculation for the total number of feet Joy used for the second ball. The correct calculation should have been $30 \times 2 = 60$, not $15 \times 3 = 45$.",False,No Match,2025-06-24T18:22:01.107648
+125,Addition,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:01.162648
+126,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:01.216162
+127,Multiplication,Addition.,False,No Match,2025-06-24T18:22:01.259160
+128,Rounding,10,False,No Match,2025-06-24T18:22:01.301189
+129,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:01.354186
+130,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:22:01.397190
+131,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:01.464700
+132,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:22:01.492707
+133,Fractions,1/4,False,No Match,2025-06-24T18:22:01.524043
+134,Multiplication,$108,False,No Match,2025-06-24T18:22:01.572043
+135,Algebraic Thinking,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:01.640550
+136,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:01.698555
+137,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:01.763062
+138,Addition,'Subtraction',False,No Match,2025-06-24T18:22:01.812325
+139,Multiplication,15,False,No Match,2025-06-24T18:22:01.860327
+140,Subtraction,Percentages,False,No Match,2025-06-24T18:22:01.904838
+141,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:01.957837
+142,Percentages,"1. Computational Errors
+
+The student's wrong answer was based on incorrect calculations involving percentages and fractions. They incorrectly divided 25% by 75%, which resulted in a calculation that did not make sense in the context of the problem. This error led to an incorrect percentage of germs remaining after using both sanitizer sprays together, resulting in the incorrect final answer.",True,Partial Match,2025-06-24T18:22:02.179864
+143,Proportions,1/4,False,No Match,2025-06-24T18:22:02.228377
+144,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:02.295900
+145,Unit Conversion,Multiplication,False,No Match,2025-06-24T18:22:02.324412
+146,Subtraction,"22 + 25 = 47, 47 + 29 = 76.",False,No Match,2025-06-24T18:22:02.431921
+147,Subtraction,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:02.486924
+148,Word Problem Comprehension,Percentage,False,No Match,2025-06-24T18:22:02.514434
+149,Future Value Calculation,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:02.566436
+150,Algebraic Thinking,Algebraic Thinking,True,Exact Match,2025-06-24T18:22:02.597439
+151,Subtraction,261,False,No Match,2025-06-24T18:22:02.643947
+152,Subtraction,Percentage,False,No Match,2025-06-24T18:22:02.670948
+153,Subtraction,Percentage,False,No Match,2025-06-24T18:22:02.712459
+154,Word Problem Comprehension,Simple Interest Calculation,False,No Match,2025-06-24T18:22:02.757457
+155,Subtraction,"1. Computational Errors
+
+The student's wrong answer was due to a computational error in the calculation of the number of mangoes left after selling half of the trees. The correct calculation should have been $60 \times 8 = 480$, not $20 \times 8 = 160$. This error led to the incorrect solution and resulted in the student's wrong answer.",False,No Match,2025-06-24T18:22:03.007998
+156,Multiplication,'Addition',False,No Match,2025-06-24T18:22:03.056997
+157,Subtraction,1. Addition,False,No Match,2025-06-24T18:22:03.103514
+158,Subtraction,Multiplication.,False,No Match,2025-06-24T18:22:03.147514
+159,Word Problem Comprehension,"1. Computational Errors
+
+The student's wrong answer was due to a computational error in their calculation of the price increase for the weekend haircuts. They incorrectly added $18 to $18 instead of doubling it, leading to an incorrect total of $36. This error required them to have a solid understanding of percentages and ratios to correctly calculate the cost increase.",False,No Match,2025-06-24T18:22:03.374542
+160,Division,Multiplication.,False,No Match,2025-06-24T18:22:03.418054
+161,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:03.472053
+162,Percentage Calculation,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:03.543563
+163,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:03.612079
+164,Addition,$\boxed{10}$,False,No Match,2025-06-24T18:22:03.665079
+165,Unit Conversion,10,False,No Match,2025-06-24T18:22:03.708591
+166,Division,Unit Conversion,False,No Match,2025-06-24T18:22:03.751592
+167,Proportional Reasoning,Percentage,False,No Match,2025-06-24T18:22:03.778590
+168,Word Problem Comprehension,10%,False,No Match,2025-06-24T18:22:03.826105
+169,Ratios,Percentage Increase,False,No Match,2025-06-24T18:22:03.856104
+170,Unit Conversion,-288,False,No Match,2025-06-24T18:22:03.892107
+171,Multiplication,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:03.945618
+172,Word Problem Comprehension,270,False,No Match,2025-06-24T18:22:03.978617
+173,Word Problem Comprehension,Ratios,False,No Match,2025-06-24T18:22:04.019127
+174,Addition,Multiplication.,False,No Match,2025-06-24T18:22:04.049126
+175,Average Speed,Speed,True,Partial Match,2025-06-24T18:22:04.090132
+176,Multiplication,Unit Conversion,False,No Match,2025-06-24T18:22:04.118639
+177,Multiplication,Percentage Calculation,False,No Match,2025-06-24T18:22:04.164641
+178,Subtraction,Percentage,False,No Match,2025-06-24T18:22:04.209663
+179,Multiplication,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:04.275669
+180,Word Problem Comprehension,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:04.330692
+181,Addition,Percentage,False,No Match,2025-06-24T18:22:04.357692
+182,Fractions,$100$,False,No Match,2025-06-24T18:22:04.410202
+183,Word Problem Comprehension,'Subtraction',False,No Match,2025-06-24T18:22:04.459202
+184,Subtraction,Addition,False,No Match,2025-06-24T18:22:04.484204
+185,Word Problem Comprehension,Addition and Subtraction,False,No Match,2025-06-24T18:22:04.519715
+186,Addition,Unit Conversion,False,No Match,2025-06-24T18:22:04.560715
+187,Multiplication,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:04.631227
+188,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:22:04.658230
+189,Variable Assignment,"1. Computational Errors (wrong operations, calculation mistakes)
+
+The student's wrong answer involves a computational error where they incorrectly multiplied 1456 by 13 instead of dividing it by 13. This mistake leads to the incorrect computation of Captain America's age and then Peter Parker's age. The missing prerequisite skill here is basic arithmetic operations, specifically division.",False,No Match,2025-06-24T18:22:04.900756
+190,Variable Assignment,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:04.952761
+191,Addition,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:05.020896
+192,Division,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:05.088901
+193,Ratio and Proportion,Percentages,False,No Match,2025-06-24T18:22:05.131407
+194,Addition,'Subtraction',False,No Match,2025-06-24T18:22:05.180408
+195,Subtraction,Multiplication,False,No Match,2025-06-24T18:22:05.221921
+196,Subtraction,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:05.320942
+197,Fractions,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:05.389945
+198,Addition,"1. Computational Errors (wrong operations, calculation mistakes)",False,No Match,2025-06-24T18:22:05.457454
+199,Word Problem Comprehension,$100 per month,False,No Match,2025-06-24T18:22:05.508964
