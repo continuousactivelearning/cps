@@ -1,0 +1,183 @@
+require('dotenv').config(); // Load environment variables
+const express = require('express');
+const cors = require('cors');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+
+const app = express();
+const port = process.env.PORT || 5000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Initialize Gemini API
+const API_KEY = process.env.GEMINI_API_KEY;
+if (!API_KEY) {
+    console.error("GEMINI_API_KEY is not set in the .env file.");
+    process.exit(1);
+}
+const genAI = new GoogleGenerativeAI(API_KEY);
+
+// Helper function to call Gemini API
+async function callGeminiAPI(prompt, modelEndpoints) {
+    let lastError = null;
+    for (const model of modelEndpoints) {
+        try {
+            const modelInstance = genAI.getGenerativeModel({ model });
+            const result = await modelInstance.generateContent(prompt);
+            const response = await result.response;
+            const text = response.text();
+
+            try {
+                const jsonMatch = text.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    return JSON.parse(jsonMatch[0]);
+                } else {
+                    // Fallback for non-JSON text responses (you'd need to adapt parseTextResponse from frontend)
+                    return { error: "Non-JSON response, needs frontend parsing logic." };
+                }
+            } catch (parseError) {
+                return { error: "Failed to parse JSON, needs frontend parsing logic." };
+            }
+        } catch (error) {
+            lastError = error.message;
+            console.warn(`Model ${model} failed: ${error.message}`);
+        }
+    }
+    throw new Error(`All models failed. Last error: ${lastError}. Please check your API key and try again.`);
+}
+
+
+// Route to generate learning path
+app.post('/api/generate-path', async (req, res) => {
+    const { topic, level, duration, timeCommitment } = req.body;
+
+    const prompt = `Create a comprehensive learning path for "${topic}" with the following specifications:
+    - Current level: ${level}
+    - Duration: ${duration}
+    - Time commitment: ${timeCommitment} per day
+
+    Please provide a structured learning path with:
+    1. A brief overview/description
+    2. 5-7 learning stages/phases
+    3. For each stage: title, description, key concepts, estimated duration, and recommended resources
+
+    Format the response as JSON with this structure:
+    {
+        "overview": "Brief description of the learning journey",
+        "stages": [
+            {
+                "title": "Stage title",
+                "description": "What you'll learn in this stage",
+                "duration": "Estimated time for this stage",
+                "keyTopics": ["topic1", "topic2", "topic3"]
+            }
+        ]
+    }`;
+
+    const modelEndpoints = [
+        'gemini-1.5-flash-latest',
+        'gemini-1.5-pro-latest',
+        'gemini-pro',
+        'gemini-1.5-flash',
+        'gemini-1.5-pro'
+    ];
+
+    try {
+        const learningPath = await callGeminiAPI(prompt, modelEndpoints);
+        res.json(learningPath);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Route to get topic details
+app.post('/api/topic-details', async (req, res) => {
+    const { topic, stageTitle, mainTopic, level } = req.body;
+
+    const prompt = `Provide comprehensive learning resources for the topic "${topic}" which is part of "${stageTitle}" stage in learning ${mainTopic} at ${level} level.
+
+    Please provide:
+    1. Brief explanation of the topic (2-3 sentences)
+    2. 3-4 high-quality online resources/tutorials (include actual URLs if possible)
+    3. 2-3 practice problems or exercises
+    4. Key concepts to master
+    5. Recommended tools or platforms
+
+    Format as JSON:
+    {
+        "explanation": "Brief explanation of the topic",
+        "resources": [
+            {"title": "Resource title", "url": "URL", "description": "Brief description"},
+            {"title": "Resource title", "url": "URL", "description": "Brief description"}
+        ],
+        "practiceProblems": [
+            "Problem description 1",
+            "Problem description 2"
+        ],
+        "keyConcepts": ["concept1", "concept2", "concept3"],
+        "tools": ["tool1", "tool2", "tool3"]
+    }`;
+
+    const modelEndpoints = [
+        'gemini-1.5-flash-latest',
+        'gemini-1.5-pro-latest',
+        'gemini-pro'
+    ];
+
+    try {
+        const topicDetails = await callGeminiAPI(prompt, modelEndpoints);
+        res.json(topicDetails);
+    } catch (error) {
+        // If API fails, provide a fallback from the backend
+        const searchQuery = encodeURIComponent(`${topic} ${mainTopic}`);
+        const fallbackDetails = {
+            explanation: `${topic} is a fundamental concept in ${mainTopic}. Understanding this topic is crucial for building a strong foundation and advancing your skills.`,
+            resources: [
+                {
+                    title: `${topic} - Documentation`,
+                    url: `https://www.google.com/search?q=${searchQuery}+documentation`,
+                    description: "Official documentation and guides"
+                },
+                {
+                    title: `${topic} - Video Tutorials`,
+                    url: `https://www.youtube.com/results?search_query=${searchQuery}+tutorial`,
+                    description: "Comprehensive video tutorials"
+                },
+                {
+                    title: `${topic} - Interactive Learning`,
+                    url: `https://www.codecademy.com/search?query=${searchQuery}`,
+                    description: "Hands-on interactive exercises"
+                },
+                {
+                    title: `${topic} - Community Discussions`,
+                    url: `https://stackoverflow.com/search?q=${searchQuery}`,
+                    description: "Community Q&A and problem solving"
+                }
+            ],
+            practiceProblems: [
+                `Create a simple project implementing ${topic} concepts`,
+                `Solve coding challenges related to ${topic}`,
+                `Build a mini-application using ${topic} principles`
+            ],
+            keyConcepts: [
+                `Core ${topic} principles`,
+                `Best practices and patterns`,
+                `Common use cases and applications`,
+                `Integration with other concepts`
+            ],
+            tools: [
+                "Online code editors",
+                "Documentation sites",
+                "Practice platforms",
+                "Community forums"
+            ]
+        };
+        res.json(fallbackDetails);
+    }
+});
+
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
