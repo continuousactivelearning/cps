@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
+import GoogleTranslateWidget from "./GoogleTranslateWidget";
 
 const Navbar: React.FC = () => {
   const { userId, logout } = useContext(AuthContext);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary px-4">
       <Link className="navbar-brand" to="/">
@@ -23,6 +25,12 @@ const Navbar: React.FC = () => {
 
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ms-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/">
+              Home
+            </Link>
+          </li>
+
           {userId ? (
             <>
               <li className="nav-item">
@@ -38,7 +46,6 @@ const Navbar: React.FC = () => {
               <li className="nav-item">
                 <button
                   className="btn btn-outline-light ms-2"
-                  style={{ cursor: "pointer" }}
                   onClick={logout}
                 >
                   Logout
@@ -46,29 +53,17 @@ const Navbar: React.FC = () => {
               </li>
             </>
           ) : (
-            <>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <button
-                  className="btn btn-outline-light ms-2"
-                  style={{ cursor: "pointer" }}
-                  onClick={logout}
-                >
-                  Logout
-                </button>
-              </li>
-            </>
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">
+                Login
+              </Link>
+            </li>
           )}
         </ul>
+
+        <div className="ms-3">
+          <GoogleTranslateWidget />
+        </div>
       </div>
     </nav>
   );
