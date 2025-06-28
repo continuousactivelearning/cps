@@ -377,7 +377,7 @@ const InstructorStudents: React.FC = () => {
             </motion.div>
             {/* Student detail modal (glassmorphism) */}
             <Modal isOpen={!!selected} onRequestClose={() => { setSelected(null); setDetail(null); }} ariaHideApp={false} className="fixed inset-0 flex items-center justify-center z-[9999]" overlayClassName="fixed inset-0 bg-black/40 z-[9998]">
-              <div className="bg-white/80 dark:bg-gray-900/90 rounded-2xl shadow-2xl p-8 w-full max-w-lg relative backdrop-blur-xl border border-gray-200/40 dark:border-gray-700/60 z-[9999]">
+              <div className="bg-white/80 dark:bg-gray-900/90 rounded-2xl shadow-2xl w-full max-w-lg relative backdrop-blur-xl border border-gray-200/40 dark:border-gray-700/60 z-[9999] max-h-[90vh] overflow-y-auto p-8 scrollbar-thin scrollbar-thumb-blue-400 scrollbar-track-blue-100 dark:scrollbar-thumb-blue-700">
                 <button className="absolute top-2 right-4 text-2xl text-white" onClick={() => { setSelected(null); setDetail(null); }}>&times;</button>
                 {detailLoading ? (
                   <div>Loading...</div>
@@ -432,6 +432,36 @@ const InstructorStudents: React.FC = () => {
                           {(!detail.searchHistory || detail.searchHistory.length === 0) && <span className="text-gray-400">No search history</span>}
                         </div>
                       </div>
+                      <div className="bg-white/80 dark:bg-gray-800/80 rounded-xl p-4 border border-indigo-200/40 dark:border-indigo-700/60 shadow col-span-2">
+                        <div className="font-semibold text-indigo-700 mb-3 flex items-center gap-2">
+                          <FaClipboardList className="w-5 h-5" /> Assessment History
+                        </div>
+
+                        <div className="overflow-x-auto">
+                          <div className="flex gap-4 w-max pb-2">
+                            {(detail.assessmentHist || []).length > 0 ? (
+                              detail.assessmentHist.map((a: any, i: number) => (
+                                <div
+                                  key={i}
+                                  className="min-w-[220px] bg-indigo-100 text-indigo-900 px-4 py-3 rounded-xl shadow-md flex-shrink-0 border border-indigo-300"
+                                >
+                                  <div className="font-bold mb-1">{a.topic}</div>
+                                  <div className="text-sm mb-1">Score: <b>{a.score}</b></div>
+                                  <div className={`text-sm mb-1 font-semibold ${a.passed ? 'text-green-600' : 'text-red-600'}`}>
+                                    {a.passed ? '✅ Passed' : '❌ Failed'}
+                                  </div>
+                                  <div className="text-xs text-gray-600">
+                                    {new Date(a.createdAt).toLocaleString()}
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <div className="text-gray-400">No assessments found</div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                     <div className="flex gap-2 mt-4">
                       {!detail.flagged && <button onClick={handleFlag} className="bg-yellow-400 text-white px-4 py-2 rounded-lg font-semibold shadow hover:scale-105 transition">Flag</button>}

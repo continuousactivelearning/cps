@@ -103,9 +103,10 @@ router.get('/students/:id', async (req, res) => {
     const student = await User.findById(req.params.id, '_id email profile achievements passedArray flagged deactivated searchHistory');
     if (!student) return res.status(404).json({ message: 'Student not found' });
     // Fetch number of assessments attempted from AssessmentHistory
-    const assessmentsAttempted = await AssessmentHistory.countDocuments({ userEmail: student.email });
+    const assessmentsAttempted = await AssessmentHistory.find({ userEmail: student.email }).select('topic score passed createdAt -_id');
     const studentObj = student.toObject();
-    studentObj.assessmentsAttempted = assessmentsAttempted;
+    studentObj.assessmentsAttempted = assessmentsAttempted.length;
+    studentObj.assessmentHist = assessmentsAttempted;
     res.json(studentObj);
   } catch (err) {
     res.status(401).json({ message: 'Invalid or expired token' });
