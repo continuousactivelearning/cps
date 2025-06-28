@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
-import Navbar from '../landingp/Navbar';
-import HeroSection from '../landingp/HeroSection';
-import Features from '../landingp/Features';
-import CTASection from '../landingp/CTASection';
 import Footer from '../components/Footer';
+import CTASection from '../landingp/CTASection';
+import Features from '../landingp/Features';
+import HeroSection from '../landingp/HeroSection';
+import Navbar from '../landingp/Navbar';
 
 const LandingPage = () => {
   return (
@@ -16,5 +16,5 @@ const LandingPage = () => {
     </Box>
   );
 };
-    
+
 export default LandingPage;
