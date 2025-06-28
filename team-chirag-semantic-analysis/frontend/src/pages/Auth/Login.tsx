@@ -1,3 +1,4 @@
+// src/pages/Auth/Login.tsx
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
@@ -6,18 +7,23 @@ import {
   Button,
   CircularProgress,
   Container,
-  IconButton, InputAdornment,
+  Divider,
+  IconButton,
+  InputAdornment,
   Link,
   Paper,
   Snackbar,
   TextField,
-  Typography
+  Typography   
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
+import GoogleIcon from '@mui/icons-material/Google';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../../firebase/config';
 
 const LoginSchema = z.object({
   email: z.string().email({ message: 'Enter a valid email address' }),
@@ -47,12 +53,9 @@ const Login: React.FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     try {
-      // Simulate async login
       await new Promise((res) => setTimeout(res, 1000));
-      
-      // FIX 1: Store authentication token
       localStorage.setItem('token', 'dummy-auth-token');
-      
+
       setSnackbarMsg('Login successful!');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
@@ -69,9 +72,35 @@ const Login: React.FC = () => {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
     if (navigateOnSnackbarClose && snackbarSeverity === 'success') {
-      // FIX 2: Check onboarding status before navigation
       const onboardingCompleted = localStorage.getItem('onboardingCompleted') === 'true';
       navigate(onboardingCompleted ? '/chat' : '/onboarding');
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      localStorage.setItem('token', await user.getIdToken());
+      localStorage.setItem(
+        'userProfile',
+        JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        })
+      );
+
+      setSnackbarMsg('Google login successful!');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
+      setNavigateOnSnackbarClose(true);
+    } catch (error) {
+      console.error(error);
+      setSnackbarMsg('Google sign-in failed.');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
     }
   };
 
@@ -83,7 +112,7 @@ const Login: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        px: 2
+        px: 2,
       }}
     >
       <Container maxWidth="sm">
@@ -100,6 +129,36 @@ const Login: React.FC = () => {
               Log in to continue your journey
             </Typography>
 
+            {/* Google Sign-In */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              style={{ marginBottom: 16 }}
+            >
+              <Button
+                fullWidth
+                variant="contained"
+                startIcon={<GoogleIcon />}
+                onClick={handleGoogleLogin}
+                sx={{
+                  background: 'linear-gradient(to right, #4285F4, #34A853)',
+                  color: 'white',
+                  textTransform: 'none',
+                  py: 1.5,
+                  fontWeight: 600,
+                  mb: 2,
+                  '&:hover': {
+                    background: 'linear-gradient(to right, #3367d6, #2c8e4e)',
+                  },
+                }}
+              >
+                Sign in with Google
+              </Button>
+            </motion.div>
+
+            <Divider sx={{ mb: 3 }}>or</Divider>
+
+            {/* Email/Password Form */}
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
               <TextField
                 label="Email Address"
@@ -131,7 +190,7 @@ const Login: React.FC = () => {
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
-                  )
+                  ),
                 }}
               />
 
