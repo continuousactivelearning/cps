@@ -10,6 +10,8 @@ import LandingPage from './pages/LandingPage';
 import OnboardingPage from './pages/OnboardingPage';
 import StudentView from './pages/StudentView';
 import StudentProfile from './pages/StudentProfile'; // ✅ Import profile page
+import { AuthProvider } from "./contexts/AuthContext";
+import GoogleLoginPage from "./pages/GoogleLoginPage";
 
 const App = () => {
   return (
@@ -17,7 +19,6 @@ const App = () => {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-
       <Route
         path="/onboarding"
         element={
@@ -26,7 +27,9 @@ const App = () => {
           </AuthGuard>
         }
       />
-
+       <Route path="/login" element={<GoogleLoginPage />} />
+          {/* other routes */}
+      
       <Route
         path="/student"
         element={
