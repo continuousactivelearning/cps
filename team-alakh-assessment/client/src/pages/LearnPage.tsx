@@ -1,5 +1,5 @@
 // developed by :@AlakhMathur
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -18,11 +18,18 @@ import {
 import api from "../services/api";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "../components/ThemeToggle";
+import { marked } from "marked"; 
+
+
+marked.setOptions({
+  gfm: true, // Enable GitHub Flavored Markdown
+  breaks: true, // Convert line breaks to <br>
+});
 
 interface LearningModule {
   id: string;
   title: string;
-  content: string;
+  content: string; // This will hold the raw Markdown
   duration: string;
   type: "text" | "video" | "interactive";
   downloadUrl?: string;
@@ -33,9 +40,9 @@ const LearnPage: React.FC = () => {
   const { topic } = useParams<{ topic: string }>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [content, setContent] = useState<string>("");
+  const [renderedContent, setRenderedContent] = useState<string>(""); // Store HTML content
   const [modules, setModules] = useState<LearningModule[]>([]);
-  const [currentModule, setCurrentModule] = useState(0);
+  const [currentModuleIndex, setCurrentModuleIndex] = useState(0); // Renamed for clarity
   const [expandedModules, setExpandedModules] = useState<Set<number>>(
     new Set([0])
   );
@@ -50,49 +57,79 @@ const LearnPage: React.FC = () => {
   >([]);
   const [totalProgress, setTotalProgress] = useState(0);
 
+  // Function to fetch and display a specific module's content
+  const fetchAndDisplayModuleContent = useCallback(async (moduleToDisplay: LearningModule) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await api.get(
+        `/api/learn/${encodeURIComponent(topic!)}/module/${moduleToDisplay.id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      // Convert Markdown to HTML
+      const html = await marked.parse(response.data.content);
+      setRenderedContent(html);
+    } catch (err) {
+      console.error("Error fetching module content:", err);
+      setRenderedContent("<p>Failed to load module content.</p>");
+    }
+  }, [topic]); // Dependency on topic
+
   useEffect(() => {
-    const fetchLearningContent = async () => {
+    const fetchLearningData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const contentResponse = await api.get(
-          `/api/learn/${encodeURIComponent(topic!)}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+
+        // Fetch all modules for the topic
         const modulesResponse = await api.get(
           `/api/learn/${encodeURIComponent(topic!)}/modules`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
+        const fetchedModules: LearningModule[] = modulesResponse.data.modules || [];
+        setModules(fetchedModules);
+
+        // Fetch learning history
         const historyResponse = await api.get(
           `/api/learn/history/${encodeURIComponent(topic!)}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-
-        setContent(contentResponse.data.content);
-        setModules(modulesResponse.data.modules || []);
         setLearningHistory(historyResponse.data.history || []);
 
-        const completedModules =
-          modulesResponse.data.modules?.filter(
-            (m: LearningModule) => m.completed
-          ).length || 0;
-        const totalModules = modulesResponse.data.modules?.length || 1;
+        // Calculate progress
+        const completedModules = fetchedModules.filter(
+          (m) => m.completed
+        ).length;
+        const totalModules = fetchedModules.length || 1;
         setTotalProgress(Math.round((completedModules / totalModules) * 100));
+
+        // If modules exist, fetch and display the first one's content initially
+        if (fetchedModules.length > 0) {
+          fetchAndDisplayModuleContent(fetchedModules[0]);
+          setCurrentModuleIndex(0); // Ensure the first module is active
+        }
       } catch (err: unknown) {
-        console.error("Error fetching learning content:", err);
+        console.error("Error fetching learning data:", err);
         setError("Failed to load learning content. Please try again.");
       } finally {
         setLoading(false);
       }
     };
 
-    if (topic) fetchLearningContent();
-  }, [topic]);
+    if (topic) fetchLearningData();
+  }, [topic, fetchAndDisplayModuleContent]); // Add fetchAndDisplayModuleContent to dependencies
+
+  // Effect to update displayed content when currentModuleIndex changes
+  useEffect(() => {
+    if (modules.length > 0 && modules[currentModuleIndex]) {
+      fetchAndDisplayModuleContent(modules[currentModuleIndex]);
+      window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top when module changes
+    }
+  }, [currentModuleIndex, modules, fetchAndDisplayModuleContent]);
 
   const handleModuleComplete = async (moduleId: string) => {
     try {
@@ -103,10 +140,12 @@ const LearnPage: React.FC = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
+      // Update local state to reflect completion
       setModules((prev) =>
         prev.map((m) => (m.id === moduleId ? { ...m, completed: true } : m))
       );
 
+      // Recalculate progress
       const updatedModules = modules.map((m) =>
         m.id === moduleId ? { ...m, completed: true } : m
       );
@@ -131,7 +170,7 @@ const LearnPage: React.FC = () => {
         `/api/learn/download/${encodeURIComponent(topic!)}/${moduleId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
-          responseType: "blob",
+          responseType: "blob", // Important for binary data like PDF
         }
       );
 
@@ -142,15 +181,12 @@ const LearnPage: React.FC = () => {
       document.body.appendChild(link);
       link.click();
       link.remove();
-      window.URL.revokeObjectURL(url);
+      window.URL.revokeObjectURL(url); // Clean up the URL object
     } catch (err) {
       console.error("Error downloading material:", err);
+      alert("Failed to download PDF. Please try again.");
     }
   };
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [currentModule]);
 
   if (loading) {
     return (
@@ -207,6 +243,8 @@ const LearnPage: React.FC = () => {
       </motion.div>
     );
   }
+
+  const currentModule = modules[currentModuleIndex];
 
   return (
     <motion.div
@@ -282,7 +320,7 @@ const LearnPage: React.FC = () => {
                     <button
                       onClick={() => toggleModuleExpansion(index)}
                       className={`w-full p-3 text-left flex items-center justify-between transition-colors ${
-                        currentModule === index
+                        currentModuleIndex === index
                           ? "bg-blue-50 dark:bg-gray-700 border-blue-200 dark:border-gray-600"
                           : "hover:bg-gray-50 dark:hover:bg-gray-700"
                       }`}
@@ -345,7 +383,11 @@ const LearnPage: React.FC = () => {
                           </div>
                           <div className="flex space-x-2">
                             <button
-                              onClick={() => setCurrentModule(index)}
+                              onClick={() => {
+                                setCurrentModuleIndex(index);
+                                // Ensure this module's content is displayed immediately
+                                fetchAndDisplayModuleContent(modules[index]);
+                              }}
                               className="flex-1 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white text-xs py-2 px-3 rounded transition-colors"
                             >
                               Study
@@ -382,44 +424,39 @@ const LearnPage: React.FC = () => {
                     </div>
                     <div>
                       <h1 className="text-3xl font-bold">
-                        {modules[currentModule]?.title || topic}
+                        {currentModule?.title || topic}
                       </h1>
                       <p className="text-blue-100 mt-1">
-                        {modules[currentModule]?.type === "video"
+                        {currentModule?.type === "video"
                           ? "Video Content"
-                          : modules[currentModule]?.type === "text"
+                          : currentModule?.type === "text"
                           ? "Reading Material"
-                          : modules[currentModule]?.type === "interactive"
+                          : currentModule?.type === "interactive"
                           ? "Interactive Learning"
                           : "Comprehensive Learning Guide"}
                       </p>
                     </div>
                   </div>
 
-                  {modules[currentModule] &&
-                    !modules[currentModule].completed && (
-                      <button
-                        onClick={() =>
-                          handleModuleComplete(modules[currentModule].id)
-                        }
-                        className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2"
-                      >
-                        <CheckCircle className="h-4 w-4" />
-                        <span>Mark Complete</span>
-                      </button>
-                    )}
+                  {currentModule && !currentModule.completed && (
+                    <button
+                      onClick={() => handleModuleComplete(currentModule.id)}
+                      className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2"
+                    >
+                      <CheckCircle className="h-4 w-4" />
+                      <span>Mark Complete</span>
+                    </button>
+                  )}
                 </div>
               </div>
 
-              {/* Content Body */}
+              {/* Content Body - Rendered Markdown */}
               <div className="p-8">
                 <div className="prose prose-lg max-w-none text-gray-800 dark:text-gray-100 transition-colors">
                   <div
                     className="leading-relaxed"
                     dangerouslySetInnerHTML={{
-                      __html: (
-                        modules[currentModule]?.content || content
-                      ).replace(/\n/g, "<br>"),
+                      __html: renderedContent, // Use the HTML rendered from Markdown
                     }}
                   />
                 </div>
@@ -429,9 +466,11 @@ const LearnPage: React.FC = () => {
                   <div className="mt-12 flex items-center justify-between p-6 bg-gray-50 dark:bg-gray-700 rounded-xl transition-colors">
                     <button
                       onClick={() =>
-                        setCurrentModule(Math.max(0, currentModule - 1))
+                        setCurrentModuleIndex(
+                          Math.max(0, currentModuleIndex - 1)
+                        )
                       }
-                      disabled={currentModule === 0}
+                      disabled={currentModuleIndex === 0}
                       className="flex items-center space-x-2 bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors"
                     >
                       <ArrowLeft className="h-4 w-4" />
@@ -439,16 +478,16 @@ const LearnPage: React.FC = () => {
                     </button>
 
                     <span className="text-gray-600 dark:text-gray-300">
-                      Module {currentModule + 1} of {modules.length}
+                      Module {currentModuleIndex + 1} of {modules.length}
                     </span>
 
                     <button
                       onClick={() =>
-                        setCurrentModule(
-                          Math.min(modules.length - 1, currentModule + 1)
+                        setCurrentModuleIndex(
+                          Math.min(modules.length - 1, currentModuleIndex + 1)
                         )
                       }
-                      disabled={currentModule === modules.length - 1}
+                      disabled={currentModuleIndex === modules.length - 1}
                       className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors"
                     >
                       <span>Next</span>
