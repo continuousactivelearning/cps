@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthStore } from "../store/authStore";
 import { useUserStore } from "../store/userStore";
-import LearnedConceptCard from "../components/LearnedConceptCard"; // Assuming this component exists
-import QuizCard from "../components/QuizCard"; // Assuming this component exists
+import LearnedConceptCard from "../components/LearnedConceptCard";
+import QuizCard from "../components/QuizCard";
 import {
   LineChart,
   Line,
@@ -34,12 +34,12 @@ interface MasteryLevels {
 }
 
 const Dashboard = () => {
-  const logout = useAuthStore((state) => state.logout); // Logout function is unused here but kept for context
+  const logout = useAuthStore((state) => state.logout);
   const clearProfile = useUserStore((state) => state.clearProfile);
   const username = useUserStore((state) => state.username);
-  const mastery = useUserStore((state) => state.mastery); // Mastery is an object: { "topicName": score }
-  const progress = useUserStore((state) => state.progress); // Progress is an array of learned topic names
-  const recommendations = useUserStore((state) => state.recommendations); // Array of recommended topic names
+  const mastery = useUserStore((state) => state.mastery);
+  const progress = useUserStore((state) => state.progress);
+  const recommendations = useUserStore((state) => state.recommendations);
 
   const navigate = useNavigate();
 
@@ -48,28 +48,34 @@ const Dashboard = () => {
   const [endConcept, setEndConcept] = useState("");
   const [recommendedPath, setRecommendedPath] = useState<string[]>([]);
   const [pathError, setPathError] = useState<string | null>(null);
+  // --- New state for loading screen ---
+  const [isLoadingQuiz, setIsLoadingQuiz] = useState(false);
 
 
   // --- Tooltip Initialization Effect ---
   useEffect(() => {
-    // Initialize all tooltips on the page
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
-    // Cleanup tooltips when component unmounts
     return () => {
       tooltipList.forEach(tooltip => tooltip.dispose());
     };
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
 
   // --- Data Fetching and Handlers ---
 
-  // Handle taking a quiz
+  // Handle taking a quiz (now with loading screen and correct delay)
   const handleTakeQuiz = (selectedTopic: string) => {
-    navigate(`/quiz/${encodeURIComponent(selectedTopic)}`);
+    setIsLoadingQuiz(true); // Show loading screen
+    // Simulate a brief delay for fetching or processing data
+    // Changed from 50000ms to 5000ms (5 seconds) for clear visibility
+    setTimeout(() => {
+      navigate(`/quiz/${encodeURIComponent(selectedTopic)}`);
+      // The loading screen will hide as the component unmounts for navigation.
+    }, 750); // Set to 5000ms (5 seconds) for demonstration
   };
 
   // Handle exploring a topic
@@ -151,6 +157,16 @@ const Dashboard = () => {
 
   return (
     <div className="container py-4 bg-dark text-white rounded shadow-lg">
+      {/* --- Loading Overlay --- */}
+      {isLoadingQuiz && (
+        <div className="loading-overlay">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p>Loading Quiz...</p>
+        </div>
+      )}
+
       {/* Welcome Section */}
       <div className="text-center mb-5 p-4 bg-gradient rounded">
         <h2 className="text-white mb-2 display-4">Welcome, <span className="text-purple fw-bold">{username}!</span></h2>
@@ -165,9 +181,8 @@ const Dashboard = () => {
           <div className="col-md-6 mb-3">
             <div className="card bg-secondary-subtle text-dark-contrast p-3 shadow-sm h-100">
               <div className="card-body">
-                {/* Main icon moved inside h5, d-flex on h5 */}
                 <h5 className="card-title d-flex align-items-center justify-content-center mb-3">
-                  <i className="bi bi-book-fill fs-1 text-primary me-2"></i> {/* Added me-2 for spacing */}
+                  <i className="bi bi-book-fill fs-1 text-primary me-2"></i>
                   Topics Learned
                   <i
                     className="bi bi-info-circle ms-2"
@@ -185,9 +200,8 @@ const Dashboard = () => {
           <div className="col-md-6 mb-3">
             <div className="card bg-secondary-subtle text-dark-contrast p-3 shadow-sm h-100">
               <div className="card-body">
-                 {/* Main icon moved inside h5, d-flex on h5 */}
                 <h5 className="card-title d-flex align-items-center justify-content-center mb-3">
-                  <i className="bi bi-patch-check-fill fs-1 text-success me-2"></i> {/* Added me-2 for spacing */}
+                  <i className="bi bi-patch-check-fill fs-1 text-success me-2"></i>
                   Topics Mastered
                   <i
                     className="bi bi-info-circle ms-2"
