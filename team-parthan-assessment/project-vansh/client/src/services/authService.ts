@@ -8,10 +8,11 @@ const fresh = axios.create({
 
 export const login = async (data: { email: string; password: string }) => {
   const response = await api.post('/auth/login', data);
+  console.log("Login response:", response.data);
   return response.data;
 };
 
-export const signup = async (data: { name: string; email: string; password: string; confirmPassword: string }) => {
+export const signup = async (data: { name: string; email: string; role: string, password: string; confirmPassword: string }) => {
   const response = await api.post('/auth/signup', data);
   return response.data;
 };

@@ -8,7 +8,8 @@ const signupSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   password: z.string().min(6),
-  confirmPassword: z.string().min(6)
+  confirmPassword: z.string().min(6),
+  role: z.enum(['student', 'instructor'])
 }).refine(data => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"]
@@ -19,17 +20,26 @@ const loginSchema = z.object({
   password: z.string().min(6)
 });
 
+function generateInstructorCode() {
+  return 'IN' + Math.random().toString(36).substring(2, 8).toUpperCase(); // e.g., IN5A2X9
+}
+
 export const signup = async (req: Request, res: Response) => {
   try {
     const validatedData = signupSchema.parse(req.body);
-    const { name, email, password } = validatedData;
+    const { name, email, password, role } = validatedData;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    const user = new User({ name, email, password});
+    const user = new User({ name, email, password, role});
+    if (role === 'instructor') {
+  const instructorCode = generateInstructorCode(); // e.g., a random 6-digit alphanumeric code
+  user.instructorCode = instructorCode;
+}
+
     await user.save();
 
     const token = jwt.sign(
@@ -38,7 +48,7 @@ export const signup = async (req: Request, res: Response) => {
       { expiresIn: '1d' }
     );
 
-    res.status(201).json({ token, userId: user._id });
+    res.status(201).json({ token, userId: user._id, role: user.role  });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ message: err.errors[0].message });
@@ -66,8 +76,9 @@ export const login = async (req: Request, res: Response) => {
       process.env.JWT_SECRET!,
       { expiresIn: '1d' }
     );
+    console.log('User role:', user.role);
 
-    res.json({ token, userId: user._id });
+    res.json({ token, userId: user._id, role: user.role  });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return res.status(400).json({ message: err.errors[0].message });

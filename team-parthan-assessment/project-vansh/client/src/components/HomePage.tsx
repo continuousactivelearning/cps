@@ -92,7 +92,15 @@ const HomePage: React.FC = () => {
         <div className=" p-3 mt-auto ">
                   {isOpen && <AuthWrapper isOpen={isOpen} setIsOpen={setIsOpen}/>}
                   {name && 
-                  <button className='flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all hover:cursor-pointer' onClick={()=>{navigate('/home')}}>
+                  <button className='flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all hover:cursor-pointer' onClick={()=>{ 
+                    const role = localStorage.getItem('role');
+                  
+                    console.log('User role:', role);
+      if (role === 'instructor') {
+        navigate('/instructor'); // New instructor dashboard route
+      } else {
+        navigate('/home'); // Student main page
+      }}}>
           <User className="w-4 h-4 m-1.5" />
           {name}
         </button>}
@@ -151,7 +159,14 @@ const HomePage: React.FC = () => {
                 <div className=" p-3 mt-auto ">
                   {isOpen && <AuthWrapper isOpen={isOpen} setIsOpen={setIsOpen}/>}
                   {name && 
-                  <button className='flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all hover:cursor-pointer' onClick={()=>{navigate('/home')}}>
+                  <button className='flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all hover:cursor-pointer' onClick={()=>{
+                    const role = localStorage.getItem('role');
+      if (role === 'instructor') {
+        navigate('/instructor'); // New instructor dashboard route
+      } else {
+        navigate('/home'); // Student main page
+      }
+                  }}>
           <User className="w-4 h-4 m-1.5" />
           {name}
         </button>}

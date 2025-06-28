@@ -26,6 +26,8 @@ import downloadReviewAsPDF from "../services/reviewDownload";
 import { mutate } from 'swr';
 import { submitQuiz } from '../services/progressUpdate';
 import CustomQuizResult, { type TopicStats } from './CustomResult';
+import InstructorEnrollmentCard from './EnrollmentCard';
+import SubmitConcernPage from './RaiseConcern';
 
 interface CustomQuizScores {
   [topic: string]: {
@@ -62,6 +64,9 @@ const MainPage: React.FC = () => {
   const [concepts, setConcepts] = useState<{ mainTopic: string[]; prerequisites: string[] } | null>(null);
   const [loadingConcepts, setLoadingConcepts] = useState(false);
   const [topics, setTopics] = useState<Topic[]>([]);
+  const [showUploadConcern, setShowUploadConcern] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
 
   useEffect(() => {
     const fetchTopics = async () => {
@@ -92,6 +97,7 @@ const MainPage: React.FC = () => {
       .map((t) => t.name).length,
     totalScore: 0,
     streak: 0,
+    role: "student",
   });
   useEffect(() => {
     const setstreak = async () => {
@@ -110,6 +116,8 @@ const MainPage: React.FC = () => {
           masteredTopics: details.masteredTopics ? details.masteredTopics : 0,
           totalScore: details.totalScore ? details.totalScore : 0,
           streak: details.streak ? details.streak : 0,
+          enrolledUnder: details.enrolledUnder,
+          role: details.role,
         }));
       } catch (error) {
         console.log("Error fetching details in mainpage ", error);
@@ -1122,6 +1130,42 @@ const MainPage: React.FC = () => {
 
             {/* User Stats */}
             <UserStats customContents={customContents} userProfile={userProfile} topics={topics} />
+
+            <InstructorEnrollmentCard user={userProfile} />
+
+              <div>
+      <button
+        onClick={() => setShowUploadConcern(true)}
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Submit Concern
+      </button>
+
+      {showUploadConcern && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50 overflow-auto p-6">
+          <div className="relative bg-white max-w-3xl w-full rounded-lg shadow-lg">
+            <button
+              onClick={() => setShowUploadConcern(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <SubmitConcernPage enrolledUnder = {userProfile.enrolledUnder} topics={topics}  
+            onClose={() => setShowUploadConcern(false)}
+  onSubmitStatus={(status) => setStatusMessage(status)} />
+          </div>
+          {statusMessage && (
+  <div
+    className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded shadow-lg z-[60] text-white ${
+      statusMessage.type === 'success' ? 'bg-green-600' : 'bg-red-600'
+    }`}
+  >
+    {statusMessage.message}
+  </div>
+)}
+        </div>
+      )}
+    </div>
 
             {/* User Profile Card */}
             <div className="bg-white rounded-xl p-6 shadow-sm border">

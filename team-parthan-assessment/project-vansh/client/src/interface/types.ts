@@ -15,6 +15,9 @@ export interface UserProfile {
   masteredTopics: number;
   totalScore: number;
   streak: number;
+  role: 'student' | 'instructor';
+  enrolledUnder?: string;
+  instructorCode?: string;
 }
 
 export interface CustomContent {

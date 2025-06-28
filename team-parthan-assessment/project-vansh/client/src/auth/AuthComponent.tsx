@@ -28,12 +28,13 @@ const AuthComponent: React.FC<AuthComponentProps> = ({
   const [formData, setFormData] = useState<FormData>({
     email: '',
     password: '',
+    role: '',
     confirmPassword: '',
     name: ''
   });
   const [forgotOpen,setForgotOpen]=useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -75,6 +76,7 @@ const AuthComponent: React.FC<AuthComponentProps> = ({
       : { 
           name: formData.name, 
           email: formData.email, 
+          role: formData.role,
           password: formData.password,
           confirmPassword: formData.confirmPassword 
         };
@@ -85,14 +87,17 @@ const AuthComponent: React.FC<AuthComponentProps> = ({
       // Store the token if the response contains one
       if (response?.token) {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('role', response.role || 'student');
       }
-      navigate("/home");
+      const target = response?.role === 'instructor' ? '/instructor' : '/home';
+    navigate(target);
     } else {
       // Call onSignup with all signup fields
       const response = await onSignup?.(dataToSend);
       // Store the token if the response contains one
       if (response?.token) {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('role', response.role || 'student');
       }
       // Optionally switch to login mode after successful signup
       setIsLogin(true);
@@ -110,6 +115,7 @@ const AuthComponent: React.FC<AuthComponentProps> = ({
     setFormData({
       email: '',
       password: '',
+      role: '',
       confirmPassword: '',
       name: ''
     });
@@ -195,6 +201,29 @@ const AuthComponent: React.FC<AuthComponentProps> = ({
                   />
                 </div>
               </div>
+
+              {/* Role */}
+{!isLogin && (<div>
+  <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
+    Role
+  </label>
+  <div className="relative">
+    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+    <select
+      id="role"
+      name="role"
+      value={formData.role}
+      onChange={handleInputChange}
+      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+      required
+    >
+      <option value="">Select role</option>
+      <option value="student">Student</option>
+      <option value="instructor">Instructor</option>
+    </select>
+  </div>
+</div>)}
+
 
               {/* Password */}
               <div>

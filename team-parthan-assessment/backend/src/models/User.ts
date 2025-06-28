@@ -16,6 +16,9 @@ export interface IUser extends Document {
   totalScore:number;
   streak:number;
   lastLogin:string;
+  role: 'student' | 'instructor';
+  instructorCode?: string;
+  enrolledUnder?: string;
 }
 
 const userSchema: Schema = new Schema({
@@ -26,7 +29,10 @@ const userSchema: Schema = new Schema({
   masteredTopics:{type: Number,required:false,default:0},
   totalScore:{type: Number,required:false,default:0},
   streak:{type: Number,required:false,default:0},
-  lastLogin:{type:String,required:false,default:''}
+  lastLogin:{type:String,required:false,default:''},
+  role: { type: String, enum: ['student', 'instructor'], default: 'student' },
+  instructorCode: { type: String, unique: true, sparse: true,  },
+  enrolledUnder: { type: String },
 });
 
 // Hash password before saving
