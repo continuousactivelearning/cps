@@ -1,4 +1,5 @@
-import express, { RequestHandler } from 'express';
+import express from 'express';
+import type { RequestHandler } from 'express';
 import { getAllCustomQuizzes, getCustomQuizById, createCustomQuiz, updateCustomQuiz, deleteCustomQuiz } from '../controllers/customQuizController';
 
 const router = express.Router();

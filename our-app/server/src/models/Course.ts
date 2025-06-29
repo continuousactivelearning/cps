@@ -1,5 +1,5 @@
 import mongoose, { Schema, Model } from "mongoose";
-import { CourseDocument } from "../interfaces/Document_Interfaces";
+import type { CourseDocument } from "../interfaces/Document_Interfaces";
 
 const courseSchema = new Schema<CourseDocument>(
     {

@@ -1,4 +1,5 @@
-import express, { RequestHandler } from 'express';
+import express from 'express';
+import type { RequestHandler } from 'express';
 import {
     getAllCourses,
     getCourseById,
@@ -22,7 +23,7 @@ const router = express.Router();
 router.get('/', getAllCourses as RequestHandler);
 
 // GET /api/courses/debug - Debug endpoint to check database state
-// router.get('/debug', debugCourses as RequestHandler);
+router.get('/debug', debugCourses as RequestHandler);
 
 // GET /api/courses/search - Advanced search with query parameters
 router.get('/search', searchCourses as RequestHandler);

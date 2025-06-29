@@ -1,5 +1,5 @@
 import mongoose, { Schema, Model } from "mongoose";
-import { CustomQuizDocument } from "../interfaces/Document_Interfaces";
+import type { CustomQuizDocument } from "../interfaces/Document_Interfaces";
 
 const customQuizSchema = new Schema<CustomQuizDocument>(
     {

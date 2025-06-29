@@ -1,4 +1,5 @@
-import express, { RequestHandler } from 'express';
+import express from 'express';
+import type { RequestHandler } from 'express';
 import {
     getAllUsers,
     getUserById,
@@ -11,23 +12,13 @@ import {
     getQuestions,
     submitAnswers,
     reviewQuiz,
-    getQuizByDifficulty,
-    submitQuizByDifficulty,
-    reviewQuizByDifficulty,
+    getQuizByLevel,
+    submitQuizByLevel,
+    reviewQuizByLevel,
     createAssessment
 } from '../controllers/userDashboardController';
-import mongoose from 'mongoose';
 
 const router = express.Router();
-
-// Middleware to validate MongoDB ObjectId
-function validateObjectId(req: express.Request, res: express.Response, next: express.NextFunction) {
-    const id = req.params.id;
-    if (id && !mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ error: 'Invalid user id format. Must be a MongoDB ObjectId.' });
-    }
-    next();
-}
 
 // User-specific routes with prefix /api/users/
 
@@ -40,14 +31,14 @@ router.post('/', createUser as RequestHandler);
 // GET /api/users/:id/dashboard
 router.get('/:id/dashboard', getUserDashboard as RequestHandler);
 
-// GET /api/users/:id/quiz/:difficulty/questions
-router.get('/:id/quiz/:difficulty/questions', getQuizByDifficulty as RequestHandler);
+// GET /api/users/:id/quiz/:level/questions
+router.get('/:id/quiz/:level/questions', getQuizByLevel as RequestHandler);
 
-// POST /api/users/:id/quiz/:difficulty/submit
-router.post('/:id/quiz/:difficulty/submit', submitQuizByDifficulty as RequestHandler);
+// POST /api/users/:id/quiz/:level/submit
+router.post('/:id/quiz/:level/submit', submitQuizByLevel as RequestHandler);
 
-// GET /api/users/:id/quiz/:difficulty/review
-router.get('/:id/quiz/:difficulty/review', reviewQuizByDifficulty as RequestHandler);
+// GET /api/users/:id/quiz/:level/review
+router.get('/:id/quiz/:level/review', reviewQuizByLevel as RequestHandler);
 
 // POST /api/users/:id/assessment
 router.post('/:id/assessment', createAssessment as RequestHandler);

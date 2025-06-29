@@ -1,7 +1,7 @@
 import Course from '../models/Course';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { coursesData } from '../data/coursesData';
-import { CourseDocument } from '../interfaces/Document_Interfaces';
+import type { CourseDocument } from '../interfaces/Document_Interfaces';
 
 const validDSATopics = coursesData.map(c => c.courseName);
 

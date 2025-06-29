@@ -1,5 +1,5 @@
 import CustomQuiz from '../models/CustomQuiz';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import mongoose from 'mongoose';
 
 export const getAllCustomQuizzes = async (req: Request, res: Response) => {

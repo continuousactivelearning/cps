@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
-import { Level, Lang, Role, } from '../types/customTypes';
-import { Question, CustomQuestion, QuizInfo, CourseInfo } from './Basic';
+import type { Level, Lang, Role, } from '../types/customTypes';
+import type { Question, CustomQuestion, QuizInfo, CourseInfo } from './Basic';
 
 export interface CourseDocument extends Document {
     courseName: string;

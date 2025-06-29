@@ -1,17 +1,16 @@
 import Quiz from '../models/Quiz';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import mongoose from 'mongoose';
-import { QuizDocument } from '../interfaces/Document_Interfaces';
+import type { QuizDocument } from '../interfaces/Document_Interfaces';
 
 export const getAllQuizzes = async (req: Request, res: Response) => {
     try {
-        console.log('Fetching all quizzes...');
-        console.log('MongoDB connection state:', mongoose.connection.readyState);
-        console.log('Connected to database:', mongoose.connection.name);
+        // console.log('MongoDB connection state:', mongoose.connection.readyState);
+        // console.log('Connected to database:', mongoose.connection.name);
 
         const quizzes = await Quiz.find();
-        console.log('Quizzes found:', quizzes.length);
-        console.log('First quiz:', quizzes[0]);
+        // console.log('Quizzes found:', quizzes.length);
+        // console.log('First quiz:', quizzes[0]);
 
         res.json(quizzes);
     } catch (err) {
@@ -32,6 +31,7 @@ export const getQuizById = async (req: Request, res: Response) => {
 
 export const createQuiz = async (req: Request, res: Response) => {
     try {
+        console.log('Creating quiz with body:', req.body);
         const quiz = new Quiz(req.body);
         await quiz.save();
         res.status(201).json(quiz);
