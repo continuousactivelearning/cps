@@ -1,10 +1,10 @@
-import { QuizDocument } from "../../../models/Quiz";
+import { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
     title: "Java Matrices - Intermediate Quiz",
-    level: "intermediate",
-    language: "java",
+    quizLevel: "intermediate",
+    lang: "java",
     description: "This quiz covers intermediate concepts of Matrices in Java.",
     topic: {
         courseID: new mongoose.Types.ObjectId(),

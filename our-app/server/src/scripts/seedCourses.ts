@@ -3,7 +3,6 @@ import { coursesData } from "../data/coursesData";
 
 const seedCourses = async () => {
     try {
-        await Course.deleteMany({});
         await Course.insertMany(coursesData);
         console.log("Courses inserted successfully");
     } catch (error) {

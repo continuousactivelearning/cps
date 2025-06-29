@@ -29,6 +29,13 @@ client/.env
 server/node_modules/
 server/dist/
 server/.env
+server/src/scripts/topic-based/
+validation*.ts
+validate*.ts
+VALIDATION*.md
+VALIDATION*.ts
+API*.md
+BACKEND*.md
 
 # Shared (optional)
 shared/dist/
@@ -47,5 +54,3 @@ Thumbs.db
 # Temporary files used for testing or development by the team-9
 temp*.ts
 temp
-tempjava
-tempscripts

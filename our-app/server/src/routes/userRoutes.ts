@@ -6,7 +6,16 @@ import {
     updateUser,
     deleteUser
 } from '../controllers/userController';
-import { getUserDashboard, getQuestions, submitAnswers, reviewQuiz } from '../controllers/userDashboardController';
+import {
+    getUserDashboard,
+    getQuestions,
+    submitAnswers,
+    reviewQuiz,
+    getQuizByDifficulty,
+    submitQuizByDifficulty,
+    reviewQuizByDifficulty,
+    createAssessment
+} from '../controllers/userDashboardController';
 import mongoose from 'mongoose';
 
 const router = express.Router();
@@ -32,37 +41,25 @@ router.post('/', createUser as RequestHandler);
 router.get('/:id/dashboard', getUserDashboard as RequestHandler);
 
 // GET /api/users/:id/quiz/:difficulty/questions
-router.get('/:id/quiz/:difficulty/questions', (req, res) => {
-    // TODO: Implement difficulty-based questions
-    res.json({ message: 'Difficulty-based questions - to be implemented' });
-});
+router.get('/:id/quiz/:difficulty/questions', getQuizByDifficulty as RequestHandler);
 
 // POST /api/users/:id/quiz/:difficulty/submit
-router.post('/:id/quiz/:difficulty/submit', (req, res) => {
-    // TODO: Implement difficulty-based submit
-    res.json({ message: 'Difficulty-based submit - to be implemented' });
-});
+router.post('/:id/quiz/:difficulty/submit', submitQuizByDifficulty as RequestHandler);
 
 // GET /api/users/:id/quiz/:difficulty/review
-router.get('/:id/quiz/:difficulty/review', (req, res) => {
-    // TODO: Implement difficulty-based review
-    res.json({ message: 'Difficulty-based review - to be implemented' });
-});
+router.get('/:id/quiz/:difficulty/review', reviewQuizByDifficulty as RequestHandler);
 
 // POST /api/users/:id/assessment
-router.post('/:id/assessment', (req, res) => {
-    // TODO: Implement assessment logic
-    res.json({ message: 'Assessment endpoint - to be implemented' });
-});
+router.post('/:id/assessment', createAssessment as RequestHandler);
 
-// GET /api/users/:id/:language/:quizLevel/:topic/questions
-router.get('/:id/:language/:quizLevel/:topic/questions', getQuestions as RequestHandler);
+// GET /api/users/:id/:lang/:quizLevel/:topic/questions
+router.get('/:id/:lang/:quizLevel/:topic/questions', getQuestions as RequestHandler);
 
-// POST /api/users/:id/:language/:quizLevel/:topic/submit
-router.post('/:id/:language/:quizLevel/:topic/submit', submitAnswers as RequestHandler);
+// POST /api/users/:id/:lang/:quizLevel/:topic/submit
+router.post('/:id/:lang/:quizLevel/:topic/submit', submitAnswers as RequestHandler);
 
-// GET /api/users/:id/:language/:quizLevel/:topic/review
-router.get('/:id/:language/:quizLevel/:topic/review', reviewQuiz as RequestHandler);
+// GET /api/users/:id/:lang/:quizLevel/:topic/review
+router.get('/:id/:lang/:quizLevel/:topic/review', reviewQuiz as RequestHandler);
 
 // PUT /api/users/:id - Update user
 router.put('/:id', updateUser as RequestHandler);

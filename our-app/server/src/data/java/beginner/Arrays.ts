@@ -1,10 +1,10 @@
-import { QuizDocument } from "../../../types/interfaces";
+import { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
     title: "Java Arrays - Beginner Quiz",
-    level: "beginner",
-    language: "java",
+    quizLevel: "beginner",
+    lang: "java",
     description: "This quiz tests your basic knowledge of Arrays in Java.",
     topic: {
         courseID: new mongoose.Types.ObjectId(),

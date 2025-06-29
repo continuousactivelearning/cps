@@ -17,7 +17,6 @@ export interface CustomQuestion {
     questionText: string;
     options: Option[];
     correctOption: OptionTag;
-    level: Level;
     score: number;
     topic: {
         courseID: mongoose.Types.ObjectId;

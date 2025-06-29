@@ -23,6 +23,11 @@ const userSchema = new Schema<UserDocument>(
             enum: ['user', 'admin'],
             default: 'user'
         },
+        lang: {
+            type: String,
+            enum: ['cpp', 'python', 'javascript', 'java'],
+            required: true
+        },
         quizzes: [
             {
                 quizId: {

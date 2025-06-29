@@ -12,9 +12,14 @@ const customQuizSchema = new Schema<CustomQuizDocument>(
             type: String,
             trim: true
         },
-        language: {
+        lang: {
             type: String,
             enum: ['cpp', 'python', 'javascript', 'java'],
+            required: true
+        },
+        quizLevel: {
+            type: String,
+            enum: ['beginner', 'intermediate', 'advanced'],
             required: true
         },
         customQuestions: [
@@ -39,11 +44,6 @@ const customQuizSchema = new Schema<CustomQuizDocument>(
                 correctOption: {
                     type: String,
                     enum: ['A', 'B', 'C', 'D'],
-                    required: true
-                },
-                level: {
-                    type: String,
-                    enum: ['beginner', 'intermediate', 'advanced'],
                     required: true
                 },
                 score: {
@@ -77,18 +77,18 @@ const customQuizSchema = new Schema<CustomQuizDocument>(
 );
 
 // Add indexes for better query performance
-customQuizSchema.index({ language: 1 });
+customQuizSchema.index({ lang: 1 });
 customQuizSchema.index({ title: 1 });
 customQuizSchema.index({ createdAt: -1 });
 customQuizSchema.index({ quizScore: -1 });
-customQuizSchema.index({ 'customQuestions.level': 1 });
+customQuizSchema.index({ quizLevel: 1 });
 customQuizSchema.index({ 'customQuestions.topic.courseID': 1 });
 customQuizSchema.index({ 'customQuestions.topic.courseName': 1 });
 
 // Compound indexes for common query patterns
-customQuizSchema.index({ language: 1, createdAt: -1 });
-customQuizSchema.index({ 'customQuestions.topic.courseID': 1, 'customQuestions.level': 1 });
-customQuizSchema.index({ language: 1, quizScore: -1 });
+customQuizSchema.index({ lang: 1, createdAt: -1 });
+customQuizSchema.index({ 'customQuestions.topic.courseID': 1, quizLevel: 1 });
+customQuizSchema.index({ lang: 1, quizScore: -1 });
 
 // Text index for full-text search on title and description
 customQuizSchema.index({

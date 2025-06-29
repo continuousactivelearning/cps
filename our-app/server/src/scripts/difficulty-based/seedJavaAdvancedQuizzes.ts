@@ -13,22 +13,16 @@ const seedJavaAdvancedQuizzes = async () => {
     try {
         // Get all required courses
         const courses = await Course.find({
-            title: {
+            courseName: {
                 $in: ['Arrays', 'Linked Lists', 'Matrices', 'Queues',
                     'Recursion', 'Stacks', 'Strings']
             }
         });
 
         const courseMap = courses.reduce((map, course) => {
-            map[course.title] = course;
+            map[course.courseName] = course;
             return map;
         }, {} as { [key: string]: any });
-
-        // Delete existing advanced quizzes
-        await Quiz.deleteMany({
-            'topic.difficulty': 'advanced',
-            language: 'java'
-        });
 
         // Map of quiz data to their corresponding course titles
         const quizzesByCourse = {
@@ -49,12 +43,21 @@ const seedJavaAdvancedQuizzes = async () => {
                 continue;
             }
 
-            if (quizData.topic) {
-                quizData.topic.courseID = course._id as mongoose.Types.ObjectId;
-                quizData.topic.courseName = course.title;
-            }
+            // Create a new quiz object to avoid modifying the original data
+            const newQuiz = {
+                title: quizData.title,
+                quizLevel: quizData.quizLevel,
+                lang: quizData.lang,
+                description: quizData.description,
+                topic: {
+                    courseID: course._id,
+                    courseName: course.courseName
+                },
+                questions: quizData.questions,
+                quizScore: quizData.quizScore
+            };
 
-            await Quiz.create(quizData);
+            await Quiz.create(newQuiz);
             console.log(`Inserted advanced quiz for: ${courseTitle}`);
         }
 

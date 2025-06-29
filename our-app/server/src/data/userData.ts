@@ -6,6 +6,7 @@ const sampleUsers = [
         email: "user1@example.com",
         password: "password123",
         role: "admin" as const,
+        lang: "java",
         quizzes: [
             {
                 quizId: new mongoose.Types.ObjectId("507f1f77bcf86cd799439011"),
@@ -45,6 +46,7 @@ const sampleUsers = [
         email: "user2@example.com",
         password: "password123",
         role: "user" as const,
+        lang: "cpp",
         quizzes: [
             {
                 quizId: new mongoose.Types.ObjectId("507f1f77bcf86cd799439013"),
@@ -67,6 +69,7 @@ const sampleUsers = [
         email: "user20@example.com",
         password: "password123",
         role: "user" as const,
+        lang: "python",
         quizzes: [],
         customQuizzes: [
             {
@@ -92,4 +95,5 @@ const sampleUsers = [
     }
 ];
 
+export { sampleUsers as usersData };
 export default sampleUsers;

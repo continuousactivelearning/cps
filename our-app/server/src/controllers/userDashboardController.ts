@@ -17,7 +17,7 @@ export const getUserDashboard = async (req: Request, res: Response) => {
         // Extract user preferences and progress
         const userData = {
             name: user.name,
-            language: 'java', // Default language, can be made dynamic
+            lang: 'java', // Default language, can be made dynamic
             level: 'beginner', // Default level, can be calculated from progress
             topic: 'Arrays', // Default topic, can be made dynamic
             courses: user.courses,
@@ -34,11 +34,11 @@ export const getUserDashboard = async (req: Request, res: Response) => {
 // Get questions for specific language, level, and topic
 export const getQuestions = async (req: Request, res: Response) => {
     try {
-        const { id, language, quizLevel, topic } = req.params;
+        const { id, lang, quizLevel, topic } = req.params;
 
         // Find quizzes matching the criteria
         const quizzes = await Quiz.find({
-            language,
+            lang,
             level: quizLevel,
             'topic.courseName': topic
         });
@@ -59,7 +59,7 @@ export const getQuestions = async (req: Request, res: Response) => {
 // Submit answers for specific language, level, and topic
 export const submitAnswers = async (req: Request, res: Response) => {
     try {
-        const { id, language, quizLevel, topic } = req.params;
+        const { id, lang, quizLevel, topic } = req.params;
         const { answers } = req.body; // Array of OptionTag values
 
         if (!answers || !Array.isArray(answers)) {
@@ -74,7 +74,7 @@ export const submitAnswers = async (req: Request, res: Response) => {
 
         // Find quizzes for scoring
         const quizzes = await Quiz.find({
-            language,
+            lang,
             level: quizLevel,
             'topic.courseName': topic
         });
@@ -125,7 +125,7 @@ export const submitAnswers = async (req: Request, res: Response) => {
 // Review quiz results
 export const reviewQuiz = async (req: Request, res: Response) => {
     try {
-        const { id, language, quizLevel, topic } = req.params;
+        const { id, lang, quizLevel, topic } = req.params;
 
         // Find user's quiz attempts for this topic
         const user = await User.findById(id).populate('quizzes.quizId');
@@ -136,8 +136,8 @@ export const reviewQuiz = async (req: Request, res: Response) => {
         const quizAttempts = user.quizzes.filter(quiz => {
             const quizDoc = quiz.quizId as any;
             return quizDoc &&
-                quizDoc.language === language &&
-                quizDoc.level === quizLevel &&
+                quizDoc.lang === lang &&
+                quizDoc.quizLevel === quizLevel &&
                 quizDoc.topic.courseName === topic;
         });
 
@@ -195,7 +195,7 @@ export const getQuizByDifficulty = async (req: Request, res: Response) => {
         const { id, difficulty } = req.params;
 
         // Find quizzes by difficulty level
-        const quizzes = await Quiz.find({ level: difficulty });
+        const quizzes = await Quiz.find({ quizLevel: difficulty });
 
         if (quizzes.length === 0) {
             return res.status(404).json({ error: 'No quizzes found for this difficulty level' });
@@ -227,7 +227,7 @@ export const submitQuizByDifficulty = async (req: Request, res: Response) => {
         }
 
         // Find quizzes of this difficulty
-        const quizzes = await Quiz.find({ level: difficulty });
+        const quizzes = await Quiz.find({ quizLevel: difficulty });
 
         if (quizzes.length === 0) {
             return res.status(404).json({ error: 'No quizzes found for this difficulty level' });
@@ -285,7 +285,7 @@ export const reviewQuizByDifficulty = async (req: Request, res: Response) => {
 
         const quizAttempts = user.quizzes.filter(quiz => {
             const quizDoc = quiz.quizId as any;
-            return quizDoc && quizDoc.level === difficulty;
+            return quizDoc && quizDoc.quizLevel === difficulty;
         });
 
         res.json({

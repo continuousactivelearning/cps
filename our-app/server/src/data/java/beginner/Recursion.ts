@@ -1,10 +1,10 @@
-import { QuizDocument } from "../../../models/Quiz";
+import { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
     title: "Java Recursion - Beginner Quiz",
-    level: "beginner",
-    language: "java",
+    quizLevel: "beginner",
+    lang: "java",
     description: "This quiz covers the fundamentals of recursion in Java for beginners.",
     topic: {
         courseID: new mongoose.Types.ObjectId(),

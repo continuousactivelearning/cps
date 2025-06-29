@@ -1,9 +1,9 @@
 import mongoose, { Document } from 'mongoose';
-import { Level, Language, Role, } from '../types/customTypes';
+import { Level, Lang, Role, } from '../types/customTypes';
 import { Question, CustomQuestion, QuizInfo, CourseInfo } from './Basic';
 
 export interface CourseDocument extends Document {
-    title: string;
+    courseName: string;
     description: string;
     level: Level;
     prerequisites: string[];
@@ -13,17 +13,18 @@ export interface CourseDocument extends Document {
 export interface CustomQuizDocument extends Document {
     title: string;
     description?: string;
-    language: Language;
+    lang: Lang;
     customQuestions: CustomQuestion[];
     createdAt: Date;
     updatedAt: Date;
     quizScore: number;
+    quizLevel: Level;
 }
 
 export interface QuizDocument extends Document {
     title: string;
-    level: Level;
-    language: Language;
+    quizLevel: Level;
+    lang: Lang;
     description?: string;
     topic: {
         courseID: mongoose.Types.ObjectId;
@@ -43,6 +44,7 @@ export interface UserDocument extends Document {
     quizzes: QuizInfo[];
     customQuizzes: QuizInfo[];
     courses: CourseInfo[];
+    lang: Lang;
     createdAt: Date;
     updatedAt: Date;
 }

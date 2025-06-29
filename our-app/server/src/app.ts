@@ -45,10 +45,7 @@ app.use('/api/quizzes', quizRoutes);
 // Base path: /api/custom-quizzes
 app.use('/api/custom-quizzes', customQuizRoutes);
 
-// ========================================
 // ROOT ROUTE
-// ========================================
-
 // Health check and server status
 app.get('/', (req, res) => {
     res.json({
@@ -64,25 +61,25 @@ app.get('/', (req, res) => {
                 advanced: {
                     search: '/api/courses/search?q=term&level=beginner&prerequisite=javascript',
                     difficultyRange: '/api/courses/difficulty-range?minLevel=beginner&maxLevel=intermediate',
-                    byTitle: '/api/courses/title/:title',
+                    byCourseName: '/api/courses/courseName/:courseName',
                     byLevel: '/api/courses/level/:level',
                     byPrerequisite: '/api/courses/prerequisite/:prerequisite',
-                    byTitleAndLevel: '/api/courses/title/:title/level/:level',
+                    byCourseNameAndLevel: '/api/courses/courseName/:courseName/level/:level',
                     byLevelAndPrerequisite: '/api/courses/level/:level/prerequisite/:prerequisite',
-                    byTitleLevelAndPrerequisite: '/api/courses/title/:title/level/:level/prerequisite/:prerequisite'
+                    byCourseNameLevelAndPrerequisite: '/api/courses/courseName/:courseName/level/:level/prerequisite/:prerequisite'
                 }
             },
             quizzes: {
                 basic: '/api/quizzes/*',
                 advanced: {
-                    search: '/api/quizzes/search?q=term&language=java&level=beginner&topic=arrays',
-                    byLanguage: '/api/quizzes/language/:language',
+                    search: '/api/quizzes/search?q=term&lang=java&level=beginner&topic=arrays',
+                    byLang: '/api/quizzes/lang/:lang',
                     byLevel: '/api/quizzes/level/:level',
                     byTopic: '/api/quizzes/topic/:topic',
-                    byLanguageAndLevel: '/api/quizzes/language/:language/level/:level',
-                    byLanguageAndTopic: '/api/quizzes/language/:language/topic/:topic',
+                    byLangAndLevel: '/api/quizzes/lang/:lang/level/:level',
+                    byLangAndTopic: '/api/quizzes/lang/:lang/topic/:topic',
                     byLevelAndTopic: '/api/quizzes/level/:level/topic/:topic',
-                    byLanguageLevelAndTopic: '/api/quizzes/language/:language/level/:level/topic/:topic'
+                    byLangLevelAndTopic: '/api/quizzes/lang/:lang/level/:level/topic/:topic'
                 }
             },
             customQuizzes: '/api/custom-quizzes/*'
@@ -90,10 +87,7 @@ app.get('/', (req, res) => {
     });
 });
 
-// ========================================
 // ERROR HANDLING MIDDLEWARE
-// ========================================
-
 // 404 handler for undefined routes
 app.use('*', (req, res) => {
     res.status(404).json({
@@ -108,25 +102,25 @@ app.use('*', (req, res) => {
                 advanced: {
                     search: '/api/courses/search?q=term&level=beginner&prerequisite=javascript',
                     difficultyRange: '/api/courses/difficulty-range?minLevel=beginner&maxLevel=intermediate',
-                    byTitle: '/api/courses/title/:title',
+                    byCourseName: '/api/courses/courseName/:courseName',
                     byLevel: '/api/courses/level/:level',
                     byPrerequisite: '/api/courses/prerequisite/:prerequisite',
-                    byTitleAndLevel: '/api/courses/title/:title/level/:level',
+                    byCourseNameAndLevel: '/api/courses/courseName/:courseName/level/:level',
                     byLevelAndPrerequisite: '/api/courses/level/:level/prerequisite/:prerequisite',
-                    byTitleLevelAndPrerequisite: '/api/courses/title/:title/level/:level/prerequisite/:prerequisite'
+                    byCourseNameLevelAndPrerequisite: '/api/courses/courseName/:courseName/level/:level/prerequisite/:prerequisite'
                 }
             },
             quizzes: {
                 basic: '/api/quizzes/*',
                 advanced: {
-                    search: '/api/quizzes/search?q=term&language=java&level=beginner&topic=arrays',
-                    byLanguage: '/api/quizzes/language/:language',
+                    search: '/api/quizzes/search?q=term&lang=java&level=beginner&topic=arrays',
+                    byLang: '/api/quizzes/lang/:lang',
                     byLevel: '/api/quizzes/level/:level',
                     byTopic: '/api/quizzes/topic/:topic',
-                    byLanguageAndLevel: '/api/quizzes/language/:language/level/:level',
-                    byLanguageAndTopic: '/api/quizzes/language/:language/topic/:topic',
+                    byLangAndLevel: '/api/quizzes/lang/:lang/level/:level',
+                    byLangAndTopic: '/api/quizzes/lang/:lang/topic/:topic',
                     byLevelAndTopic: '/api/quizzes/level/:level/topic/:topic',
-                    byLanguageLevelAndTopic: '/api/quizzes/language/:language/level/:level/topic/:topic'
+                    byLangLevelAndTopic: '/api/quizzes/lang/:lang/level/:level/topic/:topic'
                 }
             },
             customQuizzes: '/api/custom-quizzes/*'

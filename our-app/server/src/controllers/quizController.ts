@@ -1,6 +1,7 @@
 import Quiz from '../models/Quiz';
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
+import { QuizDocument } from '../interfaces/Document_Interfaces';
 
 export const getAllQuizzes = async (req: Request, res: Response) => {
     try {
@@ -59,28 +60,21 @@ export const deleteQuiz = async (req: Request, res: Response) => {
     }
 };
 
-// NEW METHODS FOR ADVANCED QUERYING
+// METHODS FOR ADVANCED QUERYING
 
-export const getQuizzesByLanguage = async (req: Request, res: Response) => {
+export const getQuizzesByLang = async (req: Request, res: Response) => {
     try {
-        const { language } = req.params;
+        const { lang } = req.params;
         const validLanguages = ['cpp', 'python', 'javascript', 'java'];
 
-        if (!validLanguages.includes(language)) {
-            return res.status(400).json({
-                error: 'Invalid language',
-                validLanguages
-            });
+        if (!validLanguages.includes(lang)) {
+            return res.status(400).json({ error: 'Invalid language parameter' });
         }
 
-        const quizzes = await Quiz.find({ language });
-        res.json({
-            language,
-            count: quizzes.length,
-            quizzes
-        });
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch quizzes by language', details: err });
+        const quizzes = await Quiz.find({ lang }).populate('topic.courseID');
+        res.json(quizzes);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch quizzes' });
     }
 };
 
@@ -96,7 +90,7 @@ export const getQuizzesByLevel = async (req: Request, res: Response) => {
             });
         }
 
-        const quizzes = await Quiz.find({ level });
+        const quizzes = await Quiz.find({ quizLevel: level });
         res.json({
             level,
             count: quizzes.length,
@@ -122,62 +116,39 @@ export const getQuizzesByTopic = async (req: Request, res: Response) => {
     }
 };
 
-export const getQuizzesByLanguageAndLevel = async (req: Request, res: Response) => {
+export const getQuizzesByLangAndLevel = async (req: Request, res: Response) => {
     try {
-        const { language, level } = req.params;
+        const { lang, level } = req.params;
         const validLanguages = ['cpp', 'python', 'javascript', 'java'];
         const validLevels = ['beginner', 'intermediate', 'advanced'];
 
-        if (!validLanguages.includes(language)) {
-            return res.status(400).json({
-                error: 'Invalid language',
-                validLanguages
-            });
+        if (!validLanguages.includes(lang) || !validLevels.includes(level)) {
+            return res.status(400).json({ error: 'Invalid language or level parameter' });
         }
 
-        if (!validLevels.includes(level)) {
-            return res.status(400).json({
-                error: 'Invalid level',
-                validLevels
-            });
-        }
-
-        const quizzes = await Quiz.find({ language, level });
-        res.json({
-            language,
-            level,
-            count: quizzes.length,
-            quizzes
-        });
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch quizzes by language and level', details: err });
+        const quizzes = await Quiz.find({ lang, quizLevel: level }).populate('topic.courseID');
+        res.json(quizzes);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch quizzes' });
     }
 };
 
-export const getQuizzesByLanguageAndTopic = async (req: Request, res: Response) => {
+export const getQuizzesByLangAndTopic = async (req: Request, res: Response) => {
     try {
-        const { language, topic } = req.params;
+        const { lang, topic } = req.params;
         const validLanguages = ['cpp', 'python', 'javascript', 'java'];
 
-        if (!validLanguages.includes(language)) {
-            return res.status(400).json({
-                error: 'Invalid language',
-                validLanguages
-            });
+        if (!validLanguages.includes(lang)) {
+            return res.status(400).json({ error: 'Invalid language parameter' });
         }
 
         const quizzes = await Quiz.find({
-            language,
+            lang,
             'topic.courseName': { $regex: topic, $options: 'i' }
-        });
-        res.json({
-            language,
-            topic,
-            count: quizzes.length,
-            quizzes
-        });
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch quizzes by language and topic', details: err });
+        }).populate('topic.courseID');
+        res.json(quizzes);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch quizzes' });
     }
 };
 
@@ -194,7 +165,7 @@ export const getQuizzesByLevelAndTopic = async (req: Request, res: Response) => 
         }
 
         const quizzes = await Quiz.find({
-            level,
+            quizLevel: level,
             'topic.courseName': { $regex: topic, $options: 'i' }
         });
         res.json({
@@ -208,76 +179,159 @@ export const getQuizzesByLevelAndTopic = async (req: Request, res: Response) => 
     }
 };
 
-export const getQuizzesByLanguageLevelAndTopic = async (req: Request, res: Response) => {
+export const getQuizzesByLangLevelAndTopic = async (req: Request, res: Response) => {
     try {
-        const { language, level, topic } = req.params;
+        const { lang, level, topic } = req.params;
         const validLanguages = ['cpp', 'python', 'javascript', 'java'];
         const validLevels = ['beginner', 'intermediate', 'advanced'];
 
-        if (!validLanguages.includes(language)) {
-            return res.status(400).json({
-                error: 'Invalid language',
-                validLanguages
-            });
-        }
-
-        if (!validLevels.includes(level)) {
-            return res.status(400).json({
-                error: 'Invalid level',
-                validLevels
-            });
+        if (!validLanguages.includes(lang) || !validLevels.includes(level)) {
+            return res.status(400).json({ error: 'Invalid language or level parameter' });
         }
 
         const quizzes = await Quiz.find({
-            language,
-            level,
+            lang,
+            quizLevel: level,
             'topic.courseName': { $regex: topic, $options: 'i' }
-        });
-        res.json({
-            language,
-            level,
-            topic,
-            count: quizzes.length,
-            quizzes
-        });
-    } catch (err) {
-        res.status(500).json({ error: 'Failed to fetch quizzes by language, level and topic', details: err });
+        }).populate('topic.courseID');
+        res.json(quizzes);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch quizzes' });
     }
 };
 
 export const searchQuizzes = async (req: Request, res: Response) => {
     try {
-        const { q, language, level, topic, limit = 20, page = 1 } = req.query;
+        const { q, lang, level, topic, limit = 20, page = 1 } = req.query;
 
-        const query: any = {};
-
-        if (language) query.language = language;
-        if (level) query.level = level;
-        if (topic) query['topic.courseName'] = { $regex: topic as string, $options: 'i' };
-
+        // Improved text search logic
         if (q) {
-            query.$text = { $search: q as string };
+            const searchTerm = q as string;
+
+            // Try multiple search approaches
+            const titleSearch = await Quiz.find({ title: { $regex: searchTerm, $options: 'i' } });
+            const descriptionSearch = await Quiz.find({ description: { $regex: searchTerm, $options: 'i' } });
+            const topicSearch = await Quiz.find({ 'topic.courseName': { $regex: searchTerm, $options: 'i' } });
+
+            // Try text search (might fail if index not working)
+            let textSearch: any[] = [];
+            try {
+                textSearch = await Quiz.find({ $text: { $search: searchTerm } });
+            } catch (textError) {
+                console.log('Text search failed, using regex only:', textError);
+            }
+
+            // Combine all results and remove duplicates
+            const allResults = [...titleSearch, ...descriptionSearch, ...topicSearch, ...textSearch];
+            const uniqueResults = allResults.filter((quiz, index, self) =>
+                index === self.findIndex(q => (q as any)._id.toString() === (quiz as any)._id.toString())
+            );
+
+            // Apply additional filters if specified
+            let filteredResults = uniqueResults;
+            if (lang) {
+                filteredResults = filteredResults.filter(quiz => quiz.lang === lang);
+            }
+            if (level) {
+                filteredResults = filteredResults.filter(quiz => quiz.quizLevel === level);
+            }
+            if (topic) {
+                filteredResults = filteredResults.filter(quiz =>
+                    quiz.topic.courseName.toLowerCase().includes((topic as string).toLowerCase())
+                );
+            }
+
+            const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
+            const paginatedResults = filteredResults.slice(skip, skip + parseInt(limit as string));
+
+            console.log("Quiz search debug:", {
+                searchTerm,
+                titleSearchCount: titleSearch.length,
+                descriptionSearchCount: descriptionSearch.length,
+                topicSearchCount: topicSearch.length,
+                textSearchCount: textSearch.length,
+                totalUniqueResults: uniqueResults.length,
+                finalResults: paginatedResults.length
+            });
+
+            res.json({
+                quizzes: paginatedResults,
+                pagination: {
+                    page: parseInt(page as string),
+                    limit: parseInt(limit as string),
+                    total: filteredResults.length,
+                    pages: Math.ceil(filteredResults.length / parseInt(limit as string))
+                },
+                searchInfo: {
+                    searchTerm,
+                    titleSearchCount: titleSearch.length,
+                    descriptionSearchCount: descriptionSearch.length,
+                    topicSearchCount: topicSearch.length,
+                    textSearchCount: textSearch.length
+                }
+            });
+        } else {
+            // No search term, just apply filters
+            const query: any = {};
+            if (lang) query.lang = lang;
+            if (level) query.quizLevel = level;
+            if (topic) query['topic.courseName'] = { $regex: topic as string, $options: 'i' };
+
+            const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
+            const quizzes = await Quiz.find(query)
+                .limit(parseInt(limit as string))
+                .skip(skip)
+                .sort({ createdAt: -1 });
+
+            const total = await Quiz.countDocuments(query);
+
+            res.json({
+                quizzes,
+                pagination: {
+                    page: parseInt(page as string),
+                    limit: parseInt(limit as string),
+                    total,
+                    pages: Math.ceil(total / parseInt(limit as string))
+                }
+            });
+        }
+    } catch (err) {
+        console.error('Quiz search error:', err);
+        res.status(500).json({ error: 'Failed to search quizzes', details: err });
+    }
+};
+
+export const debugQuizzes = async (req: Request, res: Response) => {
+    try {
+        // Get all quizzes
+        const allQuizzes = await Quiz.find().sort({ title: 1 }) as QuizDocument[];
+
+        // Check for specific quiz with Arrays topic
+        const arraysQuizzes = await Quiz.find({ 'topic.courseName': { $regex: 'Arrays', $options: 'i' } }) as QuizDocument[];
+
+        // Test text search directly
+        let textSearchResults: any[] = [];
+        try {
+            textSearchResults = await Quiz.find({ $text: { $search: 'Arrays' } }) as QuizDocument[];
+        } catch (textError) {
+            console.log('Text search failed:', textError);
         }
 
-        const skip = (parseInt(page as string) - 1) * parseInt(limit as string);
-
-        const quizzes = await Quiz.find(query)
-            .limit(parseInt(limit as string))
-            .skip(skip)
-            .sort({ createdAt: -1 });
-
-        const total = await Quiz.countDocuments(query);
+        // Test regex searches
+        const titleSearchResults = await Quiz.find({ title: { $regex: 'Arrays', $options: 'i' } }) as QuizDocument[];
+        const topicSearchResults = await Quiz.find({ 'topic.courseName': { $regex: 'Arrays', $options: 'i' } }) as QuizDocument[];
 
         res.json({
-            quizzes,
-            pagination: {
-                page: parseInt(page as string),
-                limit: parseInt(limit as string),
-                total,
-                pages: Math.ceil(total / parseInt(limit as string))
-            }
+            totalQuizzes: allQuizzes.length,
+            quizTitles: allQuizzes.map(q => q.title),
+            arraysQuizzes: arraysQuizzes.map(q => ({ id: (q as any)._id.toString(), title: q.title, topic: q.topic.courseName })),
+            textSearchResults: textSearchResults.map(q => ({ id: (q as any)._id.toString(), title: q.title, topic: q.topic.courseName })),
+            titleSearchResults: titleSearchResults.map(q => ({ id: (q as any)._id.toString(), title: q.title, topic: q.topic.courseName })),
+            topicSearchResults: topicSearchResults.map(q => ({ id: (q as any)._id.toString(), title: q.title, topic: q.topic.courseName })),
+            sampleQuizzes: allQuizzes.slice(0, 5).map(q => ({ id: (q as any)._id.toString(), title: q.title, topic: q.topic.courseName, level: q.quizLevel }))
         });
     } catch (err) {
-        res.status(500).json({ error: 'Failed to search quizzes', details: err });
+        console.error('Debug error:', err);
+        res.status(500).json({ error: 'Failed to debug quizzes', details: err });
     }
 }; 

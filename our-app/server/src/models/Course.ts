@@ -3,7 +3,7 @@ import { CourseDocument } from "../interfaces/Document_Interfaces";
 
 const courseSchema = new Schema<CourseDocument>(
     {
-        title: {
+        courseName: {
             type: String,
             required: true,
             trim: true
@@ -31,18 +31,18 @@ const courseSchema = new Schema<CourseDocument>(
 );
 
 // Add indexes for better query performance
-courseSchema.index({ title: 1 });
+courseSchema.index({ courseName: 1 });
 courseSchema.index({ level: 1 });
 courseSchema.index({ createdAt: -1 });
 courseSchema.index({ updatedAt: -1 });
 
 // Compound indexes for common query patterns
 courseSchema.index({ level: 1, createdAt: -1 });
-courseSchema.index({ title: 1, level: 1 });
+courseSchema.index({ courseName: 1, level: 1 });
 
-// Text index for full-text search on title and description
+// Text index for full-text search on courseName and description
 courseSchema.index({
-    title: 'text',
+    courseName: 'text',
     description: 'text'
 });
 

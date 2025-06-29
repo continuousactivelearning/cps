@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch src --ext ts --exec tsx src/server.ts",
     "seed": "tsx src/scripts/seed.ts",
+    "delete-data": "tsx src/scripts/deleteAllData.ts",
     "validate": "tsx src/scripts/validateData.ts",
     "start": "node dist/server.js",
     "build": "tsc",

@@ -8,12 +8,12 @@ const quizSchema = new Schema<QuizDocument>(
             required: true,
             trim: true
         },
-        level: {
+        quizLevel: {
             type: String,
             enum: ['beginner', 'intermediate', 'advanced'],
             required: true
         },
-        language: {
+        lang: {
             type: String,
             enum: ['cpp', 'python', 'javascript', 'java'],
             required: true
@@ -72,8 +72,8 @@ const quizSchema = new Schema<QuizDocument>(
 );
 
 // Add indexes for better query performance
-quizSchema.index({ level: 1 });
-quizSchema.index({ language: 1 });
+quizSchema.index({ quizLevel: 1 });
+quizSchema.index({ lang: 1 });
 quizSchema.index({ 'topic.courseID': 1 });
 quizSchema.index({ 'topic.courseName': 1 });
 quizSchema.index({ title: 1 });
@@ -81,10 +81,10 @@ quizSchema.index({ createdAt: -1 });
 quizSchema.index({ quizScore: -1 });
 
 // Compound indexes for common query patterns
-quizSchema.index({ level: 1, language: 1 });
-quizSchema.index({ 'topic.courseID': 1, level: 1 });
-quizSchema.index({ language: 1, level: 1, createdAt: -1 });
-quizSchema.index({ 'topic.courseName': 1, level: 1 });
+quizSchema.index({ quizLevel: 1, lang: 1 });
+quizSchema.index({ 'topic.courseID': 1, quizLevel: 1 });
+quizSchema.index({ lang: 1, quizLevel: 1, createdAt: -1 });
+quizSchema.index({ 'topic.courseName': 1, quizLevel: 1 });
 
 // Text index for full-text search on title and description
 quizSchema.index({
