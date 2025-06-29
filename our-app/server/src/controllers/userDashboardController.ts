@@ -126,7 +126,7 @@ export const getQuestions = async (req: Request, res: Response) => {
         // Find quizzes matching the criteria
         const quizzes = await Quiz.find({
             lang,
-            quizLevel, // Fixed: using correct field name
+            quizLevel,
             'topic.courseName': topic
         });
 
@@ -521,7 +521,7 @@ export const reviewQuizByLevel = async (req: Request, res: Response) => {
 
         const quizAttempts = user.quizzes.filter(quiz => {
             const quizDoc = quiz.quizId as any;
-            return quizDoc && quizDoc.quizLevel === level; // Fixed: using correct field name
+            return quizDoc && quizDoc.quizLevel === level;
         });
 
         const totalAttempts = quizAttempts.length;

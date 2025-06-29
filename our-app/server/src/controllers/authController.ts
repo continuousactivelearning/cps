@@ -21,7 +21,7 @@ export const login = async (req: Request, res: Response) => {
         }
 
         // Remove password from response
-        const userResponse = user.toObject();
+        const userResponse = user.toObject() as { [key: string]: any };
         delete userResponse.password;
 
         res.json(userResponse);
@@ -57,7 +57,7 @@ export const signup = async (req: Request, res: Response) => {
         await user.save();
 
         // Remove password from response
-        const userResponse = user.toObject();
+        const userResponse = user.toObject() as { [key: string]: any; password?: string };
         delete userResponse.password;
 
         res.status(201).json(userResponse);

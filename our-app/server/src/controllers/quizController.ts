@@ -1,6 +1,5 @@
 import Quiz from '../models/Quiz';
 import type { Request, Response } from 'express';
-import mongoose from 'mongoose';
 import type { QuizDocument } from '../interfaces/Document_Interfaces';
 
 export const getAllQuizzes = async (req: Request, res: Response) => {

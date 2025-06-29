@@ -3,7 +3,6 @@ import type { Request, Response } from 'express';
 export const getHome = async (req: Request, res: Response) => {
     try {
         // This endpoint can be used for frontend rendering
-        // You can add any data needed for the home page here
         res.json({
             message: 'Welcome to the Learning Platform',
             status: 'success',

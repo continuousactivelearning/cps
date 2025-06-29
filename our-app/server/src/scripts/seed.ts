@@ -18,7 +18,7 @@ const seedData = async (options: {
 
     try {
         await mongoose.connect(link);
-        console.log("🔗 Connected to MongoDB");
+        console.log("Connected to MongoDB");
 
         // If no specific options provided, default to all
         if (!options.all && !options.quiz && !options.user && !options.course) {
@@ -26,19 +26,19 @@ const seedData = async (options: {
         }
 
         if (options.all || options.course) {
-            console.log("🌱 Seeding courses...");
+            console.log("Seeding courses...");
             await seedCourses();
-            console.log("✅ Courses seeded successfully");
+            console.log("Courses seeded successfully");
         }
 
         if (options.all || options.user) {
-            console.log("👥 Seeding users...");
+            console.log("Seeding users...");
             await seedUsers();
-            console.log("✅ Users seeded successfully");
+            console.log("Users seeded successfully");
         }
 
         if (options.all || options.quiz) {
-            console.log("📝 Seeding quizzes...");
+            console.log("Seeding quizzes...");
             // Using difficulty-based seeding approach
             await seedJavaBeginnerQuizzes();
             await seedJavaIntermediateQuizzes();
@@ -49,29 +49,29 @@ const seedData = async (options: {
             // await seedJavaTopicQuizzes();
         }
 
-        console.log("\n🎉 Database seeding completed successfully!");
-        console.log("\n📊 Summary:");
+        console.log("\nDatabase seeding completed successfully!");
+        console.log("\nSummary:");
         if (options.all || options.course) console.log("- Courses seeded");
         if (options.all || options.user) console.log("- Users seeded");
         if (options.all || options.quiz) console.log("- Quizzes seeded");
 
     } catch (error) {
-        console.error("❌ Error during database seeding:", error);
+        console.error("Error during database seeding:", error);
         throw error;
     } finally {
         await mongoose.disconnect();
-        console.log("🔌 Disconnected from MongoDB");
+        console.log("Disconnected from MongoDB");
     }
 };
 
 // If this script is run directly
 if (process.argv[1]?.includes('seed.ts')) {
-    console.log('🚀 Seed script started');
-    console.log('📝 Command line arguments:', process.argv);
+    console.log('Seed script started');
+    console.log('Command line arguments:', process.argv);
 
     // Parse command line arguments
     const args = process.argv.slice(2);
-    console.log('🔍 Parsed arguments:', args);
+    console.log('Parsed arguments:', args);
 
     const options = {
         all: args.includes('--all'),
@@ -80,7 +80,7 @@ if (process.argv[1]?.includes('seed.ts')) {
         course: args.includes('--course')
     };
 
-    console.log('⚙️  Options:', options);
+    console.log('Options:', options);
 
     seedData(options);
 }

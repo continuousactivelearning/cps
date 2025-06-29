@@ -34,8 +34,6 @@ validation*.ts
 validate*.ts
 VALIDATION*.md
 VALIDATION*.ts
-API*.md
-BACKEND*.md
 
 # Shared (optional)
 shared/dist/
