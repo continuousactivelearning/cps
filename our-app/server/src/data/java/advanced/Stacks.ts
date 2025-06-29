@@ -1,10 +1,10 @@
-import { QuizDocument } from "../../../models/Quiz";
+import type { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
     title: "Java Stacks - Advanced Quiz",
-    level: "advanced",
-    language: "java",
+    quizLevel: "advanced",
+    lang: "java",
     description: "This quiz tests your advanced knowledge of stacks in Java.",
     topic: {
         courseID: new mongoose.Types.ObjectId(),

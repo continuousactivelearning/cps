@@ -1,14 +1,14 @@
-import { QuizDocument } from "../../../models/Quiz";
+import type { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
     title: "Java Linked Lists - Beginner Quiz",
-    level: "beginner",
-    language: "java",
+    quizLevel: "beginner",
+    lang: "java",
     description: "This quiz helps beginners understand the fundamentals of Linked Lists in Java.",
     topic: {
         courseID: new mongoose.Types.ObjectId(),
-        courseName: "LinkedLists"
+        courseName: "Linked Lists"
     },
     quizScore: 20,
     questions: [
