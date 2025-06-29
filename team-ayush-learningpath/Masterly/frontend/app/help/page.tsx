@@ -230,7 +230,8 @@ export default function HelpPage() {
       title: "Opening User Guide",
       description: "The comprehensive user guide is opening in a new tab.",
     })
-    window.open("#", "_blank")
+    window.open("/help-guide", "_blank")
+
   }
 
   const openVideoTutorials = (): void => {
@@ -257,7 +258,8 @@ export default function HelpPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card
               className="dark:bg-gray-800/80 dark:border-gray-700 hover:shadow-lg transition-shadow cursor-pointer"
-              onClick={openUserGuide}
+  onClick={openUserGuide}
+
             >
               <CardContent className="p-6 text-center">
                 <BookOpen className="w-8 h-8 mx-auto mb-3 text-blue-600" />
