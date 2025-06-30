@@ -13,6 +13,7 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.5.0",
     "execa": "^5.1.1",
     "express": "^5.1.0",
@@ -24,8 +25,11 @@
     "multer": "^2.0.1",
     "nodemailer": "^7.0.3",
     "pdf-parse": "^1.1.1",
+    "sharp": "^0.34.2",
+    "tesseract.js": "^6.0.1",
     "ts-node": "^10.9.2",
     "xlsx": "^0.18.5",
+    "youtube-dl-exec": "^3.0.22",
     "zod": "^3.25.67"
   },
   "devDependencies": {
@@ -38,6 +42,8 @@
     "@types/multer": "^1.4.13",
     "@types/node": "^24.0.1",
     "@types/nodemailer": "^6.4.17",
-    "@types/pdf-parse": "^1.1.5"
+    "@types/pdf-parse": "^1.1.5",
+    "@types/sharp": "^0.32.0",
+    "@types/tesseract.js": "^2.0.0"
   }
 }

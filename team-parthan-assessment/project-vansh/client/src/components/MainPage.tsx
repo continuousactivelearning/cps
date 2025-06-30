@@ -435,7 +435,7 @@ const MainPage: React.FC = () => {
       const res = await fetch("http://localhost:5000/api/generate-quiz", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic: [topicId], prerequisites: [] })
+        body: JSON.stringify({ topic: [topicId] })
       });
 
       if (!res.ok) throw new Error("Failed to analyze file");
@@ -523,8 +523,7 @@ const MainPage: React.FC = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        topic: concepts.prerequisites.filter(t => topics.some(topic => (topic.name === t && topic.status !== 'mastered'))),
-        prerequisites: [],
+        topic: concepts.prerequisites.filter(t => topics.some(topic => (topic.name === t && topic.status !== 'mastered')))
       }),
     });
 
@@ -1368,13 +1367,14 @@ const MainPage: React.FC = () => {
                   if (uploadType === "youtube") {
                     handleYouTubeUpload();
                   } else {
-                    fileInputRef.current?.click();
+                    //fileInputRef.current?.click();
+                    setShowUploadModal(false);
                   }
                 }}
                 disabled={uploadType === "youtube" && !youtubeUrl.trim()}
                 className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-400 text-white py-3 rounded-lg font-medium transition-all disabled:cursor-not-allowed"
               >
-                {uploadType === "youtube" ? "Generate Quiz" : "Upload & Generate"}
+                {uploadType === "youtube" ? "Generate Quiz" : "Generate"}
               </button>
             </div>
           </div>

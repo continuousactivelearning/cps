@@ -116,7 +116,16 @@ const ConceptAnalyzer: React.FC<Props> = ({
         <div className="flex items-start space-x-3">
           <CheckCircle className="w-6 h-6 text-green-600 mt-0.5" />
           <div>
-            {concepts.prerequisites.every(pre =>
+            { (concepts.prerequisites.length === 0 && concepts.mainTopic.length === 0) ? (
+              <>
+                <h3 className="font-medium text-gray-900 mb-1">
+                  Sorry
+                </h3>
+                <p className="text-sm text-green-700">
+                 Please try again later.
+                </p>
+              </>
+            ) : (concepts.prerequisites.every(pre =>
               topics.some(t => t.name === pre && t.status === 'mastered')
             ) ? (
               <>
@@ -136,7 +145,7 @@ const ConceptAnalyzer: React.FC<Props> = ({
                   Please master all required topics to unlock <strong>{file ? file.name : youtubeUrl}</strong>.
                 </p>
               </>
-            )}
+            ))}
           </div>
         </div>
       </div>)}

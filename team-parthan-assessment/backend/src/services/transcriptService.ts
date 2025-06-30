@@ -12,13 +12,13 @@ import { translateToEnglish } from './translate';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
-export async function processTranscript(url: string, videoId: string): Promise<string> {
-  const tempDir = path.resolve('./temp_subtitles');
+export async function processTranscript(videoId: string): Promise<string> {
+  const tempDir = path.resolve('temp_subtitles');
   await fs.ensureDir(tempDir);
 
   try {
      // Step 1: Download subtitles (.vtt file) to tempDir
-    const { filePath, langCode } = await downloadSubtitles(url,videoId, tempDir); // ✅ destructure object
+    const { filePath, langCode } = await downloadSubtitles(videoId, tempDir); // ✅ destructure object
     
     // Step 2: Parse and clean transcript text from .vtt file
     const rawTranscript = await parseVttFile(filePath);
