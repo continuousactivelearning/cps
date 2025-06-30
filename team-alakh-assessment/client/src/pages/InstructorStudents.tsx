@@ -6,7 +6,7 @@ import { FaUserGraduate, FaBookOpen, FaClipboardList, FaCogs, FaSignOutAlt, FaCh
 import { motion, Variants } from 'framer-motion';
 import WaterRippleBackground from '../components/WaterRippleBackground';
 import { BookOpen, Search, Sparkles } from 'lucide-react';
-
+//completed the student check page
 const navItems = [
   { label: 'Dashboard', icon: <FaChartBar />, path: '/instructor-dashboard' },
   { label: 'Students', icon: <FaUserGraduate />, path: '/instructor/students' },
