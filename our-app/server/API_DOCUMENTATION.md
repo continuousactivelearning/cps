@@ -190,6 +190,63 @@ Get user dashboard with progress and statistics.
 }
 ```
 
+### Get Recommended Learning Path
+**GET** `/api/users/:id/recommend-path`
+
+Get a personalized learning path to reach a target course/topic.
+
+**Query Parameters:**
+- `target` (required) - The target course/topic name
+
+**Response (200):**
+```json
+{
+  "recommendedPath": [
+    "Arrays",
+    "Recursion",
+    "Trees",
+    "Binary Trees",
+    "Binary Search Trees"
+  ]
+}
+```
+
+**Error Responses:**
+- `400` - Missing target parameter or invalid target course
+- `404` - User not found
+
+### Update Completed Courses
+**POST** `/api/users/:id/completed-courses`
+
+Update the list of completed courses for a user.
+
+**Request Body:**
+```json
+{
+  "completedCourses": ["Arrays", "Strings", "Pointers"]
+}
+```
+
+**Response (200):**
+```json
+{
+  "message": "Completed courses updated successfully",
+  "courses": [
+    {
+      "courseId": "607f1f77bcf86cd799439022",
+      "courseName": "Arrays",
+      "status": "completed",
+      "result": 100
+    },
+    // ... other courses
+  ]
+}
+```
+
+**Error Responses:**
+- `400` - Invalid request body format
+- `404` - User not found
+
 ### Get Quiz by Level
 **GET** `/api/users/:id/quiz/:level/questions`
 
