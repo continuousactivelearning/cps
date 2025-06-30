@@ -14,7 +14,8 @@ const App: React.FC = () => {
         <Route path="/initial-setup" element={<InitialSetup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
-        <Route path="/users/:userId/:language/:quizLevel/:topic" element={<BasicQuiz />} />
+        <Route path="/quizzes/lang/:lang/level/:level/topic/:topic" element={<BasicQuiz />} />
+        <Route path="/users/:id/:lang/:level/:topic/quiz" element={<BasicQuiz />} />
       </Routes>
   </>
   );

@@ -26,7 +26,6 @@ const userSchema = new Schema<UserDocument>(
         lang: {
             type: String,
             enum: ['cpp', 'python', 'javascript', 'java'],
-            required: true
         },
         quizzes: [
             {

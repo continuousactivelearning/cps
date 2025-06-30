@@ -3,10 +3,16 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 interface UserData {
-  userName: string;
+  _id: string;
+  name: string;
   email: string;
-  role?: string;
-  [key: string]: any; // Extendable
+  role: string;
+  lang: string;
+  quizzes: any[];
+  customQuizzes: any[];
+  courses: any[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface AuthContextType {
@@ -45,7 +51,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const fetchUserData = async (uid: string) => {
     try {
-      const res = await axios.get<UserData>(`/api/users/${uid}/dashboard`);
+      const res = await axios.get<UserData>(`/api/users/${uid}`);
       setUserData(res.data);
     } catch (err: any) {
       console.error('Error fetching user data:', err.response?.data?.message || err.message);
@@ -53,11 +59,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const checkInitialSetupAndRedirect = (data: any) => {
-    const basicQuizDone = data.QuizId && data.QuizId.some((q: any) => q.quizId.toLowerCase().includes('basic'));
-    const assessmentDone = data.knownConcepts && data.targetConcept && data.language;
-    const customQuizDone = data.CustomQuizId && data.CustomQuizId.length > 0;
-    const pathChosen = data.Courses && data.Courses.filter((c: any) => c.Status === 'pending').length > 0;
-    if (!data.language || !basicQuizDone || !assessmentDone || !customQuizDone || !pathChosen) {
+    const basicQuizDone = data.quizzes && data.quizzes.length > 0;
+    const assessmentDone = data.lang; // User has selected a language
+    const customQuizDone = data.customQuizzes && data.customQuizzes.length > 0;
+    const pathChosen = data.courses && data.courses.length > 0;
+    if (!data.lang || !basicQuizDone || !assessmentDone || !customQuizDone || !pathChosen) {
       navigate('/initial-setup');
     } else {
       navigate('/dashboard');
@@ -66,31 +72,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const res = await axios.post<{ userId: string }>('/api/login', {
+      const res = await axios.post('/api/login', {
         email,
         password,
       });
-      const userId = res.data.userId;
+      const userData = res.data;
+      const userId = userData._id;
       setUserId(userId);
+      setUserData(userData);
       localStorage.setItem('userId', userId);
-      const dashRes = await axios.get(`/api/users/${userId}/dashboard`);
-      setUserData(dashRes.data);
-      checkInitialSetupAndRedirect(dashRes.data);
+      checkInitialSetupAndRedirect(userData);
     } catch (err: any) {
-      alert('Login failed: ' + (err.response?.data?.message || err.message));
+      // Throw error so Login.tsx can handle it
+      throw new Error(err.response?.data?.message || err.message || 'Login failed');
     }
   };
 
   const signup = async (userName: string, email: string, password: string) => {
     try {
-      const res = await axios.post<{ userId: string }>('/api/signup', {
-        userName,
+      await axios.post('/api/signup', {
+        name: userName, // Backend expects 'name', not 'userName'
         email,
-        password,
+        password
       });
-      
     } catch (err: any) {
-      alert('Signup failed: ' + (err.response?.data?.message || err.message));
+      // Throw error so Login.tsx can handle it
+      throw new Error(err.response?.data?.message || err.message || 'Signup failed');
     }
   };
 

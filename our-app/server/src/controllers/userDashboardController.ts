@@ -486,7 +486,8 @@ export const submitQuizByLevel = async (req: Request, res: Response) => {
         const quizResult = {
             quizId: quizzes[0]._id as mongoose.Types.ObjectId,
             userScore: totalScore,
-            userAnswers: answers
+            userAnswers: answers,
+            updatedAt: new Date()
         };
 
         user.quizzes.push(quizResult);
