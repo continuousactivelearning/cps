@@ -44,7 +44,11 @@ export interface UserDocument extends Document {
     quizzes: QuizInfo[];
     customQuizzes: QuizInfo[];
     courses: CourseInfo[];
-    lang: Lang;
+    lang?: Lang;
+    recommendedPath?: {
+        target: string;
+        path: string[];
+    };
     createdAt: Date;
     updatedAt: Date;
 }

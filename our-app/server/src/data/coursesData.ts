@@ -42,7 +42,11 @@ export const coursesData = [
     { courseName: "Suffix Arrays/Trees", description: "Suffix-based indexing.", level: "advanced", prerequisites: ["Strings", "Sorting Algorithms"] },
 
     { courseName: "Strings", description: "Text data and manipulations.", level: "beginner", prerequisites: ["Arrays"] },
+    { courseName: "Pointers", description: "Variables storing memory addresses.", level: "beginner", prerequisites: [] },
     { courseName: "Matrices", description: "2D array structures.", level: "beginner", prerequisites: ["Arrays"] },
+    { courseName: "Binary Search", description: "Efficient searching algorithm for sorted arrays.", level: "intermediate", prerequisites: ["Arrays", "Searching Algorithms"] },
+    { courseName: "Two Pointers", description: "Technique using two pointers to iterate through data.", level: "intermediate", prerequisites: ["Arrays"] },
+    { courseName: "Sliding Window", description: "Technique for problems involving a fixed-size window over data.", level: "intermediate", prerequisites: ["Arrays"] },
     { courseName: "Binary Operations", description: "Bit manipulation techniques.", level: "intermediate", prerequisites: [] }
 ];
 

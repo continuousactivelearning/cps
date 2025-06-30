@@ -26,7 +26,6 @@ const userSchema = new Schema<UserDocument>(
         lang: {
             type: String,
             enum: ['cpp', 'python', 'javascript', 'java'],
-            required: true
         },
         quizzes: [
             {
@@ -86,7 +85,11 @@ const userSchema = new Schema<UserDocument>(
                     default: 0
                 }
             }
-        ]
+        ],
+        recommendedPath: {
+            target: { type: String },
+            path: { type: [String] }
+        }
     },
     {
         timestamps: true,
