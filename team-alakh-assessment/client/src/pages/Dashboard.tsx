@@ -552,12 +552,12 @@ const Dashboard: React.FC = () => {
       {/* AnimatedBackground SVGs */}
       <AnimatedBackground />
       {/* Header */}
-      <div className="bg-white/70 dark:bg-[#181818]/70 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-800 sticky top-0 z-40">
+      <div className="bg-white/80 dark:bg-[#181818]/70 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-800 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             {/* Profile Photo */}
             <button
-              className="relative group w-14 h-14 rounded-full border-4 border-gray-300 dark:border-gray-700 shadow-lg overflow-hidden bg-gray-200 dark:bg-gray-700 flex items-center justify-center cursor-pointer hover-glow"
+              className="relative group w-14 h-14 rounded-full border-4 border-gray-300 dark:border-gray-600 shadow-lg overflow-hidden bg-gray-200 dark:bg-gray-700 flex items-center justify-center cursor-pointer hover-glow"
               onClick={() => setShowProfile(true)}
               tabIndex={0}
               aria-label="Open Profile"
@@ -636,9 +636,6 @@ const Dashboard: React.FC = () => {
                   </div>
                 </div>
               )}
-              {notifications.length > 0 && (
-                <span className="absolute left-full top-10 ml-2 bg-yellow-400 text-black text-xs rounded px-2 py-1 shadow pointer-events-none animate-bounce z-50">You have pending tasks!</span>
-              )}
             </div>
 
             {/* Profile Button */}
@@ -688,7 +685,7 @@ const Dashboard: React.FC = () => {
         
         {/* Welcome Section */}
         <div className="text-center mb-12">
-          <div className="bg-white/70 dark:bg-[#181818]/70 backdrop-blur-md rounded-3xl shadow-xl border border-gray-200 dark:border-gray-800 px-8 py-10 mb-4 inline-block">
+          <div className="bg-white/80 dark:bg-[#181818]/70 backdrop-blur-md rounded-3xl shadow-xl border border-gray-200 dark:border-gray-800 px-8 py-10 mb-4 inline-block">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">Welcome to Your</h1>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-700 dark:text-gray-200">Learning Journey</h1>
             <AnimatedIntroText />
@@ -698,7 +695,7 @@ const Dashboard: React.FC = () => {
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <button type="button" onClick={() => handleStatClick('topics')} className="relative focus:outline-none hover-glow group" aria-label="Topics Mastered">
-            <div className="bg-white/70 dark:bg-[#181818]/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 hover:shadow-2xl transform transition-all duration-200 cursor-pointer">
+            <div className="bg-white/80 dark:bg-[#181818]/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 hover:shadow-2xl transform transition-all duration-200 cursor-pointer">
               <div className="flex items-center space-x-3">
                 <div className="bg-gray-100/80 dark:bg-[#222]/80 p-3 rounded-xl shadow">
                   <CheckCircle className="h-6 w-6 text-gray-700 dark:text-gray-200" />
@@ -714,7 +711,7 @@ const Dashboard: React.FC = () => {
             </div>
           </button>
           <button type="button" onClick={() => handleStatClick('inprogress')} className="relative focus:outline-none hover-glow group" aria-label="In Progress">
-            <div className="bg-white/70 dark:bg-[#181818]/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 hover:shadow-2xl transform transition-all duration-200 cursor-pointer">
+            <div className="bg-white/80 dark:bg-[#181818]/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 hover:shadow-2xl transform transition-all duration-200 cursor-pointer">
               <div className="flex items-center space-x-3">
                 <div className="bg-gray-100/80 dark:bg-[#222]/80 p-3 rounded-xl shadow">
                   <Target className="h-6 w-6 text-gray-700 dark:text-gray-200" />
@@ -728,7 +725,7 @@ const Dashboard: React.FC = () => {
             </div>
           </button>
           <button type="button" onClick={() => handleStatClick('assessments')} className="relative focus:outline-none hover-glow group" aria-label="Assessments">
-            <div className="bg-white/70 dark:bg-[#181818]/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 hover:shadow-2xl transform transition-all duration-200 cursor-pointer">
+            <div className="bg-white/80 dark:bg-[#181818]/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 hover:shadow-2xl transform transition-all duration-200 cursor-pointer">
               <div className="flex items-center space-x-3">
                 <div className="bg-gray-100/80 dark:bg-[#222]/80 p-3 rounded-xl shadow">
                   <TrendingUp className="h-6 w-6 text-gray-700 dark:text-gray-200" />
@@ -742,7 +739,7 @@ const Dashboard: React.FC = () => {
             </div>
           </button>
           <button type="button" onClick={() => handleStatClick('stats')} className="relative focus:outline-none hover-glow group" aria-label="Stats">
-            <div className="bg-white/70 dark:bg-[#181818]/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 hover:shadow-2xl transform transition-all duration-200 cursor-pointer">
+            <div className="bg-white/80 dark:bg-[#181818]/70 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-800 hover:shadow-2xl transform transition-all duration-200 cursor-pointer">
               <div className="flex items-center space-x-3">
                 <div className="bg-gray-100/80 dark:bg-[#222]/80 p-3 rounded-xl shadow">
                   <Clock className="h-6 w-6 text-gray-700 dark:text-gray-200" />
@@ -777,7 +774,7 @@ const Dashboard: React.FC = () => {
                 <input
                   id="topic"
                   type="text"
-                  className="w-full pl-14 pr-6 py-5 text-lg border-2 border-gray-200 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200"
+                  className="w-full pl-14 pr-6 py-5 text-lg border-2 border-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-white rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200"
                   placeholder="e.g., Machine Learning, React Hooks, Binary Trees..."
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
@@ -789,7 +786,7 @@ const Dashboard: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full relative overflow-hidden bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white font-semibold py-5 px-8 rounded-2xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-xl hover:shadow-2xl text-lg before:absolute before:inset-0 before:rounded-2xl before:border-2 before:border-gray-400 before:animate-border-glow before:pointer-events-none"
+              className="w-full m-auto relative overflow-hidden bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white font-semibold py-5 px-8 rounded-2xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-xl hover:shadow-2xl text-lg before:absolute before:inset-0 before:rounded-2xl before:border-2 before:border-gray-400 before:animate-border-glow before:pointer-events-none"
               style={{ boxShadow: '0 4px 32px 0 rgba(255,255,255,0.08), 0 1.5px 8px 0 rgba(80,80,80,0.10)' }}
             >
               {loading ? (
@@ -937,7 +934,7 @@ const Dashboard: React.FC = () => {
                 {searchHistory.slice(0, 5).map((searchedTopic, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+                    className="flex items-center justify-between p-3 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors cursor-pointer"
                     onClick={() => setTopic(searchedTopic)}
                   >
                     <div className="flex items-center space-x-3">
@@ -973,7 +970,7 @@ const Dashboard: React.FC = () => {
                 {getPendingSuggestions().slice(0, 3).map((prereq, idx) => (
                   <div
                     key={prereq}
-                    className="p-3 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900 dark:to-orange-900 border border-yellow-200 dark:border-yellow-700 rounded-lg cursor-pointer hover:shadow-md transition-shadow"
+                    className="p-3 bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900 dark:to-orange-900 border border-yellow-300 dark:border-yellow-700 rounded-lg cursor-pointer hover:shadow-md transition-shadow"
                     onClick={() => handlePrereqClick(prereq)}
                   >
                     <div className="flex items-center space-x-2">

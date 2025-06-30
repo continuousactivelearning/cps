@@ -118,7 +118,7 @@ const Profile: React.FC<ProfileProps> = ({ onClose, topicsRef, dependencyMapRef,
                 prerequisites: prereqRes.data.prerequisites || [],
                 modules: []
               };
-            } catch (err) {
+            } catch {
               console.log(`No prerequisites found for ${topic}`);
               return {
                 topic,

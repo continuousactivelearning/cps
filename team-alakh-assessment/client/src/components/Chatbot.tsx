@@ -139,7 +139,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ notifications = [], minimized, setMin
         >
           <span className="text-3xl animate-pulse">🤖</span>
           {/* Tooltip/arrow */}
-          <span className="absolute -left-40 top-1/2 -translate-y-1/2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 py-2 rounded-xl shadow-lg font-semibold text-sm border border-gray-200 dark:border-gray-700 animate-fade-in pointer-events-none select-none">
+          <span className="absolute -left-40 top-0 -translate-y-1/2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 py-2 rounded-xl shadow-lg font-semibold text-sm border border-gray-200 dark:border-gray-700 animate-fade-in pointer-events-none select-none">
             Need help? Chat with me!
             <span className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-b-8 border-l-8 border-t-transparent border-b-transparent border-l-white dark:border-l-gray-900 ml-1"></span>
           </span>
