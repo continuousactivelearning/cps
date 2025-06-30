@@ -187,11 +187,14 @@ export const ChatContainer: React.FC = () => {
         />
         {/* Chat Area */}
         <div
-          className="flex-1 flex flex-col"
+          className="flex-1 flex flex-col fixed top-0 bottom-0 right-0 transition-all duration-300"
           style={{
-            marginLeft: sidebarCollapsed ? '4rem' : '16rem',
+            left: sidebarCollapsed ? '4rem' : '16rem', // 4rem (64px) when collapsed, 16rem (256px) when expanded
             paddingTop: HEADER_HEIGHT,
             height: '100vh',
+            width: `calc(100vw - ${sidebarCollapsed ? '4rem' : '16rem'})`,
+            zIndex: 20,
+            background: 'inherit',
           }}
         >
           {/* Scrollable Messages Area */}
@@ -222,8 +225,11 @@ export const ChatContainer: React.FC = () => {
           <div
             className="fixed bottom-0 right-0 z-30 w-full"
             style={{
+              left: sidebarCollapsed ? '4rem' : '16rem',
               height: `${FOOTER_HEIGHT}px`,
               background: 'inherit',
+              width: `calc(100vw - ${sidebarCollapsed ? '4rem' : '16rem'})`,
+              transition: 'left 0.3s, width 0.3s',
             }}
           >
             <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 px-4 py-3 h-full flex items-center">
@@ -241,3 +247,5 @@ export const ChatContainer: React.FC = () => {
     </div>
   );
 };
+
+
