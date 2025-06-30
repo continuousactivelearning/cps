@@ -242,7 +242,7 @@ const InstructorDashboard: React.FC = () => {
                   value: stats.assessments,
                   label: 'Assessments Generated',
                   subtitle: '+3 this week',
-                  link: '/instructor-dashboard#assessments',
+                  link: '/instructor/assessment-tracking',
                   tooltip: 'Total assessments you have generated for your students.'
                 }
               ].map((card, i) => (
