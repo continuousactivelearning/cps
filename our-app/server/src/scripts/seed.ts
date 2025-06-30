@@ -4,6 +4,7 @@ import seedUsers from "./seedUsers";
 import seedJavaBeginnerQuizzes from "./difficulty-based/seedJavaBeginnerQuizzes";
 import seedJavaIntermediateQuizzes from "./difficulty-based/seedJavaIntermediateQuizzes";
 import seedJavaAdvancedQuizzes from "./difficulty-based/seedJavaAdvancedQuizzes";
+import seedBasicQuizzes from "./seedBasicQuizzes";
 
 // Topic-based seeding is available but not used by default
 // import seedJavaTopicQuizzes from "./topic-based/seedJavaTopicQuizzes";
@@ -13,6 +14,7 @@ const seedData = async (options: {
     quiz?: boolean;
     user?: boolean;
     course?: boolean;
+    basic?: boolean;
 } = {}) => {
     const link = process.env.MONGODB_URI || 'mongodb://localhost:27017/our-app-db';
 
@@ -21,7 +23,7 @@ const seedData = async (options: {
         console.log("Connected to MongoDB");
 
         // If no specific options provided, default to all
-        if (!options.all && !options.quiz && !options.user && !options.course) {
+        if (!options.all && !options.quiz && !options.user && !options.course && !options.basic) {
             options.all = true;
         }
 
@@ -48,12 +50,19 @@ const seedData = async (options: {
             // Alternative topic-based approach
             // await seedJavaTopicQuizzes();
         }
+        if (options.all || options.basic) {
+            console.log("Seeding basic quizzes...");
+            // Assuming seedBasicQuizzes is defined in the same way as the others
+            await seedBasicQuizzes();
+            console.log("Basic quizzes seeded successfully");
+        }
 
         console.log("\nDatabase seeding completed successfully!");
         console.log("\nSummary:");
         if (options.all || options.course) console.log("- Courses seeded");
         if (options.all || options.user) console.log("- Users seeded");
         if (options.all || options.quiz) console.log("- Quizzes seeded");
+        if (options.all || options.basic) console.log("- Basic quizzes seeded");
 
     } catch (error) {
         console.error("Error during database seeding:", error);
@@ -77,7 +86,8 @@ if (process.argv[1]?.includes('seed.ts')) {
         all: args.includes('--all'),
         quiz: args.includes('--quiz'),
         user: args.includes('--user'),
-        course: args.includes('--course')
+        course: args.includes('--course'),
+        basic : args.includes('--basic')
     };
 
     console.log('Options:', options);
