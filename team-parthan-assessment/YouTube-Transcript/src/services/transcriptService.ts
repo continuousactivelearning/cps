@@ -8,7 +8,7 @@
 
 import { downloadSubtitles } from '../utils/downloader';
 import { parseVttFile } from '../utils/parser';
-import { translateToEnglish } from '../utils/translator';
+import { translateToEnglish } from '../utils/translate';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 

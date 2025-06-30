@@ -18,7 +18,7 @@ export async function processTranscript(url: string, videoId: string): Promise<s
 
   try {
      // Step 1: Download subtitles (.vtt file) to tempDir
-    const { filePath, langCode } = await downloadSubtitles(url,videoId, tempDir); // ✅ destructure object
+    const { filePath, langCode } = await downloadSubtitles(videoId, tempDir); // ✅ destructure object
     
     // Step 2: Parse and clean transcript text from .vtt file
     const rawTranscript = await parseVttFile(filePath);

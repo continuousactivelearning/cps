@@ -16,9 +16,9 @@ export default async function generateQuiz(
   const prompt = `
 You are an expert in data structures and algorithms.
 
-Given the list of topics: ${topic}, generate exactly 5 multiple choice questions (MCQs) per topic, resulting in a total of 5 × number of topics.
+Given the list of topics: ${topic}, generate exactly 5 multiple choice questions (MCQs) per topic, resulting in a total of ${5 * topic.length}.
 
-Please not 5 questions per topic, not 5 questions in total.
+Please note 5 questions per topic, that is ${topic.length * 5} questions, not 5 questions in total.
 
 Each question must:
 

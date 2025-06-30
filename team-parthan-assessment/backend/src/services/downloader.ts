@@ -13,8 +13,8 @@ export interface SubtitleDownloadResult {
   langCode: string;
 }
 
-export async function downloadSubtitles(url: string, videoId: string, outputDir: string): Promise<SubtitleDownloadResult> {
-  const baseUrl = url;
+export async function downloadSubtitles(videoId: string, outputDir: string): Promise<SubtitleDownloadResult> {
+  const baseUrl = `https://www.youtube.com/watch?v=${videoId}`;
   const output = path.join(outputDir, `${videoId}.%(ext)s`);
 
   // Try English first

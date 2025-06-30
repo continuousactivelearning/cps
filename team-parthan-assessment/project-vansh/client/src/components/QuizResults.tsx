@@ -1,5 +1,5 @@
 import { CheckCircle } from 'lucide-react';
-import type { QuizState } from '../interface/types';
+import type { QuizState, Topic } from '../interface/types';
 
 interface QuizResultsProps {
   quiz: QuizState;
@@ -8,6 +8,8 @@ interface QuizResultsProps {
   onRetake: () => void;
   onClose: () => void;
   isTopicMastered?: boolean | "";
+  topics: Topic[];
+  startQuiz: (topicId: string) => void;
 }
 
 const QuizResults: React.FC<QuizResultsProps> = ({
@@ -16,7 +18,9 @@ const QuizResults: React.FC<QuizResultsProps> = ({
   onReview,
   onRetake,
   onClose,
-  isTopicMastered
+  isTopicMastered,
+  topics,
+  startQuiz
 }) => {
   const correctAnswers = quiz.questions.filter((q, i) => quiz.userAnswers[i] === q.correctAnswer).length;
   const timeUsed = quiz.timeCompleted 
@@ -43,13 +47,37 @@ const QuizResults: React.FC<QuizResultsProps> = ({
         You scored {quiz.score}% on {title}
       </p>
       
-      {isTopicMastered && (
+      {Array.isArray(topics) && isTopicMastered && (
         <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-8">
           <div className="flex items-center justify-center space-x-2 text-green-700">
             <CheckCircle className="w-6 h-6" />
             <span className="font-semibold text-lg">🎉 Topic Mastered!</span>
           </div>
           <p className="text-green-600 mt-2">You've unlocked new topics and can now progress further!</p>
+          {
+          
+          <div className="mt-4">
+      <h4 className="text-center text-gray-800 font-semibold text-base mb-2">Try Next</h4>
+      <div className="flex justify-center items-center gap-6 flex-wrap">
+        {topics
+          .filter((t) => t.status === "ready")
+          .slice(-3)
+          .map((topic) => (
+            <button
+              key={topic.id}
+              onClick={() => {
+                startQuiz(topic.id);
+                onClose();
+                
+              }}
+              className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-full text-sm font-medium transition-colors"
+            >
+              {topic.name}
+            </button>
+          ))}
+      </div>
+    </div>
+          }
         </div>
       )}
       
