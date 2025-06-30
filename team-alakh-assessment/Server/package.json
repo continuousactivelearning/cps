@@ -15,10 +15,12 @@
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "csv-parser": "^3.2.0",
-    "dotenv": "^16.5.0",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
+    "html-pdf-node": "^1.0.8",
     "json2csv": "^6.0.0-alpha.2",
     "jsonwebtoken": "^9.0.2",
+    "markdown-it": "^14.1.0",
     "mongoose": "^8.15.2",
     "multer": "^2.0.1",
     "pdfkit": "^0.17.1",
@@ -28,7 +30,9 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/html-pdf-node": "^1.0.2",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/markdown-it": "^14.1.2",
     "@types/pdfkit": "^0.14.0"
   }
 }
