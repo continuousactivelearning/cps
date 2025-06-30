@@ -14,12 +14,13 @@ import {
   BookMarked,
   ChevronRight,
   ChevronDown,
+  Plus,
+  Minus,
 } from "lucide-react";
 import api from "../services/api";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "../components/ThemeToggle";
-import { marked } from "marked"; 
-
+import { marked } from "marked";
 
 marked.setOptions({
   gfm: true, // Enable GitHub Flavored Markdown
@@ -40,6 +41,7 @@ const LearnPage: React.FC = () => {
   const { topic } = useParams<{ topic: string }>();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [fontSize, setFontSize] = useState<"sm" | "base" | "lg" | "xl">("base");
   const [renderedContent, setRenderedContent] = useState<string>(""); // Store HTML content
   const [modules, setModules] = useState<LearningModule[]>([]);
   const [currentModuleIndex, setCurrentModuleIndex] = useState(0); // Renamed for clarity
@@ -58,23 +60,28 @@ const LearnPage: React.FC = () => {
   const [totalProgress, setTotalProgress] = useState(0);
 
   // Function to fetch and display a specific module's content
-  const fetchAndDisplayModuleContent = useCallback(async (moduleToDisplay: LearningModule) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await api.get(
-        `/api/learn/${encodeURIComponent(topic!)}/module/${moduleToDisplay.id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      // Convert Markdown to HTML
-      const html = await marked.parse(response.data.content);
-      setRenderedContent(html);
-    } catch (err) {
-      console.error("Error fetching module content:", err);
-      setRenderedContent("<p>Failed to load module content.</p>");
-    }
-  }, [topic]); // Dependency on topic
+  const fetchAndDisplayModuleContent = useCallback(
+    async (moduleToDisplay: LearningModule) => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await api.get(
+          `/api/learn/${encodeURIComponent(topic!)}/module/${
+            moduleToDisplay.id
+          }`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        // Convert Markdown to HTML
+        const html = await marked.parse(response.data.content);
+        setRenderedContent(html);
+      } catch (err) {
+        console.error("Error fetching module content:", err);
+        setRenderedContent("<p>Failed to load module content.</p>");
+      }
+    },
+    [topic]
+  ); // Dependency on topic
 
   useEffect(() => {
     const fetchLearningData = async () => {
@@ -88,7 +95,8 @@ const LearnPage: React.FC = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        const fetchedModules: LearningModule[] = modulesResponse.data.modules || [];
+        const fetchedModules: LearningModule[] =
+          modulesResponse.data.modules || [];
         setModules(fetchedModules);
 
         // Fetch learning history
@@ -264,6 +272,39 @@ const LearnPage: React.FC = () => {
               <span>Back to Dashboard</span>
             </button>
 
+            {/*Font size control */}
+            <div>
+              <div className="flex items-center space-x-2 bg-gray-50 shadow-md text-ray-700 dark:bg-gray-700 dark:text-gray-300 rounded-lg p-1">
+                <button
+                  onClick={() => {
+                    if (fontSize === "xl") setFontSize("lg");
+                    else if (fontSize === "lg") setFontSize("base");
+                    else if (fontSize === "base") setFontSize("sm");
+                  }}
+                  disabled={fontSize === "sm"}
+                  className="p-1 rounded-md hover:bg-white hover:bg-opacity-20 disabled:opacity-50"
+                  aria-label="Decrease font size"
+                >
+                  <Minus className="h-5 w-5" />
+                </button>
+                <span className="text-sm w-6 text-center">{fontSize}</span>
+                <button
+                  onClick={() => {
+                    if (fontSize === "sm") setFontSize("base");
+                    else if (fontSize === "base") setFontSize("lg");
+                    else if (fontSize === "lg") setFontSize("xl");
+                  }}
+                  disabled={fontSize === "xl"}
+                  className="p-1 rounded-md hover:bg-white hover:bg-opacity-20 disabled:opacity-50"
+                  aria-label="Increase font size"
+                >
+                  <Plus className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+
+
             <div className="flex items-center space-x-3">
               <div className="bg-blue-600 p-2 rounded-xl">
                 <BookOpen className="h-6 w-6 text-white" />
@@ -285,6 +326,9 @@ const LearnPage: React.FC = () => {
                 </div>
               </div>
             </div>
+
+
+            
 
             <div className="">
               <ThemeToggle />
@@ -452,11 +496,21 @@ const LearnPage: React.FC = () => {
 
               {/* Content Body - Rendered Markdown */}
               <div className="p-8">
-                <div className="prose prose-lg max-w-none text-gray-800 dark:text-gray-100 transition-colors">
+                <div
+                  className={`prose ${
+                    fontSize === "sm"
+                      ? "prose-sm"
+                      : fontSize === "base"
+                      ? "prose-base"
+                      : fontSize === "lg"
+                      ? "prose-lg"
+                      : "prose-xl"
+                  } dark:prose-invert max-w-none text-gray-800 dark:text-gray-100 transition-all duration-200`}
+                >
                   <div
                     className="leading-relaxed"
                     dangerouslySetInnerHTML={{
-                      __html: renderedContent, // Use the HTML rendered from Markdown
+                      __html: renderedContent,
                     }}
                   />
                 </div>
