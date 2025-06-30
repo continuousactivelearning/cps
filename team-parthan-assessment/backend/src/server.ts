@@ -6,6 +6,9 @@ import authRoutes from './routes/authRoute';
 import userRoutes from './routes/detailsRouter';
 import userProgressRoutes from './routes/userProgress';
 import analyzeRoutes from './routes/analyzeRoute';
+import studentRoutes from './routes/studentRoutes';
+import instructorRoutes from './routes/instructorRoutes';
+import path from 'path';
 
 dotenv.config();
 
@@ -20,6 +23,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/me',userRoutes);
 app.use('/api/user-progress', userProgressRoutes);
 app.use('/api',analyzeRoutes)
+app.use('/api/student', studentRoutes);
+app.use('/api/instructor', instructorRoutes);
+app.use('/uploads', express.static(path.join(__dirname, '../', 'uploads')));
 
 
 // Database connection

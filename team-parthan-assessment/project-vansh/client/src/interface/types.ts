@@ -15,6 +15,9 @@ export interface UserProfile {
   masteredTopics: number;
   totalScore: number;
   streak: number;
+  role: 'student' | 'instructor';
+  enrolledUnder?: string;
+  instructorCode?: string;
 }
 
 export interface CustomContent {
@@ -58,4 +61,5 @@ export interface QuizState {
   timeLimit: number;
   timeRemaining: number;
   attempt?: number;
+  scoreByTopic?: Record<string, { total: number; correct: number }>;
 }

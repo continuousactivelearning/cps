@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from './components/HomePage';
 import MainPage from './components/MainPage';
 import ProtectedRoute from './services/protectedRoute';
+import ResetPasswordPage from './components/ResetPassword';
+import InstructorPage from './components/InstructorPage';
 
 const appRouter = createBrowserRouter([
   {
@@ -10,12 +12,24 @@ const appRouter = createBrowserRouter([
     element:<HomePage/>
   },
   {
+    path:'/reset-password',
+    element:<ResetPasswordPage/>
+  },
+  {
     path: "/home",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={['student']}>
         <MainPage />
       </ProtectedRoute>
     )
+  },
+  {
+    path: '/instructor',
+    element: (
+      <ProtectedRoute allowedRoles={['instructor']}>
+        <InstructorPage />
+      </ProtectedRoute>
+    ),
   },
   
 ]);

@@ -38,48 +38,53 @@ router.get('/',auth, async (req: any, res: Response): Promise<void> => {
 });
 
 
-router.post('/complete',auth, async (req: any, res: Response): Promise<void> => {
-  const { courseId, passed, score } = req.body;
+router.post('/complete', auth, async (req: any, res: Response): Promise<void> => {
+  const updates = req.body; // Expecting an array of { courseId, passed, score }
+
+  if (!Array.isArray(updates)) {
+    res.status(400).json({ error: 'Expected an array of course updates' });
+    return;
+  }
+
   try {
-    const userId = req.userId; 
+    const userId = req.userId;
     let progress = await UserCourseProgress.findOne({ userId });
+
     if (!progress) {
       res.status(404).json({ error: 'Progress not found' });
       return;
     }
 
-    const topicIndex = progress.topics.findIndex(t => t.id === courseId);
-    if (topicIndex === -1) {
-      res.status(404).json({ error: 'Topic not found' });
-      return;
-    }
+    for (const { courseId, passed, score, total } of updates) {
+      const topicIndex = progress.topics.findIndex(t => t.id === courseId);
+      if (topicIndex === -1) continue;
 
-    const topic = progress.topics[topicIndex];
-    topic.score = score;
-    topic.status = passed ? 'mastered' : 'in-progress';
-    topic.attempts = (topic.attempts || 0) + 1;
-    topic.bestScore = Math.max(topic.bestScore || 0, score);
-    topic.lastAttempt = new Date();
+      const topic = progress.topics[topicIndex];
+      topic.score = score;
+      topic.status = passed ? 'mastered' : 'in-progress';
+      topic.attempts = (topic.attempts || 0) + 1;
+      topic.bestScore = Math.max(topic.bestScore || 0, score);
+      topic.lastAttempt = new Date();
+      topic.totalQuestions = (total)? total : 5; 
 
-    await progress.save();
+      if (passed) {
+        progress.topics.forEach(t => {
+          if (
+            t.status === 'not-started' &&
+            Array.isArray(t.prerequisites) &&
+            t.prerequisites.includes(courseId)
+          ) {
+            const allPreReqsMastered = t.prerequisites.every(preqId => {
+              const preq = progress.topics.find(tp => tp.id === preqId);
+              return preq && preq.status === 'mastered';
+            });
 
-    if (passed) {
-      progress.topics.forEach(t => {
-        if (
-          t.status === 'not-started' &&
-          Array.isArray(t.prerequisites) &&
-          t.prerequisites.includes(courseId)
-        ) {
-          const allPreReqsMastered = t.prerequisites.every(preqId => {
-            const preq = progress.topics.find(tp => tp.id === preqId);
-            return preq && preq.status === 'mastered';
-          });
-
-          if (allPreReqsMastered) {
-            t.status = 'ready';
+            if (allPreReqsMastered) {
+              t.status = 'ready';
+            }
           }
-        }
-      });
+        });
+      }
     }
 
     await progress.save();
@@ -89,5 +94,6 @@ router.post('/complete',auth, async (req: any, res: Response): Promise<void> => 
     res.status(500).json({ error: 'Failed to update progress' });
   }
 });
+
 
 export default router;

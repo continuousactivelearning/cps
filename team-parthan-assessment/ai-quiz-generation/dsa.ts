@@ -3,37 +3,46 @@
 import readline from 'readline';
 import fetch from 'node-fetch';
 
-// Define the structure of each quiz question
 interface QuizQuestion {
   id: string;
   question: string;
   options: string[];
   correctAnswer: number;
   explanation: string;
+  topic: string; // for evaluation (strength/weakness)
 }
 
-// Setup readline interface for terminal input
+interface UserResponse {
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  userAnswer: number;
+  explanation: string;
+  topic: string;
+}
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-// Helper function to wrap readline in a Promise
 function ask(question: string): Promise<string> {
   return new Promise(resolve => rl.question(question, resolve));
 }
 
-// Function to fetch quiz from Ollama API
-export async function fetchQuiz(topic: string): Promise<QuizQuestion[]> {
+// ✅ Fetch quiz dynamically from Ollama
+async function fetchQuiz(topic: string): Promise<QuizQuestion[]> {
   const prompt = `
 Generate 5 MCQs on the topic "${topic}". Make sure only one option is the correct answer. Provide explanation too.
+Also include a field named "topic" for each question to indicate the subtopic or concept it tests (e.g. "Time Complexity", "Binary Trees", etc.)
 Format:
 [
   {
     "question": "...",
     "options": ["A", "B", "C", "D"],
     "correctAnswer": 1,
-    "explanation": "..."
+    "explanation": "...",
+    "topic": "..." 
   }
 ]
 Return only valid JSON.
@@ -52,25 +61,59 @@ Return only valid JSON.
   const data = await res.json() as { response: string };
   const match = data.response.match(/\[\s*{[\s\S]*}\s*\]/);
 
-  if (!match) throw new Error('❌ Could not parse JSON response from Ollama.');
+  if (!match) throw new Error('❌ Could not parse JSON from Ollama.');
 
   const rawQuiz = JSON.parse(match[0]);
 
-  // Assign IDs to each question
-  const quiz: QuizQuestion[] = rawQuiz.map((q: { question: any; options: any; correctAnswer: any; explanation: any; }, index: number) => ({
+  const quiz: QuizQuestion[] = rawQuiz.map((q: any, index: number) => ({
     id: (index + 1).toString(),
     question: q.question,
     options: q.options,
     correctAnswer: q.correctAnswer,
-    explanation: q.explanation
+    explanation: q.explanation,
+    topic: q.topic || topic // fallback if no topic
   }));
-
-  console.log(quiz)
 
   return quiz;
 }
 
-// Function to run the quiz in the terminal
+// ✅ Analyze performance topic-wise
+function analyzePerformance(responses: UserResponse[]) {
+  const topicStats: Record<string, { correct: number; total: number }> = {};
+
+  for (const r of responses) {
+    if (!topicStats[r.topic]) topicStats[r.topic] = { correct: 0, total: 0 };
+    topicStats[r.topic].total++;
+    if (r.userAnswer === r.correctAnswer) topicStats[r.topic].correct++;
+  }
+
+  const strengths: string[] = [];
+  const weaknesses: string[] = [];
+
+  for (const [topic, stats] of Object.entries(topicStats)) {
+    const accuracy = (stats.correct / stats.total) * 100;
+    if (accuracy >= 70) strengths.push(topic);
+    else weaknesses.push(topic);
+  }
+
+  console.log('\n📄 === Personalized Report Card ===');
+
+  if (strengths.length) {
+    console.log('\n✅ Strong Topics:');
+    strengths.forEach((t, i) => console.log(`  ${i + 1}. ${t}`));
+  }
+
+  if (weaknesses.length) {
+    console.log('\n⚠️ Weak Topics (Please Revise):');
+    weaknesses.forEach((t, i) => console.log(`  ${i + 1}. ${t}`));
+  }
+
+  if (!weaknesses.length) {
+    console.log('\n🎉 Excellent! You’re strong in all tested areas.');
+  }
+}
+
+// ✅ Run the quiz
 async function runQuiz() {
   const topic = await ask('📝 Enter the topic you want a quiz on: ');
   console.log(`\n🎯 Generating quiz for "${topic}"...\n`);
@@ -86,6 +129,7 @@ async function runQuiz() {
   }
 
   let score = 0;
+  const responses: UserResponse[] = [];
 
   for (let i = 0; i < quiz.length; i++) {
     const q = quiz[i];
@@ -100,60 +144,25 @@ async function runQuiz() {
       console.log('✅ Correct!\n');
       score++;
     } else {
-      console.log(`❌ Incorrect. ✅ Correct Answer: ${q.options[q.correctAnswer]}`);
+      console.log(`❌ Incorrect. ✅ Correct: ${q.options[q.correctAnswer]}`);
       console.log(`📘 Explanation: ${q.explanation}\n`);
     }
+
+    responses.push({
+      question: q.question,
+      options: q.options,
+      correctAnswer: q.correctAnswer,
+      userAnswer: userChoice,
+      explanation: q.explanation,
+      topic: q.topic
+    });
   }
 
   const percent = (score / quiz.length) * 100;
   console.log(`📊 Your Score: ${score}/${quiz.length} (${percent.toFixed(0)}%)`);
 
-  if (percent >= 70) {
-    console.log('🎉 You’re ready to move to the next topic!');
-  } else {
-    console.log('🧠 Please revise this topic before proceeding.');
-  }
-
+  analyzePerformance(responses);
   rl.close();
 }
 
-// Start the quiz
 runQuiz();
-
-
-/* async function fetchQuiz(topic: string): Promise<{
-  question: string;
-  options: string[];
-  correctAnswer: number;
-}[]> {
-  const res = await fetch('http://localhost:11434/api/generate', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'llama3',
-      prompt: `Generate 5 DSA quiz questions in JSON format on the topic "${topic}". Each question should include:
-- "question": string,
-- "options": [option1, option2, option3, option4],
-- "correctAnswer": number (index of correct option 0-3)`,
-      stream: false
-    }),
-  });
-
-  if (!res.ok) throw new Error('Failed to generate quiz');
-
-  const data = await res.json();
-
-  try {
-    const quiz = JSON.parse(data.response);
-    return quiz;
-  } catch (err) {
-    console.error('Could not parse quiz JSON:', data.response);
-    throw new Error('Response is not valid JSON.');
-  }
-}
-
-
-runQuiz();*/
-

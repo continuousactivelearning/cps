@@ -1,4 +1,3 @@
-// components/ConceptAnalyzer.tsx
 import React from "react";
 import type { Topic } from "../interface/types";
 import { CheckCircle } from "lucide-react";
@@ -32,7 +31,7 @@ const ConceptAnalyzer: React.FC<Props> = ({
   const handleAnalyze = async () => {
     if (!file && !youtubeUrl) return;
 
-
+    
     const formData = new FormData();
 
     if (file) {

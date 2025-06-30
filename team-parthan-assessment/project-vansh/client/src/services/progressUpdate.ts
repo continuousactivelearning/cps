@@ -1,14 +1,19 @@
 import type { Topic } from "../interface/types";
 import api from "./api";
 
+type QuizResult = {
+  courseId: string;
+  passed: boolean;
+  score: number;
+  total?: number
+};
+
 export const submitQuiz = async (
-  courseId: string,
-  passed: boolean,
-  score: number
+ results: QuizResult[],
 ): Promise<Topic[]> => {
   await api.post('/user-progress/complete', 
    
-    {  courseId, passed, score },
+   results,
   );
 
   const progressRes = await api.get(`/user-progress/`);
