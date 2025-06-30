@@ -2,6 +2,8 @@ import User from '../models/User';
 import Quiz from '../models/Quiz';
 import type { Request, Response } from 'express';
 import mongoose from 'mongoose';
+import { getRecommendedPath } from '../main/recommendationPath';
+import Course from '../models/Course';
 
 // Get user dashboard with comprehensive info
 export const getUserDashboard = async (req: Request, res: Response) => {
@@ -560,5 +562,78 @@ export const reviewQuizByLevel = async (req: Request, res: Response) => {
         });
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch review', details: err });
+    }
+};
+
+// Recommend a path of courses for a user to reach a target
+export const getRecommendedPathForUser = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { target } = req.query;
+        if (!target || typeof target !== 'string') {
+            return res.status(400).json({ error: 'Target course/topic is required as query param' });
+        }
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        // Extract completed course names
+        const completed = user.courses
+            .filter((c: any) => c.status === 'completed')
+            .map((c: any) => c.courseName);
+        // Generate recommended path
+        const path = await getRecommendedPath(completed, target);
+
+        // Save the recommended path to the user
+        user.recommendedPath = { target, path };
+        await user.save();
+
+        res.json({ recommendedPath: path });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to generate recommended path', details: err });
+    }
+};
+
+// User submits a list of completed courses
+export const updateCompletedCourses = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { completedCourses } = req.body; // Array of course names
+
+        console.log(completedCourses);
+        if (!Array.isArray(completedCourses)) {
+            return res.status(400).json({ error: 'completedCourses must be an array of course names' });
+        }
+
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        for (const courseName of completedCourses) {
+            const course = await Course.findOne({ courseName });
+            if (course) {
+                console.log('Found course:', course);
+                const userCourse = user.courses.find((c: any) => c.courseName === courseName);
+                if (userCourse) {
+                    console.log('Updating course:', course);
+                    userCourse.status = 'completed';
+                } else {
+                    console.log('Adding course:', course);
+                    user.courses.push({
+                        courseId: course._id as mongoose.Types.ObjectId,
+                        courseName: course.courseName,
+                        status: 'completed',
+                        result: 100
+                    });
+                }
+            }
+        }
+
+        await user.save();
+        res.json({ message: 'Completed courses updated successfully', courses: user.courses });
+
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to update completed courses', details: err });
     }
 }; 

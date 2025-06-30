@@ -15,7 +15,9 @@ import {
     getQuizByLevel,
     submitQuizByLevel,
     reviewQuizByLevel,
-    createAssessment
+    createAssessment,
+    getRecommendedPathForUser,
+    updateCompletedCourses
 } from '../controllers/userDashboardController';
 
 const router = express.Router();
@@ -30,6 +32,12 @@ router.post('/', createUser as RequestHandler);
 
 // GET /api/users/:id/dashboard
 router.get('/:id/dashboard', getUserDashboard as RequestHandler);
+
+// GET /api/users/:id/recommend-path?target=CourseName
+router.get('/:id/recommend-path', getRecommendedPathForUser as RequestHandler);
+
+// POST /api/users/:id/completed-courses
+router.post('/:id/completed-courses', updateCompletedCourses as RequestHandler);
 
 // GET /api/users/:id/quiz/:level/questions
 router.get('/:id/quiz/:level/questions', getQuizByLevel as RequestHandler);

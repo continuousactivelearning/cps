@@ -92,6 +92,93 @@ const sampleUsers = [
                 result: 95
             }
         ]
+    },
+    {
+        name: "User 3",
+        email: "user3@example.com",
+        password: "password123",
+        role: "user" as const,
+        lang: "javascript",
+        quizzes: [],
+        customQuizzes: [],
+        courses: [] // No courses completed yet
+    },
+    {
+        name: "User 4",
+        email: "user4@example.com",
+        password: "password123",
+        role: "user" as const,
+        lang: "java",
+        quizzes: [],
+        customQuizzes: [],
+        courses: [
+            {
+                courseId: new mongoose.Types.ObjectId("607f1f77bcf86cd799439022"),
+                courseName: "Arrays",
+                status: "completed" as const,
+                result: 95
+            },
+            {
+                courseId: new mongoose.Types.ObjectId("607f1f77bcf86cd799439023"),
+                courseName: "Strings",
+                status: "completed" as const,
+                result: 91
+            }
+        ]
+    },
+    {
+        name: "User 5",
+        email: "user5@example.com",
+        password: "password123",
+        role: "user" as const,
+        lang: "python",
+        quizzes: [],
+        customQuizzes: [],
+        courses: [
+            {
+                courseId: new mongoose.Types.ObjectId("607f1f77bcf86cd799439024"),
+                courseName: "Recursion",
+                status: "completed" as const,
+                result: 89
+            },
+            {
+                courseId: new mongoose.Types.ObjectId("607f1f77bcf86cd799439025"),
+                courseName: "Queues",
+                status: "completed" as const,
+                result: 92
+            }
+        ]
+    },
+    {
+        name: "User 6 (Beginner+)",
+        email: "user6@example.com",
+        password: "password123",
+        role: "user" as const,
+        lang: "javascript",
+        quizzes: [],
+        customQuizzes: [],
+        courses: [
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Arrays", status: "completed" as const, result: 98 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Strings", status: "completed" as const, result: 91 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Pointers", status: "completed" as const, result: 85 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Linked Lists", status: "in-progress" as const, result: 70 }
+        ]
+    },
+    {
+        name: "User 7 (Intermediate)",
+        email: "user7@example.com",
+        password: "password123",
+        role: "user" as const,
+        lang: "java",
+        quizzes: [],
+        customQuizzes: [],
+        courses: [
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Arrays", status: "completed" as const, result: 100 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Recursion", status: "completed" as const, result: 94 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Trees", status: "completed" as const, result: 91 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Sorting Algorithms", status: "completed" as const, result: 88 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Graphs", status: "in-progress" as const, result: 65 }
+        ]
     }
 ];
 
