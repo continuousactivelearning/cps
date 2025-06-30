@@ -179,6 +179,48 @@ const sampleUsers = [
             { courseId: new mongoose.Types.ObjectId(), courseName: "Sorting Algorithms", status: "completed" as const, result: 88 },
             { courseId: new mongoose.Types.ObjectId(), courseName: "Graphs", status: "in-progress" as const, result: 65 }
         ]
+    },
+    {
+        name: "User 8 (Advanced)",
+        email: "user8@example.com",
+        password: "password123",
+        role: "user" as const,
+        lang: "python",
+        quizzes: [],
+        customQuizzes: [],
+        courses: [
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Arrays", status: "completed" as const, result: 100 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Recursion", status: "completed" as const, result: 100 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Trees", status: "completed" as const, result: 95 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Graphs", status: "completed" as const, result: 92 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Sorting Algorithms", status: "completed" as const, result: 91 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Dynamic Programming", status: "in-progress" as const, result: 75 }
+        ]
+    },
+    {
+        name: "User 9 (Mixed Progress)",
+        email: "user9@example.com",
+        password: "password123",
+        role: "user" as const,
+        lang: "javascript",
+        quizzes: [],
+        customQuizzes: [],
+        courses: [
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Arrays", status: "completed" as const, result: 90 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Strings", status: "completed" as const, result: 88 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Stacks", status: "in-progress" as const, result: 55 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "Queues", status: "enrolled" as const, result: 0 }
+        ]
+    },
+    {
+        name: "User 10 (Newbie)",
+        email: "user10@example.com",
+        password: "password123",
+        role: "user" as const,
+        lang: "cpp",
+        quizzes: [],
+        customQuizzes: [],
+        courses: []
     }
 ];
 
