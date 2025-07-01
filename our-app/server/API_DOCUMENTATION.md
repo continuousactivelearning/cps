@@ -94,72 +94,20 @@ Register a new user account.
 
 Retrieve all users (admin only).
 
-**Response (200):**
-```json
-[
-  {
-    "_id": "507f1f77bcf86cd799439011",
-    "name": "John Doe",
-    "email": "user@example.com",
-    "role": "user",
-    "lang": "java",
-    "quizzes": [],
-    "customQuizzes": [],
-    "courses": [],
-    "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
-]
-```
-
 ### Get User by ID
 **GET** `/api/users/:id`
 
 Retrieve a specific user by ID.
-
-**Response (200):**
-```json
-{
-  "_id": "507f1f77bcf86cd799439011",
-  "name": "John Doe",
-  "email": "user@example.com",
-  "role": "user",
-  "lang": "java",
-  "quizzes": [],
-  "customQuizzes": [],
-  "courses": [],
-  "createdAt": "2024-01-01T00:00:00.000Z",
-  "updatedAt": "2024-01-01T00:00:00.000Z"
-}
-```
 
 ### Create User
 **POST** `/api/users`
 
 Create a new user.
 
-**Request Body:**
-```json
-{
-  "name": "John Doe",
-  "email": "user@example.com",
-  "password": "password123",
-  "lang": "java"
-}
-```
-
 ### Update User
 **PUT** `/api/users/:id`
 
 Update an existing user.
-
-**Request Body:**
-```json
-{
-  "name": "John Doe Updated",
-  "lang": "python"
-}
-```
 
 ### Delete User
 **DELETE** `/api/users/:id`
@@ -171,24 +119,55 @@ Delete a user account.
 
 Get user dashboard with progress and statistics.
 
-**Response (200):**
+**Response Example (200):**
 ```json
 {
-  "user": {
-    "_id": "507f1f77bcf86cd799439011",
+  "userInfo": {
     "name": "John Doe",
-    "email": "user@example.com"
+    "email": "user@example.com",
+    "preferredLanguage": "java",
+    "currentLevel": "intermediate",
+    "memberSince": "2024-01-01T00:00:00.000Z"
   },
-  "stats": {
-    "totalQuizzes": 5,
-    "completedQuizzes": 3,
-    "averageScore": 85,
-    "enrolledCourses": 2,
-    "completedCourses": 1
+  "statistics": {
+    "totalQuizzesTaken": 12,
+    "totalCustomQuizzes": 3,
+    "totalCoursesEnrolled": 5,
+    "averageScore": 78.5,
+    "averageCustomQuizScore": 82.0,
+    "totalScore": 942
   },
-  "recentActivity": []
+  "courseProgress": {
+    "completed": 2,
+    "inProgress": 1,
+    "enrolled": 2,
+    "courses": [
+      { "courseName": "Arrays", "status": "completed", "result": 95 },
+      { "courseName": "Strings", "status": "in-progress", "result": 60 }
+    ]
+  },
+  "recentActivity": {
+    "recentQuizzes": [
+      { "quizId": "...", "score": 80, "submittedAt": null }
+    ],
+    "recentCustomQuizzes": [
+      { "quizId": "...", "score": 90, "submittedAt": "2024-06-01T12:00:00.000Z" }
+    ]
+  },
+  "recommendations": {
+    "suggestedLevel": "intermediate",
+    "suggestedTopics": ["Trees", "Graphs"],
+    "nextSteps": ["Take advanced quizzes", "Complete in-progress courses"],
+    "path": {
+      "target": "Binary Search Trees",
+      "path": ["Recursion", "Trees", "Binary Trees", "Binary Search Trees"]
+    }
+  }
 }
 ```
+
+**Note:**
+- The `recommendations.path` field contains the recommended learning path for the user, including the target and the ordered list of prerequisite courses. If no path is available, this field will be `null`.
 
 ### Get Recommended Learning Path
 **GET** `/api/users/:id/recommend-path`
@@ -198,27 +177,13 @@ Get a personalized learning path to reach a target course/topic.
 **Query Parameters:**
 - `target` (required) - The target course/topic name
 
-**Response (200):**
-```json
-{
-  "recommendedPath": [
-    "Arrays",
-    "Recursion",
-    "Trees",
-    "Binary Trees",
-    "Binary Search Trees"
-  ]
-}
-```
+### Update User Courses
+**POST** `/api/users/:id/update-user-courses`
 
-**Error Responses:**
-- `400` - Missing target parameter or invalid target course
-- `404` - User not found
+Update the list of courses for a user with a specific status.
 
-### Update Completed Courses
-**POST** `/api/users/:id/completed-courses`
-
-Update the list of completed courses for a user.
+**Query Parameters:**
+- `status` (optional) - Course status: `completed`, `enrolled`, or `in-progress` (default: `enrolled`)
 
 **Request Body:**
 ```json
@@ -230,134 +195,116 @@ Update the list of completed courses for a user.
 **Response (200):**
 ```json
 {
-  "message": "Completed courses updated successfully",
+  "message": "Courses updated with status: enrolled",
   "courses": [
     {
       "courseId": "607f1f77bcf86cd799439022",
       "courseName": "Arrays",
-      "status": "completed",
-      "result": 100
-    },
-    // ... other courses
-  ]
+      "status": "enrolled",
+      "result": 0
+    }
+  ],
+  "updatedCount": 3
 }
 ```
 
 **Error Responses:**
-- `400` - Invalid request body format
+- `400` - Invalid request body format or invalid status
 - `404` - User not found
 
-### Get Quiz by Level
-**GET** `/api/users/:id/quiz/:level/questions`
+### Create Custom Quiz for User
+**POST** `/api/users/:id/custom-quiz`
 
-Get quiz questions for a specific level.
+Create a custom quiz for a user based on their enrolled courses.
+
+**Query Parameters:**
+- `lang` (required) - Programming language: `cpp`, `python`, `javascript`, `java`
+- `level` (required) - Quiz level: `beginner`, `intermediate`, `advanced`
+- `totalQuestions` (optional) - Total number of questions (default: 15)
+- `questionsPerTopic` (optional) - Number of questions per topic
 
 **Response (200):**
 ```json
 {
-  "quiz": {
-    "_id": "507f1f77bcf86cd799439012",
-    "title": "Java Beginner Quiz",
-    "quizLevel": "beginner",
+  "customQuiz": {
+    "_id": "507f1f77bcf86cd799439015",
+    "title": "Custom Quiz - beginner java",
+    "description": "Custom quiz for John Doe based on enrolled courses",
     "lang": "java",
-    "questions": [
-      {
-        "questionText": "What is Java?",
-        "options": [
-          {"optionText": "Programming Language", "optionTag": "A"},
-          {"optionText": "Database", "optionTag": "B"},
-          {"optionText": "Operating System", "optionTag": "C"},
-          {"optionText": "Web Browser", "optionTag": "D"}
-        ],
-        "correctOption": "A",
-        "score": 1
-      }
-    ]
-  }
+    "quizLevel": "beginner",
+    "customQuestions": [ ... ],
+    "quizScore": 0,
+    "userId": "507f1f77bcf86cd799439011",
+    "isSubmitted": false,
+    "userScore": 0,
+    "userAnswers": [],
+    "submittedAt": null,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  "quizInfo": {
+    "totalQuestions": 20,
+    "totalScore": 20,
+    "topics": ["Arrays", "Strings", "Linked Lists"],
+    "enrolledCourses": ["Arrays", "Strings", "Linked Lists"],
+    "language": "java",
+    "level": "beginner"
+  },
+  "message": "Custom quiz created and saved successfully"
 }
 ```
 
-### Submit Quiz by Level
-**POST** `/api/users/:id/quiz/:level/submit`
+**Error Responses:**
+- `400` - Missing required parameters or invalid values
+- `404` - User not found or no quizzes available
 
-Submit answers for a level-based quiz.
+### Get User Custom Quizzes
+**GET** `/api/users/:id/custom-quizzes`
+
+Get all custom quizzes created by a user.
+
+### Get Custom Quiz by ID
+**GET** `/api/users/:id/custom-quiz/:customQuizId`
+
+Get a specific custom quiz by ID.
+
+### Submit Custom Quiz Answers
+**POST** `/api/users/:id/custom-quiz/:customQuizId/submit`
+
+Submit answers for a custom quiz.
 
 **Request Body:**
 ```json
 {
-  "answers": ["A", "B", "C", "D"]
+  "answers": ["A", "B", "C", "D", ...]
 }
 ```
 
 **Response (200):**
 ```json
 {
-  "score": 85,
-  "totalQuestions": 4,
-  "correctAnswers": 3,
-  "feedback": "Great job! You're making good progress."
+  "customQuizInfo": {
+    "title": "Custom Quiz - beginner java",
+    "language": "java",
+    "level": "beginner",
+    "totalQuestions": 15
+  },
+  "results": {
+    "score": 85,
+    "correctAnswers": 12,
+    "totalQuestions": 15,
+    "percentage": 80.0,
+    "grade": "B"
+  },
+  "questionDetails": [ ... ],
+  "message": "Custom quiz submitted successfully"
 }
 ```
 
-### Review Quiz by Level
-**GET** `/api/users/:id/quiz/:level/review`
-
-Get detailed review of a completed quiz.
-
-**Response (200):**
-```json
-{
-  "quiz": {
-    "title": "Java Beginner Quiz",
-    "userScore": 85,
-    "totalScore": 100,
-    "questions": [
-      {
-        "questionText": "What is Java?",
-        "userAnswer": "A",
-        "correctAnswer": "A",
-        "isCorrect": true
-      }
-    ]
-  }
-}
-```
-
-### Create Assessment
-**POST** `/api/users/:id/assessment`
-
-Create a personalized assessment for the user.
-
-**Request Body:**
-```json
-{
-  "lang": "java",
-  "level": "beginner",
-  "topics": ["arrays", "strings"]
-}
-```
-
-### Get Questions by Language, Level, and Topic
-**GET** `/api/users/:id/:lang/:quizLevel/:topic/questions`
-
-Get quiz questions filtered by language, level, and topic.
-
-### Submit Answers
-**POST** `/api/users/:id/:lang/:quizLevel/:topic/submit`
-
-Submit answers for a specific quiz.
-
-**Request Body:**
-```json
-{
-  "answers": ["A", "B", "C", "D"]
-}
-```
-
-### Review Quiz
-**GET** `/api/users/:id/:lang/:quizLevel/:topic/review`
-
-Get detailed review of a completed quiz.
+**Error Responses:**
+- `400` - Missing answers array or quiz already submitted
+- `403` - Access denied (quiz doesn't belong to user)
+- `404` - User or custom quiz not found
 
 ---
 
@@ -368,21 +315,6 @@ Get detailed review of a completed quiz.
 
 Retrieve all available courses.
 
-**Response (200):**
-```json
-[
-  {
-    "_id": "507f1f77bcf86cd799439013",
-    "courseName": "Java Fundamentals",
-    "description": "Learn the basics of Java programming",
-    "level": "beginner",
-    "prerequisites": [],
-    "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
-]
-```
-
 ### Get Course by ID
 **GET** `/api/courses/:id`
 
@@ -392,16 +324,6 @@ Retrieve a specific course by ID.
 **POST** `/api/courses`
 
 Create a new course.
-
-**Request Body:**
-```json
-{
-  "courseName": "Advanced Java",
-  "description": "Advanced Java programming concepts",
-  "level": "advanced",
-  "prerequisites": ["Java Fundamentals"]
-}
-```
 
 ### Update Course
 **PUT** `/api/courses/:id`
@@ -488,39 +410,6 @@ Debug endpoint to check database state and course data.
 
 Retrieve all available quizzes.
 
-**Response (200):**
-```json
-[
-  {
-    "_id": "507f1f77bcf86cd799439014",
-    "title": "Java Arrays Quiz",
-    "quizLevel": "beginner",
-    "lang": "java",
-    "description": "Test your knowledge of Java arrays",
-    "topic": {
-      "courseID": "507f1f77bcf86cd799439013",
-      "courseName": "Java Fundamentals"
-    },
-    "questions": [
-      {
-        "questionText": "How do you declare an array in Java?",
-        "options": [
-          {"optionText": "int[] arr;", "optionTag": "A"},
-          {"optionText": "array arr;", "optionTag": "B"},
-          {"optionText": "int arr[];", "optionTag": "C"},
-          {"optionText": "Both A and C", "optionTag": "D"}
-        ],
-        "correctOption": "D",
-        "score": 1
-      }
-    ],
-    "quizScore": 10,
-    "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
-]
-```
-
 ### Get Quiz by ID
 **GET** `/api/quizzes/:id`
 
@@ -530,33 +419,6 @@ Retrieve a specific quiz by ID.
 **POST** `/api/quizzes`
 
 Create a new quiz.
-
-**Request Body:**
-```json
-{
-  "title": "Python Lists Quiz",
-  "quizLevel": "intermediate",
-  "lang": "python",
-  "description": "Test your knowledge of Python lists",
-  "topic": {
-    "courseID": "507f1f77bcf86cd799439013",
-    "courseName": "Python Fundamentals"
-  },
-  "questions": [
-    {
-      "questionText": "How do you add an element to a list?",
-      "options": [
-        {"optionText": "list.add()", "optionTag": "A"},
-        {"optionText": "list.append()", "optionTag": "B"},
-        {"optionText": "list.insert()", "optionTag": "C"},
-        {"optionText": "Both B and C", "optionTag": "D"}
-      ],
-      "correctOption": "D",
-      "score": 1
-    }
-  ]
-}
-```
 
 ### Update Quiz
 **PUT** `/api/quizzes/:id`
@@ -628,114 +490,12 @@ Debug endpoint to check database state and quiz data.
 
 ---
 
-## Custom Quizzes
-
-### Get All Custom Quizzes
-**GET** `/api/custom-quizzes`
-
-Retrieve all custom quizzes.
-
-**Response (200):**
-```json
-[
-  {
-    "_id": "507f1f77bcf86cd799439015",
-    "title": "Custom JavaScript Quiz",
-    "description": "A custom quiz for JavaScript",
-    "lang": "javascript",
-    "quizLevel": "intermediate",
-    "customQuestions": [
-      {
-        "questionText": "What is closure in JavaScript?",
-        "options": [
-          {"optionText": "A function", "optionTag": "A"},
-          {"optionText": "A variable", "optionTag": "B"},
-          {"optionText": "A scope", "optionTag": "C"},
-          {"optionText": "A method", "optionTag": "D"}
-        ],
-        "correctOption": "A",
-        "score": 1,
-        "topic": {
-          "courseID": "507f1f77bcf86cd799439013",
-          "courseName": "JavaScript Fundamentals"
-        }
-      }
-    ],
-    "quizScore": 5,
-    "createdAt": "2024-01-01T00:00:00.000Z",
-    "updatedAt": "2024-01-01T00:00:00.000Z"
-  }
-]
-```
-
-### Get Custom Quiz by ID
-**GET** `/api/custom-quizzes/:id`
-
-Retrieve a specific custom quiz by ID.
-
-### Create Custom Quiz
-**POST** `/api/custom-quizzes`
-
-Create a new custom quiz.
-
-**Request Body:**
-```json
-{
-  "title": "Custom Python Quiz",
-  "description": "A custom quiz for Python",
-  "lang": "python",
-  "quizLevel": "advanced",
-  "customQuestions": [
-    {
-      "questionText": "What is a decorator in Python?",
-      "options": [
-        {"optionText": "A function", "optionTag": "A"},
-        {"optionText": "A class", "optionTag": "B"},
-        {"optionText": "A module", "optionTag": "C"},
-        {"optionText": "A package", "optionTag": "D"}
-      ],
-      "correctOption": "A",
-      "score": 1,
-      "topic": {
-        "courseID": "507f1f77bcf86cd799439013",
-        "courseName": "Python Advanced"
-      }
-    }
-  ]
-}
-```
-
-### Update Custom Quiz
-**PUT** `/api/custom-quizzes/:id`
-
-Update an existing custom quiz.
-
-### Delete Custom Quiz
-**DELETE** `/api/custom-quizzes/:id`
-
-Delete a custom quiz.
-
----
-
 ## Home
 
 ### Get Home Page Data
 **GET** `/api/home`
 
 Get landing page data and features.
-
-**Response (200):**
-```json
-{
-  "message": "Home page data",
-  "features": [
-    "Interactive quizzes",
-    "Progress tracking",
-    "Personalized recommendations",
-    "Multiple difficulty levels"
-  ]
-}
-```
 
 ---
 
@@ -789,8 +549,12 @@ interface User {
   role: 'user' | 'admin';
   lang: 'cpp' | 'python' | 'javascript' | 'java';
   quizzes: QuizInfo[];
-  customQuizzes: QuizInfo[];
+  customQuizzes: CustomQuizInfo[];
   courses: CourseInfo[];
+  recommendedPath?: {
+    target: string;
+    path: string[];
+  };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -801,55 +565,18 @@ interface QuizInfo {
   userAnswers: ('A' | 'B' | 'C' | 'D')[];
 }
 
+interface CustomQuizInfo {
+  quizId: ObjectId;
+  userScore: number;
+  userAnswers: ('A' | 'B' | 'C' | 'D')[];
+  submittedAt: Date;
+}
+
 interface CourseInfo {
   courseId: ObjectId;
   courseName: string;
   status: 'enrolled' | 'completed' | 'in-progress';
   result: number;
-}
-```
-
-### Course Model
-```typescript
-interface Course {
-  _id: ObjectId;
-  courseName: string;
-  description: string;
-  level: 'beginner' | 'intermediate' | 'advanced';
-  prerequisites: string[];
-  createdAt: Date;
-  updatedAt: Date;
-}
-```
-
-### Quiz Model
-```typescript
-interface Quiz {
-  _id: ObjectId;
-  title: string;
-  quizLevel: 'beginner' | 'intermediate' | 'advanced';
-  lang: 'cpp' | 'python' | 'javascript' | 'java';
-  description?: string;
-  topic: {
-    courseID: ObjectId;
-    courseName: string;
-  };
-  questions: Question[];
-  quizScore: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface Question {
-  questionText: string;
-  options: Option[];
-  correctOption: 'A' | 'B' | 'C' | 'D';
-  score: number;
-}
-
-interface Option {
-  optionText: string;
-  optionTag: 'A' | 'B' | 'C' | 'D';
 }
 ```
 
@@ -863,6 +590,11 @@ interface CustomQuiz {
   quizLevel: 'beginner' | 'intermediate' | 'advanced';
   customQuestions: CustomQuestion[];
   quizScore: number;
+  userId: ObjectId;
+  isSubmitted: boolean;
+  userScore: number;
+  userAnswers: ('A' | 'B' | 'C' | 'D')[];
+  submittedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -873,9 +605,14 @@ interface CustomQuestion {
   correctOption: 'A' | 'B' | 'C' | 'D';
   score: number;
   topic: {
-    courseID: ObjectId;
+    courseID: ObjectId | null;
     courseName: string;
   };
+}
+
+interface Option {
+  optionText: string;
+  optionTag: 'A' | 'B' | 'C' | 'D';
 }
 ```
 
