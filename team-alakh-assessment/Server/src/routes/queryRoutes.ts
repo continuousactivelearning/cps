@@ -26,7 +26,7 @@ function getUserFromToken(req: express.Request): JwtPayload | null {
 }
 //added the query routes to enable instructor to access the student queries
 // Student: Create query
-router.post('/', upload.array('attachments', 5), async (req, res) => {
+router.post('/', upload.array('attachments', 5), async (req, res):Promise<any> => {
   const user = getUserFromToken(req) as JwtPayload | null;
   if (!user || user.role !== 'user') return res.status(401).json({ message: 'Unauthorized' });
   const { content } = req.body;
@@ -45,7 +45,7 @@ router.post('/', upload.array('attachments', 5), async (req, res) => {
 });
 
 // Student: List own queries
-router.get('/my', async (req, res) => {
+router.get('/my', async (req, res):Promise<any> => {
   const user = getUserFromToken(req) as JwtPayload | null;
   if (!user || user.role !== 'user') return res.status(401).json({ message: 'Unauthorized' });
   const queries = await Query.find({ studentId: user.id }).sort({ createdAt: -1 });
@@ -53,7 +53,7 @@ router.get('/my', async (req, res) => {
 });
 
 // Student: Close and delete query
-router.post('/:id/close', async (req, res) => {
+router.post('/:id/close', async (req, res):Promise<any> => {
   const user = getUserFromToken(req) as JwtPayload | null;
   if (!user || user.role !== 'user') return res.status(401).json({ message: 'Unauthorized' });
   const query = await Query.findOne({ _id: req.params.id, studentId: user.id });
@@ -63,7 +63,7 @@ router.post('/:id/close', async (req, res) => {
 });
 
 // Instructor: List all queries
-router.get('/', async (req, res) => {
+router.get('/', async (req, res):Promise<any> => {
   const user = getUserFromToken(req) as JwtPayload | null;
   if (!user || user.role !== 'instructor') return res.status(401).json({ message: 'Unauthorized' });
   const queries = await Query.find().populate('studentId', 'profile email').sort({ createdAt: -1 });
@@ -71,7 +71,7 @@ router.get('/', async (req, res) => {
 });
 
 // Instructor: Update status
-router.post('/:id/status', async (req, res) => {
+router.post('/:id/status', async (req, res):Promise<any> => {
   const user = getUserFromToken(req) as JwtPayload | null;
   if (!user || user.role !== 'instructor') return res.status(401).json({ message: 'Unauthorized' });
   let { status } = req.body;
@@ -107,7 +107,7 @@ router.post('/:id/status', async (req, res) => {
 });
 
 // Instructor: Add response
-router.post('/:id/respond', async (req, res) => {
+router.post('/:id/respond', async (req, res):Promise<any> => {
   const user = getUserFromToken(req) as JwtPayload | null;
   if (!user || user.role !== 'instructor') return res.status(401).json({ message: 'Unauthorized' });
   const { response } = req.body;
