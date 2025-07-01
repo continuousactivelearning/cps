@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, FileText, AlertCircle, CheckCircle, BookOpen, Loader, X } from 'lucide-react';
-import { apiService } from '../services/submitConcernService'; // replace with your real service
+import { apiService } from '../services/submitConcernService'; 
 import type { Topic, UserProfile } from '../interface/types';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const SubmitConcernPage: React.FC<SubmitConcernPageProps> = ({
   enrolledUnder, 
   topics, 
   onClose, 
-  onSubmitStatus 
+  onSubmitStatus
 }) => {
   const [selectedTopicId, setSelectedTopicId] = useState('');
   const [selectedTopicName, setSelectedTopicName] = useState('');
@@ -145,7 +145,7 @@ const SubmitConcernPage: React.FC<SubmitConcernPageProps> = ({
             You need to be enrolled under an instructor to submit concerns about quiz questions.
           </p>
           <button
-            onClick={() => navigate('/home')}
+            onClick={onClose}
             className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 dark:from-amber-500 dark:to-amber-600 dark:hover:from-amber-600 dark:hover:to-amber-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
           >
             Go to Profile to Enroll
@@ -166,6 +166,12 @@ const SubmitConcernPage: React.FC<SubmitConcernPageProps> = ({
           Found an issue with a quiz question? Submit your concern with supporting documentation and we'll review it promptly.
         </p>
       </div>
+      <button
+              onClick={onClose}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              <X className="w-6 h-6" />
+            </button>
 
       <form 
         onSubmit={handleSubmit} 

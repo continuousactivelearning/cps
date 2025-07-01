@@ -48,14 +48,17 @@ export const getStudentProgress = async (req: Request, res: Response): Promise<v
     }
 
     const masteredTopics = progress.topics.filter(t => t.status === 'mastered');
-    const totalScore = progress.topics.reduce((acc, t) => acc + (t.score || 0), 0);
-const totalQuestions = progress.topics.reduce((acc, t) => acc + (t.totalQuestions || 0), 0);
-const avgScore = totalQuestions ? (totalScore / totalQuestions)* 100 : 0;
+    const averageScore = progress.topics.reduce((acc, topic) => {
+    if (topic.score && topic.totalQuestions) {
+      return acc + (topic.score / topic.totalQuestions * 100);
+    }
+    return acc;
+  }, 0) / progress.topics.filter(t => t.score).length || 0;
 
 
     res.json({
       masteredTopicsCount: masteredTopics.length,
-      averageScore: avgScore,
+      averageScore: averageScore,
       masteredTopics: masteredTopics.map(t => t.name),
     });
   } catch (err) {

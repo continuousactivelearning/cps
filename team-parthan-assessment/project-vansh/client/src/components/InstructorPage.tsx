@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Network, Moon, Sun, Users, AlertCircle, TrendingUp, BookOpen } from 'lucide-react';
+import { Network, Moon, Sun, Users, AlertCircle, TrendingUp, BookOpen, X } from 'lucide-react';
 import type { UserProfile } from '../interface/types';
 import api from '../services/api';
 import { mutate } from 'swr';
@@ -140,6 +140,22 @@ const InstructorPage: React.FC = () => {
 
 
 
+  function removeStudent(student: Student): void {
+  
+    const confirmUnenroll = window.confirm(`Are you sure you want to remove ${student.name}?`);
+    if (confirmUnenroll) {
+      api.put(`/instructor/remove-student/${student._id}`)
+        .then(() => {
+          setStudents((prev) => prev.filter((s) => s._id !== student._id));
+          alert(`${student.name} has been removed successfully.`);
+        })
+        .catch((err) => {
+          console.error('Error removing student:', err);
+          alert('Failed to remove student. Please try again.');
+        });
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <Loading isVisible= {loading} />
@@ -253,6 +269,15 @@ const InstructorPage: React.FC = () => {
                     <div className="bg-indigo-100 dark:bg-indigo-900 p-2 rounded-full">
                       <Users className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                     </div>
+                    <div className="bg-indigo-100 dark:bg-indigo-900 p-2 rounded-full flex items-center justify-center">
+                      <button
+                        onClick={() => removeStudent(student)}
+                        className="text-indigo-600 dark:text-indigo-400 hover:text-red-600 focus:outline-none"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                    
                   </div>
                   
                   <button

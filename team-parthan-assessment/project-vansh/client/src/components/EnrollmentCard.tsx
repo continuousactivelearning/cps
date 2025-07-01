@@ -31,6 +31,10 @@ const InstructorEnrollmentCard: React.FC<Props> = ({ user }) => {
 
   if (user?.role !== 'student') return null;
 
+  function unenroll(): void {
+    
+  }
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 p-8 transition-all duration-300 hover:shadow-xl">
       {/* Header with gradient background */}
@@ -79,6 +83,14 @@ const InstructorEnrollmentCard: React.FC<Props> = ({ user }) => {
                     </div>
                   </div>
                 </div>
+
+                <button
+                  onClick={unenroll}
+                  className="mt-4 flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3 md:px-4 py-2 rounded-lg transition-colors"
+                >
+                  Unenroll
+                </button>
+
 
                 {/* Features Available */}
                 <div className="mt-4">
