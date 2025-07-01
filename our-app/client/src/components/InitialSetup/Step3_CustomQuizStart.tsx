@@ -19,8 +19,11 @@ const Step3_CustomQuizStart: React.FC<Props> = ({ userId, onNext }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+
     // Fetch user object to get customQuizzes
     axios.get(`/api/users/${userId}`).then(res => {
+
+
       const customQuizInfos = res.data.customQuizzes || [];
       // Get completed custom quiz levels
       const done = customQuizInfos
@@ -98,7 +101,9 @@ const Step3_CustomQuizStart: React.FC<Props> = ({ userId, onNext }) => {
             disabled={completed.length < 3}
             onClick={() => onNext && onNext()}
           >
+
             {completed.length < 3 ? `Complete ${3 - completed.length} more level${3 - completed.length > 1 ? 's' : ''} to continue` : 'Continue to Path Selection →'}
+
           </button>
         </div>
       )}
@@ -106,4 +111,6 @@ const Step3_CustomQuizStart: React.FC<Props> = ({ userId, onNext }) => {
   );
 };
 
+
 export default Step3_CustomQuizStart;
+

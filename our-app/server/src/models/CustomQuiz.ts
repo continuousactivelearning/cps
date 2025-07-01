@@ -68,6 +68,29 @@ const customQuizSchema = new Schema<CustomQuizDocument>(
         quizScore: {
             type: Number,
             default: 0
+        },
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        },
+        isSubmitted: {
+            type: Boolean,
+            default: false
+        },
+        userScore: {
+            type: Number,
+            default: 0
+        },
+        userAnswers: [
+            {
+                type: String,
+                enum: ['A', 'B', 'C', 'D']
+            }
+        ],
+        submittedAt: {
+            type: Date,
+            default: null
         }
     },
     {

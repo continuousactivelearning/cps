@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 import type { Level, Lang, Role, } from '../types/customTypes';
-import type { Question, CustomQuestion, QuizInfo, CourseInfo } from './Basic';
+import type { Question, CustomQuestion, QuizInfo, CustomQuizInfo, CourseInfo } from './Basic';
 
 export interface CourseDocument extends Document {
     courseName: string;
@@ -19,6 +19,11 @@ export interface CustomQuizDocument extends Document {
     updatedAt: Date;
     quizScore: number;
     quizLevel: Level;
+    userId: mongoose.Types.ObjectId;
+    isSubmitted: boolean;
+    userScore: number;
+    userAnswers: string[];
+    submittedAt?: Date;
 }
 
 export interface QuizDocument extends Document {
@@ -42,9 +47,13 @@ export interface UserDocument extends Document {
     password: string;
     role: Role;
     quizzes: QuizInfo[];
-    customQuizzes: QuizInfo[];
+    customQuizzes: CustomQuizInfo[];
     courses: CourseInfo[];
-    lang: Lang;
+    lang?: Lang;
+    recommendedPath?: {
+        target: string;
+        path: string[];
+    };
     createdAt: Date;
     updatedAt: Date;
 }

@@ -40,6 +40,12 @@ This document provides comprehensive documentation for the Learning Platform Bac
                        ┌─────────────────┐
                        │   Models        │
                        └─────────────────┘
+                              │
+                              ▼
+                       ┌─────────────────┐
+                       │ Recommendation  │
+                       │    Engine       │
+                       └─────────────────┘
 ```
 
 ### Application Flow
@@ -47,7 +53,8 @@ This document provides comprehensive documentation for the Learning Platform Bac
 2. **Route Matching**: Routes direct requests to appropriate controllers
 3. **Business Logic**: Controllers handle request processing
 4. **Data Access**: Models interact with MongoDB database
-5. **Response**: JSON responses sent back to client
+5. **Recommendation Engine**: Generates personalized learning paths
+6. **Response**: JSON responses sent back to client
 
 ---
 
@@ -86,6 +93,9 @@ server/
 ├── src/
 │   ├── app.ts                 # Express application setup
 │   ├── server.ts              # Server entry point
+│   ├── main/                  # Core business logic
+│   │   ├── graphBuilder.ts    # Prerequisite graph builder
+│   │   └── recommendationPath.ts # Learning path generator
 │   ├── controllers/           # Request handlers
 │   │   ├── authController.ts
 │   │   ├── courseController.ts
@@ -164,44 +174,18 @@ server/
 ├── /home                     # Landing page data
 ├── /users                    # User management
 │   ├── /:id/dashboard        # User dashboard
-│   ├── /:id/quiz/:level/*    # Level-based quizzes
-│   └── /:id/:lang/:level/:topic/* # Topic-based quizzes
+│   ├── /:id/recommend-path   # Learning path
+│   ├── /:id/update-user-courses # Update user courses (status param)
+│   ├── /:id/custom-quiz      # Create custom quiz
+│   ├── /:id/custom-quizzes   # Get all user custom quizzes
+│   ├── /:id/custom-quiz/:customQuizId # Get custom quiz by ID
+│   ├── /:id/custom-quiz/:customQuizId/submit # Submit custom quiz answers
+│   ├── /:id/quiz/:level/questions # Level-based quizzes
+│   └── ... (other quiz endpoints)
 ├── /courses                  # Course management
-│   ├── /search               # Advanced search
-│   ├── /difficulty-range     # Difficulty filtering
-│   └── /courseName/:name/*   # Course-specific routes
 ├── /quizzes                  # Quiz management
-│   ├── /search               # Advanced search
-│   ├── /lang/:lang/*         # Language-specific routes
-│   ├── /level/:level/*       # Level-specific routes
-│   └── /topic/:topic/*       # Topic-specific routes
-└── /custom-quizzes           # Custom quiz management
+└── /custom-quizzes           # (Admin/Global custom quiz management)
 ```
-
-### Advanced Search Capabilities
-- **Full-text Search**: MongoDB text indexes
-- **Multi-filter Queries**: Combined filters for precise results
-- **Range Queries**: Difficulty level ranges
-- **Compound Filters**: Multiple parameter combinations
-
----
-
-## Authentication & Security
-
-### Password Security
-- **Hashing**: bcryptjs with salt rounds (12)
-- **Validation**: Server-side password validation
-- **Storage**: Hashed passwords only in database
-
-### User Roles
-- **user**: Standard user with quiz and course access
-- **admin**: Administrative access to all features
-
-### Security Features
-- **CORS**: Cross-origin resource sharing enabled
-- **Input Validation**: Request body validation
-- **Error Handling**: Secure error responses
-- **Data Sanitization**: Input sanitization and validation
 
 ---
 
@@ -211,48 +195,40 @@ server/
 ```typescript
 interface User {
   _id: ObjectId;
-  name: string;                    // User's full name
-  email: string;                   // Unique email address
-  password: string;                // Hashed password
-  role: 'user' | 'admin';          // User role
-  lang: 'cpp' | 'python' | 'javascript' | 'java'; // Preferred language
-  quizzes: QuizInfo[];             // User's quiz history
-  customQuizzes: QuizInfo[];       // Custom quiz history
-  courses: CourseInfo[];           // Enrolled courses
-  createdAt: Date;
-  updatedAt: Date;
-}
-```
-
-### Course Model
-```typescript
-interface Course {
-  _id: ObjectId;
-  courseName: string;              // Course title
-  description: string;             // Course description
-  level: 'beginner' | 'intermediate' | 'advanced'; // Difficulty
-  prerequisites: string[];         // Required prerequisites
-  createdAt: Date;
-  updatedAt: Date;
-}
-```
-
-### Quiz Model
-```typescript
-interface Quiz {
-  _id: ObjectId;
-  title: string;                   // Quiz title
-  quizLevel: 'beginner' | 'intermediate' | 'advanced';
+  name: string;
+  email: string;
+  password: string;
+  role: 'user' | 'admin';
   lang: 'cpp' | 'python' | 'javascript' | 'java';
-  description?: string;            // Optional description
-  topic: {
-    courseID: ObjectId;            // Related course
-    courseName: string;            // Course name
+  quizzes: QuizInfo[];
+  customQuizzes: CustomQuizInfo[];
+  courses: CourseInfo[];
+  recommendedPath?: {
+    target: string;
+    path: string[];
   };
-  questions: Question[];           // Quiz questions
-  quizScore: number;               // Total possible score
   createdAt: Date;
   updatedAt: Date;
+}
+
+interface QuizInfo {
+  quizId: ObjectId;
+  userScore: number;
+  userAnswers: ('A' | 'B' | 'C' | 'D')[];
+}
+
+interface CustomQuizInfo {
+  quizId: ObjectId;
+  userScore: number;
+  userAnswers: ('A' | 'B' | 'C' | 'D')[];
+  submittedAt: Date;
+}
+
+interface CourseInfo {
+  courseId: ObjectId;
+  courseName: string;
+  status: 'enrolled' | 'completed' | 'in-progress';
+  result: number;
 }
 ```
 
@@ -260,16 +236,60 @@ interface Quiz {
 ```typescript
 interface CustomQuiz {
   _id: ObjectId;
-  title: string;                   // Quiz title
-  description?: string;            // Optional description
+  title: string;
+  description?: string;
   lang: 'cpp' | 'python' | 'javascript' | 'java';
   quizLevel: 'beginner' | 'intermediate' | 'advanced';
-  customQuestions: CustomQuestion[]; // Custom questions
-  quizScore: number;               // Total possible score
+  customQuestions: CustomQuestion[];
+  quizScore: number;
+  userId: ObjectId;
+  isSubmitted: boolean;
+  userScore: number;
+  userAnswers: ('A' | 'B' | 'C' | 'D')[];
+  submittedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
+
+interface CustomQuestion {
+  questionText: string;
+  options: Option[];
+  correctOption: 'A' | 'B' | 'C' | 'D';
+  score: number;
+  topic: {
+    courseID: ObjectId | null;
+    courseName: string;
+  };
+}
+
+interface Option {
+  optionText: string;
+  optionTag: 'A' | 'B' | 'C' | 'D';
+}
 ```
+
+### User Dashboard Controller
+- **getUserDashboard()**: User progress and statistics (now includes `recommendations.path` with the recommended learning path if available)
+
+#### Example User Dashboard API Response
+```json
+{
+  "userInfo": { ... },
+  "statistics": { ... },
+  "courseProgress": { ... },
+  "recentActivity": { ... },
+  "recommendations": {
+    "suggestedLevel": "intermediate",
+    "suggestedTopics": ["Trees", "Graphs"],
+    "nextSteps": ["Take advanced quizzes", "Complete in-progress courses"],
+    "path": {
+      "target": "Binary Search Trees",
+      "path": ["Recursion", "Trees", "Binary Trees", "Binary Search Trees"]
+    }
+  }
+}
+```
+- The `recommendations.path` field contains the recommended learning path for the user, including the target and the ordered list of prerequisite courses. If no path is available, this field will be `null`.
 
 ---
 
@@ -289,6 +309,12 @@ interface CustomQuiz {
 - **submitAnswers()**: Process quiz submissions
 - **reviewQuiz()**: Quiz review and feedback
 - **createAssessment()**: Personalized assessments
+- **getRecommendedPathForUser()**: Generate personalized learning path
+- **updateUserCourses()**: Update user's courses with status
+- **createCustomQuizForUser()**: Create and save custom quiz for user
+- **getUserCustomQuizzes()**: Get all custom quizzes for a user
+- **getCustomQuizById()**: Get a specific custom quiz by ID
+- **submitCustomQuizAnswers()**: Submit answers for a custom quiz
 
 ### Course Controller
 - **CRUD Operations**: Course management
@@ -303,8 +329,8 @@ interface CustomQuiz {
 - **Debug Endpoints**: Database state verification
 
 ### Custom Quiz Controller
-- **CRUD Operations**: Custom quiz management
-- **User-generated Content**: Custom quiz creation and management
+- **CRUD Operations**: Custom quiz management (admin/global)
+- **User-generated Content**: Custom quiz creation and management (via userDashboardController)
 
 ---
 
@@ -321,6 +347,8 @@ Routes are organized by resource type and follow RESTful conventions:
    - Basic CRUD operations
    - Dashboard and quiz-specific endpoints
    - Assessment and progress tracking
+   - Custom quiz creation, retrieval, and submission
+   - User course update with status
 
 3. **Course Routes** (`/api/courses`)
    - Basic CRUD operations
@@ -333,7 +361,7 @@ Routes are organized by resource type and follow RESTful conventions:
    - Debug endpoints
 
 5. **Custom Quiz Routes** (`/api/custom-quizzes`)
-   - Basic CRUD operations for custom quizzes
+   - Basic CRUD operations for custom quizzes (admin/global)
 
 ### Route Parameters
 - **Path Parameters**: Resource identifiers (`:id`, `:level`, `:lang`)
@@ -556,4 +584,59 @@ For additional support and documentation, refer to:
 - [API Documentation](./API_DOCUMENTATION.md)
 - [Express.js Documentation](https://expressjs.com/)
 - [Mongoose Documentation](https://mongoosejs.com/)
-- [TypeScript Documentation](https://www.typescriptlang.org/) 
+- [TypeScript Documentation](https://www.typescriptlang.org/)
+
+## Recommendation Engine
+
+### Overview
+The recommendation engine generates personalized learning paths based on:
+- User's completed courses
+- Course prerequisites
+- Target course/topic
+
+### Components
+
+#### Graph Builder (`graphBuilder.ts`)
+- Builds a prerequisite graph from the Course collection
+- Represents courses as nodes and prerequisites as edges
+- Uses MongoDB aggregation for efficient graph construction
+
+#### Path Generator (`recommendationPath.ts`)
+- Implements topological sorting with randomization
+- Ensures prerequisites are learned in correct order
+- Removes already completed courses from the path
+- Places target course at the end of the path
+
+### Algorithm
+1. **Graph Construction**
+   - Fetch all courses and their prerequisites
+   - Build an adjacency list representation
+   - Cache graph for performance
+
+2. **Path Generation**
+   - Collect all prerequisites for target course
+   - Remove completed courses
+   - Perform randomized topological sort
+   - Append target course to path
+
+3. **Path Storage**
+   - Save generated path in user document
+   - Track target course and prerequisites
+   - Update when user completes courses
+
+### Example Usage
+```typescript
+// Generate path
+const path = await getRecommendedPath(
+  ["Arrays", "Strings"],  // completed courses
+  "Binary Search Trees"   // target course
+);
+
+// Result
+[
+  "Recursion",
+  "Trees",
+  "Binary Trees",
+  "Binary Search Trees"
+]
+``` 
