@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const allConcepts = ["Arrays", "Strings", "Linked List", "Stack", "Trees", "Binary Search", "Dynamic Programming"];
 
@@ -47,29 +48,25 @@ const Step2_Assessment: React.FC<Props> = ({ userId, language, onNext }) => {
     }
     
     console.log('Submitting assessment with courses:', coursesData);
-    
     try {
-      const res = await fetch(`/api/users/${userId}/assessment`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          language,
-          courses: coursesData
-        }),
+      const res = await axios.post(`/api/users/${userId}/concepts`, {
+        courses: coursesData
       });
-
-      if (res.ok) {
-        const result = await res.json();
-        console.log('Assessment saved successfully:', result);
+      if (res.status === 200) {
+        console.log('Assessment saved successfully:', res.data);
         onNext();
       } else {
-        const error = await res.json();
-        console.error('Assessment submission failed:', error);
-        alert(`Failed to submit assessment: ${error.error || 'Unknown error'}`);
+        console.error('Assessment submission failed:', res.data);
+        alert(`Failed to submit assessment: ${res.data.error || 'Unknown error'}`);
       }
-    } catch (error) {
-      console.error('Network error:', error);
-      alert("Network error. Please check your connection and try again.");
+    } catch (error: any) {
+      if (error.response) {
+        console.error('Assessment submission failed:', error.response.data);
+        alert(`Failed to submit assessment: ${error.response.data.error || 'Unknown error'}`);
+      } else {
+        console.error('Network error:', error);
+        alert("Network error. Please check your connection and try again.");
+      }
     }
   };
 
