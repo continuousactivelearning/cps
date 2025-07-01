@@ -2,13 +2,15 @@
 import express, { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
-import PDFDocument from "pdfkit";
 import crypto from "crypto";
+import MarkdownIt from "markdown-it"; // For parsing markdown
+import html_to_pdf from "html-pdf-node";
 import LearningHistory from "../models/LearningHistory";
 import LearningModule from "../models/LearningModule";
 
 dotenv.config();
 const router = express.Router();
+const md = new MarkdownIt(); // Initialize markdown-it for parsing Markdown content
 
 interface LearningModuleType {
   id: string;
@@ -18,6 +20,14 @@ interface LearningModuleType {
   type: "text" | "video" | "interactive";
   downloadUrl?: string;
   completed?: boolean;
+}
+
+// TOCItem interface is still relevant if you generate TOC within the HTML
+interface TOCItem {
+  title: string;
+  page: number;
+  y: number;
+  level: number; // 0 for H1, 1 for H2, 2 for H3
 }
 
 declare module "express-serve-static-core" {
@@ -69,27 +79,43 @@ function instructorOnly(req: express.Request, res: express.Response, next: expre
   }
 }
 
+// --- Gemini API Call for Learning Modules Generation ---
 async function generateLearningModules(
   topic: string
 ): Promise<LearningModuleType[]> {
   const prompt = `
-Generate a structured learning sequence for "${topic}" with 5-7 learning modules.
-Each module should have:
-- A clear title
-- Learning content (200-300 words)
-- Estimated duration
-- Type (text, video, or interactive)
+Generate a comprehensive, academic-level learning sequence for the topic of "${topic}".
+The content should be detailed, accurate, and suitable for an undergraduate curriculum.
+Divide the material into 5-7 distinct learning modules.
 
-Format as JSON array:
+For each module, provide:
+-   **A clear, descriptive title.**
+-   **Extensive learning content (approx. 700-1000 words).** Use rich Markdown formatting for clarity and structure:
+    -   Top-level module headings: Start with \`# [Module Title]\`.
+    -   Main sections within a module: Use \`## [Section Heading]\`.
+    -   Sub-sections: Use \`### [Sub-section Heading]\`.
+    -   Lists: Use bullet points (\`-\`) or numbered lists (\`1.\`).
+    -   Emphasis: Use bold (\`**text**\`) for important terms and italic (\`*text*\`) for definitions or specific concepts.
+    -   Code snippets: Include relevant code snippets using fenced code blocks (\~\~\~language\ncode here\n\~\~\~).
+    -   Quotes: Use blockquotes (\`> Quote text\`).
+-   **An estimated duration** for completing the module (e.g., "30 min", "1 hour").
+-   **A type** indicating the primary content format ("text", "video", or "interactive").
+
+Ensure the modules flow logically, building knowledge progressively. The overall tone should be formal and educational.
+The output MUST be a JSON array of module objects. Do not include any text outside the JSON block.
+
+Example JSON structure for one module:
+\`\`\`json
 [
   {
-    "id": "[module-1-unique-id]",
-    "title": "[Module Title]",
-    "content": "[Learning content here...]",
-    "duration": "[15 min]",
-    "type": "[text]"
+    "id": "[unique-module-id-e.g.-UUID]",
+    "title": "Module 1: Foundations of ${topic}",
+    "content": "# Module 1: Foundations of ${topic}\n\nThis module introduces the core principles and historical context of ${topic}...\n\n## Key Concepts\n\n### Definition\n\n${topic} can be defined as **[definition here]**...\n\n### Historical Evolution\n\n1.  **Early Beginnings**: Brief history point.\n2.  **Modern Era**: Significant developments.\n\n> "The only way to do great work is to love what you do." - Steve Jobs\n\n\`\`\`python\n# Example Python code related to ${topic}\ndef hello_${topic.toLowerCase().replace(/ /g, '_')}():\n    print(\"Hello, ${topic}!\")\n\`\`\`\n\n*Important Note*: Pay close attention to this section.\n",
+    "duration": "60 min",
+    "type": "text"
   }
 ]
+\`\`\`
 `;
 
   try {
@@ -125,42 +151,39 @@ Format as JSON array:
     console.error("Gemini error or parse fail:", err);
     return [
       {
-        id: "fallback",
-        title: `Intro to ${topic}`,
-        content: "Fallback module content.",
+        id: "fallback-module",
+        title: `Introduction to ${topic} (Fallback Content)`,
+        content: `# Introduction to ${topic} (Fallback Content)
+
+This module provides a basic overview of ${topic}. Due to an issue with content generation, detailed information is not available at this moment. Please try again later.
+
+## What is ${topic}?
+${topic} is a broad field focusing on [add a general description here].
+
+### Importance
+It plays a crucial role in [mention key areas of application].
+
+\`\`\`javascript
+// Fallback code example
+function understandingTopic() {
+  console.log("This is a placeholder for detailed code related to ${topic}.");
+}
+understandingTopic();
+\`\`\`
+
+*For more information*, please consult external resources.
+`,
         duration: "20 min",
         type: "text",
         downloadUrl: `/api/learn/download/${encodeURIComponent(
           topic
-        )}/fallback`,
+        )}/fallback-module`,
       },
     ];
   }
 }
 
-router.get(
-  "/:topic",
-  authenticateToken,
-  async (req: Request, res: Response) => {
-    try {
-      const { topic } = req.params;
-      const existing = await LearningModule.findOne({ topic });
-      if (existing && existing.modules.length > 0) {
-        res.json({
-          content: existing.modules.map((m) => m.content).join("\n\n"),
-        });
-        return;
-      } else {
-        const generatedModules = await generateLearningModules(topic);
-        const contentText = generatedModules.map((m) => m.content).join("\n\n");
-        res.json({ content: contentText });
-        return;
-      }
-    } catch {
-      res.status(500).json({ message: "Failed to generate or fetch content" });
-    }
-  }
-);
+
 
 router.get(
   "/:topic/modules",
@@ -192,6 +215,35 @@ router.get(
       res.json({ modules });
     } catch (err) {
       res.status(500).json({ message: "Failed to get modules" });
+    }
+  }
+);
+
+router.get(
+  "/:topic/module/:moduleId",
+  authenticateToken,
+  async (req: Request, res: Response) => {
+    try {
+      const { topic, moduleId } = req.params;
+      const topicDoc = await LearningModule.findOne({ topic });
+
+      if (!topicDoc) {
+        res.status(404).json({ message: "Topic not found." });
+        return;
+      }
+
+      const module = topicDoc.modules.find((m: any) => m.id === moduleId);
+
+      if (!module) {
+        res.status(404).json({ message: "Module not found within this topic." });
+        return;
+      }
+
+      // Return the module's content (markdown)
+      res.json({ moduleTitle: module.title, content: module.content });
+    } catch (error) {
+      console.error("Error fetching specific module content:", error);
+      res.status(500).json({ message: "Failed to retrieve module content." });
     }
   }
 );
@@ -260,7 +312,7 @@ router.get(
     const { topic, moduleId } = req.params;
 
     let moduleTitle = `Module ${moduleId}`;
-    let moduleContent = `Content for module ${moduleId} not found.`;
+    let moduleContentMarkdown = `Content for module ${moduleId} not found.`;
 
     try {
       const doc = await LearningModule.findOne({ topic });
@@ -268,113 +320,86 @@ router.get(
         const module = doc.modules.find((m: any) => m.id === moduleId);
         if (module) {
           moduleTitle = module.title ?? `Module ${moduleId}`;
-          moduleContent =
+          moduleContentMarkdown =
             module.content ?? `Content for module ${moduleId} not found.`;
         }
       }
 
-      const pdf = new PDFDocument({
-        size: "A4",
-        margins: { top: 50, bottom: 50, left: 60, right: 60 },
-      });
+      // Convert markdown to HTML with MarkdownIt
+      const parsedContent = md.render(moduleContentMarkdown);
+
+      // Construct the HTML document
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8" />
+          <title>${moduleTitle}</title>
+          <style>
+            body {
+              font-family: 'Roboto', sans-serif;
+              margin: 20px;
+              color: #000;
+            }
+            h1 { font-size: 24px; color: #002147; margin-bottom: 12px; }
+            h2 { font-size: 20px; color: #333; margin-bottom: 8px; }
+            h3 { font-size: 16px; color: #555; margin-bottom: 6px; }
+            p { font-size: 12px; line-height: 1.5; margin-bottom: 10px; }
+            ul, ol { margin-left: 20px; margin-bottom: 10px; }
+            li { margin-bottom: 4px; }
+            pre {
+              font-family: 'RobotoMono', monospace;
+              font-size: 11px;
+              background: #f5f5f5;
+              border-radius: 6px;
+              padding: 10px;
+              overflow-x: auto;
+              margin-bottom: 12px;
+            }
+            code {
+              font-family: 'RobotoMono', monospace;
+              background: #f0f0f0;
+              padding: 2px 4px;
+              border-radius: 4px;
+              font-size: 11px;
+            }
+            blockquote {
+              border-left: 4px solid #b3e5fc;
+              background: #f0f8ff;
+              margin: 10px 0;
+              padding: 10px 15px;
+              font-style: italic;
+              color: #333;
+              border-radius: 6px;
+            }
+          </style>
+        </head>
+        <body>
+          ${parsedContent}
+        </body>
+        </html>
+      `;
+
+      const fileName = `${topic.replace(/\s+/g, "_")}_${moduleId}.pdf`;
+
+      const file = { content: htmlContent }; // html-pdf-node uses a file object with the `content` key
+      const options = {
+        format: "A4",
+        printBackground: true,
+        margin: { top: "20mm", bottom: "20mm", left: "15mm", right: "15mm" },
+      };
+
+      const pdfBuffer = await html_to_pdf.generatePdf(file, options);
+
       res.setHeader("Content-Type", "application/pdf");
       res.setHeader(
         "Content-Disposition",
-        `attachment; filename="${moduleTitle.replace(/\s/g, "_")}.pdf"`
+        `attachment; filename="${fileName}"`
       );
-      pdf.pipe(res);
-
-      // --- Header Section ---
-      const headerHeight = 70; // Adjust as needed for your header content
-      const logoPath = "./logo.png"; // 
-      const instituteName = "PreAssess - Smart Learning Platform"; 
-
-      //Rectangle for the header background
-      pdf.rect(0, 0, pdf.page.width, headerHeight).fill("#F0F0F0"); // Light gray background
-
-      //logo
-      try {
-        pdf.image(logoPath, pdf.page.width - 550, 10, {
-          width: 100,
-          height: 50,
-          align: "right"
-        }); // right-aligned logo
-      } catch (error) {
-        console.error("Error loading logo image:", error);
-        pdf
-          .font("Helvetica-Bold")
-          .fontSize(10)
-          .fillColor("red")
-          .text("Logo Missing", pdf.page.width - 150, 30);
-      }
-
-      // institute name
-      pdf
-        .font("Helvetica-Bold")
-        .fontSize(16)
-        .fillColor("#800000")
-        .text(instituteName,60, 30, { align: "center" });
-
-      // line under the header for separation 
-      pdf
-        .lineWidth(1)
-        .strokeColor("#CCCCCC")
-        .moveTo(0, headerHeight)
-        .lineTo(pdf.page.width, headerHeight)
-        .stroke();
-
-      // --- End Header Section ---
-
-      // Y-position for the main content to start AFTER the header
-      const contentStartY = headerHeight + 20;
-
-    
-      pdf.y = contentStartY;
-      pdf
-        .font("Helvetica-Bold")
-        .fontSize(24)
-        .fillColor("#002147") 
-        .text(`Learning Topic: ${topic}`, { align: "center" });
-
-      // Module Title: Move down from the Learning Topic
-      pdf.moveDown(); 
-      pdf
-        .font("Helvetica-Bold")
-        .fontSize(18)
-        .fillColor("#333333") 
-        .text(`Module: ${moduleTitle}`, { align: "center" });
-      pdf.moveDown(2);
-
-      // Module Content: This will automatically flow from the previous position
-      pdf
-        .font("Helvetica")
-        .fontSize(12)
-        .fillColor("black")
-        .text(moduleContent, { align: "justify", lineGap: 6 });
-
-      pdf.moveDown(2);
-      pdf
-        .fontSize(10)
-        .fillColor("gray")
-        .text(`Generated on: ${new Date().toLocaleDateString("en-IN")}`, {
-          align: "right",
-        });
-
-      const range = pdf.bufferedPageRange();
-      for (let i = 0; i < range.count; i++) {
-        pdf.switchToPage(i);
-        pdf
-          .fontSize(8)
-          .text(`Page ${i + 1} of ${range.count}`, 0, pdf.page.height - 40, {
-            align: "center",
-          });
-      }
-
-      pdf.end();
-
+      res.send(pdfBuffer);
     } catch (error) {
-      console.error("Download error:", error);
-      res.status(500).json({ message: "Failed to generate PDF" });
+      console.error("Error generating PDF:", error);
+      res.status(500).json({ message: "Failed to generate PDF document." });
     }
   }
 );
