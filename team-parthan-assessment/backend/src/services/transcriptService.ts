@@ -12,8 +12,8 @@ import { translateToEnglish } from './translate';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
-export async function processTranscript(url: string, videoId: string): Promise<string> {
-  const tempDir = path.resolve('./temp_subtitles');
+export async function processTranscript(videoId: string): Promise<string> {
+  const tempDir = path.resolve('temp_subtitles');
   await fs.ensureDir(tempDir);
 
   try {

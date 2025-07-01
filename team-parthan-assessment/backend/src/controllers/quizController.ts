@@ -4,8 +4,8 @@ import generateQuiz from "../services/generateQuiz";
 
 export async function generate(req:Request, res:Response) {
   try {
-    const { topic, prerequisites } = req.body;
-    const quiz = await generateQuiz(topic, prerequisites);
+    const { topic } = req.body;
+    const quiz = await generateQuiz(topic);
     res.json({ quiz });
   } catch (err) {
     console.error(err);

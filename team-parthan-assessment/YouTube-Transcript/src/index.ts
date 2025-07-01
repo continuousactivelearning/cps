@@ -5,7 +5,7 @@ import { parseVttFile } from './utils/parser';
 import { translateToEnglish } from './utils/translate';
 
 // Topic extraction from Excel
-import { loadConceptsFromExcel, identifyConcepts } from './utils/matchTopics';
+//import { loadConceptsFromExcel, identifyConcepts } from './utils/matchTopics';
 
 import * as path from 'path';
 
@@ -32,21 +32,22 @@ async function main() {
 
     // Step 3: Translate transcript if it's not in English
     const translatedText = await translateToEnglish(transcriptText);
+    console.log(`\n✅ Transcript (Language: ${langCode}):\n${translatedText}\n`);
 
     // Step 4: Load list of concepts from DSA_Concept_Graph.xlsx
-    const excelPath = path.resolve('DSA_Concept_Graph.xlsx');
-    const concepts = loadConceptsFromExcel(excelPath);
+    // const excelPath = path.resolve('DSA_Concept_Graph.xlsx');
+    // const concepts = loadConceptsFromExcel(excelPath);
 
-    // Step 5: Identify matched concepts in the transcript
-    const matchedConcepts = identifyConcepts(translatedText, concepts);
+    // // Step 5: Identify matched concepts in the transcript
+    // const matchedConcepts = identifyConcepts(translatedText, concepts);
 
-    // Step 6: Output results
-    console.log('\n===== Matched Topics =====');
-    if (matchedConcepts.length > 0) {
-      matchedConcepts.forEach(topic => console.log('🔹', topic));
-    } else {
-      console.log(' No concepts matched.');
-    }
+    // // Step 6: Output results
+    // console.log('\n===== Matched Topics =====');
+    // if (matchedConcepts.length > 0) {
+    //   matchedConcepts.forEach(topic => console.log('🔹', topic));
+    // } else {
+    //   console.log(' No concepts matched.');
+    // }
 
   } catch (err) {
     console.error(' Error during processing:', err);
