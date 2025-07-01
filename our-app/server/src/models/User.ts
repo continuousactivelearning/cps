@@ -50,7 +50,7 @@ const userSchema = new Schema<UserDocument>(
             {
                 quizId: {
                     type: Schema.Types.ObjectId,
-                    ref: 'Quiz',
+                    ref: 'CustomQuiz',
                     required: true
                 },
                 userScore: {
@@ -62,7 +62,11 @@ const userSchema = new Schema<UserDocument>(
                         type: String,
                         enum: ['A', 'B', 'C', 'D']
                     }
-                ]
+                ],
+                submittedAt: {
+                    type: Date,
+                    default: Date.now
+                }
             }
         ],
         courses: [

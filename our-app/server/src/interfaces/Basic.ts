@@ -30,6 +30,13 @@ export interface QuizInfo {
     userAnswers: OptionTag[];
 }
 
+export interface CustomQuizInfo {
+    quizId: mongoose.Types.ObjectId;
+    userScore: number;
+    userAnswers: OptionTag[];
+    submittedAt: Date;
+}
+
 export interface CourseInfo {
     courseId: mongoose.Types.ObjectId;
     courseName: string;
