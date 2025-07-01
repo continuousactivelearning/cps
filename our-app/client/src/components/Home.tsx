@@ -57,18 +57,25 @@ const Home: React.FC = () => {
       return;
     }
     try {
-      const res = await axios.get(`/api/users/${userId}/dashboard`);
-      const data = res.data;
-      const basicQuizDone = data.QuizId && data.QuizId.some((q: any) => q.quizId.toLowerCase().includes('basic'));
-      const assessmentDone = data.knownConcepts && data.targetConcept && data.language;
-      const customQuizDone = data.CustomQuizId && data.CustomQuizId.length > 0;
-      const pathChosen = data.Courses && data.Courses.filter((c: any) => c.Status === 'pending').length > 0;
-      if (!data.language || !basicQuizDone || !assessmentDone || !customQuizDone || !pathChosen) {
+      // Use the existing /api/users/:id endpoint instead of /dashboard
+      const res = await axios.get(`/api/users/${userId}`);
+      const userData = res.data;
+      
+      // Extract the same information from the user data structure
+      const basicQuizDone = userData.quizzes && userData.quizzes.length > 0;
+      const assessmentDone = userData.lang; // User has selected a language
+      const customQuizDone = userData.customQuizzes && userData.customQuizzes.length > 0;
+      const pathChosen = userData.courses && userData.courses.length > 0;
+      
+      // Check if user has completed initial setup requirements
+      if (!userData.lang || !basicQuizDone || !assessmentDone || !customQuizDone || !pathChosen) {
         navigate('/initial-setup');
       } else {
         navigate('/dashboard');
       }
     } catch (err) {
+      console.error('Error fetching user data:', err);
+      // If there's an error or user doesn't exist, go to initial setup
       navigate('/initial-setup');
     }
   };

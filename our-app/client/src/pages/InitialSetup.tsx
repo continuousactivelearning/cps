@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Step0_ChooseLanguage from '../components/InitialSetup/Step0_ChooseLanguage';
 import Step1_BasicQuizStart from '../components/InitialSetup/Step1_BasicQuizStart';
 import Step2_Assessment from '../components/InitialSetup/Step2_Assessment';
@@ -19,14 +20,16 @@ interface Course {
 }
 
 interface UserDashboard {
-  id: string;
+  _id: string;
   name: string;
-  quizzes: Quiz[];
-  customQuizzes: Quiz[];
-  courses: Course[];
-  language?: string;
-  knownConcepts?: string[];
-  targetConcept?: string;
+  email: string;
+  role: string;
+  lang: string;
+  quizzes: any[];
+  customQuizzes: any[];
+  courses: any[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 const InitialSetup: React.FC = () => {
@@ -37,13 +40,17 @@ const InitialSetup: React.FC = () => {
   const userId = localStorage.getItem('userId') || '';
 
   useEffect(() => {
-    fetch(`/api/users/${userId}/dashboard`)
-      .then((res) => res.json())
-      .then((data: UserDashboard) => {
+    // Use axios instead of fetch for consistency
+    const fetchUserData = async () => {
+      try {
+        const res = await axios.get(`/api/users/${userId}`);
+        const data: UserDashboard = res.data;
+        
         setDashboard(data);
-        if (data.language) setLanguage(data.language);
+        if (data.lang) setLanguage(data.lang);
+        
         // Updated logic for new schema - check all three levels are completed
-        const basicQuizDone = data.quizzes && data.language && (() => {
+        const basicQuizDone = data.quizzes && data.lang && (() => {
           const completedLevels = data.quizzes
             .filter((q) => {
               if (!q.quizId || typeof q.quizId !== 'object') return false;
@@ -51,7 +58,7 @@ const InitialSetup: React.FC = () => {
               const topic = (q.quizId as any).topic;
               const language = (q.quizId as any).language;
               return (
-                language?.toLowerCase() === data.language?.toLowerCase() &&
+                language?.toLowerCase() === data.lang?.toLowerCase() &&
                 (level === 'beginner' || level === 'intermediate' || level === 'advanced') &&
                 (topic?.courseName === 'basic' || !topic || Object.keys(topic).length === 0)
               );
@@ -62,8 +69,9 @@ const InitialSetup: React.FC = () => {
           const requiredLevels = ['beginner', 'intermediate', 'advanced'];
           return requiredLevels.every(level => completedLevels.includes(level));
         })();
-        const assessmentDone = data.courses && data.courses.length > 0 && data.language;
-        const customQuizDone = data.customQuizzes && data.language && (() => {
+        
+        const assessmentDone = data.courses && data.courses.length > 0 && data.lang;
+        const customQuizDone = data.customQuizzes && data.lang && (() => {
           const completedLevels = data.customQuizzes
             .filter((q) => {
               if (!q.quizId || typeof q.quizId !== 'object') return false;
@@ -76,15 +84,25 @@ const InitialSetup: React.FC = () => {
           const requiredLevels = ['beginner', 'intermediate', 'advanced'];
           return requiredLevels.every(level => completedLevels.includes(level));
         })();
+        
         const pathChosen = data.courses && data.courses.filter(c => c.status === 'in-progress').length > 0;
 
-        if (!data.language) setStep(0);
+        if (!data.lang) setStep(0);
         else if (!basicQuizDone) setStep(1);
         else if (!assessmentDone) setStep(2);
         else if (!customQuizDone) setStep(3);
         else if (!pathChosen) setStep(4);
         else setStep(5);
-      });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        // If there's an error, start from language selection
+        setStep(0);
+      }
+    };
+
+    if (userId) {
+      fetchUserData();
+    }
   }, [userId]);
 
   const goNext = () => setStep((prev) => prev + 1);
@@ -115,17 +133,17 @@ const InitialSetup: React.FC = () => {
         <div className="d-flex card shadow p-4 mb-5 rounded justify-content-center align-items-center">
           {step === 0 && (
             <Step0_ChooseLanguage
-              onSelect={(lang) => {
+              onSelect={async (lang) => {
                 setLanguage(lang);
-                fetch(`/api/users/${userId}/assessment`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ language: lang }),
-                }).then(() => goNext()).catch((error) => {
+                try {
+                  // Use axios instead of fetch for consistency
+                  await axios.put(`/api/users/${userId}`, { lang: lang });
+                  goNext();
+                } catch (error) {
                   console.error('Error saving language:', error);
                   // Still proceed to next step even if there's an error
                   goNext();
-                });
+                }
               }}
             />
           )}
