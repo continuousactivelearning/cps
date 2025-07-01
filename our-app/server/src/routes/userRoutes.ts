@@ -17,7 +17,11 @@ import {
     reviewQuizByLevel,
     createAssessment,
     getRecommendedPathForUser,
-    updateCompletedCourses
+    updateUserCourses,
+    createCustomQuizForUser,
+    submitCustomQuizAnswers,
+    getCustomQuizById,
+    getUserCustomQuizzes
 } from '../controllers/userDashboardController';
 
 const router = express.Router();
@@ -36,8 +40,20 @@ router.get('/:id/dashboard', getUserDashboard as RequestHandler);
 // GET /api/users/:id/recommend-path?target=CourseName
 router.get('/:id/recommend-path', getRecommendedPathForUser as RequestHandler);
 
-// POST /api/users/:id/completed-courses
-router.post('/:id/completed-courses', updateCompletedCourses as RequestHandler);
+// POST /api/users/:id/update-user-courses?status=completed|enrolled|in-progress (default: enrolled)
+router.post('/:id/update-user-courses', updateUserCourses as RequestHandler);
+
+// POST /api/users/:id/custom-quiz?lang=java&level=beginner&totalQuestions=15&questionsPerTopic=3
+router.post('/:id/custom-quiz', createCustomQuizForUser as RequestHandler);
+
+// GET /api/users/:id/custom-quizzes
+router.get('/:id/custom-quizzes', getUserCustomQuizzes as RequestHandler);
+
+// GET /api/users/:id/custom-quiz/:customQuizId
+router.get('/:id/custom-quiz/:customQuizId', getCustomQuizById as RequestHandler);
+
+// POST /api/users/:id/custom-quiz/:customQuizId/submit
+router.post('/:id/custom-quiz/:customQuizId/submit', submitCustomQuizAnswers as RequestHandler);
 
 // GET /api/users/:id/quiz/:level/questions
 router.get('/:id/quiz/:level/questions', getQuizByLevel as RequestHandler);
