@@ -139,6 +139,27 @@ const HomePage: React.FC = () => {
   // Parallax state
   const [mouse, setMouse] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
 
+  // FAQ state and data
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const faqData = [
+    {
+      question: 'How does PreAssess work?',
+      answer: 'PreAssess guides you through learning topics in the right order, ensuring you master all prerequisites before moving on.'
+    },
+    {
+      question: 'Is my data secure?',
+      answer: 'Yes! We use secure authentication and never share your data with third parties.'
+    },
+    {
+      question: 'How do I contact support?',
+      answer: 'You can raise a query from your dashboard, or contact your instructor directly.'
+    },
+    {
+      question: 'Can instructors track my progress?',
+      answer: 'Instructors can see your mastery, quiz attempts, and queries to help you succeed.'
+    }
+  ];
+
   useEffect(() => {
     const fetchEmail = async () => {
       const token = localStorage.getItem("token");
@@ -562,6 +583,153 @@ const HomePage: React.FC = () => {
               </Link>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Why Choose PreAssess? */}
+      <section className="py-20 bg-gradient-to-r from-blue-900 via-indigo-900 to-gray-900">
+        <h2 className="text-3xl font-bold text-white text-center mb-10">Why Choose PreAssess?</h2>
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <motion.div whileHover={{ scale: 1.05 }} className="bg-white/10 rounded-xl p-8 shadow-lg text-center">
+           
+            <h3 className="text-xl font-semibold text-white mb-2">Dependency-Based Learning</h3>
+            <p className="text-blue-100">Master topics in the right order, guided by smart prerequisites.</p>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} className="bg-white/10 rounded-xl p-8 shadow-lg text-center">
+           
+            <h3 className="text-xl font-semibold text-white mb-2">Instructor Analytics</h3>
+            <p className="text-blue-100">Track student progress and assessment results in real time.</p>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} className="bg-white/10 rounded-xl p-8 shadow-lg text-center">
+            
+            <h3 className="text-xl font-semibold text-white mb-2">Modern, Animated UI</h3>
+            <p className="text-blue-100">Enjoy a beautiful, responsive, and interactive experience.</p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Benefits of Using PreAssess */}
+      <section className="py-20 bg-white dark:bg-gray-900">
+        <h2 className="text-3xl font-bold text-center mb-10 text-blue-900 dark:text-white">Benefits of Using PreAssess</h2>
+        <div className="flex flex-wrap justify-center gap-8">
+          <motion.div whileHover={{ y: -8, boxShadow: "0 8px 32px #60a5fa" }} className="bg-blue-50 dark:bg-blue-900/40 rounded-xl p-6 w-72 text-center">
+            
+            <h4 className="text-lg font-semibold text-blue-700 dark:text-blue-200 mb-2">Personalized Pathways</h4>
+            <p className="text-blue-800 dark:text-blue-100">Your learning journey, tailored to you.</p>
+          </motion.div>
+          <motion.div whileHover={{ y: -8, boxShadow: "0 8px 32px #60a5fa" }} className="bg-blue-50 dark:bg-blue-900/40 rounded-xl p-6 w-72 text-center">
+            
+            <h4 className="text-lg font-semibold text-blue-700 dark:text-blue-200 mb-2">Instant Feedback</h4>
+            <p className="text-blue-800 dark:text-blue-100">See your progress and results immediately.</p>
+          </motion.div>
+          <motion.div whileHover={{ y: -8, boxShadow: "0 8px 32px #60a5fa" }} className="bg-blue-50 dark:bg-blue-900/40 rounded-xl p-6 w-72 text-center">
+            
+            <h4 className="text-lg font-semibold text-blue-700 dark:text-blue-200 mb-2">Instructor Support</h4>
+            <p className="text-blue-800 dark:text-blue-100">Get help and guidance whenever you need it.</p>
+          </motion.div>
+          <motion.div whileHover={{ y: -8, boxShadow: "0 8px 32px #60a5fa" }} className="bg-blue-50 dark:bg-blue-900/40 rounded-xl p-6 w-72 text-center">
+           
+            <h4 className="text-lg font-semibold text-blue-700 dark:text-blue-200 mb-2">Progress Tracking</h4>
+            <p className="text-blue-800 dark:text-blue-100">Visualize your mastery and achievements.</p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* About Us */}
+      <section className="py-20 bg-gradient-to-r from-indigo-900 to-blue-900 text-white">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-4">About Us</h2>
+          <p className="text-lg mb-6">
+            PreAssess is built by a passionate team of learners and educators. Our mission is to make learning smarter, more personalized, and more effective for everyone.
+          </p>
+          
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-white dark:bg-gray-900">
+        <h2 className="text-3xl font-bold text-center mb-10 text-blue-900 dark:text-white">Frequently Asked Questions</h2>
+        <div className="max-w-2xl mx-auto">
+          {faqData.map((faq, idx) => (
+            <motion.div key={idx} initial={false} animate={{ height: openFaq === idx ? 'auto' : 64 }} className="overflow-hidden mb-4 rounded-xl shadow bg-blue-50 dark:bg-blue-900/40">
+              <button onClick={() => setOpenFaq(openFaq === idx ? null : idx)} className="w-full text-left px-6 py-4 font-semibold text-blue-700 dark:text-blue-200">
+                {faq.question}
+              </button>
+              {openFaq === idx && (
+                <div className="px-6 pb-4 text-blue-800 dark:text-blue-100">
+                  {faq.answer}
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* UI Screenshots Section - Horizontally Scrollable with Descriptions */}
+      <section className="py-20 bg-gradient-to-r from-blue-900 via-indigo-900 to-gray-900">
+        <h2 className="text-3xl font-bold text-white text-center mb-10">See PreAssess in Action</h2>
+        <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-blue-400 scrollbar-track-blue-100">
+          <div className="flex gap-8 px-4 min-w-fit">
+            {[
+              {
+                src: "/screenshots/dashboard.png",
+                alt: "Instructor Dashboard",
+                desc: "The Instructor Dashboard provides a comprehensive overview of student progress, quiz results, and learning analytics at a glance."
+              },
+              {
+                src: "/screenshots/student-detail.png",
+                alt: "Student Detail Modal",
+                desc: "Dive into individual student details, track their mastery, quiz attempts, and address their queries directly."
+              },
+              {
+                src: "/screenshots/assessment-tracking.png",
+                alt: "Assessment Tracking Page",
+                desc: "Monitor assessment completion and performance for every student, ensuring no one falls behind."
+              },
+              {
+                src: "/screenshots/query-system.png",
+                alt: "Query System Panel",
+                desc: "A dedicated panel for students to raise queries and for instructors to respond, fostering interactive learning."
+              },
+              {
+                src: "/screenshots/learning-modules.png",
+                alt: "Learning Module View",
+                desc: "Explore structured learning modules, each with clear prerequisites and progress indicators."
+              },
+              {
+                src: "/screenshots/quiz.png",
+                alt: "Quiz In Progress",
+                desc: "Take quizzes to assess your understanding, with instant feedback and adaptive question flow."
+              },
+              {
+                src: "/screenshots/quiz-result.png",
+                alt: "Quiz Result",
+                desc: "View detailed quiz results, including correct answers, explanations, and areas for improvement."
+              },
+              {
+                src: "/screenshots/quiz-evaluation.png",
+                alt: "Quiz Evaluation",
+                desc: "Instructors can evaluate quiz attempts, provide feedback, and unlock new learning paths."
+              },
+              {
+                src: "/screenshots/prerequisites.png",
+                alt: "Prerequisite Display",
+                desc: "Visualize topic dependencies and prerequisites, ensuring a logical and effective learning journey."
+              }
+            ].map((item, idx) => (
+              <div key={item.src} className="flex flex-col items-center w-80 min-w-[20rem]">
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="rounded-xl shadow-lg w-80 h-auto mb-4 transition-transform hover:scale-105 bg-white/20 border border-blue-200"
+                  style={{ objectFit: 'contain' }}
+                />
+                <p className="text-white/90 text-center text-base bg-blue-900/60 rounded-lg px-4 py-2 shadow w-full">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

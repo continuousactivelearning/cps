@@ -41,8 +41,6 @@ const InstructorStudents: React.FC = () => {
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailError, setDetailError] = useState('');
   const [actionMsg, setActionMsg] = useState('');
-  const [csvLoading, setCsvLoading] = useState(false);
-  const [csvMsg, setCsvMsg] = useState('');
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -174,48 +172,8 @@ const InstructorStudents: React.FC = () => {
     setDetailLoading(false);
   };
 
-  const handleExport = async () => {
-    setCsvLoading(true);
-    setCsvMsg('');
-    try {
-      const token = localStorage.getItem('instructorToken');
-      const res = await axios.get('/api/instructor/students/export', {
-        headers: { Authorization: `Bearer ${token}` },
-        responseType: 'blob',
-      });
-      // Check if response is CSV
-      const contentType = res.headers['content-type'];
-      if (contentType && contentType.includes('text/csv')) {
-        const url = window.URL.createObjectURL(new Blob([res.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'students.csv');
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode?.removeChild(link);
-        setCsvMsg('Exported successfully.');
-      } else {
-        // Try to parse error message
-        const reader = new FileReader();
-        reader.onload = () => {
-          try {
-            const json = JSON.parse(reader.result as string);
-            setCsvMsg(json.message || 'Export failed.');
-          } catch {
-            setCsvMsg('Export failed.');
-          }
-        };
-        reader.readAsText(res.data);
-      }
-    } catch (err) {
-      setCsvMsg('Export failed.');
-    }
-    setCsvLoading(false);
-  };
   const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.length) return;
-    setCsvLoading(true);
-    setCsvMsg('');
     try {
       const token = localStorage.getItem('instructorToken');
       const formData = new FormData();
@@ -223,11 +181,10 @@ const InstructorStudents: React.FC = () => {
       const res = await axios.post('/api/instructor/students/import', formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setCsvMsg(res.data.message || 'Import complete.');
+      setActionMsg(res.data.message || 'Import complete.');
     } catch {
-      setCsvMsg('Import failed.');
+      setActionMsg('Import failed.');
     }
-    setCsvLoading(false);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -321,15 +278,11 @@ const InstructorStudents: React.FC = () => {
                   value={search}
                   onChange={e => setSearch(e.target.value)}
                 />
-                <div className="flex gap-2">
-                  <button onClick={handleExport} className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg font-semibold shadow hover:scale-105 transition">{csvLoading ? 'Exporting...' : 'Export CSV'}</button>
-                  <label className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg font-semibold shadow hover:scale-105 transition cursor-pointer">
-                    Import CSV
-                    <input type="file" accept=".csv" ref={fileInputRef} onChange={handleImport} className="hidden" />
-                  </label>
-                </div>
+                <label className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg font-semibold shadow hover:scale-105 transition cursor-pointer">
+                  Import CSV
+                  <input type="file" accept=".csv" ref={fileInputRef} onChange={handleImport} className="hidden" />
+                </label>
               </div>
-              {csvMsg && <div className="text-blue-600 font-medium mb-2">{csvMsg}</div>}
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

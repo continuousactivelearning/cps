@@ -59,7 +59,7 @@ app.use(express.json());
 // Serve uploaded files
 app.use('/uploads', express.static('Server/uploads'));
 
-mongoose.connect('mongodb://localhost:27017/dependencyApp', {
+mongoose.connect(process.env.MONGO_URI as string, {
   useNewUrlParser: true,
   useUnifiedTopology: true,    
 } as any)

@@ -79,7 +79,10 @@ function instructorOnly(req: express.Request, res: express.Response, next: expre
   }
 }
 
-// --- Gemini API Call for Learning Modules Generation ---
+// --- Groq API Call for Learning Modules Generation ---
+const GROQ_API_KEY = process.env.GROQ_KEY;
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
 async function generateLearningModules(
   topic: string
 ): Promise<LearningModuleType[]> {
@@ -103,33 +106,31 @@ For each module, provide:
 
 Ensure the modules flow logically, building knowledge progressively. The overall tone should be formal and educational.
 The output MUST be a JSON array of module objects. Do not include any text outside the JSON block.
-
-Example JSON structure for one module:
-\`\`\`json
-[
-  {
-    "id": "[unique-module-id-e.g.-UUID]",
-    "title": "Module 1: Foundations of ${topic}",
-    "content": "# Module 1: Foundations of ${topic}\n\nThis module introduces the core principles and historical context of ${topic}...\n\n## Key Concepts\n\n### Definition\n\n${topic} can be defined as **[definition here]**...\n\n### Historical Evolution\n\n1.  **Early Beginnings**: Brief history point.\n2.  **Modern Era**: Significant developments.\n\n> "The only way to do great work is to love what you do." - Steve Jobs\n\n\`\`\`python\n# Example Python code related to ${topic}\ndef hello_${topic.toLowerCase().replace(/ /g, '_')}():\n    print(\"Hello, ${topic}!\")\n\`\`\`\n\n*Important Note*: Pay close attention to this section.\n",
-    "duration": "60 min",
-    "type": "text"
-  }
-]
-\`\`\`
 `;
 
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      GROQ_API_URL,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${GROQ_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "llama3-70b-8192",
+          messages: [
+            { role: "system", content: "You are a helpful assistant for education." },
+            { role: "user", content: prompt }
+          ],
+          max_tokens: 4096,
+          temperature: 0.2
+        }),
       }
     );
 
     const data = await response.json();
-    const rawText = data.candidates[0].content.parts[0].text;
+    let rawText = data.choices?.[0]?.message?.content || '';
     const cleaned = rawText.replace(/```json\n?|\n?```/g, "").trim();
 
     const modulesRaw = JSON.parse(cleaned);
@@ -148,7 +149,7 @@ Example JSON structure for one module:
     await LearningModule.create({ topic, modules });
     return modules;
   } catch (err) {
-    console.error("Gemini error or parse fail:", err);
+    console.error("Groq error or parse fail:", err);
     return [
       {
         id: "fallback-module",
@@ -182,8 +183,6 @@ understandingTopic();
     ];
   }
 }
-
-
 
 router.get(
   "/:topic/modules",
