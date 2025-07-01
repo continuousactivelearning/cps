@@ -9,7 +9,9 @@ export interface SubtitleDownloadResult {
 
 export async function downloadSubtitles(videoId: string, outputDir: string): Promise<SubtitleDownloadResult> {
   const baseUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
   const output = path.join(outputDir, `${videoId}.%(ext)s`).replace(/\\/g, '/');
+
 
   // Try downloading English subtitles first
   try {

@@ -28,6 +28,8 @@ import { submitQuiz } from '../services/progressUpdate';
 import CustomQuizResult, { type TopicStats } from './CustomResult';
 import InstructorEnrollmentCard from './EnrollmentCard';
 import SubmitConcernPage from './RaiseConcern';
+import { ThemeToggle } from './ThemeToggle';
+import RaiseConcern from './RaiseConcern';
 
 interface CustomQuizScores {
   [topic: string]: {
@@ -518,6 +520,7 @@ const MainPage: React.FC = () => {
 
     setLoader(true);
 
+
   try {
     const res = await fetch("http://localhost:5000/api/generate-quiz", {
       method: "POST",
@@ -526,6 +529,7 @@ const MainPage: React.FC = () => {
         topic: concepts.prerequisites.filter(t => topics.some(topic => (topic.name === t && topic.status !== 'mastered')))
       }),
     });
+
 
       if (!res.ok) throw new Error("Quiz generation failed");
 
@@ -619,7 +623,7 @@ const MainPage: React.FC = () => {
 
     const overallScore = Math.round((correctAnswers / currentQuiz.questions.length) * 100);
 
-    
+
     const completedQuiz: QuizState = {
       ...currentQuiz,
       score: overallScore,
@@ -635,38 +639,38 @@ const MainPage: React.FC = () => {
       score: number;
       total: number;
     }[] = Object.entries(scoreByTopic)
-    .map(([topicName, stats]) => {
-      const topicObj = topics.find(t => t.name === topicName); 
-      if (!topicObj) return null;
+      .map(([topicName, stats]) => {
+        const topicObj = topics.find(t => t.name === topicName);
+        if (!topicObj) return null;
 
-      const score = stats.correct;
-      const scorePercentage = (score / stats.total) * 100;
-      const passed = scorePercentage >= 70;
-      const total = stats.total;
-      return {
-        courseId: topicObj.id,
-        passed,
-        score,
-        total,
-      };
-    })
-    .filter(Boolean) as {
-      courseId: string;
-      passed: boolean;
-      score: number;
-      total: number;
-    }[];
+        const score = stats.correct;
+        const scorePercentage = (score / stats.total) * 100;
+        const passed = scorePercentage >= 70;
+        const total = stats.total;
+        return {
+          courseId: topicObj.id,
+          passed,
+          score,
+          total,
+        };
+      })
+      .filter(Boolean) as {
+        courseId: string;
+        passed: boolean;
+        score: number;
+        total: number;
+      }[];
 
     try {
-    const updated = await submitQuiz(topicSubmissions);
-    const fixed = updated.map((t) => ({
-      ...t,
-      lastAttempt: t.lastAttempt ? new Date(t.lastAttempt) : undefined,
-    }));
-    setTopics(fixed);
-  } catch (err) {
-    console.error("Error submitting topic scores:", err);
-  }
+      const updated = await submitQuiz(topicSubmissions);
+      const fixed = updated.map((t) => ({
+        ...t,
+        lastAttempt: t.lastAttempt ? new Date(t.lastAttempt) : undefined,
+      }));
+      setTopics(fixed);
+    } catch (err) {
+      console.error("Error submitting topic scores:", err);
+    }
 
 
 
@@ -736,12 +740,12 @@ const MainPage: React.FC = () => {
       try {
         const updated = await submitQuiz(
           [
-      {
-        courseId: completedQuiz.topicId,
-        passed,
-        score: correctAnswers
-      }
-    ]
+            {
+              courseId: completedQuiz.topicId,
+              passed,
+              score: correctAnswers
+            }
+          ]
         );
         const fixed = updated.map((t) => ({
           ...t,
@@ -833,6 +837,7 @@ const MainPage: React.FC = () => {
               />
             </div>
             <div className="flex items-center space-x-2 md:space-x-4">
+              {/* <ThemeToggle /> */}
               <div className="hidden lg:block">
                 <UserProfileDropdown />
               </div>
@@ -1010,8 +1015,8 @@ const MainPage: React.FC = () => {
                           <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center space-x-3">
                               <div className={`inline-flex items-center px-3 py-2 rounded-full text-sm font-medium ${content.status === 'ready' ? 'bg-green-100 text-green-800' :
-                                  content.status === 'processing' ? 'bg-yellow-100 text-yellow-800' :
-                                    'bg-red-100 text-red-800'
+                                content.status === 'processing' ? 'bg-yellow-100 text-yellow-800' :
+                                  'bg-red-100 text-red-800'
                                 }`}>
                                 {content.status === 'processing' && <Loader className="w-4 h-4 mr-2 animate-spin" />}
                                 {content.status === 'ready' && <CheckCircle className="w-4 h-4 mr-2" />}
@@ -1061,7 +1066,7 @@ const MainPage: React.FC = () => {
                                 <div className="w-full bg-gray-200 rounded-full h-2">
                                   <div
                                     className={`h-2 rounded-full transition-all duration-500 ${scorePercentage >= 80 ? 'bg-green-500' :
-                                        scorePercentage >= 60 ? 'bg-yellow-500' : 'bg-red-500'
+                                      scorePercentage >= 60 ? 'bg-yellow-500' : 'bg-red-500'
                                       }`}
                                     style={{ width: `${scorePercentage}%` }}
                                   ></div>
@@ -1132,17 +1137,17 @@ const MainPage: React.FC = () => {
 
             <InstructorEnrollmentCard user={userProfile} />
 
-              <div>
-      <button
-        onClick={() => setShowUploadConcern(true)}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Submit Concern
-      </button>
+            <div>
+              <button
+                onClick={() => setShowUploadConcern(true)}
+                className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3 md:px-4 py-2 rounded-lg transition-colors"
+              >
+                Submit Concern
+              </button>
 
-      {showUploadConcern && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50 overflow-auto p-6">
-          <div className="relative bg-white max-w-3xl w-full rounded-lg shadow-lg">
+              {showUploadConcern && (
+                <div className="fixed inset-0 bg-white dark:bg-gray-800  flex justify-center items-start z-50 overflow-auto p-6">
+                  {/* <div className="relative bg-white max-w-3xl w-full rounded-lg shadow-lg">
             <button
               onClick={() => setShowUploadConcern(false)}
               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
@@ -1152,19 +1157,28 @@ const MainPage: React.FC = () => {
             <SubmitConcernPage enrolledUnder = {userProfile.enrolledUnder} topics={topics}  
             onClose={() => setShowUploadConcern(false)}
   onSubmitStatus={(status) => setStatusMessage(status)} />
-          </div>
-          {statusMessage && (
-  <div
-    className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded shadow-lg z-[60] text-white ${
-      statusMessage.type === 'success' ? 'bg-green-600' : 'bg-red-600'
-    }`}
-  >
-    {statusMessage.message}
-  </div>
-)}
-        </div>
-      )}
-    </div>
+          </div> */}
+                  <RaiseConcern enrolledUnder={'1'} topics={[{
+                    id: '1',
+                    name: 'vansh',
+                    prerequisites: ['string', 'array'],
+                    status: 'in-progress',
+                    score: 8,
+                    totalQuestions: 10,
+                    attempts: 8,
+                    bestScore: 8
+                  }]} />
+                  {statusMessage && (
+                    <div
+                      className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded shadow-lg z-[60] text-white ${statusMessage.type === 'success' ? 'bg-green-600' : 'bg-red-600'
+                        }`}
+                    >
+                      {statusMessage.message}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
 
             {/* User Profile Card */}
             <div className="bg-white rounded-xl p-6 shadow-sm border">
@@ -1225,8 +1239,8 @@ const MainPage: React.FC = () => {
                 <button
                   onClick={() => setUploadType("youtube")}
                   className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "youtube"
-                      ? "border-red-500 bg-red-50"
-                      : "border-gray-200 hover:border-gray-300"
+                    ? "border-red-500 bg-red-50"
+                    : "border-gray-200 hover:border-gray-300"
                     }`}
                 >
                   <Youtube className="w-6 h-6 md:w-8 md:h-8 text-red-500 mx-auto mb-2" />
@@ -1235,8 +1249,8 @@ const MainPage: React.FC = () => {
                 <button
                   onClick={() => setUploadType("pdf")}
                   className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "pdf"
-                      ? "border-red-500 bg-red-50"
-                      : "border-gray-200 hover:border-gray-300"
+                    ? "border-red-500 bg-red-50"
+                    : "border-gray-200 hover:border-gray-300"
                     }`}
                 >
                   <FileText className="w-6 h-6 md:w-8 md:h-8 text-red-500 mx-auto mb-2" />
@@ -1245,8 +1259,8 @@ const MainPage: React.FC = () => {
                 <button
                   onClick={() => setUploadType("image")}
                   className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "image"
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-gray-200 hover:border-gray-300"
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-200 hover:border-gray-300"
                     }`}
                 >
                   <Image className="w-6 h-6 md:w-8 md:h-8 text-blue-500 mx-auto mb-2" />
@@ -1273,18 +1287,18 @@ const MainPage: React.FC = () => {
                   Our AI will analyze the video content and generate relevant DSA questions
                 </p>
 
-          {/* Analyzer */}
-              <ConceptAnalyzer
-                youtubeUrl={youtubeUrl}
-                typeofinput={uploadType}
-                concepts={concepts}
-                setConcepts={setConcepts}
-                loading={loadingConcepts}
-                setLoading={setLoadingConcepts}
-                topics={topics}
-              />
-        </div>
-      )}
+                {/* Analyzer */}
+                <ConceptAnalyzer
+                  youtubeUrl={youtubeUrl}
+                  typeofinput={uploadType}
+                  concepts={concepts}
+                  setConcepts={setConcepts}
+                  loading={loadingConcepts}
+                  setLoading={setLoadingConcepts}
+                  topics={topics}
+                />
+              </div>
+            )}
 
             {(uploadType === "pdf" || uploadType === "image") && (
               <div>

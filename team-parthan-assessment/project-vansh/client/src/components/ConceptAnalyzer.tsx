@@ -31,6 +31,7 @@ const ConceptAnalyzer: React.FC<Props> = ({
   const handleAnalyze = async () => {
     if (!file && !youtubeUrl) return;
 
+    
     const formData = new FormData();
 
     if (file) {
