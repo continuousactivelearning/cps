@@ -665,19 +665,71 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* UI Screenshots Section */}
+      {/* UI Screenshots Section - Horizontally Scrollable with Descriptions */}
       <section className="py-20 bg-gradient-to-r from-blue-900 via-indigo-900 to-gray-900">
         <h2 className="text-3xl font-bold text-white text-center mb-10">See PreAssess in Action</h2>
-        <div className="flex flex-wrap justify-center gap-8">
-          <img src="/screenshots/dashboard.png" alt="Instructor Dashboard" className="rounded-xl shadow-lg w-96 h-auto transition-transform hover:scale-105" />
-          <img src="/screenshots/student-detail.png" alt="Student Detail Modal" className="rounded-xl shadow-lg w-96 h-auto transition-transform hover:scale-105" />
-          <img src="/screenshots/assessment-tracking.png" alt="Assessment Tracking Page" className="rounded-xl shadow-lg w-96 h-auto transition-transform hover:scale-105" />
-          <img src="/screenshots/query-system.png" alt="Query System Panel" className="rounded-xl shadow-lg w-96 h-auto transition-transform hover:scale-105" />
-          <img src="/screenshots/learning-modules.png" alt="Learning Module View" className="rounded-xl shadow-lg w-96 h-auto transition-transform hover:scale-105" />
-          <img src="/screenshots/quiz.png" alt="Quiz In Progress" className="rounded-xl shadow-lg w-96 h-auto transition-transform hover:scale-105" />
-          <img src="/screenshots/quiz-result.png" alt="Quiz Result" className="rounded-xl shadow-lg w-96 h-auto transition-transform hover:scale-105" />
-          <img src="/screenshots/quiz-evaluation.png" alt="Quiz Evaluation" className="rounded-xl shadow-lg w-96 h-auto transition-transform hover:scale-105" />
-          <img src="/screenshots/prerequisites.png" alt="Prerequisite Display" className="rounded-xl shadow-lg w-96 h-auto transition-transform hover:scale-105" />
+        <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-blue-400 scrollbar-track-blue-100">
+          <div className="flex gap-8 px-4 min-w-fit">
+            {[
+              {
+                src: "/screenshots/dashboard.png",
+                alt: "Instructor Dashboard",
+                desc: "The Instructor Dashboard provides a comprehensive overview of student progress, quiz results, and learning analytics at a glance."
+              },
+              {
+                src: "/screenshots/student-detail.png",
+                alt: "Student Detail Modal",
+                desc: "Dive into individual student details, track their mastery, quiz attempts, and address their queries directly."
+              },
+              {
+                src: "/screenshots/assessment-tracking.png",
+                alt: "Assessment Tracking Page",
+                desc: "Monitor assessment completion and performance for every student, ensuring no one falls behind."
+              },
+              {
+                src: "/screenshots/query-system.png",
+                alt: "Query System Panel",
+                desc: "A dedicated panel for students to raise queries and for instructors to respond, fostering interactive learning."
+              },
+              {
+                src: "/screenshots/learning-modules.png",
+                alt: "Learning Module View",
+                desc: "Explore structured learning modules, each with clear prerequisites and progress indicators."
+              },
+              {
+                src: "/screenshots/quiz.png",
+                alt: "Quiz In Progress",
+                desc: "Take quizzes to assess your understanding, with instant feedback and adaptive question flow."
+              },
+              {
+                src: "/screenshots/quiz-result.png",
+                alt: "Quiz Result",
+                desc: "View detailed quiz results, including correct answers, explanations, and areas for improvement."
+              },
+              {
+                src: "/screenshots/quiz-evaluation.png",
+                alt: "Quiz Evaluation",
+                desc: "Instructors can evaluate quiz attempts, provide feedback, and unlock new learning paths."
+              },
+              {
+                src: "/screenshots/prerequisites.png",
+                alt: "Prerequisite Display",
+                desc: "Visualize topic dependencies and prerequisites, ensuring a logical and effective learning journey."
+              }
+            ].map((item, idx) => (
+              <div key={item.src} className="flex flex-col items-center w-80 min-w-[20rem]">
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="rounded-xl shadow-lg w-80 h-auto mb-4 transition-transform hover:scale-105 bg-white/20 border border-blue-200"
+                  style={{ objectFit: 'contain' }}
+                />
+                <p className="text-white/90 text-center text-base bg-blue-900/60 rounded-lg px-4 py-2 shadow w-full">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

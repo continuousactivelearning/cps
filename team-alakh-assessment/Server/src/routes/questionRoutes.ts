@@ -255,6 +255,10 @@ const authenticateToken = (req: any, res: Response, next: any) => {
   });
 };
 
+// --- Groq API Call for Quiz Question Generation ---
+const GROQ_API_KEY = process.env.GROQ_KEY;
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
 async function generateQuizQuestions(topic: string): Promise<Question[]> {
   const prompt = `
 Generate exactly 10 multiple choice questions about "${topic}".
@@ -277,35 +281,39 @@ Make sure:
 `;
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+    const response = await fetch(GROQ_API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`,
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }]
+        model: 'llama3-70b-8192',
+        messages: [
+          { role: 'system', content: 'You are a helpful assistant for education.' },
+          { role: 'user', content: prompt }
+        ],
+        max_tokens: 1024,
+        temperature: 0.2
       })
     });
 
     const data = await response.json();
-    const rawText = data.candidates[0].content.parts[0].text;
-    
+    let rawText = data.choices?.[0]?.message?.content || '';
     // Clean up the response - remove markdown code blocks if present
     const cleaned = rawText.replace(/```json\n?|\n?```/g, '').trim();
-    
     // Parse the JSON
     const questions = JSON.parse(cleaned);
-    
     // Validate the structure
     if (!Array.isArray(questions) || questions.length !== 10) {
       throw new Error('Invalid question format or count');
     }
-
     // Validate each question
     questions.forEach((q, index) => {
       if (!q.question || !Array.isArray(q.options) || q.options.length !== 4 || typeof q.correct !== 'number' || q.correct < 0 || q.correct > 3) {
         throw new Error(`Invalid question structure at index ${index}`);
       }
     });
-
     return questions;
   } catch (error: any) {
     console.error("❌ Quiz generation error:", error);
