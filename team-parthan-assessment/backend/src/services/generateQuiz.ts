@@ -86,7 +86,5 @@ Be formatted strictly as a JSON array of objects, with this schema:
     })
   );
 
-  console.log(quiz);
-
   return quiz;
 }
