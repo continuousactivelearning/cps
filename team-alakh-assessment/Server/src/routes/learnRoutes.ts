@@ -83,73 +83,73 @@ function instructorOnly(req: express.Request, res: express.Response, next: expre
 const GROQ_API_KEY = process.env.GROQ_KEY;
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-async function generateLearningModules(
+export async function generateLearningModules(
   topic: string
 ): Promise<LearningModuleType[]> {
   const prompt = `
-Generate a comprehensive, academic-level learning sequence for the topic of "${topic}".
-The content should be detailed, accurate, and suitable for an undergraduate curriculum.
-Divide the material into 5-7 distinct learning modules.
+You are an educational content generator. Produce a clean JSON array with 5–7 learning modules for the topic: "${topic}".
 
-For each module, provide:
--   **A clear, descriptive title.**
--   **Extensive learning content (approx. 700-1000 words).** Use rich Markdown formatting for clarity and structure:
-    -   Top-level module headings: Start with \`# [Module Title]\`.
-    -   Main sections within a module: Use \`## [Section Heading]\`.
-    -   Sub-sections: Use \`### [Sub-section Heading]\`.
-    -   Lists: Use bullet points (\`-\`) or numbered lists (\`1.\`).
-    -   Emphasis: Use bold (\`**text**\`) for important terms and italic (\`*text*\`) for definitions or specific concepts.
-    -   Code snippets: Include relevant code snippets using fenced code blocks (\~\~\~language\ncode here\n\~\~\~).
-    -   Quotes: Use blockquotes (\`> Quote text\`).
--   **An estimated duration** for completing the module (e.g., "30 min", "1 hour").
--   **A type** indicating the primary content format ("text", "video", or "interactive").
+Each module should contain the following fields:
+- "title": string (title of the module)
+- "content": string (markdown-formatted learning material, approx. 700–1000 words, escape any special/control characters)
+- "duration": string (e.g., "30 min", "1 hour")
+- "type": string ("text", "video", or "interactive")
 
-Ensure the modules flow logically, building knowledge progressively. The overall tone should be formal and educational.
-The output MUST be a JSON array of module objects. Do not include any text outside the JSON block.
+⚠️ Output must ONLY be valid JSON. No text, no markdown, no explanation outside the JSON array. Escape special characters (e.g., \\n, \\") inside strings.
+
+Return only the raw JSON array.
 `;
 
   try {
-    const response = await fetch(
-      GROQ_API_URL,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${GROQ_API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "llama3-70b-8192",
-          messages: [
-            { role: "system", content: "You are a helpful assistant for education." },
-            { role: "user", content: prompt }
-          ],
-          max_tokens: 4096,
-          temperature: 0.2
-        }),
-      }
-    );
+    const response = await fetch(GROQ_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${GROQ_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "llama3-70b-8192",
+        messages: [
+          {
+            role: "system",
+            content: "You are a helpful assistant for generating educational content.",
+          },
+          { role: "user", content: prompt },
+        ],
+        max_tokens: 4096,
+        temperature: 0.2,
+      }),
+    });
 
     const data = await response.json();
-    let rawText = data.choices?.[0]?.message?.content || '';
-    const cleaned = rawText.replace(/```json\n?|\n?```/g, "").trim();
+
+    let rawText = data.choices?.[0]?.message?.content || "";
+    console.log("\n===== RAW GROQ RESPONSE =====\n", rawText, "\n============================\n");
+
+    const cleaned = rawText
+      .replace(/```json\n?|```/g, "") // remove triple-backtick wrappers
+      .replace(/[\x00-\x1F\x7F]/g, "") // remove control characters
+      .trim();
 
     const modulesRaw = JSON.parse(cleaned);
+
     const modules = modulesRaw.map((m: any) => {
       const id = m.id || crypto.randomUUID();
       return {
         id,
         title: m.title || "Untitled Module",
-        content: m.content || "No content",
+        content: m.content || "No content provided",
         duration: m.duration || "N/A",
         type: m.type || "text",
         downloadUrl: `/api/learn/download/${encodeURIComponent(topic)}/${id}`,
       };
     });
 
-    await LearningModule.create({ topic, modules });
-    return modules;
+    const topicDoc = await LearningModule.create({ topic, modules });
+    return topicDoc.modules;
   } catch (err) {
-    console.error("Groq error or parse fail:", err);
+    console.error("GROQ error or JSON parse fail:\n", err);
+
     return [
       {
         id: "fallback-module",
@@ -172,51 +172,56 @@ function understandingTopic() {
 understandingTopic();
 \`\`\`
 
-*For more information*, please consult external resources.
-`,
+*For more information*, please consult external resources.`,
         duration: "20 min",
         type: "text",
-        downloadUrl: `/api/learn/download/${encodeURIComponent(
-          topic
-        )}/fallback-module`,
+        downloadUrl: `/api/learn/download/${encodeURIComponent(topic)}/fallback-module`,
       },
     ];
   }
 }
+
 
 router.get(
   "/:topic/modules",
   authenticateToken,
   async (req: any, res: Response) => {
     try {
-      const { topic } = req.params;
+      const topic = req.params.topic.trim().toLowerCase();
       const userEmail = req.user.email;
 
+      // Try to find topic first
       let topicDoc = await LearningModule.findOne({ topic });
-      if (!topicDoc) {
-        const modules = await generateLearningModules(topic);
-        topicDoc = await LearningModule.findOne({ topic }); // refetch after creation
-      }
 
       if (!topicDoc) {
-        res.status(404).json({ message: "Topic not found" });
-        return;
+        // Generate modules and assign directly
+        const modules = await generateLearningModules(topic);
+        topicDoc = {
+          topic,
+          modules,
+        }; // no need to re-fetch from DB
+      }
+
+      if (!topicDoc || !topicDoc.modules) {
+        return res.status(404).json({ message: "Topic not found" });
       }
 
       const history = await LearningHistory.find({ userEmail, topic });
       const completedIds = history.map((h) => h.moduleId);
 
-      const modules = topicDoc.modules.map((m: any) => ({
-        ...m.toObject(),
+      const modulesWithProgress = topicDoc.modules.map((m: any) => ({
+        ...m,
         completed: completedIds.includes(m.id),
       }));
 
-      res.json({ modules });
+      res.json({ modules: modulesWithProgress });
     } catch (err) {
-      res.status(500).json({ message: "Failed to get modules" });
+      console.error("Error loading modules:", err);
+      res.status(500).json({ message: "Failed to load modules" });
     }
   }
 );
+
 
 router.get(
   "/:topic/module/:moduleId",
