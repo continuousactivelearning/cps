@@ -3,17 +3,17 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
 import dotenv from 'dotenv';
+import { OAuth2Client } from 'google-auth-library';
 
 dotenv.config();
 const router = express.Router();
+const client = new OAuth2Client(process.env.VITE_GOOGLE_CLIENT_ID);
 
-// Define the shape of the request body for register and login
 interface AuthRequestBody {
   email: string;
   password: string;
 }
 
-// POST /api/auth/register
 router.post('/register', async (req: Request<{}, {}, AuthRequestBody>, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
@@ -28,7 +28,6 @@ router.post('/register', async (req: Request<{}, {}, AuthRequestBody>, res: Resp
     const newUser = new User({ email, password: hashedPassword, passedArray: [] });
     await newUser.save();
 
-    // Return a token with role: 'user' and id
     const token = jwt.sign({ id: newUser._id, email, role: 'user' }, process.env.JWT_SECRET as string, { expiresIn: '2h' });
     res.status(201).json({ message: 'Registration successful', token });
   } catch (err) {
@@ -36,7 +35,6 @@ router.post('/register', async (req: Request<{}, {}, AuthRequestBody>, res: Resp
   }
 });
 
-// POST /api/auth/login
 router.post('/login', async (req: Request<{}, {}, AuthRequestBody>, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
@@ -53,7 +51,6 @@ router.post('/login', async (req: Request<{}, {}, AuthRequestBody>, res: Respons
       return;
     }
 
-    // Include role: 'user' and id in the token
     const token = jwt.sign({ id: user._id, email, role: 'user' }, process.env.JWT_SECRET as string, { expiresIn: '2h' });
     res.json({ token });
   } catch (err) {
@@ -61,7 +58,83 @@ router.post('/login', async (req: Request<{}, {}, AuthRequestBody>, res: Respons
   }
 });
 
-// GET /api/auth/verify
+router.post('/google', async (req: Request, res: Response): Promise<void> => {
+  const { token } = req.body;
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.VITE_GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    if (!payload || !payload.email) {
+      res.status(400).json({ message: 'Invalid Google token' });
+      return;
+    }
+
+    const { email, name, picture } = payload;
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = new User({
+        email,
+        password: '',
+        passedArray: [],
+        profile: {
+          name: name || '',
+          picture: picture || '',
+        },
+      });
+      await user.save();
+    }
+
+    const jwtToken = jwt.sign({ id: user._id, email, role: 'user' }, process.env.JWT_SECRET as string, { expiresIn: '2h' });
+    res.json({ token: jwtToken });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.post('/forgot-password', async (req: Request, res: Response): Promise<void> => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+    const resetToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, { expiresIn: '15m' });
+    // In production: Send email with reset link
+    res.json({ resetToken });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.post('/reset-password', async (req: Request, res: Response): Promise<void> => {
+  const { token, newPassword } = req.body;
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+
+    res.json({ message: 'Password updated successfully' });
+  } catch (err) {
+    res.status(400).json({ message: 'Invalid or expired token' });
+  }
+});
+
 router.get('/verify', (req: Request, res: Response): void => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
