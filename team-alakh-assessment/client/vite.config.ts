@@ -11,8 +11,8 @@ export default defineConfig({
     host: true, // Allow access from other devices on the network
     port: 5173, 
     proxy: {
-      '/api': 'http://localhost:5000',
-      '/uploads': 'http://localhost:5000',
+      '/api': 'https://assessment-o61q.onrender.com',
+      '/uploads': 'https://assessment-o61q.onrender.com',
     },
   },
 });
