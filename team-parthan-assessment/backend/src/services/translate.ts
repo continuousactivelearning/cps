@@ -50,11 +50,9 @@ export async function translateToEnglish(text: string): Promise<string> {
     const detectedLang = detection.from.language.iso;
 
     if (detectedLang === 'en') {
-      console.log('Text is already in English. Skipping translation.');
       return text;
     }
 
-    console.log(`Detected language: ${detectedLang}. Translating to English...`);
   } catch (err) {
     console.warn('Language detection failed. Proceeding with translation.');
   }
@@ -65,7 +63,6 @@ export async function translateToEnglish(text: string): Promise<string> {
       const res = await translate(chunk, { to: 'en' });
       translatedChunks.push(res.text);
     } catch (error) {
-      console.error('Error translating chunk:', error);
       translatedChunks.push('[Translation failed for this chunk]');
     }
   }
