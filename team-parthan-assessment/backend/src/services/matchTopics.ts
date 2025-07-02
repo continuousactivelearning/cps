@@ -1,8 +1,9 @@
 // Developed by Manjistha Bidkar
+// Identifies topic matches from transcript text using strict and fuzzy logic.
 
 import * as XLSX from 'xlsx';
+import Fuse from 'fuse.js';
 
-// Load concepts (topics) from the Excel file
 export function loadConceptsFromExcel(filePath: string): string[] {
   const workbook = XLSX.readFile(filePath);
   const sheet = workbook.Sheets['DSA_Concept_Graph'];
@@ -13,8 +14,43 @@ export function loadConceptsFromExcel(filePath: string): string[] {
     .filter((v): v is string => !!v);
 }
 
-// Identify which concepts are present in the extracted PDF text
 export function identifyConcepts(text: string, concepts: string[]): string[] {
-  const lowerText = text.toLowerCase();
-  return concepts.filter(concept => lowerText.includes(concept));
+  const cleanedText = text.toLowerCase();
+  const matchedConcepts = new Set<string>();
+
+  // 1. Strict match (direct phrase match)
+  for (const concept of concepts) {
+    if (cleanedText.includes(concept)) {
+      matchedConcepts.add(concept);
+    }
+  }
+
+  // 2. Fuzzy match on remaining concepts
+  const unmatchedConcepts = concepts.filter(c => !matchedConcepts.has(c));
+  const fuse = new Fuse(unmatchedConcepts, {
+    includeScore: true,
+    threshold: 0.03,
+    minMatchCharLength: 4
+  });
+
+  // Use sliding window of phrases (2-3 words)
+  const words = cleanedText.split(/\s+/);
+  const phrases: string[] = [];
+  for (let i = 0; i < words.length - 1; i++) {
+    phrases.push(`${words[i]} ${words[i + 1]}`);
+    if (i < words.length - 2) {
+      phrases.push(`${words[i]} ${words[i + 1]} ${words[i + 2]}`);
+    }
+  }
+
+  for (const phrase of phrases) {
+    const results = fuse.search(phrase);
+    for (const result of results) {
+      if (result.score !== undefined && result.score < 0.03) {
+        matchedConcepts.add(result.item);
+      }
+    }
+  }
+
+  return Array.from(matchedConcepts);
 }
