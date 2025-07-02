@@ -25,13 +25,9 @@ export async function extractTextFromImage(imagePath: string): Promise<{ text: s
   const langPath = path.join(__dirname, 'tessdata_fast');
 
   try {
-    console.log(`[OCR] Running initial scan to detect content type...`);
-
-    const lightScan = await Tesseract.recognize(imagePath, 'eng+osd', {
+     const lightScan = await Tesseract.recognize(imagePath, 'eng+osd', {
       langPath,
-      logger: (m: { status: string; progress: number }) => {
-        if (m.status) console.log(`[Initial]: ${m.status} - ${Math.round((m.progress || 0) * 100)}%`);
-      },
+      logger: () => {},
       tessedit_pageseg_mode: '13',
       preserve_interword_spaces: '1'
     } as any);
@@ -39,8 +35,6 @@ export async function extractTextFromImage(imagePath: string): Promise<{ text: s
     const initialText = lightScan.data.text;
     const isTyped = isProbablyTyped(initialText);
     const mode = isTyped ? PreprocessMode.TYPED : PreprocessMode.HANDWRITTEN;
-
-    console.log(`[OCR] Detected mode: ${mode}`);
 
     const finalConfig: Record<string, string> = {
       tessedit_pageseg_mode: isTyped ? '6' : '13',
@@ -52,18 +46,14 @@ export async function extractTextFromImage(imagePath: string): Promise<{ text: s
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:;-()[]{}!?\'" ';
     }
 
-    console.log(`[OCR] Running final OCR scan...`);
     const finalScan = await Tesseract.recognize(imagePath, 'eng', {
       langPath,
-      logger: (m: { status: string; progress: number }) => {
-        if (m.status) console.log(`[Final OCR]: ${m.status} - ${Math.round((m.progress || 0) * 100)}%`);
-      },
+      logger: () => {},
       ...(finalConfig as any)
     });
 
     return { text: finalScan.data.text.trim(), mode };
   } catch (error) {
-    console.error(`[OCR ERROR] Failed to extract text:`, error);
     throw new Error(`OCR failed for image: ${imagePath}`);
   }
 }
