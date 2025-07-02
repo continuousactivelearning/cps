@@ -83,9 +83,10 @@ function instructorOnly(req: express.Request, res: express.Response, next: expre
 const GROQ_API_KEY = process.env.GROQ_KEY;
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
+// generateLearningModules.ts
 export async function generateLearningModules(
   topic: string
-): Promise<LearningModuleType[]> {
+): Promise<typeof LearningModule> {
   const prompt = `
 You are an educational content generator. Produce a clean JSON array with 5–7 learning modules for the topic: "${topic}".
 
@@ -123,12 +124,11 @@ Return only the raw JSON array.
 
     const data = await response.json();
 
-    let rawText = data.choices?.[0]?.message?.content || "";
-    console.log("\n===== RAW GROQ RESPONSE =====\n", rawText, "\n============================\n");
+    const rawText = data.choices?.[0]?.message?.content || "";
 
     const cleaned = rawText
-      .replace(/```json\n?|```/g, "") // remove triple-backtick wrappers
-      .replace(/[\x00-\x1F\x7F]/g, "") // remove control characters
+      .replace(/```json\n?|```/g, "")
+      .replace(/[\x00-\x1F\x7F]/g, "")
       .trim();
 
     const modulesRaw = JSON.parse(cleaned);
@@ -146,15 +146,14 @@ Return only the raw JSON array.
     });
 
     const topicDoc = await LearningModule.create({ topic, modules });
-    return topicDoc.modules;
+    return topicDoc;
   } catch (err) {
     console.error("GROQ error or JSON parse fail:\n", err);
 
-    return [
-      {
-        id: "fallback-module",
-        title: `Introduction to ${topic} (Fallback Content)`,
-        content: `# Introduction to ${topic} (Fallback Content)
+    const fallback = {
+      id: "fallback-module",
+      title: `Introduction to ${topic} (Fallback Content)`,
+      content: `# Introduction to ${topic} (Fallback Content)
 
 This module provides a basic overview of ${topic}. Due to an issue with content generation, detailed information is not available at this moment. Please try again later.
 
@@ -173,54 +172,55 @@ understandingTopic();
 \`\`\`
 
 *For more information*, please consult external resources.`,
-        duration: "20 min",
-        type: "text",
-        downloadUrl: `/api/learn/download/${encodeURIComponent(topic)}/fallback-module`,
-      },
-    ];
+      duration: "20 min",
+      type: "text",
+      downloadUrl: `/api/learn/download/${encodeURIComponent(topic)}/fallback-module`,
+    };
+
+    const fallbackDoc = await LearningModule.create({ topic, modules: [fallback] });
+    return fallbackDoc;
   }
 }
 
 
-router.get(
-  "/:topic/modules",
-  authenticateToken,
-  async (req: any, res: Response) => {
-    try {
-      const topic = req.params.topic.trim().toLowerCase();
-      const userEmail = req.user.email;
 
-      // Try to find topic first
-      let topicDoc = await LearningModule.findOne({ topic });
+// learnRoutes.ts or wherever your router is defined
+router.get("/:topic/modules", authenticateToken, async (req: any, res: Response) => {
+  try {
+    const topic = req.params.topic.trim().toLowerCase();
+    const userEmail = req.user.email;
 
-      if (!topicDoc) {
-        // Generate modules and assign directly
-        const modules = await generateLearningModules(topic);
-        topicDoc = {
-          topic,
-          modules,
-        }; // no need to re-fetch from DB
-      }
+    // Find topic or generate it
+    let topicDoc = await LearningModule.findOne({ topic });
 
-      if (!topicDoc || !topicDoc.modules) {
-        return res.status(404).json({ message: "Topic not found" });
-      }
-
-      const history = await LearningHistory.find({ userEmail, topic });
-      const completedIds = history.map((h) => h.moduleId);
-
-      const modulesWithProgress = topicDoc.modules.map((m: any) => ({
-        ...m,
-        completed: completedIds.includes(m.id),
-      }));
-
-      res.json({ modules: modulesWithProgress });
-    } catch (err) {
-      console.error("Error loading modules:", err);
-      res.status(500).json({ message: "Failed to load modules" });
+    if (!topicDoc) {
+      topicDoc = await generateLearningModules(topic); // now returns full doc
     }
+
+    if (!topicDoc || !topicDoc.modules) {
+      return res.status(404).json({ message: "Topic not found" });
+    }
+
+    // Get completed module IDs for the user
+    const history = await LearningHistory.find({ userEmail, topic });
+    const completedIds = history.map((h) => h.moduleId);
+
+    // Convert Mongoose modules to plain JS objects + add completed field
+    const modulesWithProgress = topicDoc.modules.map((m: any) => {
+      const plain = m.toObject ? m.toObject() : m; // handles .lean() case too
+      return {
+        ...plain,
+        completed: completedIds.includes(plain.id),
+      };
+    });
+
+    res.json({ modules: modulesWithProgress });
+  } catch (err) {
+    console.error("Error loading modules:", err);
+    res.status(500).json({ message: "Failed to load modules" });
   }
-);
+});
+
 
 
 router.get(
@@ -229,7 +229,9 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const { topic, moduleId } = req.params;
-      const topicDoc = await LearningModule.findOne({ topic });
+      const normalizedTopic = decodeURIComponent(topic).trim().toLowerCase();
+
+      const topicDoc = await LearningModule.findOne({ topic: normalizedTopic });
 
       if (!topicDoc) {
         res.status(404).json({ message: "Topic not found." });
@@ -243,7 +245,6 @@ router.get(
         return;
       }
 
-      // Return the module's content (markdown)
       res.json({ moduleTitle: module.title, content: module.content });
     } catch (error) {
       console.error("Error fetching specific module content:", error);
@@ -251,6 +252,7 @@ router.get(
     }
   }
 );
+
 
 router.post(
   "/complete-module",
