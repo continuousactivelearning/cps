@@ -14,7 +14,7 @@ import {
   Paper,
   Snackbar,
   TextField,
-  Typography   
+  Typography
 } from '@mui/material';
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
@@ -22,8 +22,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import GoogleIcon from '@mui/icons-material/Google';
-import { signInWithPopup } from 'firebase/auth';
-import { auth, provider } from '../../firebase/config';
+import { useGoogleLogin } from '@react-oauth/google';
 
 const LoginSchema = z.object({
   email: z.string().email({ message: 'Enter a valid email address' }),
@@ -36,6 +35,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
@@ -69,38 +69,60 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setGoogleLoading(true);
+      try {
+        const { access_token } = tokenResponse;
+        
+        // Send tokens to your backend for authentication
+        const response = await fetch('http://localhost:3000/api/auth/google', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            accessToken: access_token,
+            // Note: For client-side flow, we only have access_token
+            // The backend will need to verify this token with Google
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.token && data.user) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userProfile', JSON.stringify(data.user));
+
+          setSnackbarMsg('Google login successful!');
+          setSnackbarSeverity('success');
+          setSnackbarOpen(true);
+          setNavigateOnSnackbarClose(true);
+        } else {
+          throw new Error(data.message || 'Google authentication failed');
+        }
+      } catch (error) {
+        console.error('Google login error:', error);
+        setSnackbarMsg('Google login failed. Please try again.');
+        setSnackbarSeverity('error');
+        setSnackbarOpen(true);
+      } finally {
+        setGoogleLoading(false);
+      }
+    },
+    onError: () => {
+      console.log('Google Login Failed');
+      setSnackbarMsg('Google login failed. Please try again.');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+    }
+  });
+
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
     if (navigateOnSnackbarClose && snackbarSeverity === 'success') {
       const onboardingCompleted = localStorage.getItem('onboardingCompleted') === 'true';
       navigate(onboardingCompleted ? '/chat' : '/onboarding');
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      localStorage.setItem('token', await user.getIdToken());
-      localStorage.setItem(
-        'userProfile',
-        JSON.stringify({
-          name: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-        })
-      );
-
-      setSnackbarMsg('Google login successful!');
-      setSnackbarSeverity('success');
-      setSnackbarOpen(true);
-      setNavigateOnSnackbarClose(true);
-    } catch (error) {
-      console.error(error);
-      setSnackbarMsg('Google sign-in failed.');
-      setSnackbarSeverity('error');
-      setSnackbarOpen(true);
     }
   };
 
@@ -138,8 +160,9 @@ const Login: React.FC = () => {
               <Button
                 fullWidth
                 variant="contained"
-                startIcon={<GoogleIcon />}
-                onClick={handleGoogleLogin}
+                startIcon={googleLoading ? <CircularProgress size={20} color="inherit" /> : <GoogleIcon />}
+                onClick={() => handleGoogleLogin()}
+                disabled={googleLoading}
                 sx={{
                   background: 'linear-gradient(to right, #4285F4, #34A853)',
                   color: 'white',
@@ -152,7 +175,7 @@ const Login: React.FC = () => {
                   },
                 }}
               >
-                Sign in with Google
+                {googleLoading ? 'Signing in...' : 'Sign in with Google'}
               </Button>
             </motion.div>
 
@@ -213,7 +236,7 @@ const Login: React.FC = () => {
               </Button>
 
               <Typography variant="body2" align="center">
-                Don’t have an account?{' '}
+                Don't have an account?{' '}
                 <Button variant="text" size="small" onClick={() => navigate('/signup')}>
                   Sign Up
                 </Button>
