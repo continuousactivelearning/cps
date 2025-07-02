@@ -98,6 +98,7 @@ const LearnPage: React.FC = () => {
         const fetchedModules: LearningModule[] =
           modulesResponse.data.modules || [];
         setModules(fetchedModules);
+        console.log(fetchedModules);
 
         // Fetch learning history
         const historyResponse = await api.get(

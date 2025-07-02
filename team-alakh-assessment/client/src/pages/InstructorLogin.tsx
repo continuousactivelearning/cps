@@ -18,7 +18,7 @@ const InstructorLogin: React.FC = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.post('/api/instructor/login', form);
+      const res = await axios.post('https://assessment-o61q.onrender.com/api/instructor/login', form);
       localStorage.setItem('instructorToken', res.data.token);
       navigate('/instructor-dashboard');
     } catch (err: any) {

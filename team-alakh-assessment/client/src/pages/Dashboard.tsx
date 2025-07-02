@@ -498,7 +498,7 @@ const Dashboard: React.FC = () => {
   const fetchMyQueries = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('/api/query/my', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await axios.get('https://assessment-o61q.onrender.com/api/query/my', { headers: { Authorization: `Bearer ${token}` } });
       setMyQueries(res.data);
     } catch {}
   };
@@ -516,7 +516,7 @@ const Dashboard: React.FC = () => {
       const formData = new FormData();
       formData.append('content', queryContent);
       queryFiles.forEach(f => formData.append('attachments', f));
-      await axios.post('/api/query', formData, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.post('https://assessment-o61q.onrender.com/api/query', formData, { headers: { Authorization: `Bearer ${token}` } });
       setQueryToastMsg('Query sent!');
       setQueryToastType('success');
       setQueryContent('');
@@ -533,7 +533,7 @@ const Dashboard: React.FC = () => {
   const handleCloseQuery = async (id: string) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`/api/query/${id}/close`, {}, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.post(`https://assessment-o61q.onrender.com/api/query/${id}/close`, {}, { headers: { Authorization: `Bearer ${token}` } });
       setQueryToastMsg('Query deleted.');
       setQueryToastType('success');
       fetchMyQueries();

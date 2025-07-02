@@ -53,7 +53,7 @@ const InstructorContent: React.FC = () => {
         return;
       }
       try {
-        const res = await axios.get('/api/instructor/me', {
+        const res = await axios.get('https://assessment-o61q.onrender.com/api/instructor/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data);
@@ -71,7 +71,7 @@ const InstructorContent: React.FC = () => {
     setError('');
     try {
       const token = localStorage.getItem('instructorToken');
-      const res = await axios.get('/api/instructor/topics', {
+      const res = await axios.get('https://assessment-o61q.onrender.com/api/instructor/topics', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTopics(res.data);
@@ -112,13 +112,13 @@ const InstructorContent: React.FC = () => {
       const token = localStorage.getItem('instructorToken');
       const prereqArr = form.prerequisites.split(',').map(s => s.trim()).filter(Boolean);
       if (editTopic) {
-        await axios.put(`/api/instructor/topics/${editTopic._id}`, {
+        await axios.put(`https://assessment-o61q.onrender.com/api/instructor/topics/${editTopic._id}`, {
           topic: form.topic,
           prerequisites: prereqArr,
         }, { headers: { Authorization: `Bearer ${token}` } });
         setFormMsg('Topic updated.');
       } else {
-        await axios.post('/api/instructor/topics', {
+        await axios.post('https://assessment-o61q.onrender.com/api/instructor/topics', {
           topic: form.topic,
           prerequisites: prereqArr,
         }, { headers: { Authorization: `Bearer ${token}` } });
@@ -138,7 +138,7 @@ const InstructorContent: React.FC = () => {
     setFormMsg('');
     try {
       const token = localStorage.getItem('instructorToken');
-      await axios.delete(`/api/instructor/topics/${id}`, {
+      await axios.delete(`https://assessment-o61q.onrender.com/api/instructor/topics/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFormMsg('Topic deleted.');
@@ -158,7 +158,7 @@ const InstructorContent: React.FC = () => {
   const logAudit = async (action: string, details: any) => {
     try {
       const token = localStorage.getItem('instructorToken');
-      await axios.post('/api/instructor/audit-log', { action, details }, {
+      await axios.post('https://assessment-o61q.onrender.com/api/instructor/audit-log', { action, details }, {
         headers: { Authorization: `Bearer ${token}` },
       });
     } catch {
@@ -173,7 +173,7 @@ const InstructorContent: React.FC = () => {
     setMaterialLoading(true);
     try {
       const token = localStorage.getItem('instructorToken');
-      const res = await axios.get(`/api/learn/instructor/${encodeURIComponent(topic)}`, {
+      const res = await axios.get(`https://assessment-o61q.onrender.com/api/learn/instructor/${encodeURIComponent(topic)}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setModules(res.data.modules);
@@ -214,12 +214,12 @@ const InstructorContent: React.FC = () => {
     try {
       const token = localStorage.getItem('instructorToken');
       if (materialEditMode === 'edit') {
-        await axios.put(`/api/learn/instructor/${encodeURIComponent(materialTopic)}`, { modules }, {
+        await axios.put(`https://assessment-o61q.onrender.com/api/learn/instructor/${encodeURIComponent(materialTopic)}`, { modules }, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMaterialMsg('Material updated.');
       } else {
-        await axios.post('/api/learn/instructor', { topic: materialTopic, modules }, {
+        await axios.post('https://assessment-o61q.onrender.com/api/learn/instructor', { topic: materialTopic, modules }, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMaterialMsg('Material created.');

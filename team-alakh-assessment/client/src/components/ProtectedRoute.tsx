@@ -21,7 +21,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, isInstructor 
         return;
       }
       try {
-        const endpoint = isInstructor ? '/api/instructor/verify' : 'http://localhost:5000/api/auth/verify';
+        const endpoint = isInstructor ? 'https://assessment-o61q.onrender.com/api/instructor/verify' : 'https://assessment-o61q.onrender.com/api/auth/verify';
         const url = endpoint.startsWith('http') ? endpoint : endpoint;
         const response = await fetch(url, {
           method: 'GET',

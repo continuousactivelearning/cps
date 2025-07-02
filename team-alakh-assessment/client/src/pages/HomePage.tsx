@@ -165,7 +165,7 @@ const HomePage: React.FC = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
       try {
-        const res = await fetch("/api/user/passed", {
+        const res = await fetch("https://assessment-o61q.onrender.com/api/user/passed", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -177,7 +177,7 @@ const HomePage: React.FC = () => {
     fetchEmail();
     const fetchStats = async () => {
       try {
-        const res = await fetch("/api/instructor/public-stats");
+        const res = await fetch("https://assessment-o61q.onrender.com/api/instructor/public-stats");
         const data = await res.json();
         setStats({
           students: data.studentsCount || 0,
