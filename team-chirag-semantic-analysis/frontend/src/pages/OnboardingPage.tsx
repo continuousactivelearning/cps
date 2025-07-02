@@ -167,10 +167,8 @@ export const OnboardingPage: React.FC = () => {
       case 1:
         return formData.preferredPace !== '' && formData.focusAreas.length > 0;
       case 2:
-        // Require at least one subtopic per selected topic
-        return formData.focusAreas.length > 0 && formData.focusAreas.every(
-          topic => Array.isArray(formData.subtopics[topic]) && formData.subtopics[topic].length > 0
-        );
+        // Subtopics step is optional
+        return true;
       default:
         return false;
     }
