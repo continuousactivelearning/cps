@@ -40,7 +40,7 @@ const InstructorGreeting: React.FC = () => {
     });
     const fetchStats = async () => {
       try {
-        const res = await fetch("/api/instructor/public-stats");
+        const res = await fetch("https://assessment-o61q.onrender.com/api/instructor/public-stats");
         const data = await res.json();
         setStats({
           students: data.studentsCount || 0,

@@ -44,7 +44,7 @@ const InstructorAuditLogs: React.FC = () => {
         return;
       }
       try {
-        const res = await axios.get('/api/instructor/me', {
+        const res = await axios.get('https://assessment-o61q.onrender.com/api/instructor/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data);
@@ -63,7 +63,7 @@ const InstructorAuditLogs: React.FC = () => {
       setError('');
       try {
         const token = localStorage.getItem('instructorToken');
-        const res = await axios.get('/api/instructor/audit-logs', {
+        const res = await axios.get('https://assessment-o61q.onrender.com/api/instructor/audit-logs', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setLogs(res.data);

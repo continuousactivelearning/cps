@@ -44,7 +44,7 @@ const InstructorDashboard: React.FC = () => {
   const fetchQueries = async () => {
     try {
       const token = localStorage.getItem('instructorToken');
-      const res = await axios.get('/api/query', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await axios.get('https://assessment-o61q.onrender.com/api/query', { headers: { Authorization: `Bearer ${token}` } });
       setQueries(res.data);
     } catch {}
   };
@@ -57,7 +57,7 @@ const InstructorDashboard: React.FC = () => {
         return;
       }
       try {
-        const res = await axios.get('/api/instructor/me', {
+        const res = await axios.get('https://assessment-o61q.onrender.com/api/instructor/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data);
@@ -74,7 +74,7 @@ const InstructorDashboard: React.FC = () => {
       setError('');
       try {
         const token = localStorage.getItem('instructorToken');
-        const res = await axios.get('/api/instructor/dashboard-stats', {
+        const res = await axios.get('https://assessment-o61q.onrender.com/api/instructor/dashboard-stats', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setStats({
@@ -118,7 +118,7 @@ const InstructorDashboard: React.FC = () => {
   const handleStatusChange = async () => {
     try {
       const token = localStorage.getItem('instructorToken');
-      await axios.post(`/api/query/${queryModal.query._id}/status`, { status: queryStatus }, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.post(`https://assessment-o61q.onrender.com/api/query/${queryModal.query._id}/status`, { status: queryStatus }, { headers: { Authorization: `Bearer ${token}` } });
       setQueryToastMsg('Status updated.');
       setQueryToastType('success');
       fetchQueries();
@@ -130,7 +130,7 @@ const InstructorDashboard: React.FC = () => {
   const handleResponse = async () => {
     try {
       const token = localStorage.getItem('instructorToken');
-      await axios.post(`/api/query/${queryModal.query._id}/respond`, { response: queryResponse }, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.post(`https://assessment-o61q.onrender.com/api/query/${queryModal.query._id}/respond`, { response: queryResponse }, { headers: { Authorization: `Bearer ${token}` } });
       setQueryToastMsg('Response sent.');
       setQueryToastType('success');
       fetchQueries();

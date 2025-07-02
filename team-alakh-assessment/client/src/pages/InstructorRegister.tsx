@@ -31,7 +31,7 @@ const InstructorRegister: React.FC = () => {
     setError('');
     setSuccess('');
     try {
-      await axios.post('/api/instructor/register', {
+      await axios.post('https://assessment-o61q.onrender.com/api/instructor/register', {
         ...form,
         experience: Number(form.experience),
       });

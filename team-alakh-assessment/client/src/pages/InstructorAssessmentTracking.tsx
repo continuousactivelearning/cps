@@ -31,7 +31,7 @@ const InstructorAssessmentTracking: React.FC = () => {
       setError('');
       try {
         const token = localStorage.getItem('instructorToken');
-        const res = await axios.get('/api/instructor/assessment-histories', {
+        const res = await axios.get('https://assessment-o61q.onrender.com/api/instructor/assessment-histories', {
           params: { q: debounced, page, limit: PAGE_SIZE },
           headers: { Authorization: `Bearer ${token}` },
         });

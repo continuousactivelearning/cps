@@ -42,7 +42,7 @@ const InstructorProfile: React.FC = () => {
       setError('');
       try {
         const token = localStorage.getItem('instructorToken');
-        const res = await axios.get('/api/instructor/me', {
+        const res = await axios.get('https://assessment-o61q.onrender.com/instructor/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data);
@@ -72,7 +72,7 @@ const InstructorProfile: React.FC = () => {
     setMsg('');
     try {
       const token = localStorage.getItem('instructorToken');
-      await axios.put('/api/instructor/me', {
+      await axios.put('https://assessment-o61q.onrender.com/api/instructor/me', {
         name: form.name,
         speciality: form.speciality,
         degrees: form.degrees,
