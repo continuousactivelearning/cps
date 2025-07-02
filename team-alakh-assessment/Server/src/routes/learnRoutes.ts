@@ -259,17 +259,23 @@ router.post(
   authenticateToken,
   async (req: any, res: Response) => {
     try {
-      const { topic, moduleId } = req.body;
+      let { topic, moduleId } = req.body;
       const userEmail = req.user.email;
+
+      if (!topic || !moduleId) {
+        return res.status(400).json({ message: "Topic and moduleId required." });
+      }
+
+      topic = topic.trim().toLowerCase();
 
       const existing = await LearningHistory.findOne({
         userEmail,
         topic,
         moduleId,
       });
+
       if (existing && existing.completed) {
-        res.json({ message: "Already completed" });
-        return;
+        return res.json({ message: "Already completed" });
       }
 
       if (existing) {
@@ -277,35 +283,39 @@ router.post(
         existing.completedAt = new Date();
         await existing.save();
       } else {
-        await new LearningHistory({
+        await LearningHistory.create({
           userEmail,
           topic,
           moduleId,
           completed: true,
           completedAt: new Date(),
-        }).save();
+        });
       }
 
       res.json({ message: "Marked as completed" });
-    } catch {
+    } catch (err) {
+      console.error("Error marking module as complete:", err);
       res.status(500).json({ message: "Failed to mark module as complete" });
     }
   }
 );
+
 
 router.get(
   "/history/:topic",
   authenticateToken,
   async (req: any, res: Response) => {
     try {
-      const { topic } = req.params;
+      const topic = decodeURIComponent(req.params.topic).trim().toLowerCase();
       const userEmail = req.user.email;
 
       const history = await LearningHistory.find({ userEmail, topic }).sort({
         completedAt: -1,
       });
+
       res.json({ history });
-    } catch {
+    } catch (err) {
+      console.error("Error fetching history:", err);
       res.status(500).json({ message: "Failed to get history" });
     }
   }
@@ -316,25 +326,25 @@ router.get(
   authenticateToken,
   async (req: Request, res: Response) => {
     const { topic, moduleId } = req.params;
+    const normalizedTopic = decodeURIComponent(topic).trim().toLowerCase();
 
     let moduleTitle = `Module ${moduleId}`;
     let moduleContentMarkdown = `Content for module ${moduleId} not found.`;
 
     try {
-      const doc = await LearningModule.findOne({ topic });
+      const doc = await LearningModule.findOne({ topic: normalizedTopic });
+
       if (doc) {
         const module = doc.modules.find((m: any) => m.id === moduleId);
         if (module) {
-          moduleTitle = module.title ?? `Module ${moduleId}`;
-          moduleContentMarkdown =
-            module.content ?? `Content for module ${moduleId} not found.`;
+          moduleTitle = module.title ?? moduleTitle;
+          moduleContentMarkdown = module.content ?? moduleContentMarkdown;
         }
       }
 
-      // Convert markdown to HTML with MarkdownIt
+      // Convert markdown to styled HTML
       const parsedContent = md.render(moduleContentMarkdown);
 
-      // Construct the HTML document
       const htmlContent = `
         <!DOCTYPE html>
         <html>
@@ -386,9 +396,8 @@ router.get(
         </html>
       `;
 
-      const fileName = `${topic.replace(/\s+/g, "_")}_${moduleId}.pdf`;
-
-      const file = { content: htmlContent }; // html-pdf-node uses a file object with the `content` key
+      const fileName = `${normalizedTopic.replace(/\s+/g, "_")}_${moduleId}.pdf`;
+      const file = { content: htmlContent };
       const options = {
         format: "A4",
         printBackground: true,
@@ -398,10 +407,7 @@ router.get(
       const pdfBuffer = await html_to_pdf.generatePdf(file, options);
 
       res.setHeader("Content-Type", "application/pdf");
-      res.setHeader(
-        "Content-Disposition",
-        `attachment; filename="${fileName}"`
-      );
+      res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
       res.send(pdfBuffer);
     } catch (error) {
       console.error("Error generating PDF:", error);
@@ -413,43 +419,65 @@ router.get(
 // Instructor: Get learning material for a topic (full modules)
 router.get('/instructor/:topic', instructorOnly, async (req, res) => {
   try {
-    const { topic } = req.params;
+    const topic = decodeURIComponent(req.params.topic).trim().toLowerCase();
     const doc = await LearningModule.findOne({ topic });
-    if (!doc) { res.status(404).json({ message: 'No material found' }); return; }
+    if (!doc) {
+      return res.status(404).json({ message: 'No material found' });
+    }
     res.json({ topic: doc.topic, modules: doc.modules });
-  } catch {
+  } catch (err) {
+    console.error("GET instructor topic error:", err);
     res.status(500).json({ message: 'Failed to fetch material' });
   }
 });
 
+
+// Instructor: Update learning material for a topic
 // Instructor: Update learning material for a topic
 router.put('/instructor/:topic', instructorOnly, async (req, res) => {
   try {
-    const { topic } = req.params;
+    const topic = decodeURIComponent(req.params.topic).trim().toLowerCase();
     const { modules } = req.body;
-    if (!Array.isArray(modules)) { res.status(400).json({ message: 'Modules must be an array' }); return; }
+    if (!Array.isArray(modules)) {
+      return res.status(400).json({ message: 'Modules must be an array' });
+    }
     const updated = await LearningModule.findOneAndUpdate(
       { topic },
       { modules },
       { new: true, upsert: false }
     );
-    if (!updated) { res.status(404).json({ message: 'No material found' }); return; }
+    if (!updated) {
+      return res.status(404).json({ message: 'No material found' });
+    }
     res.json({ message: 'Material updated', topic: updated.topic, modules: updated.modules });
-  } catch {
+  } catch (err) {
+    console.error("PUT instructor topic error:", err);
     res.status(500).json({ message: 'Failed to update material' });
   }
 });
 
+
+// Instructor: Create new learning material for a topic
 // Instructor: Create new learning material for a topic
 router.post('/instructor', instructorOnly, async (req, res) => {
   try {
-    const { topic, modules } = req.body;
-    if (!topic || !Array.isArray(modules)) { res.status(400).json({ message: 'Topic and modules required' }); return; }
+    let { topic, modules } = req.body;
+
+    if (!topic || !Array.isArray(modules)) {
+      return res.status(400).json({ message: 'Topic and modules required' });
+    }
+
+    topic = topic.trim().toLowerCase(); // Normalize topic before saving
+
     const exists = await LearningModule.findOne({ topic });
-    if (exists) { res.status(400).json({ message: 'Material for topic already exists' }); return; }
+    if (exists) {
+      return res.status(400).json({ message: 'Material for topic already exists' });
+    }
+
     const created = await LearningModule.create({ topic, modules });
     res.status(201).json({ message: 'Material created', topic: created.topic, modules: created.modules });
-  } catch {
+  } catch (err) {
+    console.error("POST instructor material error:", err);
     res.status(500).json({ message: 'Failed to create material' });
   }
 });
