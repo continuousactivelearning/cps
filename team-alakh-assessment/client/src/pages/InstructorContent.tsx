@@ -6,7 +6,7 @@ import { FaUserGraduate, FaBookOpen, FaClipboardList, FaCogs, FaSignOutAlt, FaCh
 import { BookOpen } from "lucide-react";
 import { motion, Variants } from 'framer-motion';
 import WaterRippleBackground from '../components/WaterRippleBackground';
-
+//modified the content to be displayed on instructor side
 const navItems = [
   { label: 'Dashboard', icon: <FaChartBar />, path: '/instructor-dashboard' },
   { label: 'Students', icon: <FaUserGraduate />, path: '/instructor/students' },
