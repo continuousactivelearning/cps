@@ -80,3 +80,23 @@ export const removeConcern = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: 'Failed to delete concern' });
   }
 };
+
+
+export const removeStudent = async (req: Request, res: Response) => {
+  try {
+    const { studentId } = req.params;
+
+    const student = await User.findById(studentId);
+    if (!student || student.role !== 'student') {
+      return res.status(404).json({ success: false, message: 'Student not found' });
+    }
+
+    student.enrolledUnder = undefined;
+    await student.save();
+
+    res.status(200).json({ success: true, message: 'Student removed from instructor successfully' });
+  } catch (err) {
+    console.error('Error removing student:', err);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+};

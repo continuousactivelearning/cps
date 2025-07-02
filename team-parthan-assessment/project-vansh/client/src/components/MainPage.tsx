@@ -1140,7 +1140,7 @@ const MainPage: React.FC = () => {
             {/* User Stats */}
             <UserStats customContents={customContents} userProfile={userProfile} topics={topics} />
 
-            <InstructorEnrollmentCard user={userProfile} />
+            <InstructorEnrollmentCard user={userProfile} setUser={setUserProfile} />
 
             <div>
               <button
@@ -1250,15 +1250,18 @@ const MainPage: React.FC = () => {
                 </p>
 
                 {/* Analyzer */}
-                <ConceptAnalyzer
-                  youtubeUrl={youtubeUrl}
-                  typeofinput={uploadType}
-                  concepts={concepts}
-                  setConcepts={setConcepts}
-                  loading={loadingConcepts}
-                  setLoading={setLoadingConcepts}
-                  topics={topics}
-                />
+                <div className="flex justify-center mt-4">
+                  <ConceptAnalyzer
+                    file={uploadedFile}
+                    typeofinput={uploadType}
+                    concepts={concepts}
+                    setConcepts={setConcepts}
+                    loading={loadingConcepts}
+                    setLoading={setLoadingConcepts}
+                    topics={topics}
+                  />
+                </div>
+
               </div>
             )}
 
@@ -1299,15 +1302,16 @@ const MainPage: React.FC = () => {
                   </p>
                 )}
                 {/* Analyzer */}
-                <ConceptAnalyzer
-                  file={uploadedFile}
-                  typeofinput={uploadType}
-                  concepts={concepts}
-                  setConcepts={setConcepts}
-                  loading={loadingConcepts}
-                  setLoading={setLoadingConcepts}
-                  topics={topics}
-                />
+                <div className="flex justify-center mt-4">
+                  <ConceptAnalyzer
+                    file={uploadedFile}
+                    typeofinput={uploadType}
+                    concepts={concepts}
+                    setConcepts={setConcepts}
+                    loading={loadingConcepts}
+                    setLoading={setLoadingConcepts}
+                    topics={topics}
+                  /></div>
               </div>
             )}
 

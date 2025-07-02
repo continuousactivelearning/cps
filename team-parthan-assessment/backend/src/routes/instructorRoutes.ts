@@ -1,6 +1,6 @@
 import express from 'express';
 import { authorize } from '../middlewares/authMiddleware';
-import { getStudents, getConcerns, resolveConcern, getStudentProgress, removeConcern } from '../controllers/instructorController';
+import { getStudents, getConcerns, resolveConcern, getStudentProgress, removeConcern, removeStudent } from '../controllers/instructorController';
 
 const router = express.Router();
 
@@ -11,6 +11,13 @@ router.get('/student-progress/:studentId', authorize(['instructor']), getStudent
 router.delete('/remove-concern/:id', authorize(['instructor']), async (req, res, next) => {
 	try {
 		await removeConcern(req, res);
+	} catch (err) {
+		next(err);
+	}
+});
+router.put('/remove-student/:studentId', authorize(['instructor']), async (req, res, next) => {
+	try {
+		await removeStudent(req, res);
 	} catch (err) {
 		next(err);
 	}

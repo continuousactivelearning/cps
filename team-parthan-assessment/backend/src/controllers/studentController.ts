@@ -34,3 +34,21 @@ export const submitConcern = async (req: any, res: Response) => {
   res.status(201).json({ success: true, message: 'Concern submitted successfully' });
 
 };
+
+
+export const unenrollStudent = async (req: any, res: Response) => {
+  try {
+    const student = await User.findById(req.user._id);
+    if (!student || student.role !== 'student') {
+      return res.status(404).json({ success: false, message: 'Student not found' });
+    }
+
+    student.enrolledUnder = undefined;
+    await student.save();
+
+    res.status(200).json({ success: true, message: 'Unenrolled from instructor successfully' });
+  } catch (err) {
+    console.error('Unenroll error:', err);
+    res.status(500).json({ success: false, message: 'Failed to unenroll' });
+  }
+};

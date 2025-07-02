@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { User, CheckCircle, AlertCircle, UserPlus, Code, BookOpen, Sparkles } from 'lucide-react';
-import Loading from './Loading'; 
 import api from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   user: {
     role: string;
     enrolledUnder?: string;
   } | null;
+  setUser: (user: any) => void;
 }
 
-const InstructorEnrollmentCard: React.FC<Props> = ({ user }) => {
+
+const InstructorEnrollmentCard: React.FC<Props> = ({ user, setUser }) => {
   const [instructorCode, setInstructorCode] = useState('');
   const [enrolling, setEnrolling] = useState(false);
   const [enrollmentStatus, setEnrollmentStatus] = useState<null | { type: 'success' | 'error'; message: string }>(null);
@@ -22,6 +24,10 @@ const InstructorEnrollmentCard: React.FC<Props> = ({ user }) => {
     try {
       await api.post('/student/enroll', { instructorCode });
       setEnrollmentStatus({ type: 'success', message: 'Enrolled successfully! You can now access your instructor\'s courses.' });
+      setUser((prev: any) => ({
+  ...prev,
+  enrolledUnder: instructorCode.toUpperCase() ,
+}));
     } catch (err: any) {
       setEnrollmentStatus({ type: 'error', message: err.response?.data?.error || 'Enrollment failed. Please check your instructor code.' });
     } finally {
@@ -32,7 +38,20 @@ const InstructorEnrollmentCard: React.FC<Props> = ({ user }) => {
   if (user?.role !== 'student') return null;
 
   function unenroll(): void {
-    
+    const confirmation = window.confirm('Are you sure you want to unenroll? This action cannot be undone.');
+    if (confirmation) {
+      api.put('/student/unenroll')
+        .then(() => {
+          setEnrollmentStatus({ type: 'success', message: 'You have successfully unenrolled from your instructor.' });
+          setUser((prev: any) => ({
+  ...prev,
+  enrolledUnder: undefined ,
+}));
+        })
+        .catch((err: any) => {
+          setEnrollmentStatus({ type: 'error', message: err.response?.data?.error || 'Unenrollment failed. Please try again.' });
+        });
+    }
   }
 
   return (
@@ -88,7 +107,7 @@ const InstructorEnrollmentCard: React.FC<Props> = ({ user }) => {
                   onClick={unenroll}
                   className="mt-4 flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3 md:px-4 py-2 rounded-lg transition-colors"
                 >
-                  Unenroll
+                  Unenrol
                 </button>
 
 

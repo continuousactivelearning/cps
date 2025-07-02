@@ -27,6 +27,7 @@ import {
 } from "../components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { getDetails, uploadPhoto } from "../services/detailService";
+import { useTheme } from "./ThemeProvider";
 
 interface UserProfile {
   name: string;
@@ -148,6 +149,10 @@ const UserProfileDropdown: React.FC = () => {
     };
     updatePhoto();
   }, [photo]);
+
+// Remove unused ThemeSwitch function and use useTheme directly in the component
+const { isDarkMode, setTheme } = useTheme();
+
   return (
     <>
       <div className="relative">
@@ -416,8 +421,7 @@ const UserProfileDropdown: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <span className="text-gray-700">Dark Mode</span>
                     <button
-                      onClick={() =>
-                        handleSettingChange("darkMode", !settings.darkMode)
+                      onClick={() => setTheme(isDarkMode ? 'light' : 'dark')
                       }
                       className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                         settings.darkMode ? "bg-indigo-600" : "bg-gray-300"
@@ -531,6 +535,6 @@ const UserProfileDropdown: React.FC = () => {
       )}
     </>
   );
-};
+}
 
 export default UserProfileDropdown;
