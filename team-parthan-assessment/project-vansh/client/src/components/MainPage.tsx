@@ -1139,10 +1139,10 @@ const MainPage: React.FC = () => {
 
             {/* User Stats */}
             <UserStats customContents={customContents} userProfile={userProfile} topics={topics} />
-
+            
             <InstructorEnrollmentCard user={userProfile} setUser={setUserProfile} />
-
-            <div>
+            {userProfile.enrolledUnder && (
+               <div>
               <button
                 onClick={() => setShowUploadConcern(true)}
                 className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white px-3 md:px-4 py-2 rounded-lg transition-colors"
@@ -1175,6 +1175,9 @@ const MainPage: React.FC = () => {
                 </div>
               )}
             </div>
+            )}
+
+           
 
             <RecentActivity  topics={topics}  />
           </div>
