@@ -23,3 +23,8 @@ server.cpython-313.pyc
 *.njsproj
 *.sln
 *.sw?
+.env
+.env.local
+node_modules/
+dist/
+build/
