@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@react-oauth/google": "^0.12.2",
     "axios": "^1.6.7",
     "framer-motion": "^12.18.1",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.344.0",
     "marked": "^16.0.0",
     "react": "^18.3.1",
@@ -27,6 +29,7 @@
   "devDependencies": {
     "@eslint/js": "^9.9.1",
     "@tailwindcss/typography": "^0.5.16",
+    "@types/jwt-decode": "^2.2.1",
     "@types/node": "^24.0.3",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",

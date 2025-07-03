@@ -26,6 +26,16 @@ function App() {
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <Router>
         <Routes>
+
+          <Route 
+            path="/auth/google/callback" 
+            element={
+              <PublicRoute>
+                <div>Processing Google login...</div>
+              </PublicRoute>
+            } 
+          />
+          
           <Route path="/" element={<HomePage />} />
 
           <Route
