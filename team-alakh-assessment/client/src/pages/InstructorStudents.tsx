@@ -6,6 +6,7 @@ import { FaUserGraduate, FaBookOpen, FaClipboardList, FaCogs, FaSignOutAlt, FaCh
 import { motion, Variants } from 'framer-motion';
 import WaterRippleBackground from '../components/WaterRippleBackground';
 import { BookOpen, Search, Sparkles } from 'lucide-react';
+import { APIURL } from '../services/api';
 //completed the student check page
 const navItems = [
   { label: 'Dashboard', icon: <FaChartBar />, path: '/instructor-dashboard' },
@@ -52,7 +53,7 @@ const InstructorStudents: React.FC = () => {
         return;
       }
       try {
-        const res = await axios.get('https://assessment-o61q.onrender.com/api/instructor/me', {
+        const res = await axios.get(`${APIURL}/api/instructor/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data);
@@ -70,7 +71,7 @@ const InstructorStudents: React.FC = () => {
     setError('');
     try {
       const token = localStorage.getItem('instructorToken');
-      const res = await axios.get('https://assessment-o61q.onrender.com/api/instructor/students', {
+      const res = await axios.get(`${APIURL}/api/instructor/students`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStudents(res.data);
@@ -95,7 +96,7 @@ const InstructorStudents: React.FC = () => {
     setActionMsg('');
     try {
       const token = localStorage.getItem('instructorToken');
-      const res = await axios.get(`https://assessment-o61q.onrender.com/api/instructor/students/${id}`, {
+      const res = await axios.get(`${APIURL}/api/instructor/students/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setDetail(res.data);
@@ -109,7 +110,7 @@ const InstructorStudents: React.FC = () => {
   const logAudit = async (action: string, details: any) => {
     try {
       const token = localStorage.getItem('instructorToken');
-      await axios.post('https://assessment-o61q.onrender.com/api/instructor/audit-log', { action, details }, {
+      await axios.post(`${APIURL}/api/instructor/audit-log`, { action, details }, {
         headers: { Authorization: `Bearer ${token}` },
       });
     } catch {
@@ -123,7 +124,7 @@ const InstructorStudents: React.FC = () => {
     setDetailLoading(true);
     try {
       const token = localStorage.getItem('instructorToken');
-      await axios.post(`https://assessment-o61q.onrender.com/api/instructor/students/${detail._id}/flag`, {}, {
+      await axios.post(`${APIURL}/api/instructor/students/${detail._id}/flag`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setActionMsg('Student flagged.');
@@ -141,7 +142,7 @@ const InstructorStudents: React.FC = () => {
     setDetailLoading(true);
     try {
       const token = localStorage.getItem('instructorToken');
-      await axios.post(`https://assessment-o61q.onrender.com/api/instructor/students/${detail._id}/deactivate`, {}, {
+      await axios.post(`${APIURL}/api/instructor/students/${detail._id}/deactivate`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setActionMsg('Student deactivated.');
@@ -159,7 +160,7 @@ const InstructorStudents: React.FC = () => {
     setDetailLoading(true);
     try {
       const token = localStorage.getItem('instructorToken');
-      await axios.post(`https://assessment-o61q.onrender.com/api/instructor/students/${detail._id}/reactivate`, {}, {
+      await axios.post(`${APIURL}/api/instructor/students/${detail._id}/reactivate`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setActionMsg('Student reactivated.');
@@ -178,7 +179,7 @@ const InstructorStudents: React.FC = () => {
       const token = localStorage.getItem('instructorToken');
       const formData = new FormData();
       formData.append('file', e.target.files[0]);
-      const res = await axios.post('https://assessment-o61q.onrender.com/api/instructor/students/import', formData, {
+      const res = await axios.post(`${APIURL}/api/instructor/students/import`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setActionMsg(res.data.message || 'Import complete.');

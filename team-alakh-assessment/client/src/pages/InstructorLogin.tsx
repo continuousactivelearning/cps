@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import WaterRippleBackground from "../components/WaterRippleBackground";
-
+import { APIURL } from '../services/api';
 const InstructorLogin: React.FC = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
@@ -18,7 +18,7 @@ const InstructorLogin: React.FC = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.post('https://assessment-o61q.onrender.com/api/instructor/login', form);
+      const res = await axios.post(`${APIURL}/api/instructor/login`, form);
       localStorage.setItem('instructorToken', res.data.token);
       navigate('/instructor-dashboard');
     } catch (err: any) {
