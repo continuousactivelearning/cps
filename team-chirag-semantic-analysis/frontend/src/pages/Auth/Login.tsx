@@ -24,6 +24,8 @@ import { z } from 'zod';
 import GoogleIcon from '@mui/icons-material/Google';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../firebase/config';
+import Lottie from 'lottie-react';
+import aiAnimation from '../../assets/ai-lottie.json';
 
 const LoginSchema = z.object({
   email: z.string().email({ message: 'Enter a valid email address' }),
@@ -108,26 +110,81 @@ const Login: React.FC = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #2196f3 30%, #21cbf3 90%)',
+        background: 'linear-gradient(120deg, #1976d2 0%, #42a5f5 60%, #26c6da 100%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         px: 2,
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      <Container maxWidth="sm">
+      {/* Decorative background shapes */}
+      <Box sx={{
+        position: 'absolute',
+        top: -100,
+        left: -150,
+        width: 400,
+        height: 400,
+        bgcolor: '#42a5f5',
+        opacity: 0.1,
+        borderRadius: '50%',
+        zIndex: 0,
+      }} />
+      <Box sx={{
+        position: 'absolute',
+        bottom: -120,
+        right: -180,
+        width: 450,
+        height: 450,
+        bgcolor: '#26c6da',
+        opacity: 0.08,
+        borderRadius: '50%',
+        zIndex: 0,
+      }} />
+
+      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
         >
-          <Paper elevation={6} sx={{ p: { xs: 3, sm: 4 }, borderRadius: 3 }}>
-            <Typography variant="h4" align="center" color="primary" gutterBottom>
-              Welcome Back
-            </Typography>
-            <Typography variant="subtitle1" align="center" sx={{ mb: 3 }}>
-              Log in to continue your journey
-            </Typography>
+          <Paper 
+            elevation={12} 
+            sx={{ 
+              p: { xs: 3, sm: 4 }, 
+              borderRadius: 4,
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+            }}
+          >
+            {/* Header with Mascot */}
+            <Box sx={{ textAlign: 'center', mb: 4 }}>
+              <Box sx={{ width: 80, height: 80, margin: '0 auto', mb: 2 }}>
+                <Lottie 
+                  animationData={aiAnimation} 
+                  style={{ width: 80, height: 80 }} 
+                  loop 
+                />
+              </Box>
+              <Typography 
+                variant="h4" 
+                sx={{ 
+                  fontWeight: 700,
+                  background: 'linear-gradient(45deg, #1976d2, #26c6da)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  mb: 1,
+                }}
+              >
+                Welcome Back!
+              </Typography>
+              <Typography variant="subtitle1" sx={{ color: '#666', mb: 3 }}>
+                Continue your DSA learning journey with your AI buddy
+              </Typography>
+            </Box>
 
             {/* Google Sign-In */}
             <motion.div
@@ -146,17 +203,26 @@ const Login: React.FC = () => {
                   textTransform: 'none',
                   py: 1.5,
                   fontWeight: 600,
-                  mb: 2,
+                  mb: 3,
+                  borderRadius: 3,
+                  boxShadow: '0 4px 16px rgba(66, 133, 244, 0.3)',
                   '&:hover': {
                     background: 'linear-gradient(to right, #3367d6, #2c8e4e)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 8px 24px rgba(66, 133, 244, 0.4)',
                   },
+                  transition: 'all 0.2s',
                 }}
               >
                 Sign in with Google
               </Button>
             </motion.div>
 
-            <Divider sx={{ mb: 3 }}>or</Divider>
+            <Divider sx={{ mb: 3, color: '#ccc' }}>
+              <Typography variant="body2" sx={{ color: '#666', px: 2 }}>
+                or continue with email
+              </Typography>
+            </Divider>
 
             {/* Email/Password Form */}
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -168,6 +234,17 @@ const Login: React.FC = () => {
                 {...register('email')}
                 error={!!errors.email}
                 helperText={errors.email?.message}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2,
+                    '&:hover fieldset': {
+                      borderColor: '#42a5f5',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#1976d2',
+                    },
+                  },
+                }}
               />
 
               <TextField
@@ -186,16 +263,39 @@ const Login: React.FC = () => {
                         onClick={() => setShowPassword((prev) => !prev)}
                         edge="end"
                         aria-label="toggle password visibility"
+                        sx={{ color: '#666' }}
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
                   ),
                 }}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2,
+                    '&:hover fieldset': {
+                      borderColor: '#42a5f5',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#1976d2',
+                    },
+                  },
+                }}
               />
 
-              <Box mt={1} mb={2} textAlign="right">
-                <Link href="#" underline="hover" variant="body2" color="primary">
+              <Box mt={1} mb={3} textAlign="right">
+                <Link 
+                  href="#" 
+                  underline="hover" 
+                  variant="body2" 
+                  sx={{ 
+                    color: '#1976d2',
+                    fontWeight: 500,
+                    '&:hover': {
+                      color: '#26c6da',
+                    },
+                  }}
+                >
                   Forgot password?
                 </Link>
               </Box>
@@ -207,14 +307,46 @@ const Login: React.FC = () => {
                 size="large"
                 disabled={!isDirty || !isValid || loading}
                 startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
-                sx={{ mb: 2 }}
+                sx={{ 
+                  mb: 3,
+                  bgcolor: '#26c6da',
+                  color: '#fff',
+                  fontWeight: 600,
+                  py: 1.5,
+                  borderRadius: 3,
+                  boxShadow: '0 4px 16px rgba(38, 198, 218, 0.3)',
+                  '&:hover': {
+                    bgcolor: '#1976d2',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 8px 24px rgba(25, 118, 210, 0.4)',
+                  },
+                  '&:disabled': {
+                    bgcolor: '#ccc',
+                    transform: 'none',
+                    boxShadow: 'none',
+                  },
+                  transition: 'all 0.2s',
+                }}
               >
                 {loading ? 'Logging in...' : 'Login'}
               </Button>
 
-              <Typography variant="body2" align="center">
-                Don’t have an account?{' '}
-                <Button variant="text" size="small" onClick={() => navigate('/signup')}>
+              <Typography variant="body2" align="center" sx={{ color: '#666' }}>
+                Don't have an account?{' '}
+                <Button 
+                  variant="text" 
+                  size="small" 
+                  onClick={() => navigate('/signup')}
+                  sx={{ 
+                    color: '#1976d2',
+                    fontWeight: 600,
+                    textTransform: 'none',
+                    '&:hover': {
+                      color: '#26c6da',
+                      background: 'rgba(25, 118, 210, 0.1)',
+                    },
+                  }}
+                >
                   Sign Up
                 </Button>
               </Typography>
