@@ -66,19 +66,6 @@ const LEARNING_PACE = [
   { value: 'intensive', label: 'Intensive (6+ hours/week)' }
 ];
 
-const FOCUS_AREAS = [
-  'Arrays & Strings',
-  'Linked Lists',
-  'Stacks & Queues',
-  'Trees & Graphs',
-  'Dynamic Programming',
-  'Recursion & Backtracking',
-  'Sorting & Searching',
-  'Hash Tables',
-  'Greedy Algorithms',
-  'System Design'
-];
-
 const MOTIVATIONAL_QUOTES = [
   "Every expert was once a beginner.",
   "Consistency is the key to mastery.",
@@ -91,21 +78,234 @@ function getRandomQuote() {
   return MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
 }
 
-// Add subtopics mapping for demo (replace with dynamic import if needed)
-const SUBTOPICS_MAP: { [topic: string]: string[] } = {
-  'Arrays & Strings': [
-    'Traversal', 'Insertion', 'Deletion', 'Searching', 'Sorting', 'Dynamic Arrays', 'Hash Table', 'Dynamic Programming', 'Divide And Conquer', 'Array Initialization', 'Array Operations', 'Dynamic Array', 'Array Manipulation', 'Array Searching', 'Array Sorting', 'Multidimensional Arrays', 'Array Rotation', 'Array Traversal', 'Array Algorithms'
-  ],
-  'Stacks & Queues': [
-    // For demo, combine subtopics for both if needed
-    'Operations', 'Implementation', 'Applications', 'Circular Queue', 'Priority Queue', 'Deque', 'Stack Operations', 'Stack Implementation', 'Stack Applications'
-  ],
-  // Add more as you add topics to graph_data.json
-};
-
 // Add subtopics to onboarding state
 type OnboardingDataWithSubtopics = OnboardingData & {
   subtopics: { [topic: string]: string[] }
+};
+
+// Interface for graph data structure
+interface GraphNode {
+  id: string;
+  name: string;
+  type: 'topic' | 'subtopic';
+  level?: string;
+  description?: string;
+  parent_topic?: string;
+  keywords?: string[];
+}
+
+interface GraphData {
+  nodes: GraphNode[];
+}
+
+interface UserProfileNode {
+  id: string;
+  name: string;
+  type: 'topic' | 'subtopic';
+}
+
+interface TopicWithSubtopics {
+  id: string;
+  name: string;
+  type: 'topic';
+  subtopics: UserProfileNode[];
+}
+
+interface UserProfile {
+  userInfo: {
+    name: string;
+    email: string;
+    programmingExperience: string;
+    knownLanguages: string[];
+    dsaExperience: string;
+    preferredPace: string;
+  };
+  knownConcepts: {
+    topics: TopicWithSubtopics[];
+    totalTopics: number;
+    totalSubtopics: number;
+  };
+  createdAt: string;
+}
+
+// Function to load graph data from local file
+const loadGraphData = async (): Promise<GraphData> => {
+  try {
+    // Load from the static graph data file in public directory
+    const response = await fetch('/graph_data.json');
+    if (!response.ok) {
+      throw new Error('Failed to load graph data');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error loading graph data:', error);
+    // Fallback: return empty structure with sample data for testing
+    return { 
+      nodes: [
+        { id: 'array', name: 'Array', type: 'topic' },
+        { id: 'linked_list', name: 'Linked List', type: 'topic' },
+        { id: 'stack', name: 'Stack', type: 'topic' },
+        { id: 'queue', name: 'Queue', type: 'topic' },
+        { id: 'tree', name: 'Tree', type: 'topic' },
+        { id: 'graph', name: 'Graph', type: 'topic' },
+        { id: 'dynamic_programming', name: 'Dynamic Programming', type: 'topic' },
+        { id: 'recursion', name: 'Recursion', type: 'topic' },
+        { id: 'sorting', name: 'Sorting', type: 'topic' },
+        { id: 'searching', name: 'Searching', type: 'topic' },
+        { id: 'hash_table', name: 'Hash Table', type: 'topic' },
+        { id: 'greedy', name: 'Greedy', type: 'topic' }
+      ] 
+    };
+  }
+};
+
+// Function to match user selections to graph nodes and organize by topics
+const matchSelectionsToNodes = (
+  focusAreas: string[],
+  subtopics: { [topic: string]: string[] },
+  graphData: GraphData
+): { topics: TopicWithSubtopics[], totalTopics: number, totalSubtopics: number } => {
+  const organizedTopics: TopicWithSubtopics[] = [];
+  let totalSubtopics = 0;
+
+  // Create a case-insensitive lookup map for faster searching
+  const nodeMap = new Map<string, GraphNode>();
+  graphData.nodes.forEach(node => {
+    nodeMap.set(node.name.toLowerCase(), node);
+  });
+
+  // Process each focus area (topic)
+  focusAreas.forEach(area => {
+    const normalizedArea = area.toLowerCase();
+    
+    // Try exact match first
+    let matchedTopicNode = nodeMap.get(normalizedArea);
+    
+    // If no exact match, try partial matching
+    if (!matchedTopicNode) {
+      for (const [nodeName, node] of nodeMap.entries()) {
+        if (nodeName.includes(normalizedArea) || normalizedArea.includes(nodeName)) {
+          matchedTopicNode = node;
+          break;
+        }
+      }
+    }
+    
+    // Special mappings for common variations
+    if (!matchedTopicNode) {
+      const mappings: { [key: string]: string } = {
+        'arrays & strings': 'array',
+        'stacks & queues': 'stack',
+        'trees & graphs': 'tree',
+        'linked lists': 'linked list',
+        'hash tables': 'hash table',
+        'dynamic programming': 'dynamic programming',
+        'recursion & backtracking': 'recursion',
+        'sorting & searching': 'sorting',
+        'greedy algorithms': 'greedy',
+        'system design': 'design'
+      };
+      
+      const mappedName = mappings[normalizedArea];
+      if (mappedName) {
+        matchedTopicNode = nodeMap.get(mappedName);
+      }
+    }
+
+    if (matchedTopicNode && matchedTopicNode.type === 'topic') {
+      // Find subtopics for this topic
+      const topicSubtopics: UserProfileNode[] = [];
+      const selectedSubtopics = subtopics[area] || [];
+      
+      selectedSubtopics.forEach(sub => {
+        const normalizedSub = sub.toLowerCase();
+        const matchedSubNode = nodeMap.get(normalizedSub);
+        
+        if (matchedSubNode && matchedSubNode.type === 'subtopic') {
+          topicSubtopics.push({
+            id: matchedSubNode.id,
+            name: matchedSubNode.name,
+            type: matchedSubNode.type
+          });
+          totalSubtopics++;
+        }
+      });
+
+      // Add the topic with its subtopics
+      organizedTopics.push({
+        id: matchedTopicNode.id,
+        name: matchedTopicNode.name,
+        type: matchedTopicNode.type,
+        subtopics: topicSubtopics
+      });
+    }
+  });
+
+  return { 
+    topics: organizedTopics, 
+    totalTopics: organizedTopics.length, 
+    totalSubtopics 
+  };
+};
+
+// Function to generate user profile
+const generateUserProfile = async (formData: OnboardingDataWithSubtopics): Promise<UserProfile> => {
+  const graphData = await loadGraphData();
+  const { topics, totalTopics, totalSubtopics } = matchSelectionsToNodes(
+    formData.focusAreas,
+    formData.subtopics,
+    graphData
+  );
+
+  return {
+    userInfo: {
+      name: localStorage.getItem('signupName') || '',
+      email: localStorage.getItem('signupEmail') || '',
+      programmingExperience: formData.programmingExperience,
+      knownLanguages: formData.knownLanguages,
+      dsaExperience: formData.dsaExperience,
+      preferredPace: formData.preferredPace,
+    },
+    knownConcepts: {
+      topics: topics,
+      totalTopics: totalTopics,
+      totalSubtopics: totalSubtopics
+    },
+    createdAt: new Date().toISOString(),
+  };
+};
+
+// Function to save user profile
+const saveUserProfile = async (userProfile: UserProfile): Promise<void> => {
+  try {
+    // Save to localStorage
+    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    
+    // Log the profile structure for debugging
+    console.log('User profile generated:', userProfile);
+    console.log(`Total topics: ${userProfile.knownConcepts.totalTopics}`);
+    console.log(`Total subtopics: ${userProfile.knownConcepts.totalSubtopics}`);
+    
+    // Also create a downloadable JSON file for the user
+    const dataStr = JSON.stringify(userProfile, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    
+    // Use timestamp for unique filename
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const exportFileDefaultName = `user_profile_${timestamp}.json`;
+    
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+    
+    console.log('User profile saved successfully:', userProfile);
+  } catch (error) {
+    console.error('Error saving user profile:', error);
+    // Fallback: save to localStorage only
+    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    throw error;
+  }
 };
 
 const steps = ['Experience Level', 'Preferences', 'Subtopics/Deep Focus'];
@@ -115,6 +315,9 @@ export const OnboardingPage: React.FC = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [graphData, setGraphData] = useState<GraphData | null>(null);
+  const [availableTopics, setAvailableTopics] = useState<string[]>([]);
+  const [dynamicSubtopicsMap, setDynamicSubtopicsMap] = useState<{ [topic: string]: string[] }>({});
   
   const [formData, setFormData] = useState<OnboardingDataWithSubtopics>({
     programmingExperience: '',
@@ -127,6 +330,40 @@ export const OnboardingPage: React.FC = () => {
   });
 
   const userName = localStorage.getItem('signupName');
+
+  // Load graph data and initialize topics on component mount
+  React.useEffect(() => {
+    const initializeGraphData = async () => {
+      try {
+        const data = await loadGraphData();
+        setGraphData(data);
+        
+        // Extract available topics
+        const topics = extractTopicsFromGraphData(data);
+        setAvailableTopics(topics);
+        
+      } catch (error) {
+        console.error('Failed to load graph data:', error);
+        setError('Failed to load course data. Using fallback options.');
+        // Set fallback topics if graph data fails to load
+        setAvailableTopics([
+          'Array', 'Linked List', 'Stack', 'Queue', 'Tree', 'Graph', 
+          'Dynamic Programming', 'Recursion', 'Sorting', 'Searching', 
+          'Hash Table', 'Greedy'
+        ]);
+      }
+    };
+
+    initializeGraphData();
+  }, []);
+
+  // Update subtopics map when focus areas change
+  React.useEffect(() => {
+    if (graphData && formData.focusAreas.length > 0) {
+      const subtopicsMap = createSubtopicsMap(formData.focusAreas, graphData);
+      setDynamicSubtopicsMap(subtopicsMap);
+    }
+  }, [formData.focusAreas, graphData]);
 
   const handleNext = () => {
     setActiveStep((prevStep) => prevStep + 1);
@@ -179,25 +416,26 @@ export const OnboardingPage: React.FC = () => {
     setError(null);
     
     try {
-      // In a real app, you would send this data to your backend
-      // await fetch('/api/onboarding', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${localStorage.getItem('token')}`
-      //   },
-      //   body: JSON.stringify(formData)
-      // });
+      // Generate user profile with graph data matching
+      const userProfile = await generateUserProfile(formData);
+      
+      // Save the user profile
+      await saveUserProfile(userProfile);
 
       // Mark onboarding as completed in localStorage
       localStorage.setItem('onboardingCompleted', 'true');
-      // Save profile data for profile page:
-localStorage.setItem('userProfile', JSON.stringify({ ...formData, email: localStorage.getItem('signupEmail'), name: localStorage.getItem('signupName') }));
+      
+      // Save profile data for profile page (legacy format for compatibility)
+      localStorage.setItem('userProfile', JSON.stringify({ 
+        ...formData, 
+        email: localStorage.getItem('signupEmail'), 
+        name: localStorage.getItem('signupName') 
+      }));
 
       // Navigate to main app
       navigate('/chat');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : 'An error occurred while saving your profile');
     } finally {
       setLoading(false);
     }
@@ -355,6 +593,7 @@ localStorage.setItem('userProfile', JSON.stringify({ ...formData, email: localSt
                 value={formData.focusAreas}
                 onChange={(e) => handleMultiSelectChange(e, 'focusAreas')}
                 input={<OutlinedInput label="Focus Areas" />}
+                disabled={availableTopics.length === 0}
                 renderValue={(selected) => (
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                     {selected.map((value) => (
@@ -369,24 +608,30 @@ localStorage.setItem('userProfile', JSON.stringify({ ...formData, email: localSt
                   }
                 }}
               >
-                {FOCUS_AREAS.map((area) => (
-                  <MenuItem 
-                    key={area} 
-                    value={area}
-                    sx={{
-                      backgroundColor: formData.focusAreas.includes(area) ? '#fce4ec' : 'transparent',
-                      '&:hover': {
-                        backgroundColor: formData.focusAreas.includes(area) ? '#f8bbd9' : '#f5f5f5'
-                      }
-                    }}
-                  >
-                    <Checkbox 
-                      checked={formData.focusAreas.includes(area)}
-                      sx={{ color: formData.focusAreas.includes(area) ? '#c2185b' : '#ccc' }}
-                    />
-                    <ListItemText primary={area} />
+                {availableTopics.length === 0 ? (
+                  <MenuItem disabled>
+                    <Typography>Loading topics...</Typography>
                   </MenuItem>
-                ))}
+                ) : (
+                  availableTopics.map((area) => (
+                    <MenuItem 
+                      key={area} 
+                      value={area}
+                      sx={{
+                        backgroundColor: formData.focusAreas.includes(area) ? '#fce4ec' : 'transparent',
+                        '&:hover': {
+                          backgroundColor: formData.focusAreas.includes(area) ? '#f8bbd9' : '#f5f5f5'
+                        }
+                      }}
+                    >
+                      <Checkbox 
+                        checked={formData.focusAreas.includes(area)}
+                        sx={{ color: formData.focusAreas.includes(area) ? '#c2185b' : '#ccc' }}
+                      />
+                      <ListItemText primary={area} />
+                    </MenuItem>
+                  ))
+                )}
               </Select>
             </FormControl>
           </Box>
@@ -398,31 +643,47 @@ localStorage.setItem('userProfile', JSON.stringify({ ...formData, email: localSt
             <Typography variant="h6" sx={{ mb: 2 }}>
               Select the subtopics you know for each focus area:
             </Typography>
-            {formData.focusAreas.map(topic => (
-              <FormControl fullWidth key={topic} sx={{ mb: 2 }}>
-                <InputLabel>{topic} Subtopics</InputLabel>
-                <Select
-                  multiple
-                  value={formData.subtopics[topic] || []}
-                  onChange={e => handleSubtopicChange(topic, e.target.value as string[])}
-                  input={<OutlinedInput label={`${topic} Subtopics`} />}
-                  renderValue={selected => (
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                      {(selected as string[]).map(value => (
-                        <Chip key={value} label={value} size="small" color="primary" />
-                      ))}
-                    </Box>
-                  )}
-                >
-                  {(SUBTOPICS_MAP[topic] || []).map(sub => (
-                    <MenuItem key={sub} value={sub}>
-                      <Checkbox checked={formData.subtopics[topic]?.includes(sub) || false} />
-                      <ListItemText primary={sub} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            ))}
+            {formData.focusAreas.length === 0 ? (
+              <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'center', py: 4 }}>
+                Please select focus areas in the previous step to see available subtopics.
+              </Typography>
+            ) : (
+              formData.focusAreas.map(topic => {
+                const subtopics = dynamicSubtopicsMap[topic] || [];
+                return (
+                  <FormControl fullWidth key={topic} sx={{ mb: 2 }}>
+                    <InputLabel>{topic} Subtopics</InputLabel>
+                    <Select
+                      multiple
+                      value={formData.subtopics[topic] || []}
+                      onChange={e => handleSubtopicChange(topic, e.target.value as string[])}
+                      input={<OutlinedInput label={`${topic} Subtopics`} />}
+                      disabled={subtopics.length === 0}
+                      renderValue={selected => (
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                          {(selected as string[]).map(value => (
+                            <Chip key={value} label={value} size="small" color="primary" />
+                          ))}
+                        </Box>
+                      )}
+                    >
+                      {subtopics.length === 0 ? (
+                        <MenuItem disabled>
+                          <Typography>No subtopics available for {topic}</Typography>
+                        </MenuItem>
+                      ) : (
+                        subtopics.map(sub => (
+                          <MenuItem key={sub} value={sub}>
+                            <Checkbox checked={formData.subtopics[topic]?.includes(sub) || false} />
+                            <ListItemText primary={sub} />
+                          </MenuItem>
+                        ))
+                      )}
+                    </Select>
+                  </FormControl>
+                );
+              })
+            )}
           </Box>
         );
 
@@ -501,3 +762,44 @@ localStorage.setItem('userProfile', JSON.stringify({ ...formData, email: localSt
 };
 
 export default OnboardingPage;
+
+// Function to extract unique topics from graph data
+const extractTopicsFromGraphData = (graphData: GraphData): string[] => {
+  const topics = graphData.nodes
+    .filter(node => node.type === 'topic')
+    .map(node => node.name)
+    .sort();
+  return [...new Set(topics)]; // Remove duplicates and sort
+};
+
+// Function to extract subtopics for a given topic from graph data
+const extractSubtopicsForTopic = (topicName: string, graphData: GraphData): string[] => {
+  // Find the topic node first
+  const topicNode = graphData.nodes.find(node => 
+    node.type === 'topic' && node.name.toLowerCase() === topicName.toLowerCase()
+  );
+  
+  if (!topicNode) return [];
+  
+  // Find all subtopics that belong to this topic
+  const subtopics = graphData.nodes
+    .filter(node => 
+      node.type === 'subtopic' && 
+      node.parent_topic === topicNode.id
+    )
+    .map(node => node.name)
+    .sort();
+    
+  return [...new Set(subtopics)]; // Remove duplicates and sort
+};
+
+// Function to create dynamic subtopics map from graph data
+const createSubtopicsMap = (focusAreas: string[], graphData: GraphData): { [topic: string]: string[] } => {
+  const subtopicsMap: { [topic: string]: string[] } = {};
+  
+  focusAreas.forEach(topic => {
+    subtopicsMap[topic] = extractSubtopicsForTopic(topic, graphData);
+  });
+  
+  return subtopicsMap;
+};
