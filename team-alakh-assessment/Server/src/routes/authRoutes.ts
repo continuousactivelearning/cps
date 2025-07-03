@@ -7,7 +7,7 @@ import { OAuth2Client } from 'google-auth-library';
 
 dotenv.config();
 const router = express.Router();
-const client = new OAuth2Client(process.env.VITE_GOOGLE_CLIENT_ID);
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 interface AuthRequestBody {
   email: string;
@@ -45,7 +45,7 @@ router.post('/login', async (req: Request<{}, {}, AuthRequestBody>, res: Respons
       return;
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password ?? '');
     if (!isMatch) {
       res.status(401).json({ message: 'Invalid credentials' });
       return;
@@ -58,41 +58,52 @@ router.post('/login', async (req: Request<{}, {}, AuthRequestBody>, res: Respons
   }
 });
 
-router.post('/google', async (req: Request, res: Response): Promise<void> => {
+router.post('/google', async (req: Request, res: Response) => {
   const { token } = req.body;
 
   try {
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: process.env.VITE_GOOGLE_CLIENT_ID,
+      audience: process.env.GOOGLE_CLIENT_ID
     });
 
     const payload = ticket.getPayload();
-    if (!payload || !payload.email) {
+    if (!payload?.email) {
       res.status(400).json({ message: 'Invalid Google token' });
       return;
     }
 
-    const { email, name, picture } = payload;
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ 
+      $or: [
+        { email: payload.email },
+        { googleId: payload.sub }
+      ]
+    });
 
     if (!user) {
       user = new User({
-        email,
-        password: '',
-        passedArray: [],
+        email: payload.email,
+        googleId: payload.sub,
         profile: {
-          name: name || '',
-          picture: picture || '',
-        },
+          name: payload.name || '',
+          picture: payload.picture || ''
+        }
+        // No password required for Google users
       });
       await user.save();
     }
 
-    const jwtToken = jwt.sign({ id: user._id, email, role: 'user' }, process.env.JWT_SECRET as string, { expiresIn: '2h' });
+    const jwtToken = jwt.sign(
+      { id: user._id, email: user.email, role: 'user' },
+      process.env.JWT_SECRET as string,
+      { expiresIn: '2h' }
+    );
+
     res.json({ token: jwtToken });
+    return;
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
+    return;
   }
 });
 
