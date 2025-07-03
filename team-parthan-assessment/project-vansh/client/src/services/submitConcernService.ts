@@ -1,7 +1,7 @@
 // services/api.ts
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/api'; 
+const BASE_URL = 'https://cps-rnku.onrender.com/api'; 
 
 export const apiService = {
   

@@ -17,6 +17,8 @@ import {
 } from "../components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { getDetails, uploadPhoto } from "../services/detailService";
+import { useTheme } from "./ThemeProvider";
+import api from "../services/api";
 
 interface UserProfile {
   name: string;
@@ -85,16 +87,24 @@ const UserProfileDropdown: React.FC = () => {
   });
 
   useEffect(() => {
-    if (details) {
-      setUserProfile({
-        name: details.name,
-        email: details.email,
-        avatar: details.avatar || '',
-        masteredTopics: details.masteredTopics || 0,
+    const fetchUserProfile = async () => {
+      try {
+        if (details) {
+          setUserProfile({
+            name: details.name,
+            email: details.email,
+            avatar: details.avatar || '',
+            masteredTopics: details.masteredTopics || 0,
         totalScore: details.totalScore || 0,
         streak: details.streak || 0,
       });
     }
+  } catch (error) {
+    console.log("Error fetching details in mainpage ", error);
+  }
+};
+fetchUserProfile();
+
   }, [details]);
 
   useEffect(() => {

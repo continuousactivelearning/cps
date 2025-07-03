@@ -2,7 +2,7 @@
 import axios from 'axios';
 import api from './api';
 const fresh = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://cps-rnku.onrender.com/api',
 });
 
 
