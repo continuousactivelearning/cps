@@ -126,7 +126,9 @@ const HomePage: React.FC = () => {
                     className="flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all hover:cursor-pointer"
                     onClick={() => {
                       const role = localStorage.getItem("role");
-
+                      const id = localStorage.getItem("id");
+                      if (!id) {
+                        navigate("/");}
                       
                       if (role === "instructor") {
                         navigate("/instructor"); // New instructor dashboard route
@@ -203,8 +205,10 @@ const HomePage: React.FC = () => {
                             className="flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all hover:cursor-pointer"
                             onClick={() => {
                               const role = localStorage.getItem("role");
-
-                              console.log("User role:", role);
+                              const id = localStorage.getItem("id");
+                              if (!id) {
+                                navigate("/");
+                              }
                               if (role === "instructor") {
                                 navigate("/instructor"); // Instructor dashboard route
                               } else {
@@ -251,6 +255,10 @@ const HomePage: React.FC = () => {
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2"
               onClick={() => {
                 const role = localStorage.getItem("role");
+                const id = localStorage.getItem("id");
+                if (!id) {
+                  navigate("/");
+                }
                 if (role === "instructor") {
                   navigate("/instructor"); // New instructor dashboard route
                 } else {
