@@ -13,6 +13,9 @@ dist-ssr
 *.local
 ollama_dsa_yt.cpython-313.pyc
 server.cpython-313.pyc
+__pycache__/
+*.py[cod]
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

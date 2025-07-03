@@ -23,8 +23,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 import argparse
 
 class RealGraphLearningAnalyzer:
-    def __init__(self, graph_file="python-scraper/output/dsa_graph.json"):
+    def __init__(self, graph_file=None):
         """Initialize with real graph data."""
+        if graph_file is None:
+            # Default to graph_data.json in the same directory
+            import os
+            current_dir = os.path.dirname(__file__)
+            graph_file = os.path.join(current_dir, "graph_data.json")
+        
         self.graph_file = graph_file
         self.graph_data = self.load_graph_data()
         self.graph = self.build_real_graph()

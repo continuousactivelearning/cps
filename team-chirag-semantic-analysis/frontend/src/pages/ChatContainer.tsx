@@ -4,6 +4,7 @@ import { Message } from '../components/Message';
 import { MessageInput } from '../components/MessageInput';
 import { Sidebar } from '../components/Sidebar';
 import { TypingIndicator } from '../components/TypingIndicator';
+import { useToast } from '../components/ToastProvider';
 import type { LinkPreview, Message as MessageType } from '../types/chat';
 import { extractUrls, fetchLinkPreview } from '../utils/linkUtils';
 
@@ -11,6 +12,32 @@ interface ChatHistory {
   id: string;
   title: string;
   messages: MessageType[];
+}
+
+interface AIAnalysis {
+  gaps?: string[];
+  learning_path?: string[];
+  next_step?: string;
+  next_step_explanation?: string;
+  next_step_videos?: VideoData[];
+  known_topics?: string[];
+  dynamic?: boolean;
+  logged?: boolean;
+}
+
+interface AIResponse {
+  response: string;
+  videos: VideoData[];
+  analysis?: AIAnalysis;
+}
+
+interface VideoData {
+  title: string;
+  url: string;
+  description: string;
+  channel?: string;
+  duration?: string;
+  views?: string;
 }
 
 const getDefaultWelcome = (): MessageType => ({
@@ -28,6 +55,7 @@ export const ChatContainer: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { showSuccess, showError, showInfo } = useToast();
 
   const activeChat = chats.find((chat) => chat.id === activeChatId)!;
 
@@ -71,6 +99,8 @@ export const ChatContainer: React.FC = () => {
       content: response.response,
       role: 'assistant',
       timestamp: new Date(),
+      analysis: response.analysis,
+      // Only add regular videos to links, not next_step_videos (those go in analysis)
       links: response.videos.map(video => ({
         url: video.url,
         domain: 'youtube.com',
@@ -127,23 +157,51 @@ export const ChatContainer: React.FC = () => {
     return previews;
   };
 
-  const generateAIResponse = async (userMessage: string): Promise<{ response: string; videos: any[] }> => {
+  const generateAIResponse = async (userMessage: string): Promise<AIResponse> => {
     try {
+      // Prepare chat history for context (last 5 messages)
+      const chatHistory = activeChat.messages.slice(-5).map(msg => ({
+        role: msg.role,
+        content: msg.content,
+        timestamp: msg.timestamp.toISOString()
+      }));
+
       const res = await fetch('http://localhost:8000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage })
+        body: JSON.stringify({ 
+          message: userMessage,
+          chat_history: chatHistory,
+          user_id: 'default' // You can make this dynamic based on user auth
+        })
       });
+      
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+      
       const data = await res.json();
+      
+      // Show success notifications for certain analysis types
+      if (data.analysis?.profile_updated) {
+        showSuccess('Topic added to your profile!');
+      }
+      if (data.analysis?.path_completed) {
+        showSuccess('🎉 Congratulations! Learning path completed!');
+      }
+      
       return {
         response: data.response,
-        videos: data.videos || []
+        videos: data.videos || [],
+        analysis: data.analysis || {}
       };
     } catch (err) {
       console.error("Error:", err);
+      showError("There was an error contacting the AI service. Please try again.");
       return {
         response: "There was an error contacting the AI service.",
-        videos: []
+        videos: [],
+        analysis: {}
       };
     }
   };
@@ -163,6 +221,48 @@ export const ChatContainer: React.FC = () => {
 
   const handleToggleSidebar = () => {
     setSidebarCollapsed(c => !c);
+  };
+
+  const handleProgressAction = async (action: string) => {
+    // Show immediate feedback
+    switch (action) {
+      case 'understand':
+        showInfo('Great! Moving to next topic...');
+        break;
+      case 'next':
+        showInfo('Continuing to next topic...');
+        break;
+      case 'need_help':
+        showInfo('Getting more explanation...');
+        break;
+      case 'satisfied':
+        showSuccess('Adding topic to your profile...');
+        break;
+      default:
+        showInfo('Processing your request...');
+    }
+    
+    // Convert action to appropriate message to send to backend
+    let message = '';
+    switch (action) {
+      case 'understand':
+        message = 'I understand this topic';
+        break;
+      case 'next':
+        message = 'Next topic';
+        break;
+      case 'need_help':
+        message = 'I need more explanation';
+        break;
+      case 'satisfied':
+        message = 'I am satisfied with this topic and ready to add it to my profile';
+        break;
+      default:
+        message = 'Continue learning';
+    }
+    
+    // Send the message automatically
+    await handleSendMessage(message);
   };
 
   // Heights (adjust if your header/footer are taller)
@@ -205,7 +305,11 @@ export const ChatContainer: React.FC = () => {
             }}
           >
             {activeChat.messages.map((message) => (
-              <Message key={message.id} message={message} />
+              <Message 
+                key={message.id} 
+                message={message} 
+                onProgressAction={handleProgressAction}
+              />
             ))}
             {isTyping && (
               <div className="flex justify-start mb-4">

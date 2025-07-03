@@ -1,0 +1,92 @@
+{
+  "userInfo": {
+    "name": "test",
+    "email": "test@gmail.com",
+    "programmingExperience": "beginner",
+    "knownLanguages": [
+      "C++",
+      "C",
+      "Java",
+      "Python",
+      "Kotlin"
+    ],
+    "dsaExperience": "intermediate",
+    "preferredPace": "moderate"
+  },
+  "knownConcepts": {
+    "topics": [
+      {
+        "id": "t729",
+        "name": "Array",
+        "type": "topic",
+        "subtopics": [
+          {
+            "id": "s459",
+            "name": "Array Algorithms",
+            "type": "subtopic"
+          },
+          {
+            "id": "s561",
+            "name": "Array Initialization",
+            "type": "subtopic"
+          },
+          {
+            "id": "s866",
+            "name": "Array Traversal",
+            "type": "subtopic"
+          },
+          {
+            "id": "s821",
+            "name": "Array Searching",
+            "type": "subtopic"
+          },
+          {
+            "id": "s164",
+            "name": "Deletion",
+            "type": "subtopic"
+          },
+          {
+            "id": "s951",
+            "name": "Insertion",
+            "type": "subtopic"
+          }
+        ]
+      },
+      {
+        "id": "t201",
+        "name": "Queue",
+        "type": "topic",
+        "subtopics": [
+          {
+            "id": "s371",
+            "name": "Deque",
+            "type": "subtopic"
+          },
+          {
+            "id": "s227",
+            "name": "Priority Queue",
+            "type": "subtopic"
+          },
+          {
+            "id": "s86",
+            "name": "Operations",
+            "type": "subtopic"
+          },
+          {
+            "id": "s486",
+            "name": "Implementation",
+            "type": "subtopic"
+          },
+          {
+            "id": "s571",
+            "name": "Queue Applications",
+            "type": "subtopic"
+          }
+        ]
+      }
+    ],
+    "totalTopics": 2,
+    "totalSubtopics": 11
+  },
+  "createdAt": "2025-07-03T09:33:56.371Z"
+}
