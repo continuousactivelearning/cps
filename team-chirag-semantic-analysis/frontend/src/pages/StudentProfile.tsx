@@ -1,4 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
+import PersonIcon from "@mui/icons-material/Person";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import {
   Avatar,
@@ -13,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface UserProfile {
@@ -58,15 +59,59 @@ const StudentProfile = () => {
     <Box
       sx={{
         minHeight: "100vh",
-        background: (theme) =>
-          theme.palette.mode === "light"
-            ? "linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%)"
-            : "linear-gradient(135deg, #232526 0%, #1c1c1c 100%)",
-        color: "text.primary",
+        position: "relative",
+        overflow: "hidden",
         py: 6,
+        // Vibrant gradient background
+        background: {
+          xs: "linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%)",
+          md: "linear-gradient(120deg, #a7f3d0 0%, #f0fdfa 50%, #e0e7ff 100%)",
+        },
+        color: "text.primary",
       }}
     >
-      <Container maxWidth="sm" sx={{ position: "relative" }}>
+      {/* Decorative SVG Blob */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: { xs: -120, md: -180 },
+          left: { xs: -80, md: -120 },
+          width: { xs: 300, md: 500 },
+          height: { xs: 300, md: 500 },
+          zIndex: 0,
+          opacity: 0.25,
+          pointerEvents: "none",
+        }}
+      >
+        <svg viewBox="0 0 500 500" width="100%" height="100%">
+          <defs>
+            <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#a7f3d0" />
+            </linearGradient>
+          </defs>
+          <path
+            fill="url(#blobGradient)"
+            d="M421.5,314Q406,378,344,410.5Q282,443,221.5,420Q161,397,109.5,353Q58,309,77.5,239.5Q97,170,151,132Q205,94,267.5,87Q330,80,376,127Q422,174,429,237Q436,300,421.5,314Z"
+          />
+        </svg>
+      </Box>
+      {/* Decorative bottom right blurred circle */}
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: -100,
+          right: -100,
+          width: 250,
+          height: 250,
+          bgcolor: "#38bdf8",
+          borderRadius: "50%",
+          filter: "blur(80px)",
+          opacity: 0.18,
+          zIndex: 0,
+        }}
+      />
+      <Container maxWidth="sm" sx={{ position: "relative", zIndex: 1 }}>
         {/* Close Button */}
         <IconButton
           onClick={handleClose}
@@ -95,8 +140,17 @@ const StudentProfile = () => {
               mt: 6,
               boxShadow: 6,
               position: "relative",
+              background: "rgba(255,255,255,0.95)",
+              backdropFilter: "blur(2px)",
             }}
           >
+            {/* Heading */}
+            <Box display="flex" alignItems="center" justifyContent="center" mb={2} gap={1}>
+              <PersonIcon color="primary" sx={{ fontSize: 32 }} />
+              <Typography variant="h4" fontWeight={700} color="primary.main">
+                Student Profile
+              </Typography>
+            </Box>
             {/* Avatar + Name + Email */}
             <Box textAlign="center" mb={4} position="relative">
               <Box sx={{ position: "relative", width: 110, height: 110, mx: "auto" }}>
@@ -153,21 +207,43 @@ const StudentProfile = () => {
                 mb: 4,
               }}
             >
+              {/* Programming Experience */}
               <Box>
                 <Typography variant="overline" color="text.secondary">
                   Programming Experience
                 </Typography>
-                <Typography variant="body1" fontWeight={500}>
-                  {profile.programmingExperience || "N/A"}
-                </Typography>
+                <Box mt={1} display="flex" flexWrap="wrap" gap={1}>
+                  {profile.programmingExperience ? (
+                    <Chip
+                      label={profile.programmingExperience}
+                      color="info"
+                      sx={{ borderRadius: 2 }}
+                    />
+                  ) : (
+                    <Typography variant="body2" color="text.disabled">
+                      N/A
+                    </Typography>
+                  )}
+                </Box>
               </Box>
+              {/* DSA Experience */}
               <Box>
                 <Typography variant="overline" color="text.secondary">
                   DSA Experience
                 </Typography>
-                <Typography variant="body1" fontWeight={500}>
-                  {profile.dsaExperience || "N/A"}
-                </Typography>
+                <Box mt={1} display="flex" flexWrap="wrap" gap={1}>
+                  {profile.dsaExperience ? (
+                    <Chip
+                      label={profile.dsaExperience}
+                      color="success"
+                      sx={{ borderRadius: 2 }}
+                    />
+                  ) : (
+                    <Typography variant="body2" color="text.disabled">
+                      N/A
+                    </Typography>
+                  )}
+                </Box>
               </Box>
             </Box>
 
@@ -185,30 +261,6 @@ const StudentProfile = () => {
                       key={index}
                       label={lang}
                       color="primary"
-                      sx={{ borderRadius: 2 }}
-                    />
-                  ))
-                ) : (
-                  <Typography variant="body2" color="text.disabled">
-                    N/A
-                  </Typography>
-                )}
-              </Box>
-            </Box>
-
-            {/* Learning Goals */}
-            <Box mb={4}>
-              <Typography variant="overline" color="text.secondary">
-                Learning Goals
-              </Typography>
-              <Box mt={1} display="flex" flexWrap="wrap" gap={1}>
-                {(profile.learningGoals || []).length > 0 ? (
-                  profile.learningGoals!.map((goal, index) => (
-                    <Chip
-                      key={index}
-                      label={goal}
-                      color="success"
-                      variant="outlined"
                       sx={{ borderRadius: 2 }}
                     />
                   ))
@@ -245,13 +297,23 @@ const StudentProfile = () => {
             </Box>
 
             {/* Learning Pace */}
-            <Box>
+            <Box mb={4}>
               <Typography variant="overline" color="text.secondary">
                 Learning Pace
               </Typography>
-              <Typography variant="body1" fontWeight={500}>
-                {profile.preferredPace || "N/A"}
-              </Typography>
+              <Box mt={1} display="flex" flexWrap="wrap" gap={1}>
+                {profile.preferredPace ? (
+                  <Chip
+                    label={profile.preferredPace}
+                    color="warning"
+                    sx={{ borderRadius: 2 }}
+                  />
+                ) : (
+                  <Typography variant="body2" color="text.disabled">
+                    N/A
+                  </Typography>
+                )}
+              </Box>
             </Box>
           </Paper>
         </motion.div>
