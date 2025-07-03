@@ -4,7 +4,7 @@ import { Mail, Lock, Eye, EyeOff, CheckCircle } from 'lucide-react';
 import api from '../services/api';
 import WaterRippleBackground from "../components/WaterRippleBackground";
 import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
-
+//fixed bugs in register page
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
