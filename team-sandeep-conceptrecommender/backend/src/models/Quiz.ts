@@ -1,4 +1,3 @@
-// author: Sai Lokesh, Mondi
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IQuizQuestion {
@@ -9,7 +8,7 @@ export interface IQuizQuestion {
 }
 
 export interface IQuiz extends Document {
-  topicId: mongoose.Types.ObjectId;
+  topicName: string; // Use topicName instead of topicId
   questions: IQuizQuestion[];
   passingScore: number;
   timeLimit: number; // in minutes
@@ -38,9 +37,8 @@ const quizQuestionSchema = new Schema<IQuizQuestion>({
 
 const quizSchema = new Schema<IQuiz>(
   {
-    topicId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Topic',
+    topicName: {
+      type: String,
       required: true,
     },
     questions: [quizQuestionSchema],
@@ -60,9 +58,9 @@ const quizSchema = new Schema<IQuiz>(
       required: true,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
+
+quizSchema.index({ topicName: 1 }, { unique: true });
 
 export const Quiz = mongoose.model<IQuiz>('Quiz', quizSchema);

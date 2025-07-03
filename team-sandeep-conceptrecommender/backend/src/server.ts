@@ -1,4 +1,4 @@
-//Author: Pentapati V V Satya Pavan Sandeep
+console.log('=== Backend server starting ===');
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -16,7 +16,15 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      'https://dsa-learning-path.onrender.com',
+      'http://localhost:5173',
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
 
@@ -41,7 +49,7 @@ mongoose
   });
 
 // Error handling middleware
-app.use((err: Error, req: express.Request, res: express.Response) => {
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });

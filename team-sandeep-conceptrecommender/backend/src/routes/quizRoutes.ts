@@ -1,4 +1,3 @@
-// Author: Sai Lokesh, Mondi
 import express from 'express';
 import { getTopicQuiz, submitQuiz, createQuiz, getRandomQuizQuestions } from '../controllers/quizController';
 import { auth, adminAuth } from '../middleware/auth';
@@ -6,10 +5,10 @@ import { auth, adminAuth } from '../middleware/auth';
 const router = express.Router();
 
 // Get quiz for a topic
-router.get('/topic/:topicId', auth, getTopicQuiz);
+router.get('/topic/:topicName', auth, getTopicQuiz);
 
 // Submit quiz answers
-router.post('/topic/:topicId/submit', auth, submitQuiz);
+router.post('/topic/:topicName/submit', auth, submitQuiz);
 
 // Create a new quiz (admin only)
 router.post('/', auth, adminAuth, createQuiz);

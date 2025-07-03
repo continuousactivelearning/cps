@@ -1,5 +1,0 @@
-streamlit
-torch
-torch-geometric
-networkx
-matplotlib

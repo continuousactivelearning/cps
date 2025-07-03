@@ -1,4 +1,3 @@
-// Author: Pentapati V V Satya Pavan Sandeep
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User';
@@ -6,6 +5,8 @@ import { User } from '../models/User';
 interface AuthRequest extends Request {
   user?: {
     id: string;
+    email?: string;
+    role?: string;
   };
 }
 
@@ -18,8 +19,8 @@ export const authenticateToken = (req: AuthRequest, res: Response, next: NextFun
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET) as { id: string }; //NEED JWT KEY TO BE INCLUDED  "|| 'your-secret-key'"
-    req.user = { id: decoded.id };
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key') as { id: string; email?: string };
+    req.user = { id: decoded.id, email: decoded.email };
     next();
   } catch (error) {
     return res.status(403).json({ message: 'Invalid token' });
@@ -31,7 +32,7 @@ export const auth = authenticateToken;
 export const adminAuth = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     await auth(req, res, () => {
-      if (req.user.role !== 'admin') {
+      if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ error: 'Access denied. Admin only.' });
       }
       next();

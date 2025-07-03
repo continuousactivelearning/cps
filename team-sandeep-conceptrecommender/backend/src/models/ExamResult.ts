@@ -1,9 +1,8 @@
-Author: Nabarupa, Banik
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IExamResult extends Document {
-  userId: mongoose.Types.ObjectId;
-  topicId: mongoose.Types.ObjectId;
+  userEmail: string; // Use email instead of userId
+  topicName: string; // Use topicName instead of topicId
   score: number;
   totalQuestions: number;
   correctAnswers: number;
@@ -15,14 +14,14 @@ export interface IExamResult extends Document {
 
 const examResultSchema = new Schema<IExamResult>(
   {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
+    userEmail: {
+      type: String,
       required: true,
+      trim: true,
+      lowercase: true,
     },
-    topicId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Topic',
+    topicName: {
+      type: String,
       required: true,
     },
     score: {
@@ -48,9 +47,7 @@ const examResultSchema = new Schema<IExamResult>(
       default: Date.now,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 export const ExamResult = mongoose.model<IExamResult>('ExamResult', examResultSchema);

@@ -1,4 +1,3 @@
-// Author: Sai Lokesh, Mondi
 import express from 'express';
 import {
   getAllTopics,
