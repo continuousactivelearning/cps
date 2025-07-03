@@ -200,6 +200,7 @@ export const ChatContainer: React.FC = () => {
           {/* Scrollable Messages Area */}
           <div
             className="overflow-y-auto flex-1 px-4 py-6 mx-auto w-full max-w-4xl"
+
             style={{
               paddingBottom: FOOTER_HEIGHT,
             }}
@@ -210,6 +211,7 @@ export const ChatContainer: React.FC = () => {
             {isTyping && (
               <div className="flex justify-start mb-4">
                 <div className="flex items-start space-x-3">
+
                   <div className="flex flex-shrink-0 justify-center items-center w-8 h-8 text-white bg-green-600 rounded-full">
                     <div className="w-4 h-4 bg-white rounded-full animate-pulse" />
                   </div>
@@ -223,6 +225,7 @@ export const ChatContainer: React.FC = () => {
           </div>
           {/* Footer is now fixed at the bottom of the window */}
           <div
+
             className="fixed right-0 bottom-0 z-30 w-full"
             style={{
               left: sidebarCollapsed ? '4rem' : '16rem',
@@ -232,6 +235,7 @@ export const ChatContainer: React.FC = () => {
               transition: 'left 0.3s, width 0.3s',
             }}
           >
+
             <div className="flex items-center px-4 py-3 h-full bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700">
               <div className="mx-auto w-full max-w-4xl">
                 <MessageInput

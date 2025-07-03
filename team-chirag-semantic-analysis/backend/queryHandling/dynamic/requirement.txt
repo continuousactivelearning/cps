@@ -1,8 +1,12 @@
 sentence-transformers==2.2.2
 faiss-cpu==1.7.4
 numpy==1.26.4
+<<<<<<< HEAD
 requests>=2.31.0
 python-dotenv>=1.0.0
+=======
+ollama==0.1.7
+>>>>>>> fc8b8aa81b57595ee11a522752256c39825e4094
 
 transformers>=4.30.0
 torch>=1.13.0
