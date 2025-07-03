@@ -24,6 +24,7 @@ server.cpython-313.pyc
 *.sln
 *.sw?
 .env
+.env.old
 .env.local
 node_modules/
 dist/
