@@ -26,7 +26,7 @@ router.get('/',auth, async (req: any, res: Response): Promise<void> => {
         lastAttempt: null,
       }));
 
-      userProgress = new UserCourseProgress({ userId, courseId: 'default', topics });
+      userProgress = new UserCourseProgress({ userId, topics });
       await userProgress.save();
     }
 

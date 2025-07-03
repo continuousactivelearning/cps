@@ -100,3 +100,21 @@ export const removeStudent = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
+
+
+export const getConcernPdf = async (req: Request, res: Response) => {
+  try {
+    const concern = await QuizConcern.findById(req.params.id);
+
+    if (!concern || !concern.pdf) {
+      return res.status(404).send('PDF not found');
+    }
+
+    res.set('Content-Type', concern.contentType);
+    res.set('Content-Disposition', `inline; filename="${concern.originalName}"`);
+    res.send(concern.pdf);
+  } catch (err) {
+    console.error('Error serving concern PDF:', err);
+    res.status(500).send('Server error');
+  }
+};

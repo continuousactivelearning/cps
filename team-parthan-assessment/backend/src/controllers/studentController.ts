@@ -19,22 +19,35 @@ export const submitConcern = async (req: any, res: Response) => {
   const { topicId, message } = req.body;
   const file = req.file;
 
-  if (!file) return res.status(400).json({ error: 'PDF is required' });
+  // Validate presence of PDF
+  if (!file) {
+    return res.status(400).json({ error: 'PDF file is required.' });
+  }
 
-  const concern = new QuizConcern({
-    studentId: req.user._id,
-    instructorCode: req.user.enrolledUnder,
-    topicId,
-    message,
-    pdfUrl: `/uploads/${file.filename}`,
-    status: 'pending',
-  });
+  try {
+    const concern = new QuizConcern({
+      studentId: req.user._id,
+      instructorCode: req.user.enrolledUnder,
+      topicId,
+      message,
+      pdf: file.buffer,                // store file data as Buffer
+      contentType: file.mimetype,      // store MIME type
+      originalName: file.originalname, // original file name
+      status: 'pending',
+    });
 
-  await concern.save();
-  res.status(201).json({ success: true, message: 'Concern submitted successfully' });
+    await concern.save();
 
+    return res.status(201).json({
+      success: true,
+      message: 'Concern submitted successfully.',
+      concernId: concern._id,
+    });
+  } catch (err) {
+    console.error('Error submitting concern:', err);
+    return res.status(500).json({ error: 'Internal server error.' });
+  }
 };
-
 
 export const unenrollStudent = async (req: any, res: Response) => {
   try {

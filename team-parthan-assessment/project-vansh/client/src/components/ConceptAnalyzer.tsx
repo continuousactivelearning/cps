@@ -63,13 +63,15 @@ const ConceptAnalyzer: React.FC<Props> = ({
 
   return (
     <>
-      <button
+    <div className="flex items-center justify-between mb-4">
+      <button 
         disabled={loading}
         onClick={handleAnalyze}
-        className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition-colors mb-4"
+        className="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg transition-colors mb-4 "
       >
         {loading ? "Analyzing..." : "Get concepts"}
       </button>
+      </div>
 
       {concepts && (
         <div className="mt-4 bg-gray-50 p-4 rounded-lg">

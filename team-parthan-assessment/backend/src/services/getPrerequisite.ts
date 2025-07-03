@@ -5,9 +5,9 @@ import { dsaConcepts } from '../concept-graph/conceptList';
 dotenv.config();
 
 const uri =
-  process.env.MONGO_ATLAS_URI || 'mongodb+srv://<username>:<password>@cluster0.mongodb.net/recommendation-system?';;
+  process.env.MONGO_URI || 'mongodb+srv://<username>:<password>@cluster0.mongodb.net/recommendation-system?';;
 
-const dbName = 'recommendation-system';
+const dbName = 'DSA-Assessment-Hub';
 const collectionName = 'Concepts';
 
 async function getAllPrerequisites(mainConcepts: string[]) {

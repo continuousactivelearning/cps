@@ -1,6 +1,6 @@
 import express from 'express';
 import { authorize } from '../middlewares/authMiddleware';
-import { getStudents, getConcerns, resolveConcern, getStudentProgress, removeConcern, removeStudent } from '../controllers/instructorController';
+import { getStudents, getConcerns, resolveConcern, getStudentProgress, removeConcern, removeStudent, getConcernPdf } from '../controllers/instructorController';
 
 const router = express.Router();
 
@@ -22,5 +22,16 @@ router.put('/remove-student/:studentId', authorize(['instructor']), async (req, 
 		next(err);
 	}
 });
+router.get(
+  '/concern-pdf/:id',
+  authorize(['instructor']),
+  async (req, res, next) => {
+	try {
+	  await getConcernPdf(req, res);
+	} catch (err) {
+	  next(err);
+	}
+  }
+);
 
 export default router;

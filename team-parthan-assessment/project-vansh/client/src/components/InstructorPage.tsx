@@ -118,6 +118,25 @@ const InstructorPage: React.FC = () => {
     }
   };
 
+
+  const viewPdf = async (concernId: string) => {
+  try {
+
+    const res = await api.get(`/instructor/concern-pdf/${concernId}`, {
+      responseType: 'blob',
+     
+    });
+
+    const blob = new Blob([res.data], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_blank');
+  } catch (err) {
+    console.error('Error loading PDF:', err);
+  }
+};
+
+
+
   const handleSignOut = (): void => {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
@@ -369,15 +388,14 @@ const InstructorPage: React.FC = () => {
                           Topic ID: <span className="font-mono">{concern.topicId}</span>
                         </div>
                         <p className="text-gray-700 dark:text-gray-300 mb-3">{concern.message}</p>
-                        
-                        <a
-                          href={`http://localhost:5000${concern.pdfUrl}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium"
-                        >
-                          📄 View PDF
-                        </a>
+
+                       <button
+  onClick={() => viewPdf(concern._id)}
+  className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium"
+>
+  📄 View PDF
+</button>
+
                       </div>
                       
                       <span className={`px-3 py-1 text-xs rounded-full font-semibold ${getStatusColor(concern.status)}`}>

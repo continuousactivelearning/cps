@@ -1253,9 +1253,9 @@ const MainPage: React.FC = () => {
                 </p>
 
                 {/* Analyzer */}
-                <div className="flex justify-center mt-4">
+                <div>
                   <ConceptAnalyzer
-                    file={uploadedFile}
+                    youtubeUrl={youtubeUrl}
                     typeofinput={uploadType}
                     concepts={concepts}
                     setConcepts={setConcepts}
@@ -1305,7 +1305,7 @@ const MainPage: React.FC = () => {
                   </p>
                 )}
                 {/* Analyzer */}
-                <div className="flex justify-center mt-4">
+                <div>
                   <ConceptAnalyzer
                     file={uploadedFile}
                     typeofinput={uploadType}

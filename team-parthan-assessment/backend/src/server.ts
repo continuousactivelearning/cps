@@ -25,7 +25,7 @@ app.use('/api/user-progress', userProgressRoutes);
 app.use('/api',analyzeRoutes)
 app.use('/api/student', studentRoutes);
 app.use('/api/instructor', instructorRoutes);
-app.use('/uploads', express.static(path.join(__dirname, '../', 'uploads')));
+
 
 
 // Database connection

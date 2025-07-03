@@ -14,7 +14,6 @@ interface Topic {
 
 export interface IUserCourseProgress extends Document {
   userId: string;
-  courseId: string;
   topics: Topic[];
 }
 
@@ -36,7 +35,6 @@ const topicSchema = new Schema<Topic>({
 
 const userCourseSchema = new Schema<IUserCourseProgress>({
   userId: { type: String, required: true },
-  courseId: { type: String, required: true },
   topics: { type: [topicSchema], default: [] },
 });
 
