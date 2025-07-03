@@ -839,6 +839,7 @@ const MainPage: React.FC = () => {
                 statusMessage={statusMessage}
                 customContents={customContents}
                 topics={topics}
+                setUserProfile={setUserProfile}
               />
             </div>
             <div className="flex items-center space-x-2 md:space-x-4">
@@ -1077,7 +1078,9 @@ const MainPage: React.FC = () => {
                                   ></div>
                                 </div>
                               </div>
+                              <div className="mt-4 text-xs text-gray-500">
                               <CustomQuizResult results={quizHistory.find(quiz => quiz.contentId === content.id)?.scoreByTopic || {}} />
+                                </div>
                             </div>
                           )}
 

@@ -193,8 +193,7 @@ const InstructorPage: React.FC = () => {
             </div>
             
             <div className="flex items-center gap-4">
-              {/* Dark mode toggle */}
-              <ThemeToggle />
+              
               
               {/* User info */}
               <div className="text-right">

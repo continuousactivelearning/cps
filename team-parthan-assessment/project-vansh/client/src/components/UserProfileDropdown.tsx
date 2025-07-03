@@ -2,22 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import useSWR, { mutate } from 'swr';
 import {
   User,
-  Settings,
   LogOut,
   Trophy,
   Clock,
   Target,
   Camera,
   X,
-  Bell,
-  Shield,
-  Palette,
-  Download,
-  HelpCircle,
-  Volume2,
-  VolumeX,
-  Globe,
-  Mail,
 } from "lucide-react";
 import {
   Dialog,
@@ -27,7 +17,6 @@ import {
 } from "../components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { getDetails, uploadPhoto } from "../services/detailService";
-import { useTheme } from "./ThemeProvider";
 
 interface UserProfile {
   name: string;
@@ -38,17 +27,9 @@ interface UserProfile {
   streak: number;
 }
 
-interface SettingsOptions {
-  notifications: boolean;
-  soundEffects: boolean;
-  language: string;
-  emailUpdates: boolean;
-  darkMode: boolean;
-}
 
 const UserProfileDropdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [showSettings, setShowSettings] = useState<boolean>(false);
   const [showPhotoUpload, setShowPhotoUpload] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [photo, setPhoto] = useState<string>("");
@@ -61,14 +42,6 @@ const UserProfileDropdown: React.FC = () => {
     masteredTopics: 3,
     totalScore: 85,
     streak: 7,
-  });
-
-  const [settings, setSettings] = useState<SettingsOptions>({
-    notifications: true,
-    soundEffects: true,
-    language: "English",
-    emailUpdates: true,
-    darkMode: false,
   });
 
   const handleSignOut = (): void => {
@@ -95,17 +68,6 @@ const UserProfileDropdown: React.FC = () => {
       reader.readAsDataURL(file);
     }
   };
-
-  const handleSettingChange = (
-    key: keyof SettingsOptions,
-    value: boolean | string
-  ): void => {
-    setSettings((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-
   const triggerFileInput = (): void => {
     fileInputRef.current?.click();
   };
@@ -150,8 +112,7 @@ const UserProfileDropdown: React.FC = () => {
     updatePhoto();
   }, [photo]);
 
-// Remove unused ThemeSwitch function and use useTheme directly in the component
-const { isDarkMode, setTheme } = useTheme();
+
 
   return (
     <>
@@ -259,13 +220,7 @@ const { isDarkMode, setTheme } = useTheme();
             </div>
 
             <div className="p-4 space-y-2">
-              <button
-                onClick={() => setShowSettings(true)}
-                className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 rounded-xl transition-all duration-200 group"
-              >
-                <Settings className="w-5 h-5 text-gray-500 group-hover:text-indigo-600 transition-colors" />
-                <span className="text-gray-700 font-medium">Settings</span>
-              </button>
+              
               <button
                 onClick={handleSignOut}
                 className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-red-50 rounded-xl transition-all duration-200 group"
@@ -340,199 +295,7 @@ const { isDarkMode, setTheme } = useTheme();
         </DialogContent>
       </Dialog>
 
-      {/* Settings Modal */}
-      {showSettings && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-2xl">
-              <div className="flex justify-between items-center">
-                <h3 className="text-2xl font-bold text-gray-900">Settings</h3>
-                <button
-                  onClick={() => setShowSettings(false)}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                >
-                  <X className="w-6 h-6 text-gray-500" />
-                </button>
-              </div>
-            </div>
-
-            <div className="p-6 space-y-6">
-              {/* Notifications */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-gray-900 flex items-center">
-                  <Bell className="w-5 h-5 mr-2 text-indigo-600" />
-                  Notifications
-                </h4>
-                <div className="space-y-3 pl-7">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-700">Push Notifications</span>
-                    <button
-                      onClick={() =>
-                        handleSettingChange(
-                          "notifications",
-                          !settings.notifications
-                        )
-                      }
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                        settings.notifications ? "bg-indigo-600" : "bg-gray-300"
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          settings.notifications
-                            ? "translate-x-6"
-                            : "translate-x-1"
-                        }`}
-                      />
-                    </button>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-700">Email Updates</span>
-                    <button
-                      onClick={() =>
-                        handleSettingChange(
-                          "emailUpdates",
-                          !settings.emailUpdates
-                        )
-                      }
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                        settings.emailUpdates ? "bg-indigo-600" : "bg-gray-300"
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          settings.emailUpdates
-                            ? "translate-x-6"
-                            : "translate-x-1"
-                        }`}
-                      />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Appearance */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-gray-900 flex items-center">
-                  <Palette className="w-5 h-5 mr-2 text-indigo-600" />
-                  Appearance
-                </h4>
-                <div className="space-y-3 pl-7">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-700">Dark Mode</span>
-                    <button
-                      onClick={() => setTheme(isDarkMode ? 'light' : 'dark')
-                      }
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                        settings.darkMode ? "bg-indigo-600" : "bg-gray-300"
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          settings.darkMode ? "translate-x-6" : "translate-x-1"
-                        }`}
-                      />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Audio */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-gray-900 flex items-center">
-                  <Volume2 className="w-5 h-5 mr-2 text-indigo-600" />
-                  Audio
-                </h4>
-                <div className="space-y-3 pl-7">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-700 flex items-center">
-                      {settings.soundEffects ? (
-                        <Volume2 className="w-4 h-4 mr-2" />
-                      ) : (
-                        <VolumeX className="w-4 h-4 mr-2" />
-                      )}
-                      Sound Effects
-                    </span>
-                    <button
-                      onClick={() =>
-                        handleSettingChange(
-                          "soundEffects",
-                          !settings.soundEffects
-                        )
-                      }
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                        settings.soundEffects ? "bg-indigo-600" : "bg-gray-300"
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          settings.soundEffects
-                            ? "translate-x-6"
-                            : "translate-x-1"
-                        }`}
-                      />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Language */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-gray-900 flex items-center">
-                  <Globe className="w-5 h-5 mr-2 text-indigo-600" />
-                  Language
-                </h4>
-                <div className="pl-7">
-                  <select
-                    value={settings.language}
-                    onChange={(e) =>
-                      handleSettingChange("language", e.target.value)
-                    }
-                    className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                  >
-                    <option value="English">English</option>
-                    <option value="Spanish">Español</option>
-                    <option value="French">Français</option>
-                    <option value="German">Deutsch</option>
-                    <option value="Chinese">中文</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Quick Actions */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-gray-900 flex items-center">
-                  <Shield className="w-5 h-5 mr-2 text-indigo-600" />
-                  Account
-                </h4>
-                <div className="space-y-2 pl-7">
-                  <button className="w-full text-left p-3 hover:bg-gray-50 rounded-xl transition-colors flex items-center">
-                    <Download className="w-4 h-4 mr-3 text-gray-500" />
-                    <span className="text-gray-700">Export Data</span>
-                  </button>
-                  <button className="w-full text-left p-3 hover:bg-gray-50 rounded-xl transition-colors flex items-center">
-                    <HelpCircle className="w-4 h-4 mr-3 text-gray-500" />
-                    <span className="text-gray-700">Help & Support</span>
-                  </button>
-                  <button className="w-full text-left p-3 hover:bg-gray-50 rounded-xl transition-colors flex items-center">
-                    <Mail className="w-4 h-4 mr-3 text-gray-500" />
-                    <span className="text-gray-700">Contact Us</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t border-gray-200 p-6">
-              <button
-                onClick={() => setShowSettings(false)}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-xl transition-colors font-medium"
-              >
-                Save Changes
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      
     </>
   );
 }

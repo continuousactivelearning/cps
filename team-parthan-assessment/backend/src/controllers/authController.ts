@@ -76,7 +76,6 @@ export const login = async (req: Request, res: Response) => {
       process.env.JWT_SECRET!,
       { expiresIn: '1d' }
     );
-    console.log('User role:', user.role);
 
     res.json({ token, userId: user._id, role: user.role  });
   } catch (err) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BookOpen, CheckCircle, Play, Settings, X, Menu } from "lucide-react";
+import { BookOpen, CheckCircle, Play, Settings, X, Menu, Zap, BarChart3, Brain } from "lucide-react";
 import { features, steps } from "./data/homePageData";
 import { User } from "lucide-react";
 import {
@@ -57,7 +57,7 @@ const Step: React.FC<StepProps> = ({ number, title, description }) => (
 );
 
 const HomePage: React.FC = () => {
-  const [activeDemo, setActiveDemo] = useState("concept");
+  const [activeDemo, setActiveDemo] = useState("assessment");
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   useEffect(() => {
@@ -88,7 +88,7 @@ const HomePage: React.FC = () => {
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">
-                AssessmentAI
+                DSA Assessment Hub
               </span>
             </div>
 
@@ -127,7 +127,7 @@ const HomePage: React.FC = () => {
                     onClick={() => {
                       const role = localStorage.getItem("role");
 
-                      console.log("User role:", role);
+                      
                       if (role === "instructor") {
                         navigate("/instructor"); // New instructor dashboard route
                       } else {
@@ -163,7 +163,7 @@ const HomePage: React.FC = () => {
                         <BookOpen className="w-5 h-5 text-white" />
                       </div>
                       <span className="text-lg font-bold text-gray-900">
-                        AssessmentAI
+                        DSA Assessment Hub
                       </span>
                     </SheetTitle>
                   </SheetHeader>
@@ -206,7 +206,7 @@ const HomePage: React.FC = () => {
 
                               console.log("User role:", role);
                               if (role === "instructor") {
-                                navigate("/instructor"); // New instructor dashboard route
+                                navigate("/instructor"); // Instructor dashboard route
                               } else {
                                 navigate("/home"); // Student main page
                               }
@@ -271,8 +271,8 @@ const HomePage: React.FC = () => {
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-gray-200">
-              <div className="text-3xl font-bold text-blue-600 mb-2">95%</div>
-              <div className="text-gray-600">Improved Readiness Detection</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">100%</div>
+              <div className="text-gray-600">Secure Auth & Role Access</div>
             </div>
             <div className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-gray-200">
               <div className="text-3xl font-bold text-purple-600 mb-2">40%</div>
@@ -280,7 +280,7 @@ const HomePage: React.FC = () => {
             </div>
             <div className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-gray-200">
               <div className="text-3xl font-bold text-green-600 mb-2">100+</div>
-              <div className="text-gray-600">Subject Areas Supported</div>
+              <div className="text-gray-600">Topics with Prerequisite Mapping</div>
             </div>
           </div>
         </div>
@@ -385,16 +385,7 @@ const HomePage: React.FC = () => {
 
           <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
             <div className="flex flex-wrap gap-4 mb-6">
-              <button
-                onClick={() => setActiveDemo("concept")}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                  activeDemo === "concept"
-                    ? "bg-blue-600 text-white shadow-lg"
-                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                }`}
-              >
-                Concept Mapping
-              </button>
+              
               <button
                 onClick={() => setActiveDemo("assessment")}
                 className={`px-6 py-3 rounded-lg font-medium transition-all ${
@@ -418,23 +409,54 @@ const HomePage: React.FC = () => {
             </div>
 
             <div className="min-h-[300px] bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-6 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Settings className="w-8 h-8 text-white animate-spin" />
+  
+
+              {activeDemo === "assessment" && (
+                <div className="text-center max-w-lg">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Zap className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">Assessment Preview</h3>
+                  <p className="text-gray-600 mb-4">Sample question from Recursion module:</p>
+                  <div className="bg-white p-5 rounded-xl shadow-lg text-left max-w-md mx-auto border border-gray-200">
+                    <h4 className="font-semibold text-gray-900 mb-4">What is the base case in recursion?</h4>
+                    <ul className="space-y-2">
+                      {['The condition where recursion stops', 'The deepest recursive call', 'A loop condition', 'None of the above'].map((opt, idx) => (
+                        <li key={idx} className="bg-gray-100 px-4 py-2 rounded-lg text-gray-700 text-sm hover:bg-gray-200 cursor-pointer">
+                          {String.fromCharCode(65 + idx)}. {opt}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                  Interactive Demo
-                </h3>
-                <p className="text-gray-600">
-                  {activeDemo === "concept" &&
-                    "Visualize how prerequisite concepts are mapped and connected"}
-                  {activeDemo === "assessment" &&
-                    "See sample questions generated for different skill levels"}
-                  {activeDemo === "results" &&
-                    "Explore detailed analytics and progression recommendations"}
-                </p>
-              </div>
+              )}
+
+              {activeDemo === "results" && (
+                <div className="text-center max-w-lg">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <BarChart3 className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">Results Analysis</h3>
+                  <p className="text-gray-600 mb-4">Get a snapshot of performance and suggested next steps.</p>
+                  <div className="grid grid-cols-3 gap-4 text-sm text-gray-800 max-w-md mx-auto">
+                    <div className="bg-green-100 p-4 rounded-xl shadow">
+                      <div className="font-bold text-xl text-green-600">85%</div>
+                      <div className="text-green-700">Score</div>
+                    </div>
+                    <div className="bg-yellow-100 p-4 rounded-xl shadow">
+                      <div className="font-bold text-xl text-yellow-600">88s</div>
+                      <div className="text-yellow-700">Time</div>
+                    </div>
+                    <div className="bg-blue-100 p-4 rounded-xl shadow">
+                      <div className="font-bold text-xl text-blue-600">Mastered</div>
+                      <div className="text-blue-700">Status</div>
+                    </div>
+                  </div>
+                  <p className="text-sm mt-4 text-gray-600">🎯 You are ready to proceed to Backtracking</p>
+                </div>
+              )}
             </div>
+
           </div>
         </div>
       </section>
@@ -449,7 +471,7 @@ const HomePage: React.FC = () => {
                   <BookOpen className="w-6 h-6 text-white" />
                 </div>
                 <span className="text-xl font-bold text-white">
-                  AssessmentAI
+                  DSA Assessment Hub
                 </span>
               </div>
               <p className="text-gray-400">

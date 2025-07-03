@@ -115,7 +115,6 @@ function cleanText(text: string): string {
     const timestamp = dayjs().format('YYYYMMDD-HHmmss-SSS');
     const processedPath = path.join(IMAGE_DIR, `processed-${timestamp}.jpg`);
 
-    console.log(`[UPLOAD] Received file:  -> Saved as: ${inputData}`);
 
     // Initial scan to detect mode
     const { text: initialText, mode } = await extractTextFromImage(originalPath);

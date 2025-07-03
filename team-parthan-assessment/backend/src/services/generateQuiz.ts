@@ -56,7 +56,6 @@ Be formatted strictly as a JSON array of objects, with this schema:
     }),
   });
 
-  console.log(topic);
 
   const data = (await res.json()) as { response: string };
   const match = data.response.match(/\[\s*{[\s\S]*}\s*\]/);

@@ -23,6 +23,7 @@ interface MobileNavProps {
   setStatusMessage: (status: { type: 'success' | 'error'; message: string }) => void;
   topics: Topic[]
   customContents: CustomContent[]
+  setUserProfile: (profile: UserProfile) => void;
 }
 
 const MobileNav: React.FC<MobileNavProps> = ({
@@ -32,7 +33,8 @@ const MobileNav: React.FC<MobileNavProps> = ({
   showUploadConcern,
   setShowUploadConcern,
   statusMessage,
-  setStatusMessage
+  setStatusMessage,
+  setUserProfile
 }) => {
   return (
     <Sheet>
@@ -51,7 +53,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
           <div>
             <UserStats customContents={customContents} userProfile={userProfile} topics={topics} />
           </div>
-          <InstructorEnrollmentCard user={userProfile} />
+          <InstructorEnrollmentCard user={userProfile} setUser={setUserProfile} />
 
             <div>
               <button
