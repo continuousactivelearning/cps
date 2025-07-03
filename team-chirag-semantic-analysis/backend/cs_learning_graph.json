@@ -1,0 +1,656 @@
+{
+  "concepts": [
+    {
+      "id": "t1",
+      "name": "Arrays",
+      "type": "topic",
+      "level": "intermediate",
+      "description": "Arrays are a fundamental data structure in computer science, consisting of a collection of elements of the same type arranged in contiguous memory locations, accessed with a single index.",
+      "keywords": [
+        "Contiguous memory locations",
+        "Elements",
+        "Indexing",
+        "Data types",
+        "Linear data structure",
+        "One-dimensional",
+        "Static allocation",
+        "Random access"
+      ],
+      "prerequisites": [
+        "Variables",
+        "Memory allocation",
+        "Data types (basic, structured)",
+        "Basic programming concepts"
+      ],
+      "topic_suggestions": [
+        "t1_s1",
+        "t1_s2"
+      ],
+      "resources": {
+        "videos": [
+          {
+            "title": "Array Data Structure - Part1 | DSA Series by Shradha Khapra Ma'am | C++",
+            "url": "https://www.youtube.com/watch?v=8wmn7k1TTcI"
+          },
+          {
+            "title": "The Best Language for DSA 👨‍💻",
+            "url": "https://www.youtube.com/watch?v=sJtgDXBu1is"
+          },
+          {
+            "title": "Arrays in Data Structures | Introduction to Arrays",
+            "url": "https://www.youtube.com/watch?v=55l-aZ7_F24"
+          }
+        ],
+        "articles": [
+          {
+            "title": "Introduction to Arrays - GeeksforGeeks",
+            "url": "https://www.geeksforgeeks.org/introduction-to-arrays/"
+          },
+          {
+            "title": "Array Data Structure - Programiz",
+            "url": "https://www.programiz.com/dsa/array"
+          }
+        ]
+      },
+      "subconcepts": [
+        {
+          "id": "t1_s1",
+          "name": "Array Initialization",
+          "type": "subtopic",
+          "level": "intermediate",
+          "description": "The process of assigning initial values to the elements of an array when it is created.",
+          "keywords": [
+            "Static initialization",
+            "Dynamic initialization",
+            "Default values",
+            "Memory allocation",
+            "Declaration"
+          ],
+          "prerequisites": [
+            "Variables",
+            "Data types"
+          ],
+          "topic_suggestions": [
+            "t1_s2"
+          ],
+          "resources": {
+            "videos": [
+              {
+                "title": "Array Initialization in C++",
+                "url": "https://www.youtube.com/watch?v=ENDaJi08jCU"
+              }
+            ],
+            "articles": [
+              {
+                "title": "Array Initialization - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/array-initialization-in-c/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "t1_s2",
+          "name": "Array Traversal/Iteration",
+          "type": "subtopic",
+          "level": "intermediate",
+          "description": "Techniques used to access and process each element in an array sequentially, from first to last (or vice versa).",
+          "keywords": [
+            "For loop",
+            "While loop",
+            "Sequential access",
+            "Index manipulation",
+            "Forward traversal",
+            "Backward traversal"
+          ],
+          "prerequisites": [
+            "Loops",
+            "Array initialization",
+            "Indexing"
+          ],
+          "topic_suggestions": [
+            "t4"
+          ],
+          "resources": {
+            "videos": [
+              {
+                "title": "Array Traversal Techniques",
+                "url": "https://www.youtube.com/watch?v=W1G-l4d2wD4"
+              }
+            ],
+            "articles": [
+              {
+                "title": "Array Traversal - Programiz",
+                "url": "https://www.programiz.com/dsa/array-operations"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "t2",
+      "name": "Strings",
+      "type": "topic",
+      "level": "intermediate",
+      "description": "Strings in Computer Science are sequences of characters enclosed in matching delimiters such as quotes, parentheses, or brackets. They are used to store and manipulate text data.",
+      "keywords": [
+        "Character Sequence",
+        "Delimiters",
+        "Text Data",
+        "String Manipulation",
+        "Length of a string",
+        "Concatenation",
+        "Substring",
+        "Immutability",
+        "Character encoding"
+      ],
+      "prerequisites": [
+        "Basic Computer Science Concepts",
+        "Variables and Data Types",
+        "Arrays",
+        "Character data type"
+      ],
+      "topic_suggestions": [
+        "t2_s1",
+        "t2_s2"
+      ],
+      "resources": {
+        "videos": [
+          {
+            "title": "Strings & Character Arrays in C++ - Part 1 | DSA Placement Series",
+            "url": "https://www.youtube.com/watch?v=MOSjYaVymcU"
+          },
+          {
+            "title": "String Algorithms - Complete Course",
+            "url": "https://www.youtube.com/watch?v=Wf7kcxuEnSg"
+          }
+        ],
+        "articles": [
+          {
+            "title": "String Data Structure - GeeksforGeeks",
+            "url": "https://www.geeksforgeeks.org/string-data-structure/"
+          },
+          {
+            "title": "String Manipulation in Programming",
+            "url": "https://www.programiz.com/dsa/string"
+          }
+        ]
+      },
+      "subconcepts": [
+        {
+          "id": "t2_s1",
+          "name": "String Operations",
+          "type": "subtopic",
+          "level": "intermediate",
+          "description": "Common operations performed on strings such as concatenation, substring extraction, and replacement.",
+          "keywords": [
+            "Concatenation",
+            "Substring",
+            "String comparison",
+            "String search",
+            "String replacement",
+            "Case conversion",
+            "Trimming"
+          ],
+          "prerequisites": [
+            "Strings basic concepts",
+            "Loops",
+            "Conditional statements"
+          ],
+          "topic_suggestions": [
+            "t2_s2"
+          ],
+          "resources": {
+            "videos": [
+              {
+                "title": "String Operations in C++",
+                "url": "https://www.youtube.com/watch?v=1mGcTwMzFqE"
+              }
+            ],
+            "articles": [
+              {
+                "title": "String Operations - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/string-operations-in-c/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "t2_s2",
+          "name": "Efficient String Matching Algorithms",
+          "type": "subtopic",
+          "level": "advanced",
+          "description": "Techniques for finding patterns within strings in an efficient manner, like Boyer-Moore or Knuth-Morris-Pratt algorithms.",
+          "keywords": [
+            "Boyer-Moore algorithm",
+            "Knuth-Morris-Pratt (KMP)",
+            "Pattern matching",
+            "String searching",
+            "Time complexity",
+            "Preprocessing",
+            "Failure function"
+          ],
+          "prerequisites": [
+            "String operations",
+            "Algorithm analysis",
+            "Time complexity",
+            "Arrays"
+          ],
+          "topic_suggestions": [
+            "t5"
+          ],
+          "resources": {
+            "videos": [
+              {
+                "title": "KMP Algorithm for Pattern Searching",
+                "url": "https://www.youtube.com/watch?v=GTJr8OvyEVQ"
+              },
+              {
+                "title": "Boyer Moore Algorithm",
+                "url": "https://www.youtube.com/watch?v=4Xyhb72LCX4"
+              }
+            ],
+            "articles": [
+              {
+                "title": "KMP Algorithm - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/kmp-algorithm-for-pattern-searching/"
+              },
+              {
+                "title": "Boyer Moore Algorithm - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/boyer-moore-algorithm-for-pattern-searching/"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "t3",
+      "name": "Linked Lists",
+      "type": "topic",
+      "level": "intermediate",
+      "description": "A linked list is a linear data structure, where each element is an object consisting of a pair of items – the data and a reference to another object called a link or pointer.",
+      "keywords": [
+        "Node",
+        "Pointer",
+        "Data structure",
+        "Iterative traversal",
+        "Recursive traversal",
+        "Singly-linked list",
+        "Doubly-linked list",
+        "Dynamic memory allocation",
+        "Head pointer"
+      ],
+      "prerequisites": [
+        "Data structures and algorithms",
+        "Basic programming concepts (variables, loops)",
+        "Pointers and references",
+        "Dynamic memory allocation"
+      ],
+      "topic_suggestions": [
+        "t3_s1",
+        "t3_s2"
+      ],
+      "resources": {
+        "videos": [
+          {
+            "title": "Linked List Data Structure | Illustrated Data Structures",
+            "url": "https://www.youtube.com/watch?v=WwfhLC16bis"
+          },
+          {
+            "title": "Linked Lists in 4 minutes",
+            "url": "https://www.youtube.com/watch?v=F8AbOfQwl1c"
+          }
+        ],
+        "articles": [
+          {
+            "title": "Linked List Data Structure - GeeksforGeeks",
+            "url": "https://www.geeksforgeeks.org/data-structures/linked-list/"
+          },
+          {
+            "title": "Introduction to Linked Lists - Programiz",
+            "url": "https://www.programiz.com/dsa/linked-list"
+          }
+        ]
+      },
+      "subconcepts": [
+        {
+          "id": "t3_s1",
+          "name": "Singly-linked list",
+          "type": "subtopic",
+          "level": "intermediate",
+          "description": "A linked list where each node contains one link to the next node in the sequence, with the last node having a null or 'nil' pointer.",
+          "keywords": [
+            "Single pointer",
+            "Next pointer",
+            "Null termination",
+            "Forward traversal",
+            "Head node",
+            "Tail node"
+          ],
+          "prerequisites": [
+            "Pointers",
+            "Dynamic memory allocation",
+            "Basic linked list concepts"
+          ],
+          "topic_suggestions": [
+            "t3_s2",
+            "t4"
+          ],
+          "resources": {
+            "videos": [
+              {
+                "title": "Singly Linked List Implementation",
+                "url": "https://www.youtube.com/watch?v=R9PTBwOzceo"
+              }
+            ],
+            "articles": [
+              {
+                "title": "Singly Linked List - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/singly-linked-list-definition-insertion-deletion-display/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "t3_s2",
+          "name": "Doubly-linked list",
+          "type": "subtopic",
+          "level": "intermediate",
+          "description": "A linked list where each node contains two links – one pointing to the next and another pointing to the previous node, allowing for bidirectional traversal.",
+          "keywords": [
+            "Previous pointer",
+            "Next pointer",
+            "Bidirectional traversal",
+            "Forward and backward navigation",
+            "Double linkage",
+            "Circular doubly linked list"
+          ],
+          "prerequisites": [
+            "Singly-linked list",
+            "Pointers",
+            "Dynamic memory allocation"
+          ],
+          "topic_suggestions": [
+            "t4",
+            "t5"
+          ],
+          "resources": {
+            "videos": [
+              {
+                "title": "Doubly Linked List Implementation",
+                "url": "https://www.youtube.com/watch?v=sDP_pReYNEc"
+              }
+            ],
+            "articles": [
+              {
+                "title": "Doubly Linked List - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/doubly-linked-list/"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "t4",
+      "name": "Stacks & Queues",
+      "type": "topic",
+      "level": "intermediate",
+      "description": "Stacks and queues are linear data structures that follow specific rules for adding and removing elements. They are fundamental concepts in computer science, used to solve various problems in algorithms and data structures.",
+      "keywords": [
+        "Stack (Data Structure)",
+        "Queue (Data Structure)",
+        "Last-In-First-Out (LIFO)",
+        "First-In-First-Out (FIFO)",
+        "Push Operation",
+        "Pop Operation",
+        "Enqueue Operation",
+        "Dequeue Operation",
+        "Top pointer",
+        "Front and rear pointers"
+      ],
+      "prerequisites": [
+        "Arrays and Lists",
+        "Basic Algorithms",
+        "Linear data structures",
+        "Memory management"
+      ],
+      "topic_suggestions": [
+        "t4_s1",
+        "t4_s2"
+      ],
+      "resources": {
+        "videos": [
+          {
+            "title": "Stack Data Structure | Illustrated Data Structures",
+            "url": "https://www.youtube.com/watch?v=I5lq6sCuABE"
+          },
+          {
+            "title": "Queue Data Structure | Illustrated Data Structures",
+            "url": "https://www.youtube.com/watch?v=D6gu-_tmEpQ"
+          }
+        ],
+        "articles": [
+          {
+            "title": "Stack Data Structure - GeeksforGeeks",
+            "url": "https://www.geeksforgeeks.org/stack-data-structure/"
+          },
+          {
+            "title": "Queue Data Structure - GeeksforGeeks",
+            "url": "https://www.geeksforgeeks.org/queue-data-structure/"
+          }
+        ]
+      },
+      "subconcepts": [
+        {
+          "id": "t4_s1",
+          "name": "Stacks (Data Structure)",
+          "type": "subtopic",
+          "level": "intermediate",
+          "description": "A linear data structure that follows the LIFO principle, where the last element added is the first one to be removed.",
+          "keywords": [
+            "LIFO principle",
+            "Push operation",
+            "Pop operation",
+            "Top element",
+            "Stack overflow",
+            "Stack underflow",
+            "Function call stack"
+          ],
+          "prerequisites": [
+            "Arrays or linked lists",
+            "Basic operations",
+            "Memory management"
+          ],
+          "topic_suggestions": [
+            "t4_s2",
+            "t5"
+          ],
+          "resources": {
+            "videos": [
+              {
+                "title": "Stack Implementation using Array and Linked List",
+                "url": "https://www.youtube.com/watch?v=F1F2imiOJfk"
+              }
+            ],
+            "articles": [
+              {
+                "title": "Stack Implementation - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/stack-data-structure-introduction-program/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "t4_s2",
+          "name": "Queues (Data Structure)",
+          "type": "subtopic",
+          "level": "intermediate",
+          "description": "A linear data structure that follows the FIFO principle, where the first element added is the first one to be removed.",
+          "keywords": [
+            "FIFO principle",
+            "Enqueue operation",
+            "Dequeue operation",
+            "Front pointer",
+            "Rear pointer",
+            "Circular queue",
+            "Priority queue"
+          ],
+          "prerequisites": [
+            "Arrays or linked lists",
+            "Basic operations",
+            "Pointers"
+          ],
+          "topic_suggestions": [
+            "t4_s1",
+            "t5"
+          ],
+          "resources": {
+            "videos": [
+              {
+                "title": "Queue Implementation using Array and Linked List",
+                "url": "https://www.youtube.com/watch?v=okr-XE8yTO8"
+              }
+            ],
+            "articles": [
+              {
+                "title": "Queue Implementation - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/queue-set-1introduction-and-array-implementation/"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "t5",
+      "name": "Recursion",
+      "type": "topic",
+      "level": "intermediate",
+      "description": "Recursion is a method used in computer science where the solution to a problem involves solving smaller instances of the same problem. It uses a function calling itself within its own definition, forming a loop that eventually terminates when a base case is reached.",
+      "keywords": [
+        "Base case",
+        "Recursive case",
+        "Function calls",
+        "Call stack",
+        "Divide and conquer",
+        "Self-referential",
+        "Termination condition",
+        "Stack overflow",
+        "Tail recursion"
+      ],
+      "prerequisites": [
+        "Functions",
+        "Control structures",
+        "Stack data structure",
+        "Basic programming concepts",
+        "Mathematical induction"
+      ],
+      "topic_suggestions": [
+        "t5_s1",
+        "t5_s2"
+      ],
+      "resources": {
+        "videos": [
+          {
+            "title": "Recursion Tutorial - Basics to Advanced | Part 1",
+            "url": "https://www.youtube.com/watch?v=9OsMG4fI4OY"
+          },
+          {
+            "title": "Recursion in Programming - Full Course",
+            "url": "https://www.youtube.com/watch?v=IJDJ0kBx2LM"
+          },
+          {
+            "title": "5 Simple Steps for Solving Any Recursive Problem",
+            "url": "https://www.youtube.com/watch?v=ngCos392W4w"
+          }
+        ],
+        "articles": [
+          {
+            "title": "Introduction to Recursion - GeeksforGeeks",
+            "url": "https://www.geeksforgeeks.org/introduction-to-recursion-data-structure-and-algorithm-tutorials/"
+          },
+          {
+            "title": "Recursion in Programming - Programiz",
+            "url": "https://www.programiz.com/dsa/recursion"
+          }
+        ]
+      },
+      "subconcepts": [
+        {
+          "id": "t5_s1",
+          "name": "Basic Recursion Patterns",
+          "type": "subtopic",
+          "level": "intermediate",
+          "description": "Fundamental recursive patterns including linear recursion, binary recursion, and tail recursion.",
+          "keywords": [
+            "Linear recursion",
+            "Binary recursion",
+            "Tail recursion",
+            "Direct recursion",
+            "Indirect recursion",
+            "Tree recursion"
+          ],
+          "prerequisites": [
+            "Basic recursion concepts",
+            "Base and recursive cases",
+            "Function calls"
+          ],
+          "topic_suggestions": [
+            "t5_s2"
+          ],
+          "resources": {
+            "videos": [
+              {
+                "title": "Types of Recursion",
+                "url": "https://www.youtube.com/watch?v=rf60MejMz3E"
+              }
+            ],
+            "articles": [
+              {
+                "title": "Types of Recursion - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/types-of-recursions/"
+              }
+            ]
+          }
+        },
+        {
+          "id": "t5_s2",
+          "name": "Recursive Problem Solving",
+          "type": "subtopic",
+          "level": "advanced",
+          "description": "Advanced techniques for solving complex problems using recursion, including divide-and-conquer algorithms and dynamic programming foundations.",
+          "keywords": [
+            "Divide and conquer",
+            "Backtracking",
+            "Memoization",
+            "Problem decomposition",
+            "Recursive tree analysis",
+            "Time complexity analysis"
+          ],
+          "prerequisites": [
+            "Basic recursion patterns",
+            "Algorithm analysis",
+            "Problem-solving techniques"
+          ],
+          "topic_suggestions": [],
+          "resources": {
+            "videos": [
+              {
+                "title": "Recursive Problem Solving Techniques",
+                "url": "https://www.youtube.com/watch?v=KEEKn7Me-ms"
+              }
+            ],
+            "articles": [
+              {
+                "title": "Problem Solving with Recursion - GeeksforGeeks",
+                "url": "https://www.geeksforgeeks.org/recursion-practice-problems-solutions/"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
