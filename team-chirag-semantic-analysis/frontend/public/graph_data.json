@@ -1,0 +1,980 @@
+{
+  "nodes": [
+    {
+      "id": "t729",
+      "name": "Array",
+      "type": "topic",
+      "level": "intermediate",
+      "description": "Arrays are linear data structures that store elements in contiguous memory locations, allowing rando...",
+      "keywords": [
+        "contiguous memory",
+        "problem",
+        "array",
+        "course",
+        "static array"
+      ]
+    },
+    {
+      "id": "s298",
+      "name": "Traversal",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about traversal in array.",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s951",
+      "name": "Insertion",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about insertion in array.",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s164",
+      "name": "Deletion",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about deletion in array.",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s222",
+      "name": "Searching",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about searching in array.",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s190",
+      "name": "Sorting",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about sorting in array.",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s425",
+      "name": "Dynamic Arrays",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about dynamic arrays in array.",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s281",
+      "name": "Hash Table",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about hash table in array.",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s96",
+      "name": "Dynamic Programming",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about dynamic programming in array.",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s655",
+      "name": "Divide And Conquer",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about divide and conquer in array.",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s561",
+      "name": "Array Initialization",
+      "type": "subtopic",
+      "level": "beginner",
+      "description": "Array Initialization is an important aspect of array in data structures and algorithms, often tested...",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s877",
+      "name": "Array Operations",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Array Operations is an important aspect of array in data structures and algorithms, often tested in ...",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s397",
+      "name": "Dynamic Array",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Dynamic Array is an important aspect of array in data structures and algorithms, often tested in tec...",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s780",
+      "name": "Array Manipulation",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Array Manipulation is an important aspect of array in data structures and algorithms, often tested i...",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s821",
+      "name": "Array Searching",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Array Searching is an important aspect of array in data structures and algorithms, often tested in t...",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s423",
+      "name": "Array Sorting",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Array Sorting is an important aspect of array in data structures and algorithms, often tested in tec...",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s941",
+      "name": "Multidimensional Arrays",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Multidimensional Arrays is an important aspect of array in data structures and algorithms, often tes...",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s688",
+      "name": "Array Rotation",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Array Rotation is an important aspect of array in data structures and algorithms, often tested in te...",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s866",
+      "name": "Array Traversal",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Array Traversal is an important aspect of array in data structures and algorithms, often tested in t...",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "s459",
+      "name": "Array Algorithms",
+      "type": "subtopic",
+      "level": "advanced",
+      "description": "Array Algorithms is an important aspect of array in data structures and algorithms, often tested in ...",
+      "parent_topic": "t729"
+    },
+    {
+      "id": "t201",
+      "name": "Queue",
+      "type": "topic",
+      "level": "intermediate",
+      "description": "Queues are abstract data types that follow the First-In-First-Out (FIFO) principle. They support enq...",
+      "keywords": [
+        "problem",
+        "course",
+        "queue",
+        "design",
+        "nptel"
+      ]
+    },
+    {
+      "id": "s74",
+      "name": "Operations",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about operations in queue.",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s810",
+      "name": "Implementation",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about implementation in queue.",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s751",
+      "name": "Applications",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about applications in queue.",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s888",
+      "name": "Stack",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about stack in queue.",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s500",
+      "name": "Design",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about design in queue.",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s227",
+      "name": "Priority Queue",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Priority Queue is an important aspect of queue in data structures and algorithms, often tested in te...",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s328",
+      "name": "Queue Operations",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Queue Operations is an important aspect of queue in data structures and algorithms, often tested in ...",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s760",
+      "name": "Queue Implementation",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Queue Implementation is an important aspect of queue in data structures and algorithms, often tested...",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s571",
+      "name": "Queue Applications",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Queue Applications is an important aspect of queue in data structures and algorithms, often tested i...",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s284",
+      "name": "Queue Algorithms",
+      "type": "subtopic",
+      "level": "advanced",
+      "description": "Queue Algorithms is an important aspect of queue in data structures and algorithms, often tested in ...",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s610",
+      "name": "Circular Queue",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Circular Queue is an important aspect of queue in data structures and algorithms, often tested in te...",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s371",
+      "name": "Deque",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Deque is an important aspect of queue in data structures and algorithms, often tested in technical i...",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s792",
+      "name": "Queue Using Arrays",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Queue Using Arrays is an important aspect of queue in data structures and algorithms, often tested i...",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "s329",
+      "name": "Queue Using Linked List",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Queue Using Linked List is an important aspect of queue in data structures and algorithms, often tes...",
+      "parent_topic": "t201"
+    },
+    {
+      "id": "t804",
+      "name": "Stack",
+      "type": "topic",
+      "level": "intermediate",
+      "description": "Stacks are abstract data types that follow the Last-In-First-Out (LIFO) principle. They support two ...",
+      "keywords": [
+        "push",
+        "problem",
+        "course",
+        "design",
+        "nptel"
+      ]
+    },
+    {
+      "id": "s86",
+      "name": "Operations",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about operations in stack.",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s486",
+      "name": "Implementation",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about implementation in stack.",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s260",
+      "name": "Applications",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about applications in stack.",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s348",
+      "name": "String",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about string in stack.",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s889",
+      "name": "Design",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Information about design in stack.",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s788",
+      "name": "Stack Operations",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Stack Operations is an important aspect of stack in data structures and algorithms, often tested in ...",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s801",
+      "name": "Stack Implementation",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Stack Implementation is an important aspect of stack in data structures and algorithms, often tested...",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s693",
+      "name": "Stack Applications",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Stack Applications is an important aspect of stack in data structures and algorithms, often tested i...",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s206",
+      "name": "Stack Algorithms",
+      "type": "subtopic",
+      "level": "advanced",
+      "description": "Stack Algorithms is an important aspect of stack in data structures and algorithms, often tested in ...",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s418",
+      "name": "Expression Evaluation",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Expression Evaluation is an important aspect of stack in data structures and algorithms, often teste...",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s318",
+      "name": "Balanced Parentheses",
+      "type": "subtopic",
+      "level": "advanced",
+      "description": "Balanced Parentheses is an important aspect of stack in data structures and algorithms, often tested...",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s547",
+      "name": "Stack Using Arrays",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Stack Using Arrays is an important aspect of stack in data structures and algorithms, often tested i...",
+      "parent_topic": "t804"
+    },
+    {
+      "id": "s178",
+      "name": "Stack Using Linked List",
+      "type": "subtopic",
+      "level": "intermediate",
+      "description": "Stack Using Linked List is an important aspect of stack in data structures and algorithms, often tes...",
+      "parent_topic": "t804"
+    }
+  ],
+  "edges": [
+    {
+      "source": "t729",
+      "target": "s298",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s951",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s164",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s222",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s190",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s425",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s281",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s96",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s655",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s561",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s877",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s397",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s780",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s821",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s423",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s941",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s688",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s866",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "s459",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s74",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s810",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s751",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s888",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s500",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s227",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s328",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s760",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s571",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s284",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s610",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s371",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s792",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t201",
+      "target": "s329",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s86",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s486",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s260",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s348",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s889",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s788",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s801",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s693",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s206",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s418",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s318",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s547",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t804",
+      "target": "s178",
+      "type": "contains",
+      "label": "contains"
+    },
+    {
+      "source": "t729",
+      "target": "t804",
+      "type": "leads_to",
+      "label": "leads to"
+    },
+    {
+      "source": "t729",
+      "target": "t201",
+      "type": "leads_to",
+      "label": "leads to"
+    },
+    {
+      "source": "t729",
+      "target": "t804",
+      "type": "prerequisite",
+      "label": "prerequisite for"
+    },
+    {
+      "source": "t804",
+      "target": "t201",
+      "type": "leads_to",
+      "label": "leads to"
+    },
+    {
+      "source": "t729",
+      "target": "t201",
+      "type": "prerequisite",
+      "label": "prerequisite for"
+    },
+    {
+      "source": "s298",
+      "target": "s951",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s951",
+      "target": "s164",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s164",
+      "target": "s222",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s222",
+      "target": "s190",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s190",
+      "target": "s425",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s425",
+      "target": "s281",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s281",
+      "target": "s96",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s96",
+      "target": "s655",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s655",
+      "target": "s561",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s561",
+      "target": "s877",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s877",
+      "target": "s397",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s397",
+      "target": "s780",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s780",
+      "target": "s821",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s821",
+      "target": "s423",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s423",
+      "target": "s941",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s941",
+      "target": "s688",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s688",
+      "target": "s866",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s866",
+      "target": "s459",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s74",
+      "target": "s810",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s810",
+      "target": "s751",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s751",
+      "target": "s888",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s888",
+      "target": "s500",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s500",
+      "target": "s227",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s227",
+      "target": "s328",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s328",
+      "target": "s760",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s760",
+      "target": "s571",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s571",
+      "target": "s284",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s284",
+      "target": "s610",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s610",
+      "target": "s371",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s371",
+      "target": "s792",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s792",
+      "target": "s329",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s86",
+      "target": "s486",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s486",
+      "target": "s260",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s260",
+      "target": "s348",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s348",
+      "target": "s889",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s889",
+      "target": "s788",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s788",
+      "target": "s801",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s801",
+      "target": "s693",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s693",
+      "target": "s206",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s206",
+      "target": "s418",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s418",
+      "target": "s318",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s318",
+      "target": "s547",
+      "type": "sequence",
+      "label": "next"
+    },
+    {
+      "source": "s547",
+      "target": "s178",
+      "type": "sequence",
+      "label": "next"
+    }
+  ]
+}
