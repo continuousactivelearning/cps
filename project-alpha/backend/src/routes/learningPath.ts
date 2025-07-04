@@ -1,5 +1,7 @@
 import express, { Request, Response, Router } from 'express';
 import axios from 'axios';
+import { authenticate } from '../middleware/auth';
+import User from '../models/User';
 
 const router: Router = express.Router();
 
@@ -11,8 +13,9 @@ interface LearningPathRequest extends Request {
   };
 }
 
-router.post('/learning-path', async (req: LearningPathRequest, res: Response): Promise<void> => {
+router.post('/learning-path', authenticate, async (req: LearningPathRequest, res: Response): Promise<void> => {
   const { topic, scorePercentage, weeks } = req.body;
+  const userId = (req as any).userId;
 
   if (!topic || typeof scorePercentage !== 'number' || typeof weeks !== 'number') {
     res.status(400).json({ error: 'Topic, score percentage, and weeks are required.' });
@@ -84,6 +87,47 @@ Example output:
       console.error('Error parsing learning path:', parseError, 'Content:', content);
       res.status(500).json({ error: 'Failed to parse learning path from model response.' });
       return;
+    }
+
+    // Save learning path to user's profile
+    const user = await User.findById(userId);
+    if (user) {
+      // Add topic to user's topics if not already present
+      if (!user.topics.includes(topic)) {
+        user.topics.push(topic);
+      }
+      
+      // Determine learning level based on score
+      const level = scorePercentage >= 80 ? 'Advanced' : 
+                   scorePercentage >= 60 ? 'Intermediate' : 'Beginner';
+      
+      // Calculate duration per day based on weeks
+      const durationPerDay = weeks <= 4 ? '30-45 minutes' : 
+                           weeks <= 8 ? '45-60 minutes' : '60-90 minutes';
+      
+      // Update or add learning path for this topic
+      const existingPathIndex = user.learningPaths.findIndex(p => p.topic === topic);
+      const newLearningPath = {
+        topic,
+        weeks,
+        level,
+        durationPerDay,
+        path: learningPath,
+        generatedAt: new Date()
+      };
+      
+      if (existingPathIndex >= 0) {
+        // Update existing learning path by replacing the entire array
+        user.learningPaths.splice(existingPathIndex, 1, newLearningPath);
+      } else {
+        // Add new learning path
+        user.learningPaths.push(newLearningPath);
+      }
+      
+      // Mark the learningPaths field as modified
+      user.markModified('learningPaths');
+      
+      await user.save();
     }
 
     res.json({ learningPath });
