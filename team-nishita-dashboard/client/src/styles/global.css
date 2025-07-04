@@ -1666,3 +1666,44 @@ body.dark-theme {
     padding: 1.5rem;
   }
 }
+
+/* Light Theme Navbar Overrides */
+.navbar.light {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.navbar.light .navbar-brand {
+  color: #1a202c;
+}
+
+.navbar.light .welcome-box {
+  background: rgba(102, 126, 234, 0.08);
+  border: 1px solid #cbd5e1;
+  color: #1a202c;
+}
+
+.navbar.light .theme-toggle-btn {
+  background: rgba(102, 126, 234, 0.08);
+  border: 2px solid #cbd5e1;
+  color: #1a202c;
+}
+
+.navbar.light .theme-toggle-btn:hover {
+  background: rgba(102, 126, 234, 0.15);
+}
+
+.navbar.light .nav-btn.login-btn,
+.navbar.light .nav-btn.signup-btn {
+  background: #667eea;
+  color: white;
+}
+
+.navbar.light .nav-btn.logout-btn {
+  background: #e53e3e;
+  color: white;
+}
+
+.navbar.light .navbar-icon {
+  color: #ffd700;
+}

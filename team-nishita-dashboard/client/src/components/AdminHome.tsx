@@ -123,6 +123,7 @@ const AdminHome: React.FC<AdminHomeProps> = ({ showAddCourseForm = false }) => {
       setShowCourseForm(false);
       alert('Course added successfully!');
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Error adding course:', error);
       const errorMessage = error.response?.data?.message || 'Failed to add course';

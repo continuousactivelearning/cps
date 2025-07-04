@@ -152,3 +152,54 @@ button:hover {
     width: 90%;
   }
 }
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 40px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-bottom: 32px;
+  width: 100%;
+}
+
+.stat-card {
+  background: #23283b;
+  border-radius: 16px;
+  padding: 32px 24px;
+  color: #fff;
+  min-height: 120px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.admin-content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  width: 100%;
+}
+
+.admin-card {
+  background: #23283b;
+  border-radius: 16px;
+  padding: 32px 24px;
+  color: #fff;
+  min-height: 240px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}

@@ -1,5 +1,3 @@
-import React from "react";
-
 const AdminUserManagement = () => (
   <div style={{ padding: "2rem" }}>
     <h2>User Management</h2>

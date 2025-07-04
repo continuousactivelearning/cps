@@ -261,7 +261,7 @@ const ChatWidget: React.FC = () => {
     const userMessage = input;
     setInput("");
     try {
-      const res = await fetch("http://localhost:5005/chat", {
+      const res = await fetch(import.meta.env.VITE_CHAT_URL || "http://localhost:5005/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),

@@ -1,0 +1,148 @@
+body {
+  background: #0f1117;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+.achievement-page {
+  padding: 24px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.top-section {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #1b1e29;
+  padding: 16px 12px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+  color: white;
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card h3 {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.card p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  height: 600px; 
+}
+
+.calendar-section,
+.badge-section {
+  background: #1b1e29;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.calendar-section h2,
+.badge-section h2 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.calendar-section .calendar-grid {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.badge-section {
+  overflow-y: auto;
+}
+
+
+.badge-overlay {
+  position: absolute;  /* Changed from fixed */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.65);
+  padding: 30px 40px;
+  border-radius: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 280px;
+  max-width: 320px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+
+/* Popup itself */
+.badge-popup {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  color: black;
+  z-index: 1000;
+}
+
+.badge-popup img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+}
+
+/* Confetti container - absolute inside badge-overlay */
+.confetti-container {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+  z-index: 998;
+}
+
+/* Points earned text */
+.points-earned {
+  margin-top: 15px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #22c55e; /* Tailwind green-500 */
+  text-shadow: 0 0 5px #22c55e99;
+  user-select: none;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+/* Adjust the overall container .achievement-page to position relative for absolute children */
+.achievement-page {
+  position: relative; /* Add this */
+}

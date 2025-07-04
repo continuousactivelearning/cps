@@ -1,13 +1,13 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors'
 import helmet from 'helmet'
-import { errorHandler } from './middleware/errorHandler'
+import { errorHandler } from './middleware/errorHandler.js'
 import mongoose from 'mongoose';
-import { authRouter } from './routes/auth'
-import { calendarRouter } from './routes/calendar'
-import { courseRouter } from './routes/course'
-import { progressRouter } from './routes/progress'
-import { requireRole, requireAuth } from './middleware/roleMiddleware'
+import { authRouter } from './routes/auth.js'
+import { calendarRouter } from './routes/calendar.js'
+import { courseRouter } from './routes/course.js'
+import { progressRouter } from './routes/progress.js'
+import { requireRole, requireAuth } from './middleware/roleMiddleware.js'
 
 const app = express();
 const PORT = process.env.PORT || 3000;

@@ -1,5 +1,3 @@
-import React from "react";
-
 const AdminReports = () => (
   <div style={{ padding: "2rem" }}>
     <h2>Reports</h2>

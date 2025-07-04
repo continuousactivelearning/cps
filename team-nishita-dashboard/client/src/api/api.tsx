@@ -150,7 +150,8 @@ export const getProgressStats = (): Promise<{ data: { dailyStats: DailyProgress[
 export const updateProgress = (progressData: ProgressUpdate): Promise<{ data: { message: string; progress: any } }> =>
   api.post('/progress/update', progressData);
 
-// Utility functions
+// ---------- Utils ----------
+
 export const getCurrentUser = (): User | null => {
   const token = localStorage.getItem('token');
   if (!token) return null;

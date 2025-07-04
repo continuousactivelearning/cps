@@ -1,5 +1,3 @@
-import React from "react";
-
 const AdminSystemSettings = () => (
   <div style={{ padding: "2rem" }}>
     <h2>System Settings</h2>

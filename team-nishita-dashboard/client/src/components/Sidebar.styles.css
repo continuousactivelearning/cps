@@ -125,3 +125,59 @@
     transform: translateX(0);
   }
 }
+
+/* Light Theme Sidebar Overrides */
+.sidebar.light {
+  background-color: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+}
+
+.sidebar.light .sidebar-item {
+  color: #1a202c;
+}
+
+.sidebar.light .sidebar-item:hover {
+  background-color: #d1fae5;
+  color: #10b981;
+}
+
+.sidebar.light .sidebar-item.active {
+  background-color: #10b981 !important;
+  color: #fff !important;
+}
+
+.sidebar.light .collapse-btn {
+  color: #64748b;
+}
+
+.sidebar.light .sidebar-label {
+  color: #1a202c;
+}
+
+/* Light Theme Admin Sidebar (Blue) Overrides */
+.sidebar.light.admin-sidebar {
+  background-color: #f8fafc;
+  border-right: 1px solid #e2e8f0;
+}
+
+.sidebar.light.admin-sidebar .sidebar-item {
+  color: #1a202c;
+}
+
+.sidebar.light.admin-sidebar .sidebar-item:hover {
+  background-color: #e0e7ef;
+  color: #2563eb;
+}
+
+.sidebar.light.admin-sidebar .sidebar-item.active {
+  background-color: #2563eb !important;
+  color: #fff !important;
+}
+
+.sidebar.light.admin-sidebar .collapse-btn {
+  color: #2563eb;
+}
+
+.sidebar.light.admin-sidebar .sidebar-label {
+  color: #1a202c;
+}

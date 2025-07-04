@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from 'react';
 import { signup, login } from '../api/api';
 import { useNavigate } from 'react-router-dom';
@@ -125,7 +126,7 @@ const LandingPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            PathPilot helps you understand where you are, what to study next, and how close you are to your goals.
+            BluePrint helps you understand where you are, what to study next, and how close you are to your goals.
           </motion.p>
         </div>
       </section>
