@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Toolkit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab.active {
+            background-color: #e0e7ff;
+            border-bottom: 3px solid #4f46e5;
+            color: #4f46e5;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-indigo-800">
+                <i class="fas fa-graduation-cap mr-2"></i>Learning Toolkit
+            </h1>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="flex border-b border-gray-200 mb-8">
+            <button class="tab px-6 py-3 text-gray-600 active" data-tab="prerequisites">
+                <i class="fas fa-sitemap mr-2"></i>Prerequisites
+            </button>
+            <button class="tab px-6 py-3 text-gray-600" data-tab="quizzes">
+                <i class="fas fa-question-circle mr-2"></i>Quiz Generator
+            </button>
+            <button class="tab px-6 py-3 text-gray-600" data-tab="summaries">
+                <i class="fas fa-lightbulb mr-2"></i>Topic Summaries
+            </button>
+        </div>
+
+        <!-- Prerequisites Section -->
+        <div id="prerequisites" class="tab-content active">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                    <i class="fas fa-sitemap text-indigo-600 mr-2"></i>Prerequisite Generator
+                </h2>
+                <p class="text-gray-600 mb-6">Build learning paths for any topic</p>
+
+                <div class="flex mb-6">
+                    <input type="text" id="prereqTopic" placeholder="e.g. Machine Learning"
+                        class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <button id="generatePrereqBtn"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-r-lg transition-colors">
+                        Generate
+                    </button>
+                </div>
+
+                <div id="prereqResults" class="hidden">
+                    <h3 class="font-medium text-gray-800 mb-3">Learning Path Foundational Concepts</h3>
+                    <div id="prereqList" class="space-y-2"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Generator Section -->
+        <div id="quizzes" class="tab-content">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                    <i class="fas fa-question-circle text-indigo-600 mr-2"></i>Quiz Generator
+                </h2>
+                <p class="text-gray-600 mb-6">Generate quizzes for any topic</p>
+
+                <div class="flex mb-6">
+                    <input type="text" id="quizTopic" placeholder="e.g. Machine Learning"
+                        class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <button id="generateQuizBtn"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-r-lg transition-colors">
+                        Generate
+                    </button>
+                </div>
+
+                <div id="quizResults" class="hidden">
+                    <h3 class="font-medium text-gray-800 mb-3">Generated Quiz Questions</h3>
+                    <div id="quizQuestions" class="space-y-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic Summaries Section -->
+        <div id="summaries" class="tab-content">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                    <i class="fas fa-lightbulb text-indigo-600 mr-2"></i>Topic Summary Generator
+                </h2>
+                <p class="text-gray-600 mb-6">Get concise explanations of any topic</p>
+
+                <div class="flex mb-6">
+                    <input type="text" id="summaryTopic" placeholder="e.g. Machine Learning"
+                        class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <button id="generateSummaryBtn"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-r-lg transition-colors">
+                        Generate
+                    </button>
+                </div>
+
+                <div id="summaryOutput" class="hidden">
+                    <h3 class="font-medium text-gray-800 mb-3">AI-Generated Summary</h3>
+                    <div id="summaryContent" class="prose max-w-none text-gray-700"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Tab Switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function () {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                this.classList.add('active');
+
+                // Hide all tab contents
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                // Show the corresponding tab content
+                document.getElementById(this.dataset.tab).classList.add('active');
+            });
+        });
+
+        const api = axios.create({
+            baseURL: 'http://localhost:5000', // Match your backend port
+            timeout: 10000,
+        });
+        // Prerequisites Functionality
+        // For Prerequisites
+        document.getElementById('generatePrereqBtn').addEventListener('click', async () => {
+            const topic = document.getElementById('prereqTopic').value.trim();
+            if (!topic) return alert('Please enter a topic');
+
+            try {
+                // Show loading state if needed
+                document.getElementById('prereqResults').classList.add('hidden');
+                document.getElementById('generatePrereqBtn').disabled = true;
+                document.getElementById('generatePrereqBtn').innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Generating...';
+
+                const response = await axios.post('/api/prerequisites', { topic });
+                const prereqs = response.data.prerequisites;
+
+                document.getElementById('prereqList').innerHTML = prereqs.map(item => `
+      <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg mb-2">
+        <i class="fas fa-link text-indigo-500 mr-2"></i>${item}
+      </div>
+    `).join('');
+
+                document.getElementById('prereqResults').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to generate prerequisites. Please try again.');
+            } finally {
+                document.getElementById('generatePrereqBtn').disabled = false;
+                document.getElementById('generatePrereqBtn').innerHTML = 'Generate';
+            }
+        });
+
+        // For Quiz Generation
+        document.getElementById('generateQuizBtn').addEventListener('click', async () => {
+            const topic = document.getElementById('quizTopic').value.trim();
+            if (!topic) return alert('Please enter a topic');
+
+            try {
+                document.getElementById('quizResults').classList.add('hidden');
+                document.getElementById('generateQuizBtn').disabled = true;
+                document.getElementById('generateQuizBtn').innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Generating...';
+
+                const response = await axios.post('/api/quiz', { topic });
+                const questions = response.data.questions;
+
+                document.getElementById('quizQuestions').innerHTML = questions.map((q, i) => `
+      <div class="bg-gray-50 rounded-lg p-4 mb-4 shadow-sm">
+        <h4 class="font-medium text-gray-800">Question ${i + 1}: ${q.question}</h4>
+        <div class="mt-3 space-y-2">
+          ${q.options.map((opt, j) => `
+            <div class="flex items-center px-3 py-2 bg-white rounded border hover:bg-gray-50">
+              <input type="radio" name="q${i}" id="q${i}-opt${j}" class="mr-2">
+              <label for="q${i}-opt${j}">${opt}</label>
+            </div>
+          `).join('')}
+        </div>
+        <p class="text-sm text-green-600 mt-2 hidden answer-${i}">Answer: ${q.answer}</p>
+      </div>
+    `).join('');
+
+                document.getElementById('quizResults').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to generate quiz. Please try again.');
+            } finally {
+                document.getElementById('generateQuizBtn').disabled = false;
+                document.getElementById('generateQuizBtn').innerHTML = 'Generate';
+            }
+        });
+
+        // For Topic Summaries
+        document.getElementById('generateSummaryBtn').addEventListener('click', async () => {
+            const topic = document.getElementById('summaryTopic').value.trim();
+            if (!topic) return alert('Please enter a topic');
+
+            try {
+                document.getElementById('summaryOutput').classList.add('hidden');
+                document.getElementById('generateSummaryBtn').disabled = true;
+                document.getElementById('generateSummaryBtn').innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Generating...';
+
+                const response = await axios.post('/api/summary', { topic });
+                const summary = response.data.summary;
+
+                document.getElementById('summaryContent').innerHTML = `
+      <div class="bg-white p-4 rounded-lg border">
+        <div class="prose max-w-none">${summary}</div>
+        <button onclick="copyToClipboard('summaryContent')" 
+          class="mt-3 text-sm text-indigo-600 hover:text-indigo-800">
+          <i class="fas fa-copy mr-1"></i> Copy to Clipboard
+        </button>
+      </div>
+    `;
+
+                document.getElementById('summaryOutput').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to generate summary. Please try again.');
+            } finally {
+                document.getElementById('generateSummaryBtn').disabled = false;
+                document.getElementById('generateSummaryBtn').innerHTML = 'Generate';
+            }
+        });
+
+        // Helper function for copying to clipboard
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const range = document.createRange();
+            range.selectNode(element);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            alert('Copied to clipboard!');
+        }
+
+        // Other functionalities (Quiz and Summary) remain unchanged
+    </script>
+
+</body>
+
+</html>

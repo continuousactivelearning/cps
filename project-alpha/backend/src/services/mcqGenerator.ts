@@ -1,4 +1,3 @@
-//Developed by Galla Durga Rama Satya Pradeep Kumar
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid'; // Import uuid
 
@@ -10,7 +9,14 @@ export interface MCQ {
   answer: string;
 }
 
+// In-memory store for generated questions to avoid duplicates within a session.
+// This is per-server-instance. In a scaled environment, consider a shared cache like Redis.
 const generatedQuestions: Map<string, Set<string>> = new Map(); // Stores question content (string) for uniqueness check
+
+/**
+ * Resets the in-memory cache of generated questions.
+ * @param topics Optional array of topics to reset. If not provided, all topics are reset.
+ */
 export function resetGeneratedQuestions(topics?: string[]) {
   if (topics && topics.length > 0) {
     topics.forEach(topic => {
@@ -30,9 +36,10 @@ export function resetGeneratedQuestions(topics?: string[]) {
  * @param prerequisites An array of topics (strings) for which to generate MCQs.
  * @param targetQuestionCount The total number of questions to generate across all prerequisites.
  * @param shouldResetCacheForTopics If true, clears the internal cache for the given prerequisites before generating new questions.
+ * @param courseName Optional course name to provide better context for MCQ generation.
  * @returns A Promise that resolves to an array of MCQ objects.
  */
-export async function generateMCQs(prerequisites: string[], targetQuestionCount: number, shouldResetCacheForTopics: boolean = false): Promise<MCQ[]> {
+export async function generateMCQs(prerequisites: string[], targetQuestionCount: number, shouldResetCacheForTopics: boolean = false, courseName?: string): Promise<MCQ[]> {
   const results: MCQ[] = [];
 
   if (shouldResetCacheForTopics) {
@@ -41,35 +48,40 @@ export async function generateMCQs(prerequisites: string[], targetQuestionCount:
 
   // To distribute questions evenly and handle cases where some topics might not yield questions
   let topicIndex = 0;
-  const maxAttemptsPerTopic = 5; 
+  const maxAttemptsPerTopic = 5; // To prevent infinite loops if a topic can't generate unique questions
   const topicAttempts: Map<string, number> = new Map(); // Track attempts for each topic
 
+  // Create a working copy of prerequisites that we can modify (e.g., remove if exhausted)
   let currentPrerequisites = [...prerequisites];
 
+  // Loop until targetQuestionCount is reached or no more questions can be generated
   while (results.length < targetQuestionCount && currentPrerequisites.length > 0) {
     const currentTopic = currentPrerequisites[topicIndex % currentPrerequisites.length];
 
+    // Initialize set for topic if not exists
     if (!generatedQuestions.has(currentTopic)) {
       generatedQuestions.set(currentTopic, new Set());
     }
     const previousQuestionsForTopic = generatedQuestions.get(currentTopic)!;
 
+    // Track attempts for the current topic
     const attempts = (topicAttempts.get(currentTopic) || 0) + 1;
     topicAttempts.set(currentTopic, attempts);
 
     if (attempts > maxAttemptsPerTopic) {
       console.warn(`Skipping topic "${currentTopic}" due to too many failed attempts to generate unique questions.`);
-      // Removing this topic from currentPrerequisites to avoid trying it indefinitely
+      // Remove this topic from currentPrerequisites to avoid trying it indefinitely
       currentPrerequisites = currentPrerequisites.filter(t => t !== currentTopic);
       topicIndex = (topicIndex + 1) % currentPrerequisites.length; // Move to next topic
-      continue; // Skiping to the next iteration of the while loop
+      continue; // Skip to the next iteration of the while loop
     }
 
     const recentPreviousQuestionsContent = Array.from(previousQuestionsForTopic)
       .slice(Math.max(0, previousQuestionsForTopic.size - 5));
 
     try {
-      const prompt = `Generate one unique beginner-level multiple-choice question (MCQ) on the topic "${currentTopic}" that has not been generated before based on its content.
+      const courseContext = courseName ? ` in the context of the course "${courseName}"` : '';
+      const prompt = `Generate one unique beginner-level multiple-choice question (MCQ) on the topic "${currentTopic}" as a prerequisite topic ${courseContext} that has not been generated before based on its content.
 If any programs or code snippets are included, format them using HTML so they are displayed properly and not as raw text.
 Return the response in the following JSON format:
 {
