@@ -135,42 +135,6 @@ export const TutorialView: React.FC<TutorialViewProps> = ({
 
       <div className="max-w-7xl mx-auto p-6">
         <div className="grid lg:grid-cols-4 gap-8">
-          {/* Progress Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 sticky top-6">
-              <h3 className="font-bold text-gray-900 mb-4">Progress</h3>
-              <div className="space-y-4">
-                <div>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="text-gray-600">Completion</span>
-                    <span className="font-medium">{getProgress()}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
-                      className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${getProgress()}%` }}
-                    ></div>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center p-3 bg-blue-50 rounded-lg">
-                    <Video className="w-5 h-5 text-blue-500 mx-auto mb-1" />
-                    <div className="text-lg font-bold text-blue-600">
-                      {getCompletedCount()}/{Array.isArray(fullTopic.tutorials) ? fullTopic.tutorials.length : 0}
-                    </div>
-                    <div className="text-xs text-gray-600">Tutorials</div>
-                  </div>
-                  <div className="text-center p-3 bg-green-50 rounded-lg">
-                    <Clock className="w-5 h-5 text-green-500 mx-auto mb-1" />
-                    <div className="text-lg font-bold text-green-600">{getTotalProblems()}</div>
-                    <div className="text-xs text-gray-600">Problems</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Tutorials List */}
           <div className="lg:col-span-3">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100">
