@@ -29,6 +29,7 @@ sys.path.append(str(current_dir / "dynamic"))
 try:
     from real_graph_analyzer import RealGraphLearningAnalyzer
     from ollama_dsa_yt import YouTubeResourceFinder
+    from dsa_topic_validator import DSATopicValidator
 except ImportError as e:
     print(f"Import error: {e}")
     print("Trying alternative imports...")
@@ -38,11 +39,13 @@ except ImportError as e:
         sys.path.append(str(current_dir / "dynamic"))
         from real_graph_analyzer import RealGraphLearningAnalyzer
         from ollama_dsa_yt import YouTubeResourceFinder
+        from dsa_topic_validator import DSATopicValidator
     except ImportError as e2:
         print(f"Alternative import error: {e2}")
-        print("Please ensure real_graph_analyzer.py and ollama_dsa_yt.py are in the correct locations")
+        print("Please ensure real_graph_analyzer.py, ollama_dsa_yt.py, and dsa_topic_validator.py are in the correct locations")
         RealGraphLearningAnalyzer = None
         YouTubeResourceFinder = None
+        DSATopicValidator = None
 
 class IntegratedChatHandler:
     def __init__(self):
@@ -63,6 +66,11 @@ class IntegratedChatHandler:
                 self.youtube_finder = YouTubeResourceFinder()
             else:
                 self.youtube_finder = None
+            
+            if DSATopicValidator is not None:
+                self.dsa_validator = DSATopicValidator()
+            else:
+                self.dsa_validator = None
         except Exception as e:
             print(f"Error initializing components: {e}")
             self.graph_analyzer = None
@@ -758,6 +766,21 @@ class IntegratedChatHandler:
         timestamp = datetime.now().isoformat()
         
         try:
+            # First, validate if the query is DSA-related
+            if self.dsa_validator:
+                dsa_validation = self.dsa_validator.validate_dsa_query(message)
+                
+                if not dsa_validation['is_dsa_related']:
+                    return {
+                        'response': dsa_validation['suggestion'],
+                        'videos': [],
+                        'analysis': {
+                            'dsa_validation': dsa_validation,
+                            'is_dsa_related': False,
+                            'error': 'Query not related to DSA topics'
+                        }
+                    }
+            
             # Load user profile
             user_profile = self.load_user_profile()
             if not user_profile:
