@@ -1,28 +1,34 @@
 import express, { Request, Response, Router } from 'express';
-import { MongoClient } from 'mongodb';
+import mongoose from 'mongoose';
+import { authenticate } from '../middleware/auth';
+import User from '../models/User';
 
 const router: Router = express.Router();
 const MAX_ATTEMPTS_PER_DAY = 3;
 
-// MongoDB connection (replace with your connection string)
-const client = new MongoClient('mongodb://localhost:27017');
-const db = client.db('quizApp');
-const attemptsCollection = db.collection('quizAttempts');
-
-// Middleware to get userId from JWT or session (simplified)
-const getUserId = (req: Request): string => {
-  // Replace with actual JWT/session parsing logic
-  return (req.headers['user-id'] as string) || 'default-user';
+// Get the database connection
+const getDb = () => {
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection.db;
+  }
+  return null;
 };
 
 // Endpoint to record and check quiz attempts
-router.post('/quiz-attempts', async (req: Request, res: Response): Promise<void> => {
-  const userId = getUserId(req);
+router.post('/quiz-attempts', authenticate, async (req: Request, res: Response): Promise<void> => {
+  const userId = req.userId; // Get userId from authenticated request
   const { quizId, score, passed, topic } = req.body; // Include topic from frontend
   if (!topic) {
     res.status(400).json({ message: 'Topic is required.' });
     return;
   }
+  
+  const db = getDb();
+  if (!db) {
+    res.status(500).json({ message: 'Database connection not available.' });
+    return;
+  }
+  
   const today = new Date().toISOString().split('T')[0]; // Current date (YYYY-MM-DD)
 
   try {
@@ -31,7 +37,7 @@ router.post('/quiz-attempts', async (req: Request, res: Response): Promise<void>
     const endOfDay = new Date(today);
     endOfDay.setHours(23, 59, 59, 999);
 
-    const attemptsToday = await attemptsCollection.countDocuments({
+    const attemptsToday = await db.collection('quizAttempts').countDocuments({
       userId,
       topic, // Filter by course topic
       timestamp: {
@@ -50,7 +56,7 @@ router.post('/quiz-attempts', async (req: Request, res: Response): Promise<void>
     }
 
     // Record the new attempt
-    await attemptsCollection.insertOne({
+    await db.collection('quizAttempts').insertOne({
       userId,
       topic, // Store topic with attempt
       quizId,
@@ -58,6 +64,24 @@ router.post('/quiz-attempts', async (req: Request, res: Response): Promise<void>
       passed,
       timestamp: new Date(),
     });
+
+    // Also save to user's profile
+    const user = await User.findById(userId);
+    if (user) {
+      // Add topic to user's topics if not already present
+      if (!user.topics.includes(topic)) {
+        user.topics.push(topic);
+      }
+      
+      // Add quiz score to user's quizScores
+      user.quizScores.push({
+        topic,
+        score,
+        date: new Date()
+      });
+      
+      await user.save();
+    }
 
     res.json({
       canAttempt: true,
@@ -71,13 +95,20 @@ router.post('/quiz-attempts', async (req: Request, res: Response): Promise<void>
 });
 
 // Endpoint to check remaining attempts
-router.get('/quiz-attempts', async (req: Request, res: Response): Promise<void> => {
-  const userId = getUserId(req);
+router.get('/quiz-attempts', authenticate, async (req: Request, res: Response): Promise<void> => {
+  const userId = req.userId; // Get userId from authenticated request
   const topic = req.query.topic as string; // Get topic from query
   if (!topic) {
     res.status(400).json({ message: 'Topic is required.' });
     return;
   }
+  
+  const db = getDb();
+  if (!db) {
+    res.status(500).json({ message: 'Database connection not available.' });
+    return;
+  }
+  
   const today = new Date().toISOString().split('T')[0];
 
   try {
@@ -85,7 +116,7 @@ router.get('/quiz-attempts', async (req: Request, res: Response): Promise<void> 
     const endOfDay = new Date(today);
     endOfDay.setHours(23, 59, 59, 999);
 
-    const attemptsToday = await attemptsCollection.countDocuments({
+    const attemptsToday = await db.collection('quizAttempts').countDocuments({
       userId,
       topic, // Filter by course topic
       timestamp: {
