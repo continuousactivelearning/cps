@@ -8,7 +8,7 @@ export async function generatePrerequisites(topic: string): Promise<string[]> {
       'https://openrouter.ai/api/v1/chat/completions',
       {
         model: 'openai/gpt-4o',
-        max_tokens: 200, // ✅ Limit token usage to fit free plan
+        max_tokens: 100, // ✅ Limit token usage to fit free plan
         messages: [
           {
             role: 'user',
