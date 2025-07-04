@@ -28,7 +28,7 @@ sys.path.append(str(current_dir / "dynamic"))
 
 try:
     from real_graph_analyzer import RealGraphLearningAnalyzer
-    from ollama_dsa_yt import YouTubeResourceFinder
+    from groq_dsa_yt import YouTubeResourceFinder
 except ImportError as e:
     print(f"Import error: {e}")
     print("Trying alternative imports...")
@@ -37,7 +37,7 @@ except ImportError as e:
         sys.path.append(str(current_dir / "static" / "graph"))
         sys.path.append(str(current_dir / "dynamic"))
         from real_graph_analyzer import RealGraphLearningAnalyzer
-        from ollama_dsa_yt import YouTubeResourceFinder
+        from groq_dsa_yt import YouTubeResourceFinder
     except ImportError as e2:
         print(f"Alternative import error: {e2}")
         print("Please ensure real_graph_analyzer.py and ollama_dsa_yt.py are in the correct locations")
