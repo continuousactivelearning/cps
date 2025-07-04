@@ -272,7 +272,7 @@ export const ChatContainer: React.FC = () => {
   return (
     <div className="h-screen bg-gray-50 dark:bg-gray-950">
       {/* Fixed Header */}
-      <div className="fixed top-0 left-0 right-0 z-30">
+      <div className="fixed top-0 right-0 left-0 z-30">
         <Header />
       </div>
       <div className="flex h-full">
@@ -287,7 +287,7 @@ export const ChatContainer: React.FC = () => {
         />
         {/* Chat Area */}
         <div
-          className="flex-1 flex flex-col fixed top-0 bottom-0 right-0 transition-all duration-300"
+          className="flex fixed top-0 right-0 bottom-0 flex-col flex-1 transition-all duration-300"
           style={{
             left: sidebarCollapsed ? '4rem' : '16rem', // 4rem (64px) when collapsed, 16rem (256px) when expanded
             paddingTop: HEADER_HEIGHT,
@@ -299,7 +299,8 @@ export const ChatContainer: React.FC = () => {
         >
           {/* Scrollable Messages Area */}
           <div
-            className="flex-1 overflow-y-auto px-4 py-6 max-w-4xl mx-auto w-full"
+            className="overflow-y-auto flex-1 px-4 py-6 mx-auto w-full max-w-4xl"
+
             style={{
               paddingBottom: FOOTER_HEIGHT,
             }}
@@ -314,10 +315,11 @@ export const ChatContainer: React.FC = () => {
             {isTyping && (
               <div className="flex justify-start mb-4">
                 <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center">
-                    <div className="w-4 h-4 rounded-full bg-white animate-pulse" />
+
+                  <div className="flex flex-shrink-0 justify-center items-center w-8 h-8 text-white bg-green-600 rounded-full">
+                    <div className="w-4 h-4 bg-white rounded-full animate-pulse" />
                   </div>
-                  <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl px-4 py-3">
+                  <div className="px-4 py-3 bg-white rounded-2xl border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                     <TypingIndicator />
                   </div>
                 </div>
@@ -327,7 +329,8 @@ export const ChatContainer: React.FC = () => {
           </div>
           {/* Footer is now fixed at the bottom of the window */}
           <div
-            className="fixed bottom-0 right-0 z-30 w-full"
+
+            className="fixed right-0 bottom-0 z-30 w-full"
             style={{
               left: sidebarCollapsed ? '4rem' : '16rem',
               height: `${FOOTER_HEIGHT}px`,
@@ -336,8 +339,9 @@ export const ChatContainer: React.FC = () => {
               transition: 'left 0.3s, width 0.3s',
             }}
           >
-            <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 px-4 py-3 h-full flex items-center">
-              <div className="max-w-4xl mx-auto w-full">
+
+            <div className="flex items-center px-4 py-3 h-full bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+              <div className="mx-auto w-full max-w-4xl">
                 <MessageInput
                   onSendMessage={handleSendMessage}
                   disabled={isTyping}

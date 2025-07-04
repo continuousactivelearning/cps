@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from queryHandling.dynamic.groq_dsa_yt import generate_response, YouTubeResourceFinder  # Adjust import path
 from queryHandling.integrated_chat_handler import IntegratedChatHandler
 from typing import List, Dict, Optional
 

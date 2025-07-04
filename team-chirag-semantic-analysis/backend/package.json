@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+
     "start": "node index.js",
     "build": "tsc",
     "dev": "nodemon --watch . --ext ts --exec ts-node index.ts",
@@ -20,6 +21,7 @@
     "dotenv": "^17.0.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+   
     "mongoose": "^8.16.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0"
@@ -31,6 +33,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^24.0.10",
+
     "@types/passport": "^1.0.17",
     "@types/passport-google-oauth20": "^2.0.16",
     "nodemon": "^3.1.10",
