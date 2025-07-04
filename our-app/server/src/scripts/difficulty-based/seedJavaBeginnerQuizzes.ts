@@ -14,7 +14,7 @@ const seedJavaBeginnerQuizzes = async () => {
         // Get all required courses
         const courses = await Course.find({
             courseName: {
-                $in: ['Arrays', 'Linked Lists', 'Matrices', 'Queues',
+                $in: ['Arrays', 'LinkedLists', 'Matrices', 'Queues',
                     'Recursion', 'Stacks', 'Strings']
             }
         });
@@ -27,7 +27,7 @@ const seedJavaBeginnerQuizzes = async () => {
         // Map of quiz data to their corresponding course titles
         const quizzesByCourse = {
             'Arrays': arraysQuiz,
-            'Linked Lists': linkedListsQuiz,
+            'LinkedLists': linkedListsQuiz,
             'Matrices': matricesQuiz,
             'Queues': queuesQuiz,
             'Recursion': recursionQuiz,

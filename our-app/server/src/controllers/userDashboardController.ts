@@ -105,9 +105,9 @@ export const getUserDashboard = async (req: Request, res: Response) => {
 // Helper function to get suggested topics based on user level
 function getSuggestedTopics(level: string, courses: any[]): string[] {
     const topicMap = {
-        beginner: ['Arrays', 'Strings', 'Basic Data Structures'],
-        intermediate: ['Linked Lists', 'Stacks', 'Queues', 'Recursion'],
-        advanced: ['Matrices', 'Advanced Algorithms', 'Complex Data Structures']
+        beginner: ['Arrays', 'Strings', 'BasicDataStructures'],
+        intermediate: ['LinkedLists', 'Stacks', 'Queues', 'Recursion'],
+        advanced: ['Matrices', 'AdvancedAlgorithms', 'ComplexDataStructures']
     };
 
     const completedTopics = courses
@@ -291,7 +291,7 @@ export const reviewQuiz = async (req: Request, res: Response) => {
             const quizDoc = quiz.quizId as any;
             return quizDoc &&
                 quizDoc.lang === lang &&
-                quizDoc.quizLevel === quizLevel && 
+                quizDoc.quizLevel === quizLevel &&
                 quizDoc.topic.courseName === topic;
         });
 
@@ -394,9 +394,9 @@ export const createAssessment = async (req: Request, res: Response) => {
 // Helper function to analyze prerequisites
 function analyzePrerequisites(completedCourses: string[], targetCourse: string): string[] {
     const coursePrerequisites: { [key: string]: string[] } = {
-        'Advanced Algorithms': ['Arrays', 'Linked Lists', 'Recursion'],
-        'Complex Data Structures': ['Stacks', 'Queues', 'Matrices'],
-        'System Design': ['Basic Data Structures', 'Algorithms']
+        'AdvancedAlgorithms': ['Arrays', 'LinkedLists', 'Recursion'],
+        'ComplexDataStructures': ['Stacks', 'Queues', 'Matrices'],
+        'SystemDesign': ['BasicDataStructures', 'Algorithms']
     };
 
     const required = coursePrerequisites[targetCourse] || [];

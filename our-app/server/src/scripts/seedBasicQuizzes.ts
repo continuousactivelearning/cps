@@ -47,15 +47,15 @@ async function seedBasicQuizzes() {
     const [language, level] = key.split("_");
     const capitalizedLang = language === 'cpp' ? 'C++' : language.charAt(0).toUpperCase() + language.slice(1);
     const capitalizedLevel = level.charAt(0).toUpperCase() + level.slice(1);
-    
+
     await Quiz.create({
       title: `${capitalizedLang} Basic Quiz - ${capitalizedLevel}`,
-      quizLevel: level, // beginner, intermediate, advanced
-      lang: language, // cpp, java, python, javascript
+      quizLevel: level,
+      lang: language,
       description: `This quiz covers ${level} concepts in ${capitalizedLang}.`,
-      topic: { 
-        courseID: new mongoose.Types.ObjectId(), // Generate ObjectId as required
-        courseName: "basic" 
+      topic: {
+        courseID: new mongoose.Types.ObjectId(),
+        courseName: "basic"
       },
       questions: grouped[key],
     });
