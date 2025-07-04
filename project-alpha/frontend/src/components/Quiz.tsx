@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
 
 type MCQ = {
   id: string;
@@ -23,9 +24,11 @@ type Props = {
   attemptsToday: number;
   quizPassed: boolean;
   topic: string;
+  onLearningPathGenerated?: () => void;
+  onBackToHome?: () => void;
 };
 
-const Quiz: React.FC<Props> = ({ mcqs, quizId, onRestartQuiz, onSubmitQuiz, canAttempt, attemptsToday, quizPassed, topic }) => {
+const Quiz: React.FC<Props> = ({ mcqs, quizId, onRestartQuiz, onSubmitQuiz, canAttempt, attemptsToday, quizPassed, topic, onLearningPathGenerated, onBackToHome }) => {
   const [userAnswers, setUserAnswers] = useState<string[]>(() => Array(mcqs.length).fill(''));
   const [submitted, setSubmitted] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -421,12 +424,15 @@ const Quiz: React.FC<Props> = ({ mcqs, quizId, onRestartQuiz, onSubmitQuiz, canA
 
     setLearningPathLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/learning-path', {
+      const res = await axios.post(API_ENDPOINTS.LEARNING_PATH, {
         topic,
         scorePercentage: getScorePercentage(),
         weeks,
       });
       setLearningPath(res.data.learningPath);
+      if (onLearningPathGenerated) {
+        onLearningPathGenerated();
+      }
     } catch (err) {
       console.error('Error fetching learning path:', err);
       alert('Failed to generate learning path. Please try again.');
@@ -459,6 +465,7 @@ const Quiz: React.FC<Props> = ({ mcqs, quizId, onRestartQuiz, onSubmitQuiz, canA
   return (
     <div
       ref={quizRef}
+      className="quiz-container"
       style={{
         padding: isFullScreen ? '40px' : '20px',
         background: currentTheme.quizBackground,
@@ -673,6 +680,34 @@ const Quiz: React.FC<Props> = ({ mcqs, quizId, onRestartQuiz, onSubmitQuiz, canA
                     </ul>
                   </div>
                 ))}
+              </div>
+
+              {/* Back to Dashboard Button */}
+              <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                <button
+                  onClick={onBackToHome}
+                  style={{
+                    padding: '15px 30px',
+                    backgroundColor: currentTheme.buttonPrimary,
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    fontSize: '18px',
+                    fontWeight: 'bold',
+                    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.boxShadow = currentTheme.boxShadow;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  🏠 Back to Dashboard
+                </button>
               </div>
             </div>
           )}
@@ -1446,6 +1481,239 @@ const Quiz: React.FC<Props> = ({ mcqs, quizId, onRestartQuiz, onSubmitQuiz, canA
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Responsiveness for Quiz Component */
+
+        /* Small Mobile (0-479px) */
+        @media (max-width: 479px) {
+          .quiz-container {
+            padding: 16px !important;
+            margin: 0 !important;
+          }
+
+          .quiz-header {
+            padding: 16px !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+            align-items: flex-start !important;
+          }
+
+          .quiz-header h1 {
+            font-size: 18px !important;
+            margin-bottom: 8px !important;
+          }
+
+          .quiz-timer {
+            font-size: 14px !important;
+            padding: 8px 12px !important;
+          }
+
+          .quiz-progress {
+            font-size: 14px !important;
+            margin-bottom: 16px !important;
+          }
+
+          .quiz-question {
+            padding: 16px !important;
+            margin-bottom: 16px !important;
+          }
+
+          .quiz-question h3 {
+            font-size: 16px !important;
+            margin-bottom: 12px !important;
+            line-height: 1.4 !important;
+          }
+
+          .quiz-options {
+            gap: 8px !important;
+          }
+
+          .quiz-option {
+            padding: 12px !important;
+            font-size: 14px !important;
+            min-height: 44px !important;
+            text-align: left !important;
+          }
+
+          .quiz-navigation {
+            flex-direction: column !important;
+            gap: 12px !important;
+            padding: 16px !important;
+          }
+
+          .quiz-navigation button {
+            width: 100% !important;
+            padding: 12px !important;
+            font-size: 16px !important;
+            min-height: 44px !important;
+          }
+
+          .quiz-results {
+            padding: 16px !important;
+            margin: 16px 0 !important;
+          }
+
+          .quiz-results h2 {
+            font-size: 20px !important;
+            margin-bottom: 12px !important;
+          }
+
+          .quiz-score {
+            font-size: 24px !important;
+            margin-bottom: 16px !important;
+          }
+
+          .learning-path-input {
+            width: 100% !important;
+            padding: 12px !important;
+            font-size: 16px !important;
+            margin-bottom: 16px !important;
+          }
+
+          .learning-path-button {
+            width: 100% !important;
+            padding: 12px !important;
+            font-size: 16px !important;
+            min-height: 44px !important;
+          }
+
+          .learning-path-week {
+            padding: 12px !important;
+            margin-bottom: 12px !important;
+          }
+
+          .learning-path-week h4 {
+            font-size: 16px !important;
+            margin-bottom: 8px !important;
+          }
+
+          .modal-content {
+            width: 95% !important;
+            max-width: 95% !important;
+            margin: 20px auto !important;
+            padding: 16px !important;
+          }
+
+          .modal-header {
+            padding: 16px !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+          }
+
+          .modal-body {
+            padding: 16px !important;
+          }
+
+          .fullscreen-warning {
+            padding: 16px !important;
+            font-size: 14px !important;
+          }
+        }
+
+        /* Large Mobile (480-767px) */
+        @media (min-width: 480px) and (max-width: 767px) {
+          .quiz-container {
+            padding: 24px !important;
+          }
+
+          .quiz-header {
+            padding: 20px !important;
+            flex-wrap: wrap !important;
+          }
+
+          .quiz-header h1 {
+            font-size: 20px !important;
+          }
+
+          .quiz-question {
+            padding: 20px !important;
+          }
+
+          .quiz-question h3 {
+            font-size: 18px !important;
+          }
+
+          .quiz-option {
+            padding: 14px !important;
+            font-size: 15px !important;
+          }
+
+          .quiz-navigation {
+            flex-direction: row !important;
+            flex-wrap: wrap !important;
+            gap: 16px !important;
+          }
+
+          .quiz-navigation button {
+            flex: 1 !important;
+            min-width: 120px !important;
+          }
+
+          .modal-content {
+            width: 90% !important;
+            max-width: 500px !important;
+          }
+        }
+
+        /* Tablet (768-1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .quiz-container {
+            padding: 32px !important;
+          }
+
+          .quiz-header {
+            padding: 24px !important;
+          }
+
+          .quiz-question {
+            padding: 24px !important;
+          }
+
+          .quiz-navigation {
+            gap: 20px !important;
+          }
+
+          .modal-content {
+            width: 85% !important;
+            max-width: 600px !important;
+          }
+        }
+
+        /* Touch optimizations for mobile */
+        @media (max-width: 768px) {
+          button, .clickable {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            min-width: 44px;
+            min-height: 44px;
+          }
+
+          button:active, .clickable:active {
+            transform: scale(0.98);
+            transition: transform 0.1s ease;
+          }
+
+          input, textarea, select {
+            font-size: 16px; /* Prevents zoom on iOS */
+            -webkit-appearance: none;
+            border-radius: 8px;
+          }
+
+          .scrollable-content {
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+          }
+
+          .quiz-fullscreen {
+            padding: 16px !important;
+          }
+
+          .quiz-warning {
+            padding: 12px !important;
+            font-size: 14px !important;
+            text-align: center !important;
+          }
         }
       `}</style>
     </div>
