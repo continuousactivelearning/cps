@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Upload, FileText, AlertCircle, CheckCircle, BookOpen, Loader, X } from 'lucide-react';
 import { apiService } from '../services/submitConcernService'; 
-import type { Topic, UserProfile } from '../interface/types';
-import { useNavigate } from 'react-router-dom';
+import type { Topic } from '../interface/types';
 
 interface SubmitConcernPageProps {
   enrolledUnder?: string;
@@ -25,7 +24,6 @@ const SubmitConcernPage: React.FC<SubmitConcernPageProps> = ({
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [dragActive, setDragActive] = useState(false);
 
-  const navigate = useNavigate();
 
   const handleTopicChange = (value: string) => {
     setSelectedTopicId(value);

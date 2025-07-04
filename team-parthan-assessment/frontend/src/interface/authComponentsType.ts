@@ -3,16 +3,16 @@ import type { Dispatch,SetStateAction } from "react";
 export interface FormData {
   email: string;
   password: string;
-  role: string; // 'student' | 'instructor'
+  role?: string; // 'student' | 'instructor'
   confirmPassword?: string;
   name?: string;
 }
 export interface signupFormData {
+  name: string;
   email: string;
+  role: string;
   password: string;
   confirmPassword: string;
-  name: string;
-  role: string; // 'student' | 'instructor'
 }
 
 

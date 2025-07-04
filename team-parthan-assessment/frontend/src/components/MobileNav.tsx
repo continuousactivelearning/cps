@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, Menu, RotateCcw, User } from 'lucide-react';
+import { Menu} from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -33,7 +33,6 @@ const MobileNav: React.FC<MobileNavProps> = ({
   showUploadConcern,
   setShowUploadConcern,
   statusMessage,
-  setStatusMessage,
   setUserProfile
 }) => {
   return (

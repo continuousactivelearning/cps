@@ -17,9 +17,6 @@ import {
 } from "./ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { getDetails, uploadPhoto } from "../services/detailService";
-import { useTheme } from "./ThemeProvider";
-import api from "../services/api";
-
 interface UserProfile {
   name: string;
   email: string;
@@ -38,7 +35,7 @@ const UserProfileDropdown: React.FC = () => {
   const navigate = useNavigate();
 
   const [userProfile, setUserProfile] = useState<UserProfile>({
-    name: "",
+    name: "Profile",
     email: "",
     avatar: "",
     masteredTopics: 3,

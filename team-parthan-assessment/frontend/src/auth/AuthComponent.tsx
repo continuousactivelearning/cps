@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { z } from 'zod';
 import { Eye, EyeOff, Mail, Lock, User, AlertCircle } from 'lucide-react';
 import { loginSchema, signupSchema } from '../schema/userSchema';
-import type { FormData, AuthComponentProps } from '../interface/authComponentsType';
+import type { FormData, AuthComponentProps, signupFormData } from '../interface/authComponentsType';
 import {
   Dialog,
   DialogContent,
@@ -32,11 +32,22 @@ const AuthComponent: React.FC<AuthComponentProps> = ({
     confirmPassword: '',
     name: ''
   });
+  const [signUpFormData, setSignUpFormData] = useState<signupFormData>({
+    email: '',
+    password: '',
+    role: '',
+    confirmPassword: '',
+    name: ''
+  });
   const [forgotOpen,setForgotOpen]=useState(false);
 
   const handleInputChange = ( e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    setSignUpFormData(prev => ({
       ...prev,
       [name]: value
     }));
@@ -71,29 +82,25 @@ const AuthComponent: React.FC<AuthComponentProps> = ({
 
   try {
     // Prepare the data to send based on login/signup mode
-    const dataToSend = isLogin 
-      ? { email: formData.email, password: formData.password }
-      : { 
-          name: formData.name, 
-          email: formData.email, 
-          role: formData.role,
-          password: formData.password,
-          confirmPassword: formData.confirmPassword 
-        };
-
     if (isLogin) {
       // Call onLogin with only the required fields
-      const response = await onLogin?.(dataToSend);
+      const response = await onLogin?.({ email: formData.email, password: formData.password });
       // Store the token if the response contains one
       if (response?.token) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('role', response.role || 'student');
       }
       const target = response?.role === 'instructor' ? '/instructor' : '/home';
-    navigate(target);
+      navigate(target);
     } else {
-      // Call onSignup with all signup fields
-      const response = await onSignup?.(dataToSend);
+      // Always pass a valid signupFormData object
+      const response = await onSignup?.({
+        name: signUpFormData.name,
+        email: signUpFormData.email,
+        role: signUpFormData.role,
+        password: signUpFormData.password,
+        confirmPassword: signUpFormData.confirmPassword
+      });
       // Store the token if the response contains one
       if (response?.token) {
         localStorage.setItem('token', response.token);
