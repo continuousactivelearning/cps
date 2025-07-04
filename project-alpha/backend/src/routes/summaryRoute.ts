@@ -1,8 +1,8 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import axios from 'axios';
 const router = express.Router();
 
-router.post('/topic-summary', async (req, res) => {
+router.post('/topic-summary', async (req: Request, res: Response): Promise<void> => {
   const { topic, mainTopic } = req.body;
 
   try {
@@ -10,7 +10,7 @@ router.post('/topic-summary', async (req, res) => {
       'https://openrouter.ai/api/v1/chat/completions',
       {
         model: 'openai/gpt-4o',
-        max_tokens: 300,
+        max_tokens: 200,
         messages: [
           {
             role: 'user',
