@@ -18,7 +18,7 @@ const app = express();
 // app.use(cors());
 app.use(cors(
   {
-    origin: 'https://cps-ten.vercel.app/', // Adjust this to your frontend URL
+    origin: 'https://cps-ten.vercel.app', // Adjust this to your frontend URL
     credentials: true, // Allow credentials if needed
   }
 ));
