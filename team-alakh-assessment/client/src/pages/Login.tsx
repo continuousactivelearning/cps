@@ -1,9 +1,9 @@
-//developed by :@AlakhMathur
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import api from "../services/api";
 import WaterRippleBackground from "../components/WaterRippleBackground";
+import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -31,19 +31,65 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await api.post('/api/auth/google', {
+        token: credentialResponse.credential,
+      });
+      const { token } = response.data;
+
+      localStorage.setItem('token', token);
+      navigate('/dashboard');
+    } catch {
+      setError('Google login failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleError = () => {
+    setError('Google login failed');
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center relative">
       <WaterRippleBackground />
       <div className="absolute inset-0 flex items-center justify-center z-10">
         <div className="bg-white/70 dark:bg-gray-900/80 backdrop-blur-xl rounded-3xl shadow-2xl p-10 w-full max-w-md border border-gray-200/60 dark:border-gray-700 flex flex-col items-center">
           <h1 className="text-4xl font-extrabold text-white mb-8 text-center drop-shadow-[0_0_24px_#60a5fa]">Sign In</h1>
+          
+          {/* Google Login Button */}
+          <div className="w-full mb-6">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+              useOneTap
+              size="large"
+              shape="pill"
+              theme="filled_blue"
+              text="continue_with"
+            />
+          </div>
+
+          <div className="relative w-full mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white/70 dark:bg-gray-900/80 text-gray-500 dark:text-gray-400">
+                Or sign in with email
+              </span>
+            </div>
+          </div>
+
+          {/* Rest of your login form */}
           <form onSubmit={handleLogin} className="space-y-6 w-full">
             {/* Email Field */}
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -64,10 +110,7 @@ const Login: React.FC = () => {
 
             {/* Password Field */}
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-              >
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Password
               </label>
               <div className="relative">
@@ -116,15 +159,23 @@ const Login: React.FC = () => {
                   <span>Signing In...</span>
                 </div>
               ) : (
-                "Sign In"
+                'Sign In'
               )}
             </button>
           </form>
 
-          {/* Register Link */}
+          <div className="mt-6 text-center">
+            <Link
+              to="/forgot-password"
+              className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"
+            >
+              Forgot password?
+            </Link>
+          </div>
+
           <div className="mt-6 text-center">
             <p className="text-gray-600 dark:text-gray-400">
-              Don't have an account?{" "}
+              Don't have an account?{' '}
               <Link
                 to="/register"
                 className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium transition-colors"

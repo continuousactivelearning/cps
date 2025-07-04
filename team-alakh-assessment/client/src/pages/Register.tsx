@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, BookOpen, ArrowLeft, CheckCircle } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, CheckCircle } from 'lucide-react';
 import api from '../services/api';
 import WaterRippleBackground from "../components/WaterRippleBackground";
-
+import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
+//fixed bugs in register page
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -54,6 +55,25 @@ const Register: React.FC = () => {
       } else {
         setError('Registration failed. Try again.');
       }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async (credentialResponse: CredentialResponse) => {
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await api.post('/api/auth/google', {
+        token: credentialResponse.credential,
+      });
+      const { token } = response.data;
+
+      localStorage.setItem('token', token);
+      navigate('/dashboard');
+    } catch {
+      setError('Google registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -189,6 +209,31 @@ const Register: React.FC = () => {
               )}
             </button>
           </form>
+
+          {/* Google Sign-In */}
+          <div className="mt-6 w-full">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white/70 dark:bg-gray-900/80 text-gray-500 dark:text-gray-400">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-center">
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={() => setError('Google registration failed')}
+                useOneTap
+                size="large"
+                shape="pill"
+                theme="filled_blue"
+              />
+            </div>
+          </div>
 
           {/* Login Link */}
           <p className="mt-6 text-white/80 text-center">
