@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import { Course } from '../models/course.js';
-import { jwtMiddleware } from '../middleware/jwt.js';
-import { requireRole } from '../middleware/roleMiddleware.js';
+import { Course } from '../models/course';
+import { jwtMiddleware } from '../middleware/jwt';
+import { requireRole } from '../middleware/roleMiddleware';
 // import  from 'slugify';
 // const slugify = require('slugify');
 

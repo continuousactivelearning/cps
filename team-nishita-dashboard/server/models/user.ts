@@ -1,5 +1,6 @@
 import mongoose, { Document } from 'mongoose';
-interface IUser extends Document {
+
+export interface IUser extends Document {
   username: string;
   password: string;
   role: 'user' | 'admin';
@@ -8,7 +9,7 @@ interface IUser extends Document {
   loginDays: Date[];
   currentStreak: number;
   totalPoints: number;
-};
+}
 
 const userSchema = new mongoose.Schema<IUser>({
   username: { type: String, required: true, unique: true },
@@ -21,4 +22,4 @@ const userSchema = new mongoose.Schema<IUser>({
   totalPoints: { type: Number, default: 0 }
 })
 
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.model<IUser>('User', userSchema);

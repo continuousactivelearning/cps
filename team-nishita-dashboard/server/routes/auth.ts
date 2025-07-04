@@ -1,8 +1,9 @@
+import express from 'express'
 import { Router, Request, Response, NextFunction } from 'express'
-import { User } from '../models/user.js';
-import { JWTPayload, tokenGeneration } from '../middleware/jwt.js'
+import { User } from '../models/user'
+import { JWTPayload, tokenGeneration } from '../middleware/jwt'
 import * as bcrypt from 'bcryptjs'
-import { updateStreak } from '../utils/streakUpdate.js'
+import { updateStreak } from '../utils/streakUpdate'
 const SALT = 10;
 export const authRouter = Router();
 

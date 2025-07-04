@@ -1,4 +1,4 @@
-import { User } from '../models/user.js'
+import { User } from '../models/user';
 export async function updateStreak(username: string): Promise<number> {
   const user = await User.findOne({ username });
   if (!user) {

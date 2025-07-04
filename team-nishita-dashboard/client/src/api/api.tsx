@@ -64,6 +64,34 @@ export interface Course {
   updatedAt: string;
 }
 
+export interface ProgressSummary {
+  totalLessonsCompleted: number;
+  totalQuizzesTaken: number;
+  totalStudyTime: number;
+  totalPointsEarned: number;
+  totalCheckIns: number;
+  currentStreak: number;
+  totalPoints: number;
+  loginStreak: number;
+}
+
+export interface DailyProgress {
+  _id: string;
+  lessonsCompleted: number;
+  quizzesTaken: number;
+  studyTime: number;
+  pointsEarned: number;
+  checkIns: number;
+}
+
+export interface ProgressUpdate {
+  lessonsCompleted?: number;
+  quizzesTaken?: number;
+  studyTime?: number;
+  pointsEarned?: number;
+  isCheckedIn?: boolean;
+}
+
 export interface CourseResponse {
   message: string;
   course: Course;
@@ -105,6 +133,22 @@ export const getCourseById = (courseId: number): Promise<{ data: { course: Cours
 
 export const deleteCourse = (courseId: number): Promise<{ data: { message: string } }> =>
   api.delete(`/courses/${courseId}`);
+
+// Progress API functions
+export const getProgressSummary = (): Promise<{ data: { summary: ProgressSummary } }> =>
+  api.get('/progress/summary');
+
+export const getWeeklyProgress = (): Promise<{ data: { weeklyProgress: any[] } }> =>
+  api.get('/progress/weekly');
+
+export const getMonthlyProgress = (): Promise<{ data: { monthlyProgress: any[] } }> =>
+  api.get('/progress/monthly');
+
+export const getProgressStats = (): Promise<{ data: { dailyStats: DailyProgress[] } }> =>
+  api.get('/progress/stats');
+
+export const updateProgress = (progressData: ProgressUpdate): Promise<{ data: { message: string; progress: any } }> =>
+  api.post('/progress/update', progressData);
 
 // Utility functions
 export const getCurrentUser = (): User | null => {

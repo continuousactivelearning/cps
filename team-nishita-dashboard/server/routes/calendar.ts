@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { User } from '../models/user.js';
-import { jwtMiddleware } from '../middleware/jwt.js';
+import { jwtMiddleware } from '../middleware/jwt';
 import { requireRole } from '../middleware/roleMiddleware.js'
 import { timeStamp } from 'console';
 
