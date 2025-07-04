@@ -5,7 +5,7 @@ import { BookOpen, FileText, CheckCircle, XCircle } from 'lucide-react';
 import { FaUserGraduate } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import WaterRippleBackground from '../components/WaterRippleBackground';
-
+import { APIURL } from '../services/api';
 const PAGE_SIZE = 20;
 
 const InstructorAssessmentTracking: React.FC = () => {
@@ -31,7 +31,7 @@ const InstructorAssessmentTracking: React.FC = () => {
       setError('');
       try {
         const token = localStorage.getItem('instructorToken');
-        const res = await axios.get('https://assessment-o61q.onrender.com/api/instructor/assessment-histories', {
+        const res = await axios.get(`${APIURL}/api/instructor/assessment-histories`, {
           params: { q: debounced, page, limit: PAGE_SIZE },
           headers: { Authorization: `Bearer ${token}` },
         });

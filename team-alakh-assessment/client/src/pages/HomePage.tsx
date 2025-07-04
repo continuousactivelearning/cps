@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import ThemeToggle from "../components/ThemeToggle";
 import WaterRippleBackground from "../components/WaterRippleBackground";
-
+import { APIURL } from "../services/api";
 const features = [
   {
     icon: GitBranch,
@@ -252,12 +252,10 @@ const HomePage: React.FC = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
       try {
-        const res = await fetch(
-          "https://assessment-o61q.onrender.com/api/user/passed",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+
+        const res = await fetch(`${APIURL}/api/user/passed`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         const data = await res.json();
         setUserEmail(data.email || null);
       } catch (err) {
@@ -267,9 +265,9 @@ const HomePage: React.FC = () => {
     fetchEmail();
     const fetchStats = async () => {
       try {
-        const res = await fetch(
-          "https://assessment-o61q.onrender.com/api/instructor/public-stats"
-        );
+
+        const res = await fetch(`${APIURL}/api/instructor/public-stats`);
+
         const data = await res.json();
         setStats({
           students: data.studentsCount || 0,

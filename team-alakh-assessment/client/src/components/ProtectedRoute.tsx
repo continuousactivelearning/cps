@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { APIURL } from '../services/api';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -21,7 +22,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, isInstructor 
         return;
       }
       try {
-        const endpoint = isInstructor ? 'https://assessment-o61q.onrender.com/api/instructor/verify' : 'https://assessment-o61q.onrender.com/api/auth/verify';
+        const endpoint = isInstructor ? `${APIURL}/api/instructor/verify` : `${APIURL}/api/auth/verify`;
         const url = endpoint.startsWith('http') ? endpoint : endpoint;
         const response = await fetch(url, {
           method: 'GET',

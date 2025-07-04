@@ -1582,7 +1582,9 @@ import {
   HelpCircle,
   FileText,
 } from "lucide-react";
+
 import api, {
+  APIURL,
   addToSearchHistory,
   getSearchHistory,
   getPrerequisites,
@@ -2099,11 +2101,10 @@ const Dashboard: React.FC = () => {
 
   const fetchMyQueries = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get(
-        "https://assessment-o61q.onrender.com/api/query/my",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+
+      const token = localStorage.getItem('token');
+      const res = await axios.get(`${APIURL}/api/query/my`, { headers: { Authorization: `Bearer ${token}` } });
+
       setMyQueries(res.data);
     } catch {
       console.log("Failed to fetch queries.");
@@ -2123,16 +2124,15 @@ const Dashboard: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       const formData = new FormData();
-      formData.append("content", queryContent);
-      queryFiles.forEach((f) => formData.append("attachments", f));
-      await axios.post(
-        "https://assessment-o61q.onrender.com/api/query",
-        formData,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setQueryToastMsg("Query sent!");
-      setQueryToastType("success");
-      setQueryContent("");
+
+     
+      formData.append('content', queryContent);
+      queryFiles.forEach(f => formData.append('attachments', f));
+      await axios.post(`${APIURL}/api/query`, formData, { headers: { Authorization: `Bearer ${token}` } });
+      setQueryToastMsg('Query sent!');
+      setQueryToastType('success');
+      setQueryContent('');
+
       setQueryFiles([]);
       fetchMyQueries();
       setTimeout(() => {
@@ -2148,14 +2148,12 @@ const Dashboard: React.FC = () => {
   };
   const handleCloseQuery = async (id: string) => {
     try {
-      const token = localStorage.getItem("token");
-      await axios.post(
-        `https://assessment-o61q.onrender.com/api/query/${id}/close`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setQueryToastMsg("Query deleted.");
-      setQueryToastType("success");
+
+      const token = localStorage.getItem('token');
+      await axios.post(`${APIURL}/api/query/${id}/close`, {}, { headers: { Authorization: `Bearer ${token}` } });
+      setQueryToastMsg('Query deleted.');
+      setQueryToastType('success');
+
       fetchMyQueries();
       setTimeout(() => setQueryToastMsg(""), 2000);
     } catch {

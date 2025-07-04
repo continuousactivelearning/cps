@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import WaterRippleBackground from "../components/WaterRippleBackground";
+import { APIURL } from "../services/api";
 
 // Animated Counter Component (copied from HomePage)
 const AnimatedCounter: React.FC<{ value: number; duration?: number }> = ({ value, duration = 2 }) => {
@@ -40,7 +41,7 @@ const InstructorGreeting: React.FC = () => {
     });
     const fetchStats = async () => {
       try {
-        const res = await fetch("https://assessment-o61q.onrender.com/api/instructor/public-stats");
+        const res = await fetch(`${APIURL}/api/instructor/public-stats`);
         const data = await res.json();
         setStats({
           students: data.studentsCount || 0,
