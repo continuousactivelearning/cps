@@ -15,7 +15,13 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+// app.use(cors());
+app.use(cors(
+  {
+    origin: 'https://cps-ten.vercel.app/', // Adjust this to your frontend URL
+    credentials: true, // Allow credentials if needed
+  }
+));
 app.use(express.json());
 
 // Routes
