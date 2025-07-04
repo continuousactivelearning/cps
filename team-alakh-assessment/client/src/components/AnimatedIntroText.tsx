@@ -24,7 +24,7 @@ const AnimatedIntroText: React.FC = () => {
       <h2
         className="
           text-center
-          text-2xl
+          text-lg
           md:text-3xl
           lg:text-4xl
           font-sans
