@@ -14,13 +14,8 @@ load_dotenv()
 SERP_API_KEY = os.getenv("SERP_API_KEY")
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
-# Check if API keys are properly configured
-API_KEYS_CONFIGURED = bool(SERP_API_KEY and YOUTUBE_API_KEY and 
-                          SERP_API_KEY != "your_serp_api_key" and 
-                          YOUTUBE_API_KEY != "your_youtube_api_key")
-
-if not API_KEYS_CONFIGURED:
-    print("Warning: SERP_API_KEY and YOUTUBE_API_KEY not properly configured. YouTube functionality will be limited.")
+if not SERP_API_KEY or not YOUTUBE_API_KEY:
+    raise ValueError("Please set SERP_API_KEY and YOUTUBE_API_KEY in your .env file")
 
 @dataclass
 class VideoResource:
@@ -63,10 +58,6 @@ class YouTubeResourceFinder:
 
     def get_videos(self, topic: str) -> List[VideoResource]:
         """Get relevant YouTube videos for a DSA topic"""
-        if not API_KEYS_CONFIGURED:
-            print("Warning: YouTube API not configured. Returning empty video list.")
-            return []
-            
         try:
             # Construct search query
             search_terms = [topic]
