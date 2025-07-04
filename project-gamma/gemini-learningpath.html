@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Path Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .input-wrapper label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .input-wrapper input, .input-wrapper select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .input-wrapper input:focus, .input-wrapper select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-section {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .learning-path {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            border-radius: 16px;
+            padding: 30px;
+            border-left: 5px solid #667eea;
+        }
+
+        .path-header {
+            margin-bottom: 25px;
+        }
+
+        .path-title {
+            color: #2d3748;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .path-description {
+            color: #718096;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .learning-stages {
+            display: grid;
+            gap: 20px;
+        }
+
+        .stage {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .stage:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stage-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stage-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .stage-title {
+            color: #2d3748;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .stage-content {
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .stage-duration {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .key-topics {
+            margin-top: 15px;
+        }
+
+        .topic-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 12px;
+            margin: 4px 8px 4px 0;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 500;
+        }
+
+        .topic-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+        }
+
+        .topic-details {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            animation: slideDown 0.3s ease;
+        }
+
+        .topic-details.active {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .topic-details h4 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topic-sections {
+            display: grid;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .topic-section {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .topic-section h5 {
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .resource-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resource-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .resource-list li:before {
+            content: "🔗";
+            position: absolute;
+            left: 0;
+        }
+
+        .resource-list a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .resource-list a:hover {
+            text-decoration: underline;
+        }
+
+        .close-details {
+            float: right;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            color: #4a5568;
+        }
+
+        .close-details:hover {
+            background: #cbd5e0;
+        }
+
+        .loading-topic {
+            text-align: center;
+            padding: 20px;
+            color: #718096;
+        }
+
+        .loading-topic .spinner {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto 10px;
+        }
+
+        .error-message {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .api-key-section {
+            background: #fef5e7;
+            border: 1px solid #f6ad55;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .api-key-section h3 {
+            color: #c05621;
+            margin-bottom: 10px;
+        }
+
+        .api-key-section p {
+            color: #744210;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 AI Learning Path Generator</h1>
+            <p>Create personalized learning journeys powered by Google Gemini AI</p>
+        </div>
+
+        <div class="api-key-section">
+            <h3>⚙️ Setup Required</h3>
+            <p>To use this tool, you'll need a Google Gemini API key. Get your free API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a> and enter it below.</p>
+            <div class="input-wrapper">
+                <label for="apiKey">Gemini API Key:</label>
+                <input type="password" id="apiKey" placeholder="Enter your Gemini API key">
+            </div>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <label for="topic">Learning Topic:</label>
+                    <input type="text" id="topic" placeholder="e.g., Machine Learning, Web Development, Digital Marketing">
+                </div>
+                <div class="input-wrapper">
+                    <label for="level">Current Level:</label>
+                    <select id="level">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <label for="duration">Preferred Duration:</label>
+                    <select id="duration">
+                        <option value="1 month">1 Month</option>
+                        <option value="3 months">3 Months</option>
+                        <option value="6 months">6 Months</option>
+                        <option value="1 year">1 Year</option>
+                    </select>
+                </div>
+                <div class="input-wrapper">
+                    <label for="timeCommitment">Daily Time Commitment:</label>
+                    <select id="timeCommitment">
+                        <option value="30 minutes">30 minutes</option>
+                        <option value="1 hour">1 hour</option>
+                        <option value="2 hours">2 hours</option>
+                        <option value="3+ hours">3+ hours</option>
+                    </select>
+                </div>
+            </div>
+            <button class="generate-btn" onclick="generateLearningPath()">
+                Generate Learning Path 🚀
+            </button>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Generating your personalized learning path...</p>
+        </div>
+
+        <div class="result-section" id="results">
+            <div class="learning-path">
+                <div class="path-header">
+                    <h2 class="path-title" id="pathTitle"></h2>
+                    <p class="path-description" id="pathDescription"></p>
+                </div>
+                <div class="learning-stages" id="learningStages"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function generateLearningPath() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const topic = document.getElementById('topic').value.trim();
+            const level = document.getElementById('level').value;
+            const duration = document.getElementById('duration').value;
+            const timeCommitment = document.getElementById('timeCommitment').value;
+
+            // Validation
+            if (!apiKey) {
+                showError('Please enter your Gemini API key');
+                return;
+            }
+
+            if (!topic) {
+                showError('Please enter a learning topic');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            document.querySelector('.generate-btn').disabled = true;
+
+            try {
+                const learningPath = await callGeminiAPI(apiKey, topic, level, duration, timeCommitment);
+                displayLearningPath(learningPath, topic);
+            } catch (error) {
+                showError('Error generating learning path: ' + error.message);
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.querySelector('.generate-btn').disabled = false;
+            }
+        }
+
+        async function callGeminiAPI(apiKey, topic, level, duration, timeCommitment) {
+            const prompt = `Create a comprehensive learning path for "${topic}" with the following specifications:
+            - Current level: ${level}
+            - Duration: ${duration}
+            - Time commitment: ${timeCommitment} per day
+
+            Please provide a structured learning path with:
+            1. A brief overview/description
+            2. 5-7 learning stages/phases
+            3. For each stage: title, description, key concepts, estimated duration, and recommended resources
+
+            Format the response as JSON with this structure:
+            {
+                "overview": "Brief description of the learning journey",
+                "stages": [
+                    {
+                        "title": "Stage title",
+                        "description": "What you'll learn in this stage",
+                        "duration": "Estimated time for this stage",
+                        "keyTopics": ["topic1", "topic2", "topic3"]
+                    }
+                ]
+            }`;
+
+            // Try different model endpoints in order of preference
+            const modelEndpoints = [
+                'gemini-1.5-flash-latest',
+                'gemini-1.5-pro-latest',
+                'gemini-pro',
+                'gemini-1.5-flash',
+                'gemini-1.5-pro'
+            ];
+
+            let lastError = null;
+
+            for (const model of modelEndpoints) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: prompt
+                                }]
+                            }]
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const generatedText = data.candidates[0].content.parts[0].text;
+                        
+                        // Try to parse JSON from the response
+                        try {
+                            const jsonMatch = generatedText.match(/\{[\s\S]*\}/);
+                            if (jsonMatch) {
+                                return JSON.parse(jsonMatch[0]);
+                            } else {
+                                // Fallback: parse the text response manually
+                                return parseTextResponse(generatedText, topic, level, duration);
+                            }
+                        } catch (parseError) {
+                            return parseTextResponse(generatedText, topic, level, duration);
+                        }
+                    } else {
+                        const errorData = await response.json();
+                        lastError = errorData.error?.message || `Model ${model} failed`;
+                        continue; // Try next model
+                    }
+                } catch (error) {
+                    lastError = error.message;
+                    continue; // Try next model
+                }
+            }
+
+            // If all models failed, throw the last error
+            throw new Error(`All models failed. Last error: ${lastError}. Please check your API key and try again.`);
+        }
+
+        function parseTextResponse(text, topic, level, duration) {
+            // Enhanced fallback parser for non-JSON responses
+            const durationMap = {
+                '1 month': ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                '3 months': ['Month 1', 'Month 2', 'Month 3'],
+                '6 months': ['Month 1-2', 'Month 3-4', 'Month 5-6'],
+                '1 year': ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4']
+            };
+
+            const stages = durationMap[duration] || ['Phase 1', 'Phase 2', 'Phase 3', 'Phase 4'];
+            
+            return {
+                overview: `A comprehensive ${duration.toLowerCase()} learning journey for ${topic}, designed for ${level} level learners. This structured path will take you from fundamentals to advanced concepts through hands-on practice and real-world applications.`,
+                stages: [
+                    {
+                        title: "Foundation & Setup",
+                        description: `Establish a solid foundation in ${topic}. Learn essential concepts, terminology, and set up your learning environment.`,
+                        duration: stages[0] || "Phase 1",
+                        keyTopics: ["Basic concepts", "Terminology", "Environment setup", "Learning resources"]
+                    },
+                    {
+                        title: "Core Principles",
+                        description: `Master the fundamental principles and core concepts that form the backbone of ${topic}.`,
+                        duration: stages[1] || "Phase 2", 
+                        keyTopics: ["Core theories", "Key algorithms", "Best practices", "Common patterns"]
+                    },
+                    {
+                        title: "Practical Application",
+                        description: `Apply your knowledge through hands-on projects, exercises, and real-world scenarios.`,
+                        duration: stages[2] || "Phase 3",
+                        keyTopics: ["Hands-on projects", "Problem solving", "Implementation", "Debugging"]
+                    },
+                    {
+                        title: "Advanced Concepts",
+                        description: `Explore advanced topics, optimization techniques, and specialized areas within ${topic}.`,
+                        duration: stages[3] || "Phase 4",
+                        keyTopics: ["Advanced techniques", "Optimization", "Specialized topics", "Industry standards"]
+                    },
+                    {
+                        title: "Mastery & Portfolio",
+                        description: `Build a comprehensive portfolio, work on capstone projects, and prepare for professional application.`,
+                        duration: stages[4] || "Final Phase",
+                        keyTopics: ["Portfolio development", "Capstone projects", "Professional skills", "Certification prep"]
+                    }
+                ]
+            };
+        }
+
+        function displayLearningPath(learningPath, topic) {
+            document.getElementById('pathTitle').textContent = `Learning Path: ${topic}`;
+            document.getElementById('pathDescription').textContent = learningPath.overview;
+
+            const stagesContainer = document.getElementById('learningStages');
+            stagesContainer.innerHTML = '';
+
+            learningPath.stages.forEach((stage, index) => {
+                const stageElement = document.createElement('div');
+                stageElement.className = 'stage';
+                
+                const keyTopicsHtml = stage.keyTopics ? 
+                    `<div class="key-topics">
+                        <strong>Key Topics:</strong><br>
+                        ${stage.keyTopics.map(topic => 
+                            `<button class="topic-tag" onclick="showTopicDetails('${topic}', '${stage.title}', ${index})">${topic}</button>`
+                        ).join('')}
+                    </div>` : '';
+                
+                stageElement.innerHTML = `
+                    <div class="stage-header">
+                        <div class="stage-number">${index + 1}</div>
+                        <h3 class="stage-title">${stage.title}</h3>
+                    </div>
+                    <div class="stage-content">
+                        <p>${stage.description}</p>
+                        ${keyTopicsHtml}
+                        <div id="topic-details-${index}" class="topic-details"></div>
+                    </div>
+                    <span class="stage-duration">${stage.duration}</span>
+                `;
+                
+                stagesContainer.appendChild(stageElement);
+            });
+
+            document.getElementById('results').style.display = 'block';
+        }
+
+        async function showTopicDetails(topic, stageTitle, stageIndex) {
+            const detailsContainer = document.getElementById(`topic-details-${stageIndex}`);
+            
+            // Toggle if already showing the same topic
+            if (detailsContainer.classList.contains('active') && 
+                detailsContainer.getAttribute('data-current-topic') === topic) {
+                detailsContainer.classList.remove('active');
+                return;
+            }
+
+            // Show loading
+            detailsContainer.innerHTML = `
+                <div class="loading-topic">
+                    <div class="spinner"></div>
+                    <p>Loading resources for "${topic}"...</p>
+                </div>
+            `;
+            detailsContainer.classList.add('active');
+            detailsContainer.setAttribute('data-current-topic', topic);
+
+            try {
+                const apiKey = document.getElementById('apiKey').value.trim();
+                const level = document.getElementById('level').value;
+                const mainTopic = document.getElementById('topic').value.trim();
+                
+                const topicDetails = await getTopicDetails(apiKey, topic, stageTitle, mainTopic, level);
+                displayTopicDetails(detailsContainer, topic, topicDetails, stageIndex);
+            } catch (error) {
+                detailsContainer.innerHTML = `
+                    <h4>📚 ${topic} <button class="close-details" onclick="hideTopicDetails(${stageIndex})">×</button></h4>
+                    <div class="topic-sections">
+                        <div class="topic-section">
+                            <h5>⚠️ Error Loading Resources</h5>
+                            <p>Unable to fetch detailed resources. Here are some general recommendations:</p>
+                            <ul class="resource-list">
+                                <li><a href="https://www.google.com/search?q=${encodeURIComponent(topic + ' tutorial')}" target="_blank">Search for ${topic} tutorials</a></li>
+                                <li><a href="https://www.youtube.com/results?search_query=${encodeURIComponent(topic + ' explained')}" target="_blank">YouTube videos on ${topic}</a></li>
+                                <li><a href="https://stackoverflow.com/search?q=${encodeURIComponent(topic)}" target="_blank">Stack Overflow discussions</a></li>
+                                <li><a href="https://www.coursera.org/search?query=${encodeURIComponent(topic)}" target="_blank">Coursera courses</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        async function getTopicDetails(apiKey, topic, stageTitle, mainTopic, level) {
+            const prompt = `Provide comprehensive learning resources for the topic "${topic}" which is part of "${stageTitle}" stage in learning ${mainTopic} at ${level} level.
+
+            Please provide:
+            1. Brief explanation of the topic (2-3 sentences)
+            2. 3-4 high-quality online resources/tutorials (include actual URLs if possible)
+            3. 2-3 practice problems or exercises
+            4. Key concepts to master
+            5. Recommended tools or platforms
+
+            Format as JSON:
+            {
+                "explanation": "Brief explanation of the topic",
+                "resources": [
+                    {"title": "Resource title", "url": "URL", "description": "Brief description"},
+                    {"title": "Resource title", "url": "URL", "description": "Brief description"}
+                ],
+                "practiceProblems": [
+                    "Problem description 1",
+                    "Problem description 2"
+                ],
+                "keyConcepts": ["concept1", "concept2", "concept3"],
+                "tools": ["tool1", "tool2", "tool3"]
+            }`;
+
+            const modelEndpoints = [
+                'gemini-1.5-flash-latest',
+                'gemini-1.5-pro-latest',
+                'gemini-pro'
+            ];
+
+            for (const model of modelEndpoints) {
+                try {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: prompt
+                                }]
+                            }]
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const generatedText = data.candidates[0].content.parts[0].text;
+                        
+                        try {
+                            const jsonMatch = generatedText.match(/\{[\s\S]*\}/);
+                            if (jsonMatch) {
+                                return JSON.parse(jsonMatch[0]);
+                            }
+                        } catch (parseError) {
+                            // Continue to fallback
+                        }
+                    }
+                } catch (error) {
+                    continue;
+                }
+            }
+
+            // Fallback response
+            return generateFallbackTopicDetails(topic, mainTopic);
+        }
+
+        function generateFallbackTopicDetails(topic, mainTopic) {
+            const searchQuery = encodeURIComponent(`${topic} ${mainTopic}`);
+            return {
+                explanation: `${topic} is a fundamental concept in ${mainTopic}. Understanding this topic is crucial for building a strong foundation and advancing your skills.`,
+                resources: [
+                    {
+                        title: `${topic} - Documentation`,
+                        url: `https://www.google.com/search?q=${searchQuery}+documentation`,
+                        description: "Official documentation and guides"
+                    },
+                    {
+                        title: `${topic} - Video Tutorials`,
+                        url: `https://www.youtube.com/results?search_query=${searchQuery}+tutorial`,
+                        description: "Comprehensive video tutorials"
+                    },
+                    {
+                        title: `${topic} - Interactive Learning`,
+                        url: `https://www.codecademy.com/search?query=${searchQuery}`,
+                        description: "Hands-on interactive exercises"
+                    },
+                    {
+                        title: `${topic} - Community Discussions`,
+                        url: `https://stackoverflow.com/search?q=${searchQuery}`,
+                        description: "Community Q&A and problem solving"
+                    }
+                ],
+                practiceProblems: [
+                    `Create a simple project implementing ${topic} concepts`,
+                    `Solve coding challenges related to ${topic}`,
+                    `Build a mini-application using ${topic} principles`
+                ],
+                keyConcepts: [
+                    `Core ${topic} principles`,
+                    `Best practices and patterns`,
+                    `Common use cases and applications`,
+                    `Integration with other concepts`
+                ],
+                tools: [
+                    "Online code editors",
+                    "Documentation sites",
+                    "Practice platforms",
+                    "Community forums"
+                ]
+            };
+        }
+
+        function displayTopicDetails(container, topic, details, stageIndex) {
+            container.innerHTML = `
+                <h4>📚 ${topic} <button class="close-details" onclick="hideTopicDetails(${stageIndex})">×</button></h4>
+                
+                <div class="topic-sections">
+                    <div class="topic-section">
+                        <h5>📖 What is ${topic}?</h5>
+                        <p>${details.explanation}</p>
+                    </div>
+
+                    <div class="topic-section">
+                        <h5>🔗 Learning Resources</h5>
+                        <ul class="resource-list">
+                            ${details.resources.map(resource => 
+                                `<li><a href="${resource.url}" target="_blank">${resource.title}</a> - ${resource.description}</li>`
+                            ).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="topic-section">
+                        <h5>💡 Practice Problems</h5>
+                        <ul style="list-style: decimal; padding-left: 20px;">
+                            ${details.practiceProblems.map(problem => `<li style="margin-bottom: 8px;">${problem}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="topic-section">
+                        <h5>🎯 Key Concepts to Master</h5>
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                            ${details.keyConcepts.map(concept => 
+                                `<span style="background: #e2e8f0; padding: 4px 8px; border-radius: 12px; font-size: 0.85rem;">${concept}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+
+                    <div class="topic-section">
+                        <h5>🛠️ Recommended Tools</h5>
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                            ${details.tools.map(tool => 
+                                `<span style="background: #f0f8ff; color: #2563eb; padding: 4px 8px; border-radius: 12px; font-size: 0.85rem; border: 1px solid #dbeafe;">${tool}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function hideTopicDetails(stageIndex) {
+            const detailsContainer = document.getElementById(`topic-details-${stageIndex}`);
+            detailsContainer.classList.remove('active');
+        }
+
+        function showError(message) {
+            const existingError = document.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            
+            document.querySelector('.input-section').appendChild(errorDiv);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+
+        // Allow Enter key to trigger generation
+        document.getElementById('topic').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generateLearningPath();
+            }
+        });
+    </script>
+</body>
+</html>
