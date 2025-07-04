@@ -35,7 +35,7 @@ const sampleUsers = [
             },
             {
                 courseId: new mongoose.Types.ObjectId("607f1f77bcf86cd799439012"),
-                courseName: "Linked Lists",
+                courseName: "LinkedLists",
                 status: "in-progress" as const,
                 result: 65
             }
@@ -161,7 +161,7 @@ const sampleUsers = [
             { courseId: new mongoose.Types.ObjectId(), courseName: "Arrays", status: "completed" as const, result: 98 },
             { courseId: new mongoose.Types.ObjectId(), courseName: "Strings", status: "completed" as const, result: 91 },
             { courseId: new mongoose.Types.ObjectId(), courseName: "Pointers", status: "completed" as const, result: 85 },
-            { courseId: new mongoose.Types.ObjectId(), courseName: "Linked Lists", status: "in-progress" as const, result: 70 }
+            { courseId: new mongoose.Types.ObjectId(), courseName: "LinkedLists", status: "in-progress" as const, result: 70 }
         ]
     },
     {
@@ -176,7 +176,7 @@ const sampleUsers = [
             { courseId: new mongoose.Types.ObjectId(), courseName: "Arrays", status: "completed" as const, result: 100 },
             { courseId: new mongoose.Types.ObjectId(), courseName: "Recursion", status: "completed" as const, result: 94 },
             { courseId: new mongoose.Types.ObjectId(), courseName: "Trees", status: "completed" as const, result: 91 },
-            { courseId: new mongoose.Types.ObjectId(), courseName: "Sorting Algorithms", status: "completed" as const, result: 88 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "SortingAlgorithms", status: "completed" as const, result: 88 },
             { courseId: new mongoose.Types.ObjectId(), courseName: "Graphs", status: "in-progress" as const, result: 65 }
         ]
     },
@@ -193,8 +193,8 @@ const sampleUsers = [
             { courseId: new mongoose.Types.ObjectId(), courseName: "Recursion", status: "completed" as const, result: 100 },
             { courseId: new mongoose.Types.ObjectId(), courseName: "Trees", status: "completed" as const, result: 95 },
             { courseId: new mongoose.Types.ObjectId(), courseName: "Graphs", status: "completed" as const, result: 92 },
-            { courseId: new mongoose.Types.ObjectId(), courseName: "Sorting Algorithms", status: "completed" as const, result: 91 },
-            { courseId: new mongoose.Types.ObjectId(), courseName: "Dynamic Programming", status: "in-progress" as const, result: 75 }
+            { courseId: new mongoose.Types.ObjectId(), courseName: "SortingAlgorithms", status: "completed" as const, result: 91 },
+            { courseId: new mongoose.Types.ObjectId(), courseName: "DynamicProgramming", status: "in-progress" as const, result: 75 }
         ]
     },
     {
