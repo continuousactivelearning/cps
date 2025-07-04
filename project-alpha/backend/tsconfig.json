@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "rootDir": "./src",
+    "target": "ES6",
+    "module": "CommonJS",
     "outDir": "./dist",
+    "rootDir": ".",                        // root is where index.ts is
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "strict": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["index.ts", "src/**/*"]
 }
