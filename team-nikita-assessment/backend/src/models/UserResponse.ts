@@ -1,4 +1,5 @@
 /* AUTHOR - NIKITA S RAJ KAPINI (CREATED ON 13/06/2025) */
+/*UPDATED BY NIKITA S RAJ KAPINI ON 23/06/2025*/
 import mongoose from 'mongoose';
 
 const UserResponseSchema = new mongoose.Schema({
@@ -11,9 +12,11 @@ const UserResponseSchema = new mongoose.Schema({
       userAnswer: { type: [String], required: true },
       correctAnswer: { type: [String], required: true },
       isCorrect: { type: Boolean, required: true },
-      topic_tested: { type: String, required: true },
+      topic_tested: { type: [String], required: true },
     }
   ],
+  percentage_score: Number,
+  timeTaken: Number,
   createdAt: { type: Date, default: Date.now }
 });
 

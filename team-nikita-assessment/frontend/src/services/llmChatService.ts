@@ -1,3 +1,34 @@
+export class LLMChatService {
+  private readonly backendApiUrl = `${import.meta.env.VITE_API_URL}/api`;
+
+  async generateChatResponse(userInput: string): Promise<string> {
+    try {
+      const response = await fetch(`${this.backendApiUrl}/chat/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userInput })
+      });
+
+      if (!response.ok) throw new Error(`Backend error: ${response.status}`);
+      
+      const data = await response.json();
+      return data.response;
+      
+    } catch (error) {
+      console.error('Chat service error:', error);
+      return this.getFallbackResponse(userInput);
+    }
+  }
+
+  private getFallbackResponse(input: string): string {
+    const lcInput = input.toLowerCase();
+    return lcInput.includes('prerequisite') 
+      ? "Understanding prerequisites is crucial for ML success. Would you like me to explain specific requirements?"
+      : "Could you please rephrase your question?";
+  }
+}
+
+/*
 //Author:Yeddula Pushkala          Date:13-6-25
 export class LLMChatService {
     private readonly backendApiUrl = 'http://localhost:5000/api';
@@ -48,4 +79,4 @@ export class LLMChatService {
       return "I'm here to help with EduAssess features and ML concepts!";
     }
   }
-  
+*/

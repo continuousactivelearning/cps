@@ -1,0 +1,171 @@
+{
+  "nodes": [
+    {
+      "id": "Variables",
+      "resources": [
+        {
+          "title": "OCW Lecture: Variables",
+          "url": "https://ocw.mit.edu/courses/6-0001/resources/lecture-1/"
+        }
+      ]
+    },
+    {
+      "id": "Loops",
+      "resources": [
+        {
+          "title": "OCW Lecture: Loops",
+          "url": "https://ocw.mit.edu/courses/6-0001/resources/lecture-3/"
+        }
+      ]
+    },
+    {
+      "id": "Conditionals",
+      "resources": [
+        {
+          "title": "OCW Lecture: Conditionals",
+          "url": "https://ocw.mit.edu/courses/6-0001/resources/lecture-2/"
+        }
+      ]
+    },
+    {
+      "id": "Functions",
+      "resources": [
+        {
+          "title": "OCW Lecture: Functions",
+          "url": "https://ocw.mit.edu/courses/6-0001/resources/lecture-4/"
+        }
+      ]
+    },
+    {
+      "id": "Recursion",
+      "resources": [
+        {
+          "title": "OCW Lecture: Recursion",
+          "url": "https://ocw.mit.edu/courses/6-0001/resources/lecture-6/"
+        }
+      ]
+    },
+    {
+      "id": "Arrays",
+      "resources": [
+        {
+          "title": "GeeksforGeeks: Arrays",
+          "url": "https://www.geeksforgeeks.org/arrays-in-c-cpp/"
+        }
+      ]
+    },
+    {
+      "id": "Linked Lists",
+      "resources": [
+        {
+          "title": "GeeksforGeeks: Linked Lists",
+          "url": "https://www.geeksforgeeks.org/data-structures/linked-list/"
+        }
+      ]
+    },
+    {
+      "id": "Stacks",
+      "resources": [
+        {
+          "title": "GeeksforGeeks: Stack Data Structure",
+          "url": "https://www.geeksforgeeks.org/stack-data-structure/"
+        }
+      ]
+    },
+    {
+      "id": "Queues",
+      "resources": [
+        {
+          "title": "GeeksforGeeks: Queue Data Structure",
+          "url": "https://www.geeksforgeeks.org/queue-data-structure/"
+        }
+      ]
+    },
+    {
+      "id": "Trees",
+      "resources": [
+        {
+          "title": "GeeksforGeeks: Tree Data Structure",
+          "url": "https://www.geeksforgeeks.org/binary-tree-data-structure/"
+        }
+      ]
+    },
+    {
+      "id": "Graphs",
+      "resources": [
+        {
+          "title": "GeeksforGeeks: Graph Data Structure",
+          "url": "https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/"
+        }
+      ]
+    },
+    {
+      "id": "Sorting",
+      "resources": [
+        {
+          "title": "GeeksforGeeks: Sorting Algorithms",
+          "url": "https://www.geeksforgeeks.org/sorting-algorithms/"
+        }
+      ]
+    },
+    {
+      "id": "Searching",
+      "resources": [
+        {
+          "title": "GeeksforGeeks: Searching Algorithms",
+          "url": "https://www.geeksforgeeks.org/searching-algorithms/"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "source": "Variables",
+      "target": "Conditionals"
+    },
+    {
+      "source": "Conditionals",
+      "target": "Loops"
+    },
+    {
+      "source": "Loops",
+      "target": "Functions"
+    },
+    {
+      "source": "Functions",
+      "target": "Recursion"
+    },
+    {
+      "source": "Variables",
+      "target": "Arrays"
+    },
+    {
+      "source": "Arrays",
+      "target": "Linked Lists"
+    },
+    {
+      "source": "Linked Lists",
+      "target": "Stacks"
+    },
+    {
+      "source": "Stacks",
+      "target": "Queues"
+    },
+    {
+      "source": "Queues",
+      "target": "Trees"
+    },
+    {
+      "source": "Trees",
+      "target": "Graphs"
+    },
+    {
+      "source": "Graphs",
+      "target": "Sorting"
+    },
+    {
+      "source": "Sorting",
+      "target": "Searching"
+    }
+  ]
+}

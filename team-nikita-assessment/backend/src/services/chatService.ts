@@ -1,13 +1,26 @@
 //Author:Yeddula Pushkala          Date:13-06-25
+//Modified by Nakshatra Bhandary on 17/6/25 to change the model to an opensource one. Modified API call accordingly
+//Updated by Nikita S Raj Kapini on 26/06/2025
 import axios from 'axios';
 import { getPrerequisites } from './prereqService';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
+interface ConceptNode {
+  prereqs: string[];
+  children: string[];
+  description: string;
+  difficulty: string;
+}
+
+const conceptGraph: { [key: string]: ConceptNode } = require('../conceptGraph.json'); // adjust path if needed
+
+
+
 export class LLMChatService {
-  private readonly apiUrl = 'https://router.huggingface.co/nebius/v1/chat/completions';
-  private readonly model = 'mistralai/Mistral-7B-Instruct-v0.2'; // Changed to Mistral 7B
+  private readonly apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
+  private readonly model = 'mistralai/mistral-7b-instruct:free'; // Updated to v0.3
 
   async generateChatResponse(userInput: string, context?: any): Promise<string> {
     try {
@@ -23,29 +36,48 @@ export class LLMChatService {
 
       const response = await axios.post(
         this.apiUrl,
-        {
-          model: this.model,
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: userInput }
-          ],
-          temperature: 0.7,
-          max_tokens: 500,
-        },
+      {
+        model: 'mistralai/mistral-7b-instruct:free',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userInput }
+        ],
+        temperature: 0.7,
+        max_tokens: 500,
+        return_full_text: false
+      },
         {
           headers: {
-            Authorization: `Bearer ${String(process.env.HF_TOKEN).trim()}`,
+            Authorization: `Bearer ${String(process.env.OPENROUTER_API_KEY).trim()}`,
             'Content-Type': 'application/json',
           },
         }
       );
 
-      return response.data.choices[0]?.message?.content || "I'm here to help with your ML learning journey!";
+      return response.data.choices?.[0]?.message?.content?.trim() || 
+       "I'm here to help with your ML learning journey!";
     } catch (error) {
       console.error('LLM Chat Error:', error);
       return "I'm experiencing technical difficulties, but I'm here to help with EduAssess features and ML concepts!";
     }
   }
+
+  // Rest of your class remains unchanged
+
+  private getAllPrerequisites(topic: string, visited = new Set<string>()): string[] {
+  if (!conceptGraph[topic] || visited.has(topic)) return [];
+  visited.add(topic);
+
+  const direct = conceptGraph[topic].prereqs || [];
+  let all = [...direct];
+
+  for (const prereq of direct) {
+    const deeper = this.getAllPrerequisites(prereq, visited);
+    all.push(...deeper);
+  }
+
+  return Array.from(new Set(all)); // Remove duplicates
+}
 
   private getRelevantKnowledge(userInput: string): string {
     const input = userInput.toLowerCase();
@@ -62,15 +94,25 @@ export class LLMChatService {
     }
 
     // Concept explanations
-    if (input.includes('concept') || input.includes('prerequisite') || input.includes('explain')) {
-      const concepts = this.extractMLConcepts(input);
-      if (concepts.length > 0) {
-        concepts.forEach(concept => {
-          const prereqs = getPrerequisites(concept);
-          knowledge.push(`${concept} prerequisites: ${prereqs.join(', ')}`);
+    const matchedConcepts = Object.keys(conceptGraph).filter(concept =>
+      input.includes(concept.toLowerCase())
+    );
+
+    if (input.includes('prerequisite') || input.includes('requirement') || input.includes('before learning') || input.includes('concept')) {
+      if (matchedConcepts.length > 0) {
+        matchedConcepts.forEach(topic => {
+          const prereqs = this.getAllPrerequisites(topic);
+          if (prereqs.length > 0) {
+            knowledge.push(`To study "${topic}", you should understand: ${prereqs.join(', ')}`);
+          } else {
+            knowledge.push(`"${topic}" has no specific prerequisites. It's a good starting point!`);
+          }
         });
+      } else {
+        knowledge.push("I couldn’t find the topic you mentioned. Please make sure it's an ML concept covered on EduAssess.");
       }
     }
+
 
     // Assessment info
     if (input.includes('assessment') || input.includes('test') || input.includes('quiz')) {
@@ -85,3 +127,4 @@ export class LLMChatService {
     return mlConcepts.filter(concept => input.includes(concept));
   }
 }
+

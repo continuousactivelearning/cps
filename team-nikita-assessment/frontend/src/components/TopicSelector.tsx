@@ -1,47 +1,46 @@
 /* AUTHOR - SHREYAS MENE (CREATED ON 12/06/2025) */
+/*AUTHOR - NIKITA S RAJ KAPINI (UPDATED ON 16/06/2025)*/
+/*AUTHOR - NIKITA S RAJ KAPINI (UPDATED ON 25/06/2025)*/
+
 import React, { useState } from 'react';
 import './TopicSelector.css';
-
-interface Topic {
-  id: number;
-  name: string;
-  category: string;
-}
-
-const mlTopics: Topic[] = [
-  { id: 1, name: 'Supervised Learning', category: 'ML' },
-  { id: 2, name: 'Neural Networks', category: 'ML' },
-  { id: 3, name: 'Deep Learning', category: 'ML' },
-  { id: 4, name: 'Reinforcement Learning', category: 'ML' }
-];
+import conceptGraph from '../conceptGraph.json';
 
 interface TopicSelectorProps {
-  onTopicSelect: (topics: Topic[]) => void;
-  onGenerateAssessment: (topics: Topic[]) => void;
+  onTopicSelect: (topic: string | null) => void;
+  onGenerateAssessment: (topic: string | null) => void;
+  warningMessage?: string | null;
 }
 
-const TopicSelector: React.FC<TopicSelectorProps> = ({ onTopicSelect, onGenerateAssessment }) => {
+const TopicSelector: React.FC<TopicSelectorProps> = ({ onTopicSelect, onGenerateAssessment,warningMessage }) => {
+  const allTopics = Object.keys(conceptGraph);
   const [searchTerm, setSearchTerm] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedTopics, setSelectedTopics] = useState<Topic[]>([]);
+  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
+  const [allPrerequisites, setAllPrerequisites] = useState<string[]>([]);
 
-  const filteredTopics = mlTopics.filter(topic =>
-    topic.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    !selectedTopics.some(selected => selected.id === topic.id)
-  );
+  const getAllPrerequisites = (topic: string, visited = new Set<string>()): string[] => {
+    if (visited.has(topic)) return [];
+    visited.add(topic);
 
-  const handleTopicSelect = (topic: Topic) => {
-    const newSelectedTopics = [...selectedTopics, topic];
-    setSelectedTopics(newSelectedTopics);
-    setSearchTerm('');
-    setIsDropdownOpen(false);
-    onTopicSelect(newSelectedTopics);
+    const directPrereqs = conceptGraph[topic]?.prereqs || [];
+    const allDeps = new Set<string>(directPrereqs);
+
+    for (const prereq of directPrereqs) {
+      const deeper = getAllPrerequisites(prereq, visited);
+      deeper.forEach(dep => allDeps.add(dep));
+    }
+
+    return Array.from(allDeps);
   };
 
-  const handleRemoveTopic = (topicId: number) => {
-    const newSelectedTopics = selectedTopics.filter(topic => topic.id !== topicId);
-    setSelectedTopics(newSelectedTopics);
-    onTopicSelect(newSelectedTopics);
+  const handleTopicSelect = (topic: string) => {
+    setSelectedTopic(topic);
+    setSearchTerm('');
+    setIsDropdownOpen(false);
+    const prerequisites = getAllPrerequisites(topic);
+    setAllPrerequisites(prerequisites);
+    onTopicSelect(topic);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,74 +50,101 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ onTopicSelect, onGenerate
   };
 
   const handleInputFocus = () => {
-    if (searchTerm.trim() || filteredTopics.length > 0) {
+    if (searchTerm.trim() || allTopics.length > 0) {
       setIsDropdownOpen(true);
     }
   };
 
   const handleGenerateClick = () => {
-    if (selectedTopics.length > 0) {
-      onGenerateAssessment(selectedTopics);
-    }
+    onGenerateAssessment(null); // always call it
   };
+
+  const handleClearSelection = () => {
+    setSelectedTopic(null);
+    setAllPrerequisites([]);
+    setSearchTerm('');
+    onTopicSelect(null);
+  };
+
+  const filteredTopics = allTopics.filter(
+    topic => topic.toLowerCase().includes(searchTerm.toLowerCase()) && topic !== selectedTopic
+  );
 
   return (
     <div className="topic-selector-container">
-      <h2>You've studied</h2>
+      <h2>What's your target topic?</h2>
       <p className="description">
-        I'm your learning assessment assistant. Enter the concepts
-        or topics you've already studied, and I'll create
-        a personalized assessment for you.
+        I'm your learning assistant. Select a topic you've studied or want to be assessed on, and I’ll generate an intelligent assessment for you.
       </p>
-      
+
       <div className="input-section">
         <label>Target Topic</label>
-        <div className="selected-topics">
-          {selectedTopics.map(topic => (
-            <div key={topic.id} className="selected-topic-tag">
-              {topic.name}
-              <span className="remove-topic-btn" onClick={() => handleRemoveTopic(topic.id)}>×</span>
-            </div>
-          ))}
-        </div>
-        <div className="dropdown-container">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={handleInputChange}
-            onFocus={handleInputFocus}
-            placeholder="Search for a topic..."
-            className="topic-input"
-          />
-          
-          {isDropdownOpen && filteredTopics.length > 0 && (
-            <ul className="dropdown-list">
-              {filteredTopics.map(topic => (
-                <li
-                  key={topic.id}
-                  onClick={() => handleTopicSelect(topic)}
-                  className="dropdown-item"
-                >
-                  {topic.name}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+
+        {!selectedTopic ? (
+          <div className="dropdown-container">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleInputChange}
+              onFocus={handleInputFocus}
+              placeholder="Search for a topic..."
+              className="topic-input"
+            />
+            {isDropdownOpen && (
+                  <ul className="dropdown-list">
+                    {filteredTopics.length > 0 ? (
+                      filteredTopics.map(topic => (
+                        <li
+                          key={topic}
+                          onClick={() => handleTopicSelect(topic)}
+                          className="dropdown-item"
+                        >
+                          {topic}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="dropdown-item no-match">No matches found</li>
+                    )}
+                  </ul>
+                )}
+          </div>
+        ) : (
+          <div className="selected-topic-display">
+            <span className="selected-topic-text">{selectedTopic}</span>
+            <button className="change-topic-btn" onClick={handleClearSelection}>
+              Change Topic
+            </button>
+          </div>
+        )}
       </div>
 
-      <div className="prerequisites-section">
-        <h3>Prerequisites</h3>
-        <div className="prerequisites-tags">
-          <span className="prerequisite-tag">Algorithms</span>
-          <span className="prerequisite-tag">Statistics</span>
-        </div>
-      </div>
+      {warningMessage && (
+          <p className="warning-text" style={{ color: 'red', marginTop: '0.5rem' }}>
+            {warningMessage}
+          </p>
+        )}
 
-      <button 
+      {selectedTopic && (
+        <div className="prerequisites-section">
+          <h3>All Prerequisites</h3>
+          <div className="prerequisites-tags">
+            {allPrerequisites.length > 0 ? (
+              allPrerequisites.map(pr => (
+                <span key={pr} className="prerequisite-tag">
+                  {pr}
+                </span>
+              ))
+            ) : (
+              <span className="prerequisite-tag">None</span>
+            )}
+          </div>
+        </div>
+      )}   
+
+  
+      <button
         className="generate-btn"
         onClick={handleGenerateClick}
-        disabled={selectedTopics.length === 0}
       >
         Generate Assessment
       </button>
@@ -126,4 +152,4 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ onTopicSelect, onGenerate
   );
 };
 
-export default TopicSelector; 
+export default TopicSelector;

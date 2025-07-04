@@ -1,0 +1,5 @@
+{
+  "title": "branching",
+  "lecture": "02",
+  "content": "Control Flow – Branching\n\nBranching allows a program to make decisions and execute different blocks of code depending on conditions.\n\nThe most common form of branching in Python uses the if/elif/else structure:\n\nif condition:\n    # execute this block\nelif another_condition:\n    # execute this block\nelse:\n    # execute this default block\n\nConditions are typically boolean expressions, using comparison operators such as ==, !=, >, <, >=, and <=.\n\nExample:\nx = 10\nif x > 5:\n    print(\"x is greater than 5\")\nelif x == 5:\n    print(\"x is equal to 5\")\nelse:\n    print(\"x is less than 5\")"
+}

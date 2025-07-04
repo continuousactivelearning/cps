@@ -1,0 +1,993 @@
+{
+  "Vectors": {
+    "prereqs": [],
+    "children": [
+      "Dot Product",
+      "Vector Addition",
+      "Matrix Operations",
+      "Distance Metrics"
+    ],
+    "description": "A mathematical object representing magnitude and direction; basis for many ML operations.",
+    "difficulty": "easy"
+  },
+  "Dot Product": {
+    "prereqs": [
+      "Vectors"
+    ],
+    "children": [
+      "Distance Metrics",
+      "Cosine Similarity",
+      "Attention Mechanism"
+    ],
+    "description": "An operation that multiplies two vectors element-wise and sums the result; used to measure similarity.",
+    "difficulty": "easy"
+  },
+  "Vector Addition": {
+    "prereqs": [
+      "Vectors"
+    ],
+    "children": [],
+    "description": "The component-wise sum of two vectors; fundamental for linear algebra.",
+    "difficulty": "easy"
+  },
+  "Matrix Operations": {
+    "prereqs": [
+      "Vectors"
+    ],
+    "children": [
+      "Matrix Algebra",
+      "Convolution Operation"
+    ],
+    "description": "Basic operations on matrices such as addition, multiplication, transpose and inverse.",
+    "difficulty": "easy"
+  },
+  "Matrix Algebra": {
+    "prereqs": [
+      "Matrix Operations"
+    ],
+    "children": [
+      "Linear Regression",
+      "PCA",
+      "SVD",
+      "Convex Optimization",
+      "Backpropagation",
+      "Jacobian"
+    ],
+    "description": "Study of matrices, their properties, and how to manipulate them; essential for many ML algorithms.",
+    "difficulty": "medium"
+  },
+  "SVD": {
+    "prereqs": [
+      "Matrix Algebra"
+    ],
+    "children": [
+      "PCA"
+    ],
+    "description": "Singular Value Decomposition: factorizes a matrix into singular vectors and values; used in dimensionality reduction.",
+    "difficulty": "medium"
+  },
+  "Derivatives": {
+    "prereqs": [],
+    "children": [
+      "Chain Rule",
+      "Partial Derivatives"
+    ],
+    "description": "Rate of change of a function; foundational for optimization and calculus-based algorithms.",
+    "difficulty": "easy"
+  },
+  "Chain Rule": {
+    "prereqs": [
+      "Derivatives"
+    ],
+    "children": [
+      "Backpropagation"
+    ],
+    "description": "Calculus rule for computing the derivative of a composite function; critical for neural network training.",
+    "difficulty": "medium"
+  },
+  "Partial Derivatives": {
+    "prereqs": [
+      "Derivatives"
+    ],
+    "children": [
+      "Gradient Descent"
+    ],
+    "description": "Derivative of a multivariable function with respect to one variable, holding others constant.",
+    "difficulty": "medium"
+  },
+  "Gradient Descent": {
+    "prereqs": [
+      "Partial Derivatives"
+    ],
+    "children": [
+      "Linear Regression",
+      "Logistic Regression",
+      "Neural Networks",
+      "Gradient Boosting"
+    ],
+    "description": "An optimization algorithm that iteratively adjusts parameters to minimize a loss function.",
+    "difficulty": "medium"
+  },
+  "Probability Basics": {
+    "prereqs": [],
+    "children": [
+      "Bayes' Theorem",
+      "Probability Distributions",
+      "Naive Bayes",
+      "MDP",
+      "KL Divergence"
+    ],
+    "description": "Fundamental probability concepts including random variables, events, and basic distributions.",
+    "difficulty": "easy"
+  },
+  "Bayes' Theorem": {
+    "prereqs": [
+      "Probability Basics"
+    ],
+    "children": [
+      "Naive Bayes",
+      "Gibbs Sampling"
+    ],
+    "description": "A formula that relates conditional probabilities; forms the basis of Bayesian inference.",
+    "difficulty": "medium"
+  },
+  "Probability Distributions": {
+    "prereqs": [
+      "Probability Basics"
+    ],
+    "children": [
+      "Gaussian Distribution",
+      "Multinomial Distribution",
+      "Dirichlet Distribution"
+    ],
+    "description": "Functions that describe the likelihood of different outcomes in a random process.",
+    "difficulty": "medium"
+  },
+  "Gaussian Distribution": {
+    "prereqs": [
+      "Probability Distributions"
+    ],
+    "children": [
+      "Gaussian Mixture Models"
+    ],
+    "description": "A continuous probability distribution characterized by its bell-shaped curve; common in statistics.",
+    "difficulty": "medium"
+  },
+  "Multinomial Distribution": {
+    "prereqs": [
+      "Probability Distributions"
+    ],
+    "children": [
+      "Naive Bayes"
+    ],
+    "description": "Generalization of the binomial distribution for multiple categories; used in classification tasks.",
+    "difficulty": "medium"
+  },
+  "Dirichlet Distribution": {
+    "prereqs": [
+      "Probability Distributions"
+    ],
+    "children": [
+      "LDA (Topic Model)"
+    ],
+    "description": "A family of continuous multivariate probability distributions used as priors in Bayesian models.",
+    "difficulty": "hard"
+  },
+  "Statistics Basics": {
+    "prereqs": [],
+    "children": [
+      "Mean & Variance",
+      "Hypothesis Testing",
+      "Weight Initialization"
+    ],
+    "description": "Basic statistical measures and tests used for data analysis.",
+    "difficulty": "easy"
+  },
+  "Mean & Variance": {
+    "prereqs": [
+      "Statistics Basics"
+    ],
+    "children": [
+      "MSE",
+      "PCA"
+    ],
+    "description": "Mean is the average of data; variance measures spread around the mean.",
+    "difficulty": "easy"
+  },
+  "Hypothesis Testing": {
+    "prereqs": [
+      "Statistics Basics"
+    ],
+    "children": [],
+    "description": "Procedure for testing an assumption about a population parameter based on sample data.",
+    "difficulty": "medium"
+  },
+  "Calculus Basics": {
+    "prereqs": [],
+    "children": [
+      "Derivatives",
+      "Integrals"
+    ],
+    "description": "Foundational calculus concepts including limits, derivatives, and integrals.",
+    "difficulty": "easy"
+  },
+  "Integrals": {
+    "prereqs": [
+      "Calculus Basics"
+    ],
+    "children": [],
+    "description": "Calculus operation that computes area under a curve; less directly used in basic ML but foundational.",
+    "difficulty": "medium"
+  },
+  "Linear Regression": {
+    "prereqs": [
+      "Matrix Algebra",
+      "Derivatives",
+      "Mean & Variance"
+    ],
+    "children": [
+      "Logistic Regression",
+      "Ridge Regression",
+      "Lasso Regression"
+    ],
+    "description": "A regression method modeling the relationship between a dependent variable and one or more independent variables.",
+    "difficulty": "medium"
+  },
+  "Ridge Regression": {
+    "prereqs": [
+      "Linear Regression"
+    ],
+    "children": [],
+    "description": "An extension of linear regression that adds L2 penalty for regularization.",
+    "difficulty": "medium"
+  },
+  "Lasso Regression": {
+    "prereqs": [
+      "Linear Regression"
+    ],
+    "children": [],
+    "description": "An extension of linear regression that adds L1 penalty for feature selection and sparsity.",
+    "difficulty": "medium"
+  },
+  "Logistic Regression": {
+    "prereqs": [
+      "Linear Regression",
+      "Probability Basics",
+      "Gradient Descent",
+      "Softmax"
+    ],
+    "children": [
+      "SVM"
+    ],
+    "description": "A classification algorithm modeling the probability of class membership using the logistic function.",
+    "difficulty": "medium"
+  },
+  "Softmax": {
+    "prereqs": [
+      "Exponents",
+      "Summation"
+    ],
+    "children": [
+      "Logistic Regression",
+      "Attention Mechanism"
+    ],
+    "description": "Function that converts raw scores into probability distributions over multiple classes.",
+    "difficulty": "medium"
+  },
+  "Exponents": {
+    "prereqs": [
+      "Algebra"
+    ],
+    "children": [
+      "Softmax"
+    ],
+    "description": "Operation indicating repeated multiplication; used in various ML formulas.",
+    "difficulty": "easy"
+  },
+  "Summation": {
+    "prereqs": [
+      "Algebra"
+    ],
+    "children": [
+      "Softmax"
+    ],
+    "description": "Notation for adding a sequence of numbers or expressions; common in loss functions.",
+    "difficulty": "easy"
+  },
+  "Algebra": {
+    "prereqs": [],
+    "children": [
+      "Exponents",
+      "Summation"
+    ],
+    "description": "Branch of mathematics dealing with symbols and the rules for manipulating them.",
+    "difficulty": "easy"
+  },
+  "SVM": {
+    "prereqs": [
+      "Logistic Regression",
+      "Convex Optimization",
+      "Quadratic Programming"
+    ],
+    "children": [],
+    "description": "Support Vector Machine: classification algorithm that finds the optimal separating hyperplane.",
+    "difficulty": "hard"
+  },
+  "Convex Optimization": {
+    "prereqs": [
+      "Calculus Basics",
+      "Matrix Algebra"
+    ],
+    "children": [
+      "SVM",
+      "Quadratic Programming"
+    ],
+    "description": "Field of optimization where the objective function is convex, ensuring global minima.",
+    "difficulty": "hard"
+  },
+  "Quadratic Programming": {
+    "prereqs": [
+      "Convex Optimization"
+    ],
+    "children": [
+      "SVM"
+    ],
+    "description": "Optimization of a quadratic objective function subject to linear constraints; used in SVM training.",
+    "difficulty": "hard"
+  },
+  "Decision Trees": {
+    "prereqs": [
+      "Statistics Basics",
+      "Entropy"
+    ],
+    "children": [
+      "Random Forest",
+      "Gradient Boosting",
+      "AdaBoost"
+    ],
+    "description": "A tree-like model for making decisions by splitting data based on feature values.",
+    "difficulty": "medium"
+  },
+  "Entropy": {
+    "prereqs": [
+      "Probability Basics"
+    ],
+    "children": [
+      "Decision Trees",
+      "Information Gain"
+    ],
+    "description": "A measure from information theory quantifying uncertainty in a random variable.",
+    "difficulty": "medium"
+  },
+  "Information Gain": {
+    "prereqs": [
+      "Entropy"
+    ],
+    "children": [
+      "Decision Trees"
+    ],
+    "description": "Reduction in entropy achieved by partitioning data according to a given attribute; guides tree splits.",
+    "difficulty": "medium"
+  },
+  "Random Forest": {
+    "prereqs": [
+      "Decision Trees",
+      "Bagging"
+    ],
+    "children": [
+      "XGBoost",
+      "LightGBM",
+      "CatBoost"
+    ],
+    "description": "An ensemble method that builds multiple decision trees and averages their predictions.",
+    "difficulty": "medium"
+  },
+  "Bagging": {
+    "prereqs": [
+      "Decision Trees"
+    ],
+    "children": [
+      "Random Forest"
+    ],
+    "description": "Bootstrap Aggregating: ensemble technique that trains models on random subsets and averages results.",
+    "difficulty": "medium"
+  },
+  "Gradient Boosting": {
+    "prereqs": [
+      "Decision Trees",
+      "Gradient Descent"
+    ],
+    "children": [
+      "XGBoost",
+      "LightGBM",
+      "CatBoost"
+    ],
+    "description": "Ensemble technique that sequentially adds weak learners to correct errors of previous models.",
+    "difficulty": "hard"
+  },
+  "XGBoost": {
+    "prereqs": [
+      "Gradient Boosting",
+      "Regularization"
+    ],
+    "children": [],
+    "description": "Extreme Gradient Boosting: optimized and regularized implementation of gradient boosting.",
+    "difficulty": "hard"
+  },
+  "LightGBM": {
+    "prereqs": [
+      "Gradient Boosting"
+    ],
+    "children": [],
+    "description": "Gradient boosting framework focused on scalability and speed using histogram-based algorithms.",
+    "difficulty": "hard"
+  },
+  "CatBoost": {
+    "prereqs": [
+      "Gradient Boosting"
+    ],
+    "children": [],
+    "description": "Gradient boosting library that handles categorical features automatically.",
+    "difficulty": "hard"
+  },
+  "AdaBoost": {
+    "prereqs": [
+      "Decision Trees",
+      "Weighted Sampling"
+    ],
+    "children": [],
+    "description": "Adaptive Boosting: ensemble method that adjusts sample weights to focus on difficult cases.",
+    "difficulty": "hard"
+  },
+  "Weighted Sampling": {
+    "prereqs": [
+      "Probability Basics"
+    ],
+    "children": [
+      "AdaBoost"
+    ],
+    "description": "Technique for sampling data points with different probabilities, used in boosting methods.",
+    "difficulty": "medium"
+  },
+  "KMeans": {
+    "prereqs": [
+      "Vectors",
+      "Distance Metrics"
+    ],
+    "children": [
+      "GMM"
+    ],
+    "description": "A clustering algorithm that partitions data into K clusters by minimizing within-cluster variance.",
+    "difficulty": "medium"
+  },
+  "Distance Metrics": {
+    "prereqs": [
+      "Dot Product"
+    ],
+    "children": [
+      "KMeans",
+      "KNN",
+      "Hierarchical Clustering",
+      "DBSCAN"
+    ],
+    "description": "Functions that quantify similarity or dissimilarity between data points, e.g., Euclidean distance.",
+    "difficulty": "easy"
+  },
+  "KNN": {
+    "prereqs": [
+      "Distance Metrics"
+    ],
+    "children": [],
+    "description": "k-Nearest Neighbors: classification/regression method that predicts based on closest training examples.",
+    "difficulty": "easy"
+  },
+  "GMM": {
+    "prereqs": [
+      "Gaussian Distribution",
+      "EM Algorithm"
+    ],
+    "children": [],
+    "description": "Gaussian Mixture Model: probabilistic model representing data as a mixture of Gaussian components.",
+    "difficulty": "hard"
+  },
+  "EM Algorithm": {
+    "prereqs": [
+      "Bayes' Theorem",
+      "Derivatives"
+    ],
+    "children": [
+      "GMM"
+    ],
+    "description": "Expectation-Maximization: iterative approach to find maximum likelihood estimates with latent variables.",
+    "difficulty": "hard"
+  },
+  "Hierarchical Clustering": {
+    "prereqs": [
+      "Distance Metrics"
+    ],
+    "children": [],
+    "description": "Clustering method that builds a hierarchy of clusters using linkage criteria.",
+    "difficulty": "medium"
+  },
+  "DBSCAN": {
+    "prereqs": [
+      "Distance Metrics"
+    ],
+    "children": [],
+    "description": "Density-Based Spatial Clustering: groups points that are closely packed, marking outliers as noise.",
+    "difficulty": "hard"
+  },
+  "PCA": {
+    "prereqs": [
+      "Matrix Algebra",
+      "Mean & Variance",
+      "SVD"
+    ],
+    "children": [],
+    "description": "Principal Component Analysis: dimensionality reduction technique using eigenvectors of covariance matrix.",
+    "difficulty": "medium"
+  },
+  "KL Divergence": {
+    "prereqs": [
+      "Probability Basics"
+    ],
+    "children": [
+      "t-SNE",
+      "VAE"
+    ],
+    "description": "Kullback-Leibler divergence: measure of how one probability distribution diverges from another.",
+    "difficulty": "hard"
+  },
+  "t-SNE": {
+    "prereqs": [
+      "Probability Basics",
+      "KL Divergence"
+    ],
+    "children": [],
+    "description": "t-Distributed Stochastic Neighbor Embedding: nonlinear dimensionality reduction technique for visualization.",
+    "difficulty": "hard"
+  },
+  "ICA": {
+    "prereqs": [
+      "Statistics Basics"
+    ],
+    "children": [],
+    "description": "Independent Component Analysis: separates a multivariate signal into additive independent sources.",
+    "difficulty": "hard"
+  },
+  "LDA (Topic Model)": {
+    "prereqs": [
+      "Dirichlet Distribution",
+      "Gibbs Sampling"
+    ],
+    "children": [],
+    "description": "Latent Dirichlet Allocation: generative probabilistic model for discovering topics in documents.",
+    "difficulty": "hard"
+  },
+  "Gibbs Sampling": {
+    "prereqs": [
+      "Markov Chains",
+      "Probability Basics"
+    ],
+    "children": [
+      "LDA (Topic Model)"
+    ],
+    "description": "A Markov Chain Monte Carlo algorithm for sampling from a multivariate probability distribution.",
+    "difficulty": "hard"
+  },
+  "NMF": {
+    "prereqs": [
+      "Matrix Algebra"
+    ],
+    "children": [],
+    "description": "Non-Negative Matrix Factorization: decomposes a matrix into non-negative factors for feature extraction.",
+    "difficulty": "medium"
+  },
+  "Perceptron": {
+    "prereqs": [
+      "Linear Algebra"
+    ],
+    "children": [
+      "Neural Networks"
+    ],
+    "description": "Basic unit of a neural network that computes a weighted sum of inputs and applies a step function.",
+    "difficulty": "easy"
+  },
+  "Neural Networks": {
+    "prereqs": [
+      "Perceptron",
+      "Backpropagation",
+      "Gradient Descent"
+    ],
+    "children": [
+      "CNN",
+      "RNN",
+      "GAN",
+      "VAE",
+      "Normalizing Flows",
+      "Sequence-to-Sequence"
+    ],
+    "description": "Computational models inspired by biological neural networks; used for a wide range of learning tasks.",
+    "difficulty": "hard"
+  },
+  "Backpropagation": {
+    "prereqs": [
+      "Chain Rule",
+      "Matrix Multiplication"
+    ],
+    "children": [
+      "Neural Networks"
+    ],
+    "description": "Algorithm for training neural networks by propagating the error gradient backward through the network.",
+    "difficulty": "hard"
+  },
+  "Matrix Multiplication": {
+    "prereqs": [
+      "Matrix Operations"
+    ],
+    "children": [
+      "Backpropagation",
+      "Convolution Operation"
+    ],
+    "description": "Operation of multiplying two matrices; fundamental in many ML computations.",
+    "difficulty": "easy"
+  },
+  "Activation Functions": {
+    "prereqs": [
+      "Derivatives"
+    ],
+    "children": [
+      "Neural Networks"
+    ],
+    "description": "Functions (e.g., sigmoid, ReLU) that introduce non-linearity into neural networks.",
+    "difficulty": "medium"
+  },
+  "Weight Initialization": {
+    "prereqs": [
+      "Statistics Basics"
+    ],
+    "children": [
+      "Neural Networks"
+    ],
+    "description": "Methods for initializing neural network weights to improve training convergence (e.g., Xavier, He).",
+    "difficulty": "medium"
+  },
+  "Regularization": {
+    "prereqs": [
+      "Linear Algebra"
+    ],
+    "children": [
+      "Neural Networks",
+      "XGBoost"
+    ],
+    "description": "Techniques (e.g., L1, L2) that penalize model complexity to prevent overfitting.",
+    "difficulty": "medium"
+  },
+  "Dropout": {
+    "prereqs": [
+      "Neural Networks"
+    ],
+    "children": [],
+    "description": "Regularization technique that randomly drops units during training to prevent co-adaptation.",
+    "difficulty": "medium"
+  },
+  "Batch Normalization": {
+    "prereqs": [
+      "Statistics Basics",
+      "Neural Networks"
+    ],
+    "children": [],
+    "description": "Technique to normalize layer inputs during training, which speeds up convergence and stabilizes learning.",
+    "difficulty": "hard"
+  },
+  "CNN": {
+    "prereqs": [
+      "Neural Networks",
+      "Convolution Operation"
+    ],
+    "children": [],
+    "description": "Convolutional Neural Network: architecture designed for processing grid-like data (e.g., images).",
+    "difficulty": "hard"
+  },
+  "Convolution Operation": {
+    "prereqs": [
+      "Matrix Multiplication"
+    ],
+    "children": [
+      "CNN"
+    ],
+    "description": "Mathematical operation combining two functions to produce a third; in CNNs, used to extract features.",
+    "difficulty": "medium"
+  },
+  "Pooling": {
+    "prereqs": [
+      "CNN"
+    ],
+    "children": [],
+    "description": "Downsampling operation in CNNs (e.g., max pooling) that reduces spatial dimensions.",
+    "difficulty": "medium"
+  },
+  "RNN": {
+    "prereqs": [
+      "Neural Networks"
+    ],
+    "children": [
+      "LSTM",
+      "GRU"
+    ],
+    "description": "Recurrent Neural Network: processes sequential data by maintaining a hidden state across time steps.",
+    "difficulty": "hard"
+  },
+  "LSTM": {
+    "prereqs": [
+      "RNN"
+    ],
+    "children": [],
+    "description": "Long Short-Term Memory: RNN variant that uses gates to handle long-range dependencies.",
+    "difficulty": "hard"
+  },
+  "GRU": {
+    "prereqs": [
+      "RNN"
+    ],
+    "children": [],
+    "description": "Gated Recurrent Unit: a simplified RNN variant with fewer gates than LSTM.",
+    "difficulty": "hard"
+  },
+  "Sequence-to-Sequence": {
+    "prereqs": [
+      "RNN",
+      "Attention Mechanism"
+    ],
+    "children": [],
+    "description": "Architecture for tasks like translation, where an encoder RNN maps input to a context and a decoder produces output.",
+    "difficulty": "hard"
+  },
+  "Attention Mechanism": {
+    "prereqs": [
+      "Dot Product",
+      "Softmax"
+    ],
+    "children": [
+      "Sequence-to-Sequence",
+      "Transformers"
+    ],
+    "description": "Technique that allows models to focus on relevant parts of the input sequence when producing each output element.",
+    "difficulty": "hard"
+  },
+  "Transformers": {
+    "prereqs": [
+      "Attention Mechanism",
+      "Positional Encoding"
+    ],
+    "children": [],
+    "description": "Neural architecture based entirely on self-attention mechanisms; state-of-the-art for many NLP tasks.",
+    "difficulty": "hard"
+  },
+  "Positional Encoding": {
+    "prereqs": [
+      "Sinusoidal Functions"
+    ],
+    "children": [
+      "Transformers"
+    ],
+    "description": "Method to inject information about token positions in a sequence into transformer models.",
+    "difficulty": "medium"
+  },
+  "Sinusoidal Functions": {
+    "prereqs": [
+      "Trigonometry"
+    ],
+    "children": [
+      "Positional Encoding"
+    ],
+    "description": "Trigonometric functions (sine, cosine) used to generate positional encodings.",
+    "difficulty": "easy"
+  },
+  "Trigonometry": {
+    "prereqs": [],
+    "children": [
+      "Sinusoidal Functions"
+    ],
+    "description": "Branch of mathematics dealing with angles and functions like sine and cosine.",
+    "difficulty": "easy"
+  },
+  "GAN": {
+    "prereqs": [
+      "Neural Networks"
+    ],
+    "children": [],
+    "description": "Generative Adversarial Network: two-network model where a generator and discriminator compete to improve generation quality.",
+    "difficulty": "hard"
+  },
+  "VAE": {
+    "prereqs": [
+      "Neural Networks",
+      "KL Divergence"
+    ],
+    "children": [],
+    "description": "Variational Autoencoder: generative model that imposes a probabilistic latent space using variational inference.",
+    "difficulty": "hard"
+  },
+  "Normalizing Flows": {
+    "prereqs": [
+      "Probability Basics",
+      "Jacobian"
+    ],
+    "children": [],
+    "description": "Family of generative models that transform a simple distribution into a complex one via invertible mappings.",
+    "difficulty": "hard"
+  },
+  "Jacobian": {
+    "prereqs": [
+      "Matrix Algebra",
+      "Derivatives"
+    ],
+    "children": [
+      "Normalizing Flows"
+    ],
+    "description": "Matrix of all first-order partial derivatives of a vector-valued function; used in change-of-variable formula.",
+    "difficulty": "hard"
+  },
+  "MDP": {
+    "prereqs": [
+      "Probability Basics"
+    ],
+    "children": [
+      "Q-Learning",
+      "Policy Gradient"
+    ],
+    "description": "Markov Decision Process: framework for reinforcement learning problems defining states, actions, and rewards.",
+    "difficulty": "medium"
+  },
+  "Q-Learning": {
+    "prereqs": [
+      "MDP"
+    ],
+    "children": [
+      "DQN"
+    ],
+    "description": "Off-policy reinforcement learning algorithm that learns a Q-function estimating action values.",
+    "difficulty": "medium"
+  },
+  "DQN": {
+    "prereqs": [
+      "Q-Learning",
+      "Neural Networks"
+    ],
+    "children": [],
+    "description": "Deep Q-Network: extension of Q-learning that uses a neural network to approximate the Q-function.",
+    "difficulty": "hard"
+  },
+  "Policy Gradient": {
+    "prereqs": [
+      "MDP",
+      "Monte Carlo Methods"
+    ],
+    "children": [
+      "Actor-Critic",
+      "PPO"
+    ],
+    "description": "Reinforcement learning approach that directly optimizes a parameterized policy using gradient ascent.",
+    "difficulty": "hard"
+  },
+  "Monte Carlo Methods": {
+    "prereqs": [
+      "Probability Basics"
+    ],
+    "children": [
+      "Policy Gradient"
+    ],
+    "description": "Simulation-based methods for approximating expectations by averaging random samples.",
+    "difficulty": "medium"
+  },
+  "Actor-Critic": {
+    "prereqs": [
+      "Policy Gradient"
+    ],
+    "children": [],
+    "description": "Hybrid RL approach combining value-based and policy-based methods, using separate actor and critic networks.",
+    "difficulty": "hard"
+  },
+  "PPO": {
+    "prereqs": [
+      "Policy Gradient"
+    ],
+    "children": [],
+    "description": "Proximal Policy Optimization: stable and efficient policy-gradient method with clipped objective functions.",
+    "difficulty": "hard"
+  },
+  "Markov Chains": {
+    "prereqs": [
+      "Probability Basics"
+    ],
+    "children": [
+      "Gibbs Sampling",
+      "MDP"
+    ],
+    "description": "Mathematical system that undergoes transitions between states with certain probabilities.",
+    "difficulty": "medium"
+  },
+  "Evaluation Metrics": {
+    "prereqs": [],
+    "children": [
+      "Accuracy",
+      "Precision",
+      "Recall",
+      "F1-Score",
+      "ROC AUC",
+      "MSE",
+      "RMSE",
+      "R2"
+    ],
+    "description": "Metrics used to evaluate performance of ML models in classification and regression tasks.",
+    "difficulty": "easy"
+  },
+  "Accuracy": {
+    "prereqs": [
+      "Evaluation Metrics"
+    ],
+    "children": [],
+    "description": "Proportion of correctly classified instances among all instances.",
+    "difficulty": "easy"
+  },
+  "Precision": {
+    "prereqs": [
+      "Evaluation Metrics"
+    ],
+    "children": [],
+    "description": "Proportion of true positive predictions among all positive predictions.",
+    "difficulty": "medium"
+  },
+  "Recall": {
+    "prereqs": [
+      "Evaluation Metrics"
+    ],
+    "children": [],
+    "description": "Proportion of true positive predictions among all actual positives.",
+    "difficulty": "medium"
+  },
+  "F1-Score": {
+    "prereqs": [
+      "Precision",
+      "Recall"
+    ],
+    "children": [],
+    "description": "Harmonic mean of precision and recall; balances both metrics.",
+    "difficulty": "medium"
+  },
+  "ROC AUC": {
+    "prereqs": [
+      "Evaluation Metrics"
+    ],
+    "children": [],
+    "description": "Area under the Receiver Operating Characteristic curve; measures classification performance across thresholds.",
+    "difficulty": "medium"
+  },
+  "MSE": {
+    "prereqs": [
+      "Mean & Variance"
+    ],
+    "children": [
+      "Linear Regression"
+    ],
+    "description": "Mean Squared Error: average squared difference between predicted and actual values.",
+    "difficulty": "easy"
+  },
+  "RMSE": {
+    "prereqs": [
+      "MSE"
+    ],
+    "children": [],
+    "description": "Root Mean Squared Error: square root of MSE, interpretable in original units.",
+    "difficulty": "medium"
+  },
+  "R2": {
+    "prereqs": [
+      "Evaluation Metrics"
+    ],
+    "children": [],
+    "description": "Coefficient of determination: proportion of variance explained by a regression model.",
+    "difficulty": "medium"
+  }
+}

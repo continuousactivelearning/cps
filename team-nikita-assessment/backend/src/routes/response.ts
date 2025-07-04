@@ -1,14 +1,38 @@
 /* AUTHOR - NIKITA S RAJ KAPINI (CREATED ON 12/06/2025) */
+/*UPDATED BY NIKITA S RAJ KAPINI ON 18/06/2025*/
+
 import express from 'express';
 import { Request, Response } from 'express';
 import UserResponse from '../models/UserResponse';
 import Assessment from '../models/Assessment';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
+
+function getUserEmailFromToken(req: Request): string | null {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) return null;
+
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
+    return decoded.email;
+  } catch (error) {
+    console.error('JWT decoding failed:', error);
+    return null;
+  }
+}
 
 // POST: Submit user answers
 router.post('/submit', async (req: Request, res: Response): Promise<void> => {
   const { assessmentId, userId, answers } = req.body;
+
+  const email = getUserEmailFromToken(req);
+
+  if (!email) {
+    res.status(401).json({ error: 'Unauthorized: Email not found in token' });
+    return;
+  }
 
   try {
     const assessment = await Assessment.findById(assessmentId);
@@ -19,9 +43,6 @@ router.post('/submit', async (req: Request, res: Response): Promise<void> => {
 
     const evaluatedResponses = assessment.questions.map((q, i) => {
       const userAns = answers[i]?.userAnswer || [];
-    //   const correct = Array.isArray(q.correct_answer)
-    //     ? q.correct_answer.sort().join(',') === userAns.sort().join(',')
-    //     : q.correct_answer === userAns;
     let correct = false;
 
     if (Array.isArray(q.correct_answer)) {
@@ -41,11 +62,17 @@ router.post('/submit', async (req: Request, res: Response): Promise<void> => {
       };
     });
 
+    const totalQuestions = evaluatedResponses.length;
+    const correctAnswers = evaluatedResponses.filter(r => r.isCorrect).length;
+    const percentageScore = Math.round((correctAnswers / totalQuestions) * 100);
+
     const newResponse = new UserResponse({
       assessmentId,
-      userId,
+      userId: email,
       targetTopic: assessment.targetTopic,
-      responses: evaluatedResponses
+      responses: evaluatedResponses,
+      percentage_score: percentageScore,
+      timeTaken: req.body.timeTaken
     });
 
     await newResponse.save();
@@ -56,28 +83,64 @@ router.post('/submit', async (req: Request, res: Response): Promise<void> => {
   }
 });
 
+
+
 // GET: Analyze performance to suggest weak prerequisite topics
-router.get('/analysis/:userId/:assessmentId', async (req: Request, res: Response) => {
-  const { userId, assessmentId } = req.params;
+router.get('/analysis/:assessmentId', async (req: Request, res: Response) => {
+  const assessmentId = req.params.assessmentId;
+  const email = getUserEmailFromToken(req); // secure extraction
+
+  if (!email) {
+    res.status(401).json({ error: 'Unauthorized: Email not found in token' });
+    return;
+  }
 
   try {
-    const response = await UserResponse.findOne({ userId, assessmentId });
-    if (!response) {
-      res.status(404).json({ error: 'User response not found' });
+    const response = await UserResponse.findOne({ userId: email, assessmentId });
+    const assessment = await Assessment.findById(assessmentId);
+
+    if (!response || !assessment) {
+      res.status(404).json({ error: 'User response or assessment not found' });
       return;
     }
 
-    const weakTopics = response.responses
-      .filter(q => !q.isCorrect)
-      .map(q => q.topic_tested);
+    const conceptMap = new Map<string, string>(); // Map topic_tested => concept_area
 
-    const uniqueWeakTopics = [...new Set(weakTopics)];
+    assessment.questions.forEach((q) => {
+      if (typeof q.topic_tested === 'string' && typeof q.concept_area === 'string') {
+        conceptMap.set(q.question, `${q.topic_tested}|${q.concept_area}`);
+      }
+    });
+
+    const weakTopics: string[] = [];
+    const weakConcepts: string[] = [];
+
+    for (const q of response.responses) {
+        if (!q.isCorrect) {
+          if (Array.isArray(q.topic_tested)) {
+            weakTopics.push(...q.topic_tested);
+          } else if (typeof q.topic_tested === 'string') {
+            weakTopics.push(q.topic_tested);
+          }
+
+          // Match concept area from original assessment by question text
+          const match = conceptMap.get(q.questionText);
+          if (match) {
+            const [, concept] = match.split('|');
+            if (concept) weakConcepts.push(concept.trim());
+          }
+        }
+      }
+
+    const uniqueTopics = [...new Set(weakTopics)];
+    const uniqueConcepts = [...new Set(weakConcepts)];
 
     res.json({
       message: 'Analysis complete',
-      weakTopics,
-      recommendations: uniqueWeakTopics.length
-        ? `Please revisit the following prerequisite topics before continuing: ${uniqueWeakTopics.join(', ')}.`
+      weakTopics: uniqueTopics,
+      weakConcepts: uniqueConcepts,
+      recommendations: uniqueTopics.length
+        ? `Please revisit these topics and concepts: ${uniqueTopics.join(', ')} | ${uniqueConcepts.join(', ')}.`
         : 'Great job! You’re ready to move forward with the target topic.'
     });
   } catch (err) {

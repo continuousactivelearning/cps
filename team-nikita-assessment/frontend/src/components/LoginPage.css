@@ -1,0 +1,79 @@
+/*AUTHOR-MANDA RANI(created on 14/06/25)*/
+/*Modified by Nakshatra Bhandary on 16/6/25 to update UI and fix dark Mode*/
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 12vh; 
+  height: 100vh;
+  background-color: var(--bg-color);
+  /*background-color: #f9f8ff;*/
+}
+
+.login-form {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.login-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.login-input {
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  background-color: #fafafa;
+  color: black;
+}
+
+.login-error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+}
+
+.login-button {
+  background-color: #8b5cf6;
+  color: white;
+  font-weight: 600;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color:#7c3aed;
+}
+
+.logout-button {
+  background-color: #8b5cf6;
+  color: white;
+  font-weight: 600;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color:#7c3aed;
+}

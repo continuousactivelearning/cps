@@ -1,5 +1,8 @@
 /* Your custom styles can go here */
 /* AUTHOR - SHREYAS MENE (CREATED ON 11/06/2025) */
+/*AUTHOR-MANDA RANI(UPDATED ON 14/06/25)*/
+/*Modified by Nakshatra Bhandary on 16/6/25 to modify the UI for the logout button*/
+
 * {
   margin: 0;
   padding: 0;
@@ -15,6 +18,40 @@ body {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+.app-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  margin-bottom: 80px; /* Space for chatbot */
+}
+
+.content-container {
+  margin-left: 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  height: calc(100vh - 200px);
+  min-height: 600px;
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  
+  .app-container {
+    padding: 16px;
+  }
 }
 
 .logo {
@@ -53,15 +90,6 @@ body {
   color: #888;
 }
 
-.app-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 header {
   text-align: center;
   margin-bottom: 32px;
@@ -69,7 +97,7 @@ header {
 
 header h1 {
   font-size: 32px;
-  color: #6c5ce7;
+  color: var(--primary-color);
   margin: 0;
   display: flex;
   align-items: center;
@@ -80,30 +108,13 @@ header h1 {
 .header-icon {
   width: 32px;
   height: 32px;
+  display: inline-block;
+  color: var(--primary-color);
+  transition: transform 0.3s ease;
 }
 
-main {
-  flex: 1;
-  margin-bottom: 80px; /* Space for chatbot */
-}
-
-.content-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  height: calc(100vh - 200px);
-  min-height: 600px;
-}
-
-@media (max-width: 768px) {
-  .content-container {
-    grid-template-columns: 1fr;
-    height: auto;
-  }
-  
-  .app-container {
-    padding: 16px;
-  }
+.header-icon:hover {
+  transform: scale(1.1);
 }
 
 .search-container {
@@ -186,3 +197,66 @@ main {
   overflow: hidden;
   animation: slideIn 0.3s ease-out;
 }
+.logout-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 0px;
+  margin-top: 40px; /* pull it upward closer to header */
+  margin-bottom: 10px;
+}
+
+.top-right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  z-index: 1000;
+}
+
+
+.dashboard-container {
+  display: flex;
+}
+
+.main-content {
+  margin-left: 220px; /* Match sidebar width */
+  flex: 1;
+  padding: 24px;
+}
+
+/*.logout-button:hover {
+  background-color: #7C3AED;
+}
+
+/*.logout-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+
+/*.app-header {
+  position: relative;
+  margin-bottom: 32px;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.header-left {
+  display: inline-block;
+}
+
+.header-right {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}*/
+

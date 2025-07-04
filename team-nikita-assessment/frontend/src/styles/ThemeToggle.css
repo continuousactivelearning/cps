@@ -1,0 +1,75 @@
+.theme-toggle-wrapper {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.theme-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.theme-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--primary-color);
+  border-radius: 34px;
+  transition: 0.4s;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.slider-icon {
+  position: absolute;
+  left: 33px;
+  font-size: 16px;
+  transition: 0.4s;
+  color: white;
+}
+
+input:checked + .slider {
+  background-color: var(--secondary-color);
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
+}
+
+input:checked + .slider .slider-icon {
+  left: 8px;
+}
+
+/* Add hover effect */
+.theme-toggle-switch:hover .slider {
+  box-shadow: 0 0 8px var(--primary-color);
+}
+
+[data-theme='dark'] .theme-toggle-switch:hover .slider {
+  box-shadow: 0 0 8px var(--secondary-color);
+} 

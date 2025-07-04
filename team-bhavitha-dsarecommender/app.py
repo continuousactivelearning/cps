@@ -1,45 +1,33 @@
+from flask import Flask, request, jsonify, render_template
+from recommendation_engine import recommend_for_learner
 import os
-import streamlit as st
-from recommendation_engine import load_graph, load_learner_profile, dijkstra_recommendation
+import json
 
-# --- File Paths ---
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-GRAPH_PATH = os.path.join(BASE_DIR, "concept_graph_full.json")
-PROFILE_PATH = os.path.join(BASE_DIR, "learner_profiles.json")
+app = Flask(__name__, template_folder='templates')
 
-# --- Load Data ---
-graph = load_graph(GRAPH_PATH)
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-# Get all concept nodes
-all_nodes = set(graph.keys()) | {n for neighbors in graph.values() for n in neighbors}
+@app.route('/recommend', methods=['POST'])
+def recommend():
+    data = request.get_json()
+    learner_id = data.get('learner_id')
+    mastered_concepts = data.get('mastered_concepts', [])
 
-# --- UI ---
-st.set_page_config(page_title="DSA Recommendation Engine", layout="centered")
-st.title("📘 Personalized Learning Path for DSA")
+    profile = {
+        'learner_id': learner_id,
+        'mastered_concepts': mastered_concepts
+    }
 
-# Select learner
-learner_id = st.text_input("🔎 Enter Learner ID (e.g., L001):", "L001")
+    recommended = recommend_for_learner(profile)
 
-# Select target concept
-target_concept = st.selectbox("🎯 Select Target Concept:", sorted(list(all_nodes)))
+    # Save recommendations to file
+    os.makedirs('graph/recommendations', exist_ok=True)
+    with open(f'graph/recommendations/recommendations_{learner_id}.json', 'w') as f:
+        json.dump({'recommended_concepts': recommended}, f, indent=2)
 
-# Run recommendation on button click
-if st.button("🚀 Recommend Path"):
-    try:
-        learner = load_learner_profile(PROFILE_PATH, learner_id)
+    return jsonify({'recommended_concepts': recommended})
 
-        result = dijkstra_recommendation(
-            graph,
-            start_concepts=learner["mastered_concepts"],
-            weak_concepts=learner["weak_concepts"],
-            target=target_concept
-        )
-
-        if result["path"]:
-            st.success(f"✅ Recommended Path: {' ➝ '.join(result['path'])}")
-            st.info(f"💰 Total Cost: {result['cost']}")
-        else:
-            st.error("⚠️ No path found to the target concept.")
-
-    except ValueError as e:
-        st.error(f"❌ {e}")
+if __name__ == '__main__':
+    app.run(debug=True)

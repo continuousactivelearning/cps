@@ -27,7 +27,5 @@ export const getPrerequisites = (target: string): string[] => {
   }
 
   dfs(target);
-  //console.log(`Printing from prereq code-------Prerequisites for "${target}":`, Array.from(result));
-
   return Array.from(result);
 };

@@ -1,0 +1,5 @@
+{
+  "title": "string_manipulation",
+  "lecture": "03",
+  "content": "s1 = \"mitu rock\"\ns2 = \"irule mit\"\nif len(s1) == len(s2):\n    for char1 in s1:\n        for char2 in s2:\n            if char1 == char2:\n                print(\"common letter\")\n                break"
+}

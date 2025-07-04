@@ -1,28 +1,33 @@
 /* AUTHOR - SHREYAS MENE (CREATED ON 12/06/2025) */
+/* AUTHOR - NIKITA S RAJ KAPINI (UPDATED ON 16/06/2025) */
+/* AUTHOR - NIKITA S RAJ KAPINI (UPDATED ON 25/06/2025) */
+
 .topic-selector-container {
-  background: white;
+  background: var(--background-color);
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px;
+  border: 1px solid var(--border-color);
 }
 
 /* Fix text selection color */
 .topic-selector-container *::selection {
-  background: rgba(99, 102, 241, 0.2);
-  color: #333;
+  background: var(--hover-color);
+  color: var(--text-color);
 }
 
 .topic-selector-container h2 {
   font-size: 2rem;
-  color: #333;
+  color: var(--text-color);
   margin-bottom: 1rem;
   font-weight: 600;
 }
 
 .description {
-  color: #666;
+  color: var(--text-color);
+  opacity: 0.8;
   margin-bottom: 2rem;
   line-height: 1.6;
   font-size: 1rem;
@@ -36,9 +41,42 @@
   display: block;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--primary-color);
 }
 
+/* ✅ New styling for selected topic display (after selection) */
+.selected-topic-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--hover-color);
+  padding: 0.6rem 1rem;
+  border-radius: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.selected-topic-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.change-topic-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.change-topic-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Existing tag layout - still used for prerequisites */
 .selected-topics {
   display: flex;
   flex-wrap: wrap;
@@ -49,7 +87,7 @@
 .selected-topic-tag {
   display: inline-flex;
   align-items: center;
-  background-color: #6366F1;
+  background-color: var(--primary-color);
   color: white;
   padding: 0.4rem 0.8rem;
   border-radius: 2rem;
@@ -61,7 +99,7 @@
 }
 
 .selected-topic-tag:hover {
-  background-color: #4F46E5;
+  background-color: var(--secondary-color);
 }
 
 .remove-topic-btn {
@@ -83,17 +121,23 @@
 .topic-input {
   width: 100%;
   padding: 0.8rem 1rem;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--border-color);
   border-radius: 0.5rem;
   font-size: 1rem;
   transition: all 0.3s ease;
-  background: white;
+  background: var(--background-color);
+  color: var(--text-color);
 }
 
 .topic-input:focus {
   outline: none;
-  border-color: #6366F1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--hover-color);
+}
+
+.topic-input::placeholder {
+  color: var(--text-color);
+  opacity: 0.6;
 }
 
 .dropdown-list {
@@ -101,8 +145,8 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   margin-top: 0.5rem;
   padding: 0.5rem 0;
@@ -117,11 +161,12 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
   list-style: none;
+  color: var(--text-color);
 }
 
 .dropdown-item:hover {
-  background-color: #F3F4F6;
-  color: #6366F1;
+  background-color: var(--hover-color);
+  color: var(--primary-color);
 }
 
 .prerequisites-section {
@@ -130,7 +175,7 @@
 
 .prerequisites-section h3 {
   font-size: 1.1rem;
-  color: #333;
+  color: var(--primary-color);
   margin-bottom: 1rem;
   font-weight: 500;
 }
@@ -142,8 +187,8 @@
 }
 
 .prerequisite-tag {
-  background-color: #F3F4F6;
-  color: #4B5563;
+  background-color: var(--hover-color);
+  color: var(--text-color);
   padding: 0.5rem 1rem;
   border-radius: 2rem;
   font-size: 0.9rem;
@@ -152,7 +197,7 @@
 
 .generate-btn {
   width: 100%;
-  background-color: #6366F1;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   padding: 1rem;
@@ -164,10 +209,22 @@
 }
 
 .generate-btn:hover {
-  background-color: #4F46E5;
+  background-color: var(--secondary-color);
 }
 
 .generate-btn:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
-} 
+  box-shadow: 0 0 0 3px var(--hover-color);
+}
+
+.dropdown-item.no-match {
+  color: #888;
+  cursor: default;
+  font-style: italic;
+}
+
+.warning-text {
+  color: #e53935;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}

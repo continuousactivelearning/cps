@@ -1,0 +1,5 @@
+{
+  "title": "guess_and_check",
+  "lecture": "03",
+  "content": "GUESS-AND-CHECK\nUsed when no simple formula exists.\nExample: Find cube root of x.\nGuess: Start with a value and increment until guess³ is close to x.\nSet tolerance (epsilon) for how close is close enough.\n\nExample structure:\nepsilon = 0.01\nguess = 0.0\nincrement = 0.0001\nnum_guesses = 0\nwhile abs(guess**3 - x) >= epsilon:\n    guess += increment\n    num_guesses += 1"
+}

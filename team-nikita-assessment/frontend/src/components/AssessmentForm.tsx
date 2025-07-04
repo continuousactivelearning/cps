@@ -1,4 +1,6 @@
 /* AUTHOR - SHREYAS MENE (CREATED ON 13/06/2025) */
+/*UPDATED BY NIKITA S RAJ KAPINI ON 16/06/2025*/
+
 import axios from 'axios';
 import React, { useState } from 'react';
 
@@ -7,7 +9,7 @@ export default function AssessmentForm() {
   const [result, setResult] = useState<any>(null);
 
   const handleSubmit = async () => {
-    const res = await axios.post('http://localhost:5000/api/assessment/generate', { target: topic });
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/assessment/generate`, { target: topic });
     setResult(res.data);
   };
 
@@ -31,12 +33,6 @@ export default function AssessmentForm() {
             {result.questions.map((q: any, idx: number) => (
               <li key={idx} className="mb-4">
                 <strong>Q{idx + 1}:</strong> {q.question}
-                <br />
-                <em>Concept:</em> {q.conceptArea} | <em>Difficulty:</em> {q.difficulty} | <em>Time:</em> {q.time}
-                <br />
-                <strong>Answer:</strong> {q.answer}
-                <br />
-                <strong>Insight:</strong> {q.insight}
               </li>
             ))}
           </ul>

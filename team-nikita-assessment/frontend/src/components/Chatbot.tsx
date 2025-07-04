@@ -1,12 +1,14 @@
 //Author:Yeddula Pushkala             Date:12-06-25
 /* AUTHOR(UI and components) - SHREYAS MENE (CREATED ON 12/06/2025) */
+/*Updated by Nikita S Raj Kapini on 26/06/2025*/
+
 import React, { useState, useRef, useEffect } from 'react';
 import { EnhancedChatbotService } from '../services';
 import { ConversationMemoryManager } from '../services/conversationMemory';
 import type { ConversationContext, Message } from '../services/conversationMemory';
 import './Chatbot.css';
 
-const Chatbot: React.FC = () => {
+const Chatbot: React.FC<{ disabled?: boolean }> = ({ disabled = false }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -20,7 +22,6 @@ const Chatbot: React.FC = () => {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
-  // Add the missing serviceReady state declaration
   const [serviceReady, setServiceReady] = useState(false);
   
   const [chatbotService] = useState(() => new EnhancedChatbotService());
@@ -62,7 +63,6 @@ const Chatbot: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add serviceReady check to prevent processing when service isn't ready
     if (!inputText.trim() || isLoading || !serviceReady) return;
 
     const userMessage = inputText.trim();
@@ -71,14 +71,12 @@ const Chatbot: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Use the enhanced chatbot service with correct method name
       const result = await chatbotService.classifyAndRespond(
         userMessage,
-        'default_user', // In production, use actual user ID
-        'default_session' // In production, use actual session ID
+        'default_user',
+        'default_session'
       );
       
-      // Add bot response with classification metadata
       addMessage(result.response, false, result.intent, result.confidence);
 
     } catch (error) {
@@ -98,10 +96,10 @@ const Chatbot: React.FC = () => {
         onClick={toggleChat}
         className={`chat-toggle ${isOpen ? 'open' : ''}`}
         aria-label="Toggle chat"
+        disabled={disabled} // <-- ADD THIS
       >
         {isOpen ? '✕' : '🤖'}
       </button>
-
       {/* Chat Window */}
       {isOpen && (
         <div className="chatbot-container">
@@ -126,11 +124,7 @@ const Chatbot: React.FC = () => {
                   <span className="message-timestamp">
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </span>
-                  {message.intent && message.confidence && (
-                    <span className={`intent-debug confidence-${getConfidenceLevel(message.confidence)}`}>
-                      {message.intent} ({(message.confidence * 100).toFixed(0)}%)
-                    </span>
-                  )}
+                  {/* Debug information completely removed from user interface */}
                 </div>
               </div>
             ))}
@@ -153,6 +147,7 @@ const Chatbot: React.FC = () => {
 
           <form onSubmit={handleSubmit} className="chatbot-input-form">
             <input
+              disabled={isLoading || !serviceReady || disabled}
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
@@ -161,12 +156,11 @@ const Chatbot: React.FC = () => {
                 : "Initializing chatbot services..."
               }
               className="chatbot-input"
-              disabled={isLoading || !serviceReady}
             />
             <button 
+              disabled={isLoading || !inputText.trim() || !serviceReady || disabled}
               type="submit" 
               className="chatbot-send-button"
-              disabled={isLoading || !inputText.trim() || !serviceReady}
             >
               {isLoading ? '⏳' : '📤'}
             </button>
@@ -179,7 +173,6 @@ const Chatbot: React.FC = () => {
 
 // Helper function to format messages
 const formatMessage = (text: string) => {
-  // Handle numbered lists and formatting
   const lines = text.split('\n');
   return lines.map((line, index) => {
     if (line.match(/^\d+\)/)) {
@@ -198,5 +191,4 @@ const getConfidenceLevel = (confidence: number): string => {
   if (confidence > 0.4) return 'medium';
   return 'low';
 };
-
 export default Chatbot;

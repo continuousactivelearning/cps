@@ -1,0 +1,162 @@
+/* CREATED BY NIKITA S RAJ KAPINI(19/06/2025)*/
+/*UPDATED BY NIKITA S RAJ KAPINI(20/06/2025)*/
+
+/*
+.compact-sidebar {
+  width: 60px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #2C2E4F;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-top: 16px;
+  z-index: 1000;
+}
+
+.avatar-section {
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-dropdown {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  z-index: 1001;
+  background-color: var(--background-color, white);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
+}
+
+.avatar-dropdown button {
+  padding: 8px 12px;
+  border: none;
+  background-color: #6C5CE7; 
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.avatar-dropdown button:hover {
+  background-color: #5948cc; 
+} 
+
+.user-email {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+*/
+
+
+/* CREATED BY NIKITA S RAJ KAPINI(19/06/2025) */
+/* UPDATED BY NIKITA S RAJ KAPINI(20/06/2025) */
+
+.compact-sidebar {
+  width: 60px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #2C2E4F;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-top: 16px;
+  z-index: 1000;
+}
+
+.avatar-section {
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.avatar-icon:hover {
+  transform: scale(1.1);
+}
+
+.avatar-dropdown {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  z-index: 1001;
+  background-color: var(--background-color, white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.text_dropdown{
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--primary-color);
+  padding: 8px;
+  text-align: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+.user-email {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  text-align: left;
+  word-break: break-word;
+}
+
+.avatar-dropdown button {
+  padding: 8px;
+  border-radius: 6px;
+  background-color: #6C5CE7;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.avatar-dropdown button:hover {
+  background-color: #5948cc;
+}

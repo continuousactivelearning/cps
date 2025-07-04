@@ -4,10 +4,12 @@ __pycache__/
 
 # Node
 node_modules/
+dist/
 
 # Environment files
 .env
 backend/.env
+frontend/.env
 
 # OS junk
 .DS_Store
