@@ -11,7 +11,6 @@ const Chatbot: React.FC<ChatbotProps> = ({ notifications = [], minimized, setMin
   const [chatMessages, setChatMessages] = useState<any[]>([]);
   const [chatInput, setChatInput] = useState("");
   const [chatbotInitialized, setChatbotInitialized] = useState(false);
-  // Use controlled minimized state if provided, else fallback to internal state
   const [internalMinimized, setInternalMinimized] = useState(true);
   const isMinimized = minimized !== undefined ? minimized : internalMinimized;
   const setMin = setMinimized || setInternalMinimized;
@@ -132,22 +131,22 @@ const Chatbot: React.FC<ChatbotProps> = ({ notifications = [], minimized, setMin
       {/* Floating Chatbot Bubble */}
       {isMinimized && (
         <button
-          className={`fixed bottom-8 right-8 z-50 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center border-4 border-white dark:border-gray-900 bg-black dark:bg-gray-900 animate-spin-slow ${chatbotPulse ? 'animate-bounce' : ''}`}
+          className={`fixed bottom-12 right-6 md:bottom-12 md:right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full shadow-2xl flex items-center justify-center border-4 border-white dark:border-gray-900 bg-black dark:bg-gray-900 animate-spin-slow ${chatbotPulse ? 'animate-bounce' : ''}`}
           onClick={handleChatbotToggle}
           aria-label="Open Chatbot"
           style={{ animationDuration: '2.5s' }}
         >
-          <span className="text-3xl animate-pulse">🤖</span>
-          {/* Tooltip/arrow */}
-          <span className="absolute -left-40 top-0 -translate-y-1/2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 py-2 rounded-xl shadow-lg font-semibold text-sm border border-gray-200 dark:border-gray-700 animate-fade-in pointer-events-none select-none">
+          <span className="text-2xl md:text-3xl animate-pulse">🤖</span>
+          {/* Tooltip/arrow - hidden on mobile */}
+          <span className="hidden md:block absolute -left-40 top-0 -translate-y-1/2 bg-white dark:bg-gray-900 text-gray-900 dark:text-white px-4 py-2 rounded-xl shadow-lg font-semibold text-sm border border-gray-200 dark:border-gray-700 animate-fade-in pointer-events-none select-none">
             Need help? Chat with me!
             <span className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-b-8 border-l-8 border-t-transparent border-b-transparent border-l-white dark:border-l-gray-900 ml-1"></span>
           </span>
         </button>
       )}
       {!isMinimized && (
-        <div className="fixed bottom-8 right-8 z-50 w-96 h-[500px] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border-2 border-gray-300 dark:border-gray-700 flex flex-col">
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-black dark:bg-gray-900 rounded-t-2xl">
+        <div className="fixed inset-0 md:inset-auto md:bottom-8 md:right-8 z-50 md:w-96 md:h-[500px] w-full h-full md:rounded-2xl bg-white dark:bg-gray-900 shadow-2xl border-2 border-gray-300 dark:border-gray-700 flex flex-col">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-black dark:bg-gray-900 md:rounded-t-2xl">
             <div className="flex items-center space-x-3">
               <span className="text-2xl animate-pulse">🤖</span>
               <h3 className="font-semibold text-white">Learning Assistant</h3>
@@ -159,7 +158,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ notifications = [], minimized, setMin
               <X className="h-5 w-5" />
             </button>
           </div>
-          <div className="h-80 overflow-y-auto p-4 space-y-4 chat-messages">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 chat-messages">
             {chatMessages.length === 0 ? (
               <div className="text-center text-gray-500 dark:text-gray-400 py-8">
                 <Bot className="h-12 w-12 mx-auto mb-4 text-gray-300" />
@@ -179,7 +178,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ notifications = [], minimized, setMin
                     className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-xs px-4 py-2 rounded-2xl ${
+                      className={`max-w-[80%] md:max-w-xs px-4 py-2 rounded-2xl ${
                         message.sender === 'user'
                           ? 'bg-gray-800 text-white'
                           : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white'
@@ -244,4 +243,4 @@ const Chatbot: React.FC<ChatbotProps> = ({ notifications = [], minimized, setMin
   );
 };
 
-export default Chatbot; 
+export default Chatbot;
