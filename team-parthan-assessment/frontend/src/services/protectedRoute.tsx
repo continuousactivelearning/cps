@@ -1,16 +1,9 @@
-import React, { type JSX } from 'react';
+import { type JSX } from 'react';
 import { Navigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
 
 interface ProtectedRouteProps {
   children: JSX.Element;
   allowedRoles: string[]; // ['student'], ['instructor'], etc.
-}
-
-interface DecodedToken {
-  userId: string;
-  role: string;
-  exp: number;
 }
 
 const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {

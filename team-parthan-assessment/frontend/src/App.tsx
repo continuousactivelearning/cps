@@ -5,7 +5,6 @@ import MainPage from './components/MainPage';
 import ProtectedRoute from './services/protectedRoute';
 import ResetPasswordPage from './components/ResetPassword';
 import InstructorPage from './components/InstructorPage';
-import { ThemeProvider } from './components/ThemeProvider';
 
 const appRouter = createBrowserRouter([
   {

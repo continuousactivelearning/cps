@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Network, Moon, Sun, Users, AlertCircle, TrendingUp, BookOpen, X } from 'lucide-react';
+import { Network, Users, AlertCircle, TrendingUp, BookOpen, X } from 'lucide-react';
 import type { UserProfile } from '../interface/types';
 import api from '../services/api';
 import { mutate } from 'swr';
 import { getDetails } from '../services/detailService';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { useNavigate } from 'react-router-dom';
-import { ThemeToggle } from './ThemeToggle';
 import Loading from './Loading';
 
 interface Student {
@@ -29,7 +27,6 @@ const InstructorPage: React.FC = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [concerns, setConcerns] = useState<Concern[]>([]);
   const [loading, setLoading] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
 
   const token = localStorage.getItem('token');
 
@@ -101,7 +98,6 @@ const InstructorPage: React.FC = () => {
 
   const [progressOpen, setProgressOpen] = useState(false);
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
 
   const fetchStudentProgress = async (student: Student) => {
     try {
@@ -141,7 +137,6 @@ const InstructorPage: React.FC = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     navigate('/');
-    setIsOpen(false);
   };
 
   const getStatusColor = (status: string) => {

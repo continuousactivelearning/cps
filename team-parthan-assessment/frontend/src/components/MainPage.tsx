@@ -1,7 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Brain, Network, Clock, CheckCircle, AlertCircle, User, RotateCcw, Upload, Youtube, FileText, Image, Loader, Plus, X, ExternalLink, Search, Trophy, BarChart3, Target, Play } from 'lucide-react';
-import { TOPIC_QUIZ_DATA } from './data/quizData';
+import { Brain, Network, CheckCircle, AlertCircle, Upload, Youtube, FileText, Image, Loader, Plus, X, ExternalLink, Search, Trophy, BarChart3, Target, Play } from 'lucide-react';
 import type { Topic, UserProfile, CustomContent, Quiz, QuizQuestion, QuizState } from '../interface/types';
 import TopicCard from './TopicCard';
 import QuizModal from './QuizModal';
@@ -20,15 +19,13 @@ import {
 import Loading from './Loading';
 
 import ConceptAnalyzer from "./ConceptAnalyzer";
-import { getDetails, updateDetails } from "../services/detailService";
+import { updateDetails } from "../services/detailService";
 import api from "../services/api";
 import downloadReviewAsPDF from "../services/reviewDownload";
 import { mutate } from 'swr';
 import { submitQuiz } from '../services/progressUpdate';
 import CustomQuizResult, { type TopicStats } from './CustomResult';
 import InstructorEnrollmentCard from './EnrollmentCard';
-import SubmitConcernPage from './RaiseConcern';
-import { ThemeToggle } from './ThemeToggle';
 import RaiseConcern from './RaiseConcern';
 import RecentActivity from './RecentActivity';
 

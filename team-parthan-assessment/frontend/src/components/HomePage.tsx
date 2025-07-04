@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BookOpen, CheckCircle, Play, Settings, X, Menu, Zap, BarChart3, Brain } from "lucide-react";
+import { BookOpen, CheckCircle, Play, Menu, Zap, BarChart3 } from "lucide-react";
 import { features, steps } from "./data/homePageData";
 import { User } from "lucide-react";
 import {
@@ -11,8 +11,7 @@ import {
 } from "./ui/sheet";
 import AuthWrapper from "../auth/AuthWrapper";
 import { getDetails } from "../services/detailService";
-import { Navigate, useNavigate } from "react-router-dom";
-import useSWR from "swr";
+import { useNavigate } from "react-router-dom";
 
 interface FeatureCardProps {
   icon: React.ReactNode;

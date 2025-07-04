@@ -17,9 +17,6 @@ import {
 } from "./ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { getDetails, uploadPhoto } from "../services/detailService";
-import { useTheme } from "./ThemeProvider";
-import api from "../services/api";
-
 interface UserProfile {
   name: string;
   email: string;

@@ -1,7 +1,6 @@
-import React, { use, useState } from 'react';
+import React, { useState } from 'react';
 import { User, CheckCircle, AlertCircle, UserPlus, Code, BookOpen, Sparkles } from 'lucide-react';
 import api from '../services/api';
-import { useNavigate } from 'react-router-dom';
 
 interface Props {
   user: {
