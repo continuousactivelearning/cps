@@ -217,7 +217,7 @@ def generate_response(prompt: str, system_prompt: str = None) -> str:
                 }
             ],
             "temperature": 0.7,
-            "max_tokens": 4096,
+            "max_tokens": 750,
             "top_p": 0.9
         }
         
