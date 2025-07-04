@@ -2,8 +2,13 @@ from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from queryHandling.dynamic.groq_dsa_yt import generate_response, YouTubeResourceFinder  # Adjust import path
+from queryHandling.integrated_chat_handler import IntegratedChatHandler
+from typing import List, Dict, Optional
 
 app = FastAPI()
+
+# Initialize the integrated chat handler
+chat_handler = IntegratedChatHandler()
 
 # CORS setup to allow requests from frontend
 app.add_middleware(
@@ -16,29 +21,25 @@ app.add_middleware(
 
 class MessageRequest(BaseModel):
     message: str
+    chat_history: Optional[List[Dict]] = []
+    user_id: Optional[str] = "default"
 
 @app.post("/api/chat")
 async def chat(request: MessageRequest):
     prompt = request.message
-    response_text = generate_response(prompt)
-
-    # Also fetch YouTube resources
-    yt = YouTubeResourceFinder()
-    videos = yt.get_videos(prompt)
-
-    video_data = [
-        {
-            "title": video.title,
-            "url": video.url,
-            "channel_name": video.channel_name,
-            "view_count": video.view_count,
-            "duration": video.duration,
-            "description": video.description
-        }
-        for video in videos
-    ]
-
+    chat_history = request.chat_history or []
+    user_id = request.user_id or "default"
+    
+    # Use the integrated chat handler with enhanced parameters
+    result = chat_handler.handle_chat_message(
+        message=prompt,
+        chat_history=chat_history,
+        user_id=user_id
+    )
+    
     return {
-        "response": response_text,
-        "videos": video_data
+        "response": result.get('response', 'Sorry, I could not process your request.'),
+        "videos": result.get('videos', []),
+        "analysis": result.get('analysis', {}),
+        "error": result.get('error')
     }

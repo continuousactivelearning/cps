@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./team-chirag-semantic-analysis/backend/queryHandling/dynamic"
+    ]
+}
