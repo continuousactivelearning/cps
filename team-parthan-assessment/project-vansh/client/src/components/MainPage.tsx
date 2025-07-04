@@ -112,7 +112,7 @@ const MainPage: React.FC = () => {
   useEffect(() => {
     const profile = async () => {
       try {
-        const details = await getDetails();
+        const details = (await api.get("/me")).data;
         setUserProfile((prev) => ({
           ...prev,
           name: details.name,
@@ -435,7 +435,7 @@ const MainPage: React.FC = () => {
 
     setLoader(true);
     try {
-      const res = await fetch("http://localhost:5000/api/generate-quiz", {
+      const res = await fetch("https://cps-rnku.onrender.com/api/generate-quiz", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic: [topicId] })
@@ -523,7 +523,7 @@ const MainPage: React.FC = () => {
 
 
   try {
-    const res = await fetch("http://localhost:5000/api/generate-quiz", {
+    const res = await fetch("https://cps-rnku.onrender.com/api/generate-quiz", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
