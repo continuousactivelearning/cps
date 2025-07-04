@@ -1,0 +1,201 @@
+question_id,ground_truth,predicted,is_correct,match_type,timestamp
+0,Addition,Division,False,No Match,2025-06-24T18:29:04.535120
+1,Division,Unit Conversion,False,No Match,2025-06-24T18:29:04.615263
+2,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:04.714118
+3,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:04.815197
+4,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:04.898235
+5,Percentage Calculations,Percentage Calculations,True,Exact Match,2025-06-24T18:29:05.088566
+6,Addition,Addition,True,Exact Match,2025-06-24T18:29:05.185073
+7,Multiplication,Order of Operations,False,No Match,2025-06-24T18:29:05.291191
+8,Addition,Subtraction,False,No Match,2025-06-24T18:29:05.443646
+9,Multiplication,Rate,False,No Match,2025-06-24T18:29:05.556116
+10,Solving Equations,Geometric Sequences,False,No Match,2025-06-24T18:29:05.722112
+11,Addition,Subtraction,False,No Match,2025-06-24T18:29:05.854206
+12,Word Problem Comprehension,Fractions,False,No Match,2025-06-24T18:29:05.951116
+13,Word Problem Comprehension,Word Problem Comprehension,True,Exact Match,2025-06-24T18:29:06.066362
+14,Unit Rate,Unit Rate,True,Exact Match,2025-06-24T18:29:06.161789
+15,Multiplication,Decimal Operations,False,No Match,2025-06-24T18:29:06.303249
+16,Ratios,Ratios,True,Exact Match,2025-06-24T18:29:06.434624
+17,Addition,Multiplication,False,No Match,2025-06-24T18:29:06.535612
+18,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:06.704815
+19,Division,Division,True,Exact Match,2025-06-24T18:29:06.819532
+20,Word Problem Comprehension,Word Problem Comprehension,True,Exact Match,2025-06-24T18:29:06.971577
+21,Order of Operations,Order of Operations,True,Exact Match,2025-06-24T18:29:07.100454
+22,Substitution,Substitution,True,Exact Match,2025-06-24T18:29:07.217284
+23,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:07.390661
+24,Word Problem Comprehension,Word Problem Comprehension,True,Exact Match,2025-06-24T18:29:07.554593
+25,Fractions,Multiplication,False,No Match,2025-06-24T18:29:07.702231
+26,Unit Conversion,Unit Conversion,True,Exact Match,2025-06-24T18:29:07.799101
+27,Percentages,Fractions,False,No Match,2025-06-24T18:29:07.925008
+28,Word Problem Comprehension,Subtraction,False,No Match,2025-06-24T18:29:08.008297
+29,Ratio and Proportion,Percentages,False,No Match,2025-06-24T18:29:08.181118
+30,Word Problem Comprehension,Fractions,False,No Match,2025-06-24T18:29:08.282115
+31,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:08.411347
+32,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:08.532110
+33,Word Problem Comprehension,Fractions,False,No Match,2025-06-24T18:29:08.662215
+34,Addition,Multiplication,False,No Match,2025-06-24T18:29:08.759160
+35,Percentage,Percentage,True,Exact Match,2025-06-24T18:29:08.842609
+36,Fractions,Subtraction,False,No Match,2025-06-24T18:29:08.922788
+37,Division,Division,True,Exact Match,2025-06-24T18:29:09.052817
+38,Unit Conversion,Unit Conversion,True,Exact Match,2025-06-24T18:29:09.194827
+39,Word Problem Comprehension,Subtraction,False,No Match,2025-06-24T18:29:09.310666
+40,Subtraction,Percentages,False,No Match,2025-06-24T18:29:09.429224
+41,Word Problem Comprehension,Conceptual Misunderstanding,False,No Match,2025-06-24T18:29:09.561789
+42,Division,Multiplication,False,No Match,2025-06-24T18:29:09.687723
+43,Addition,Exponential Growth,False,No Match,2025-06-24T18:29:09.798963
+44,Percentage to Decimal Conversion,Percentage Calculation,False,No Match,2025-06-24T18:29:09.919545
+45,Word Problem Comprehension,Word Problem Comprehension,True,Exact Match,2025-06-24T18:29:10.025586
+46,Word Problem Comprehension,Word Problem Comprehension,True,Exact Match,2025-06-24T18:29:10.127764
+47,Division,Subtraction,False,No Match,2025-06-24T18:29:10.223107
+48,Division,Division,True,Exact Match,2025-06-24T18:29:10.291709
+49,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:10.408269
+50,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:10.526655
+51,Multiplication,Area Calculation,False,No Match,2025-06-24T18:29:10.649119
+52,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:10.780149
+53,Multiplication,Subtraction,False,No Match,2025-06-24T18:29:10.876662
+54,Subtraction,Division,False,No Match,2025-06-24T18:29:10.991150
+55,Percentage,Percentage,True,Exact Match,2025-06-24T18:29:11.061936
+56,Word Problem Comprehension,Word Problem Comprehension,True,Exact Match,2025-06-24T18:29:11.164099
+57,Fractions,Fractions,True,Exact Match,2025-06-24T18:29:11.260820
+58,Weighted Average,Weighted Average,True,Exact Match,2025-06-24T18:29:11.366373
+59,Addition,Word Problem Comprehension,False,No Match,2025-06-24T18:29:11.496391
+60,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:11.592551
+61,Multiplication,Subtraction,False,No Match,2025-06-24T18:29:11.736929
+62,Subtraction,Division,False,No Match,2025-06-24T18:29:11.857842
+63,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:11.974742
+64,Percentage,Percentage,True,Exact Match,2025-06-24T18:29:12.045610
+65,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:12.139611
+66,Word Problem Comprehension,Percentage Calculation,False,No Match,2025-06-24T18:29:12.258932
+67,Fractions,Averages,False,No Match,2025-06-24T18:29:12.399110
+68,Division,Proportion,False,No Match,2025-06-24T18:29:12.523116
+69,Addition,Addition,True,Exact Match,2025-06-24T18:29:12.617305
+70,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:12.711777
+71,Addition,Subtraction,False,No Match,2025-06-24T18:29:12.836136
+72,Fractions,Fractions,True,Exact Match,2025-06-24T18:29:12.974657
+73,Word Problem Comprehension,Word Problem Comprehension,True,Exact Match,2025-06-24T18:29:13.110699
+74,Division,Subtraction,False,No Match,2025-06-24T18:29:13.230717
+75,Addition,Addition,True,Exact Match,2025-06-24T18:29:13.327051
+76,Word Problem Comprehension,Conceptual Misunderstandings,False,No Match,2025-06-24T18:29:13.511770
+77,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:13.607078
+78,Word Problem Comprehension,Word Problem Comprehension,True,Exact Match,2025-06-24T18:29:13.720445
+79,Word Problem Comprehension,Word Problem Comprehension,True,Exact Match,2025-06-24T18:29:13.821000
+80,Ratios and Proportions,Ratios and Proportions,True,Exact Match,2025-06-24T18:29:13.998566
+81,Addition,Subtraction,False,No Match,2025-06-24T18:29:14.121116
+82,Addition,Multiplication,False,No Match,2025-06-24T18:29:14.202011
+83,Word Problem Comprehension,Fractions,False,No Match,2025-06-24T18:29:14.326115
+84,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:14.422625
+85,Subtraction,Relative Comparison,False,No Match,2025-06-24T18:29:14.517918
+86,Division,Decimal Operations,False,No Match,2025-06-24T18:29:14.661606
+87,Decimal Multiplication,Decimal Multiplication,True,Exact Match,2025-06-24T18:29:14.770489
+88,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:14.864784
+89,Multiplication,Percentage Increase,False,No Match,2025-06-24T18:29:14.965511
+90,Word Problem Comprehension,Word Problem Comprehension,True,Exact Match,2025-06-24T18:29:15.094805
+91,Division,Division,True,Exact Match,2025-06-24T18:29:15.204713
+92,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:15.322117
+93,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:15.441136
+94,Word Problem Comprehension,Division,False,No Match,2025-06-24T18:29:15.525938
+95,Multiplication,Percentage,False,No Match,2025-06-24T18:29:15.657838
+96,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:15.781195
+97,Deduction,Fractions,False,No Match,2025-06-24T18:29:15.903114
+98,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:16.023118
+99,Ratios,Ratios,True,Exact Match,2025-06-24T18:29:16.185127
+100,Word Problem Comprehension,Subtraction,False,No Match,2025-06-24T18:29:16.282275
+101,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:16.402493
+102,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:16.485002
+103,Addition,Addition,True,Exact Match,2025-06-24T18:29:16.629022
+104,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:16.724204
+105,Addition,Addition,True,Exact Match,2025-06-24T18:29:16.843296
+106,Word Problem Comprehension,Fractions,False,No Match,2025-06-24T18:29:16.926393
+107,Word Problem Comprehension,Percentage Calculation,False,No Match,2025-06-24T18:29:17.044749
+108,Multiplication,Cost Calculation,False,No Match,2025-06-24T18:29:17.180129
+109,Word Problem Comprehension,Conceptual Misunderstanding,False,No Match,2025-06-24T18:29:17.339410
+110,Word Problem Comprehension,Comparison,False,No Match,2025-06-24T18:29:17.443175
+111,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:17.539182
+112,Addition,Conceptual Misunderstandings,False,No Match,2025-06-24T18:29:17.697889
+113,Subtraction,Percentages,False,No Match,2025-06-24T18:29:17.795091
+114,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:17.871643
+115,Algebraic Thinking,Fraction of a Fraction,False,No Match,2025-06-24T18:29:18.045745
+116,Variable Assignment,Variable Assignment,True,Exact Match,2025-06-24T18:29:18.191788
+117,Variable Assignment,Fractions,False,No Match,2025-06-24T18:29:18.871463
+118,Pattern Recognition,Pattern Recognition,True,Exact Match,2025-06-24T18:29:18.954611
+119,Word Problem Comprehension,Addition,False,No Match,2025-06-24T18:29:19.030120
+120,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:19.150611
+121,Rate,Rate,True,Exact Match,2025-06-24T18:29:19.307115
+122,Subtraction,Conceptual Misunderstandings,False,No Match,2025-06-24T18:29:19.469132
+123,Subtraction,Decimal Operations,False,No Match,2025-06-24T18:29:19.608078
+124,Fractions,Multiplication,False,No Match,2025-06-24T18:29:19.725603
+125,Addition,Multiplication,False,No Match,2025-06-24T18:29:19.807530
+126,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:19.902057
+127,Multiplication,Division,False,No Match,2025-06-24T18:29:20.010866
+128,Rounding,Conceptual Misunderstanding,False,No Match,2025-06-24T18:29:20.169702
+129,Word Problem Comprehension,Ratios,False,No Match,2025-06-24T18:29:20.277062
+130,Subtraction,Division,False,No Match,2025-06-24T18:29:20.364116
+131,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:20.482626
+132,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:20.578581
+133,Fractions,Multiplication,False,No Match,2025-06-24T18:29:20.674107
+134,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:20.792300
+135,Algebraic Thinking,Word Problem Comprehension,False,No Match,2025-06-24T18:29:20.946841
+136,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:21.043317
+137,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:21.138947
+138,Addition,Multiplication,False,No Match,2025-06-24T18:29:21.258116
+139,Multiplication,Multiplication,True,Exact Match,2025-06-24T18:29:21.406455
+140,Subtraction,Percentages,False,No Match,2025-06-24T18:29:21.550344
+141,Word Problem Comprehension,Time Conversion,False,No Match,2025-06-24T18:29:21.632134
+142,Percentages,Set Theory (Overlapping Sets),False,No Match,2025-06-24T18:29:21.784545
+143,Proportions,Percentages,False,No Match,2025-06-24T18:29:21.919844
+144,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:22.034811
+145,Unit Conversion,Unit Conversion,True,Exact Match,2025-06-24T18:29:22.131035
+146,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:22.226499
+147,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:22.319175
+148,Word Problem Comprehension,Subtraction,False,No Match,2025-06-24T18:29:22.413628
+149,Future Value Calculation,Conceptual Misunderstandings,False,No Match,2025-06-24T18:29:22.538002
+150,Algebraic Thinking,Ratio and Proportion,False,No Match,2025-06-24T18:29:22.655001
+151,Subtraction,Multiplication,False,No Match,2025-06-24T18:29:22.774908
+152,Subtraction,Percentage,False,No Match,2025-06-24T18:29:22.859679
+153,Subtraction,Percentage,False,No Match,2025-06-24T18:29:22.975974
+154,Word Problem Comprehension,Simple Interest Calculation,False,No Match,2025-06-24T18:29:23.119789
+155,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:23.216718
+156,Multiplication,Percentages,False,No Match,2025-06-24T18:29:23.316117
+157,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:23.435548
+158,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:23.535608
+159,Word Problem Comprehension,Percentages,False,No Match,2025-06-24T18:29:23.631116
+160,Division,Division,True,Exact Match,2025-06-24T18:29:23.742175
+161,Word Problem Comprehension,Subtraction,False,No Match,2025-06-24T18:29:23.824707
+162,Percentage Calculation,Percentage Calculation,True,Exact Match,2025-06-24T18:29:23.979346
+163,Word Problem Comprehension,Subtraction,False,No Match,2025-06-24T18:29:24.096276
+164,Addition,Division,False,No Match,2025-06-24T18:29:24.201016
+165,Unit Conversion,Unit Conversion,True,Exact Match,2025-06-24T18:29:24.333460
+166,Division,Unit Conversion,False,No Match,2025-06-24T18:29:24.471731
+167,Proportional Reasoning,Proportional Reasoning,True,Exact Match,2025-06-24T18:29:24.602622
+168,Word Problem Comprehension,Percentage,False,No Match,2025-06-24T18:29:24.717132
+169,Ratios,Percentage Increase,False,No Match,2025-06-24T18:29:24.813088
+170,Unit Conversion,Unit Conversion,True,Exact Match,2025-06-24T18:29:24.909067
+171,Multiplication,Percentage,False,No Match,2025-06-24T18:29:24.991948
+172,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:25.086666
+173,Word Problem Comprehension,Distance/Rate/Time Relationship,False,No Match,2025-06-24T18:29:25.249068
+174,Addition,Multiplication,False,No Match,2025-06-24T18:29:25.330108
+175,Average Speed,Average Speed,True,Exact Match,2025-06-24T18:29:25.470134
+176,Multiplication,Unit Conversion,False,No Match,2025-06-24T18:29:25.551648
+177,Multiplication,Percentage Calculation,False,No Match,2025-06-24T18:29:25.686116
+178,Subtraction,Percentage,False,No Match,2025-06-24T18:29:25.818606
+179,Multiplication,Subtraction,False,No Match,2025-06-24T18:29:25.944117
+180,Word Problem Comprehension,Division,False,No Match,2025-06-24T18:29:26.030167
+181,Addition,Exponential Growth,False,No Match,2025-06-24T18:29:26.137394
+182,Fractions,Fractions,True,Exact Match,2025-06-24T18:29:26.270436
+183,Word Problem Comprehension,Addition,False,No Match,2025-06-24T18:29:26.386012
+184,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:26.484499
+185,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:26.559502
+186,Addition,Unit Conversion,False,No Match,2025-06-24T18:29:26.656610
+187,Multiplication,Fractions,False,No Match,2025-06-24T18:29:26.802072
+188,Word Problem Comprehension,Multiplication,False,No Match,2025-06-24T18:29:26.880582
+189,Variable Assignment,Word Problem Comprehension,False,No Match,2025-06-24T18:29:27.030675
+190,Variable Assignment,Order of Operations,False,No Match,2025-06-24T18:29:27.137593
+191,Addition,Multiplication,False,No Match,2025-06-24T18:29:27.264877
+192,Division,Weighted Average,False,No Match,2025-06-24T18:29:27.407266
+193,Ratio and Proportion,Computational Errors,False,No Match,2025-06-24T18:29:27.556610
+194,Addition,Multiplication,False,No Match,2025-06-24T18:29:27.671117
+195,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:27.802843
+196,Subtraction,Subtraction,True,Exact Match,2025-06-24T18:29:27.883351
+197,Fractions,Fractions,True,Exact Match,2025-06-24T18:29:28.012081
+198,Addition,Unit Conversion,False,No Match,2025-06-24T18:29:28.148553
+199,Word Problem Comprehension,Subtraction,False,No Match,2025-06-24T18:29:28.272608
