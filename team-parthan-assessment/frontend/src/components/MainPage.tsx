@@ -14,7 +14,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../components/ui/dialog";
+} from "./ui/dialog";
 
 
 import Loading from './Loading';
@@ -417,22 +417,6 @@ const MainPage: React.FC = () => {
   };
 
   const generateQuizForTopic = async (topicId: string) => {
-    // const topicData = TOPIC_QUIZ_DATA[topicId as keyof typeof TOPIC_QUIZ_DATA];
-    // if (!topicData) {
-    //   return [
-    //     {
-    //       id: '1',
-    //       question: `What is a key concept in ${topics.find(t => t.id === topicId)?.name}?`,
-    //       options: ['Concept A', 'Concept B', 'Concept C', 'All of the above'],
-    //       correctAnswer: 3,
-    //       explanation: 'This is a placeholder question. More questions will be added for this topic.'
-    //     }
-    //   ];
-    // }
-
-    // const shuffledQuestions = [...topicData.questions].sort(() => Math.random() - 0.5);
-    // return shuffledQuestions.slice(0, 5);
-
     setLoader(true);
     try {
       const res = await fetch("https://cps-rnku.onrender.com/api/generate-quiz", {

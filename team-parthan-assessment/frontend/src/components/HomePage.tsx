@@ -8,7 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "../components/ui/sheet";
+} from "./ui/sheet";
 import AuthWrapper from "../auth/AuthWrapper";
 import { getDetails } from "../services/detailService";
 import { Navigate, useNavigate } from "react-router-dom";

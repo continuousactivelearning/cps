@@ -14,7 +14,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../components/ui/dialog";
+} from "./ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { getDetails, uploadPhoto } from "../services/detailService";
 import { useTheme } from "./ThemeProvider";

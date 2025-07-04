@@ -46,7 +46,7 @@ const ConceptAnalyzer: React.FC<Props> = ({
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/analyze", {
+      const res = await fetch("https://cps-rnku.onrender.com/api/analyze", {
         method: "POST",
         body: formData,
       });

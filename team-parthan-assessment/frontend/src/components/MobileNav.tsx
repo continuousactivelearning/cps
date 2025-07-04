@@ -4,7 +4,7 @@ import {
   Sheet,
   SheetContent,
   SheetTrigger,
-} from "../components/ui/sheet";
+} from "./ui/sheet";
 import UserStats from './UserStats';
 import type { CustomContent, Topic, UserProfile } from '../interface/types';
 import UserProfileD from './UserProfileDropdown';
