@@ -13,7 +13,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 export async function processTranscript(videoId: string): Promise<string> {
-  const tempDir = path.resolve('temp_subtitles');
+  const tempDir = path.join('/tmp', 'temp_subtitles');
   await fs.ensureDir(tempDir);
 
   try {

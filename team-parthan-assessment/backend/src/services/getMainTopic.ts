@@ -81,7 +81,7 @@ export default async function getMainTopic(
 
   if (typeOfInput === 'image') {
     // Directory to store uploaded and processed images
-const IMAGE_DIR = path.join(__dirname, '../images');
+const IMAGE_DIR = path.join('/tmp', 'images');
 if (!fs.existsSync(IMAGE_DIR)) fs.mkdirSync(IMAGE_DIR);
 
 const storage = multer.diskStorage({
