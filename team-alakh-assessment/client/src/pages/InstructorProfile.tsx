@@ -43,7 +43,7 @@ const InstructorProfile: React.FC = () => {
       setError('');
       try {
         const token = localStorage.getItem('instructorToken');
-        const res = await axios.get(`${APIURL}/instructor/me`, {
+        const res = await axios.get(`${APIURL}/api/instructor/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data);
