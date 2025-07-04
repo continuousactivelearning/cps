@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import WaterRippleBackground from "../components/WaterRippleBackground";
-
+import { APIURL } from '../services/api';
 const InstructorRegister: React.FC = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -31,7 +31,7 @@ const InstructorRegister: React.FC = () => {
     setError('');
     setSuccess('');
     try {
-      await axios.post('https://assessment-o61q.onrender.com/api/instructor/register', {
+      await axios.post(`${APIURL}/api/instructor/register`, {
         ...form,
         experience: Number(form.experience),
       });

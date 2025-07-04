@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+export const APIURL = process.env.NODE_ENV === 'production' ? 'https://assessment-o61q.onrender.com' : 'http://localhost:5000';
 const api = axios.create({
   baseURL: process.env.NODE_ENV === 'production' ? 'https://assessment-o61q.onrender.com' : 'http://localhost:5000',
   headers: {

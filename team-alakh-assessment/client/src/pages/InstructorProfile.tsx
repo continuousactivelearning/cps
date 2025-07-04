@@ -5,6 +5,7 @@ import { FaUserGraduate, FaBookOpen, FaClipboardList, FaCogs, FaSignOutAlt, FaCh
 import { motion, Variants } from 'framer-motion';
 import WaterRippleBackground from '../components/WaterRippleBackground';
 import { BookOpen } from "lucide-react";
+import { APIURL } from '../services/api';
 
 const navItems = [
   { label: 'Dashboard', icon: <FaChartBar />, path: '/instructor-dashboard' },
@@ -42,7 +43,7 @@ const InstructorProfile: React.FC = () => {
       setError('');
       try {
         const token = localStorage.getItem('instructorToken');
-        const res = await axios.get('https://assessment-o61q.onrender.com/instructor/me', {
+        const res = await axios.get(`${APIURL}/instructor/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data);
@@ -72,7 +73,7 @@ const InstructorProfile: React.FC = () => {
     setMsg('');
     try {
       const token = localStorage.getItem('instructorToken');
-      await axios.put('https://assessment-o61q.onrender.com/api/instructor/me', {
+      await axios.put(`${APIURL}/api/instructor/me`, {
         name: form.name,
         speciality: form.speciality,
         degrees: form.degrees,
