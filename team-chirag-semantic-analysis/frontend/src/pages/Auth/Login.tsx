@@ -57,6 +57,7 @@ const Login: React.FC = () => {
       setSnackbarMsg('Login successful!');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
+      navigate('/chat');
     } catch {
       setSnackbarMsg('Something went wrong. Please try again.');
       setSnackbarSeverity('error');
