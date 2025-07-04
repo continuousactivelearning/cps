@@ -35,7 +35,7 @@ const UserProfileDropdown: React.FC = () => {
   const navigate = useNavigate();
 
   const [userProfile, setUserProfile] = useState<UserProfile>({
-    name: "",
+    name: "Profile",
     email: "",
     avatar: "",
     masteredTopics: 3,
