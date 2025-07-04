@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 // You can use any icon library. Here, we use Heroicons SVGs for demonstration.
 const ChatIcon = () => (
   <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -39,6 +40,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
   collapsed,
   onToggle,
 }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear auth tokens or user data as needed
+    localStorage.clear();
+    navigate("/login");
+  };
+
+  const handleUpdateProfile = () => {
+    navigate("/onboarding");
+  };
+
   return (
     <aside
       className={`fixed top-0 left-0 h-full bg-gradient-to-b from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 border-r border-gray-200 dark:border-gray-700 z-40 flex flex-col shadow-xl transition-all duration-300 ${
@@ -94,6 +107,33 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </li>
           ))}
         </ul>
+      </div>
+      {/* Bottom actions */}
+      <div className={`p-4 border-t border-gray-200 dark:border-gray-700 flex flex-col gap-2 ${collapsed ? "items-center" : ""}`}>
+        <button
+          className={`w-full flex items-center gap-2 px-3 py-2 rounded text-sm font-medium bg-blue-100 dark:bg-gray-800 hover:bg-blue-200 dark:hover:bg-gray-700 transition ${
+            collapsed ? "justify-center px-0" : ""
+          }`}
+          onClick={handleUpdateProfile}
+          title="Update Profile"
+        >
+          <svg className="w-5 h-5 text-blue-600 dark:text-blue-300" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.586-6.586a2 2 0 112.828 2.828L11.828 15.828A2 2 0 019 17H7v-2a2 2 0 012-2z" />
+          </svg>
+          {!collapsed && <span>Update Profile</span>}
+        </button>
+        <button
+          className={`w-full flex items-center gap-2 px-3 py-2 rounded text-sm font-medium bg-red-100 dark:bg-gray-800 hover:bg-red-200 dark:hover:bg-gray-700 text-red-700 dark:text-red-300 transition ${
+            collapsed ? "justify-center px-0" : ""
+          }`}
+          onClick={handleLogout}
+          title="Logout"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" />
+          </svg>
+          {!collapsed && <span>Logout</span>}
+        </button>
       </div>
     </aside>
   );
