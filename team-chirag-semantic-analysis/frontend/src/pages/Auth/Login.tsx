@@ -47,7 +47,7 @@ const Login: React.FC = () => {
     resolver: zodResolver(LoginSchema),
     mode: 'onChange',
   });
-
+  
  const onSubmit = async (data: LoginFormData) => {
   setLoading(true);
   try {
@@ -76,7 +76,6 @@ const Login: React.FC = () => {
     setLoading(false);
   }
 };
-
 
   // ✅ Updated popup-based Google login with immediate redirect
   const handleGoogleLogin = () => {
