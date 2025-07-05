@@ -1,13 +1,17 @@
-import express from 'express';
+import mongoose from 'mongoose';
+import app from './app';
 
-const app = express();
 const PORT = process.env.PORT || 3000;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/our-app-db';
 
-// Sample route
-app.get('/', (req, res) => {
-  res.send('Server is running successfully!');
-});
+// DATABASE CONNECTION
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
+// SERVER STARTUP
 app.listen(PORT, () => {
-  console.log(`Server is listening on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`API Documentation available at http://localhost:${PORT}`);
+  console.log(`Server started at ${new Date().toISOString()}`);
 });

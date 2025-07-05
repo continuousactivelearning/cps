@@ -1,0 +1,50 @@
+import mongoose from "mongoose";
+
+export const coursesData = [
+    { courseName: "Arrays", description: "Core concept for storing elements in contiguous memory.", level: "beginner", prerequisites: [] },
+    { courseName: "Recursion", description: "Technique of solving problems by breaking them into subproblems.", level: "beginner", prerequisites: [] },
+    { courseName: "ComplexityAnalysis", description: "Analyzing time and space requirements of algorithms.", level: "beginner", prerequisites: [] },
+    { courseName: "LinkedLists", description: "Dynamic data structure made of nodes.", level: "beginner", prerequisites: ["Arrays"] },
+    { courseName: "Stacks", description: "LIFO data structure.", level: "beginner", prerequisites: ["Arrays", "LinkedLists"] },
+    { courseName: "Queues", description: "FIFO data structure.", level: "beginner", prerequisites: ["Arrays", "LinkedLists"] },
+    { courseName: "HashTables", description: "Key-value based lookup data structure.", level: "intermediate", prerequisites: ["Arrays"] },
+    { courseName: "Trees", description: "Hierarchical data structure.", level: "intermediate", prerequisites: ["LinkedLists", "Recursion"] },
+    { courseName: "BinaryTrees", description: "Tree with max 2 children per node.", level: "intermediate", prerequisites: ["Trees"] },
+    { courseName: "BinarySearchTrees", description: "Binary Tree with sorted properties.", level: "intermediate", prerequisites: ["BinaryTrees"] },
+    { courseName: "Heaps", description: "Complete binary tree used in priority queues.", level: "intermediate", prerequisites: ["Trees", "Arrays"] },
+    { courseName: "Graphs", description: "Non-linear data structure of nodes and edges.", level: "intermediate", prerequisites: ["Arrays", "Trees"] },
+    { courseName: "SortingAlgorithms", description: "Techniques for arranging elements.", level: "intermediate", prerequisites: ["Arrays", "Recursion"] },
+    { courseName: "SearchingAlgorithms", description: "Techniques to find elements.", level: "intermediate", prerequisites: ["Arrays"] },
+    { courseName: "BFS", description: "Graph traversal technique using queue.", level: "intermediate", prerequisites: ["Graphs", "Queues"] },
+    { courseName: "DFS", description: "Graph traversal using stack or recursion.", level: "intermediate", prerequisites: ["Graphs", "Recursion", "Stacks"] },
+    { courseName: "DivideAndConquer", description: "Algorithm design paradigm.", level: "intermediate", prerequisites: ["Recursion", "SortingAlgorithms"] },
+    { courseName: "GreedyAlgorithms", description: "Algorithm design using local optimum.", level: "intermediate", prerequisites: ["SortingAlgorithms"] },
+    { courseName: "Backtracking", description: "Exploration of all possibilities.", level: "advanced", prerequisites: ["Recursion", "DFS"] },
+    { courseName: "DynamicProgramming", description: "Optimizing overlapping subproblems.", level: "advanced", prerequisites: ["DivideAndConquer", "Recursion"] },
+    { courseName: "DijkstrasAlgorithm", description: "Shortest path algorithm.", level: "advanced", prerequisites: ["Graphs", "Heaps", "BFS"] },
+    { courseName: "BellmanFordAlgorithm", description: "Shortest path in negative weights.", level: "advanced", prerequisites: ["Graphs"] },
+    { courseName: "FloydWarshallAlgorithm", description: "All-pairs shortest paths.", level: "advanced", prerequisites: ["Graphs", "Matrices"] },
+    { courseName: "PrimsAlgorithm", description: "MST using greedy and heap.", level: "advanced", prerequisites: ["Graphs", "Heaps"] },
+    { courseName: "KruskalsAlgorithm", description: "MST using DSU and sorting.", level: "advanced", prerequisites: ["Graphs", "DisjointSetUnion", "SortingAlgorithms"] },
+    { courseName: "TopologicalSort", description: "Ordering DAG nodes.", level: "advanced", prerequisites: ["Graphs", "DFS"] },
+    { courseName: "AVLTrees", description: "Self-balancing BST.", level: "advanced", prerequisites: ["BinarySearchTrees"] },
+    { courseName: "RedBlackTrees", description: "Balanced BST with color properties.", level: "advanced", prerequisites: ["BinarySearchTrees"] },
+    { courseName: "BTrees", description: "Balanced tree for DBs.", level: "advanced", prerequisites: ["BinarySearchTrees"] },
+    { courseName: "Tries", description: "Prefix tree for strings.", level: "advanced", prerequisites: ["Trees", "Strings"] },
+    { courseName: "SegmentTrees", description: "Range query tree.", level: "advanced", prerequisites: ["Trees", "Arrays"] },
+    { courseName: "FenwickTrees", description: "Binary Indexed Tree.", level: "advanced", prerequisites: ["Arrays", "BinaryOperations"] },
+    { courseName: "DisjointSetUnion", description: "Union-Find data structure.", level: "advanced", prerequisites: ["Arrays", "Trees"] },
+    { courseName: "SuffixArraysTrees", description: "Suffix-based indexing.", level: "advanced", prerequisites: ["Strings", "SortingAlgorithms"] },
+    { courseName: "Strings", description: "Text data and manipulations.", level: "beginner", prerequisites: ["Arrays"] },
+    { courseName: "Pointers", description: "Variables storing memory addresses.", level: "beginner", prerequisites: [] },
+    { courseName: "Matrices", description: "2D array structures.", level: "beginner", prerequisites: ["Arrays"] },
+    { courseName: "BinarySearch", description: "Efficient searching algorithm for sorted arrays.", level: "intermediate", prerequisites: ["Arrays", "SearchingAlgorithms"] },
+    { courseName: "TwoPointers", description: "Technique using two pointers to iterate through data.", level: "intermediate", prerequisites: ["Arrays"] },
+    { courseName: "SlidingWindow", description: "Technique for problems involving a fixed-size window over data.", level: "intermediate", prerequisites: ["Arrays"] },
+    { courseName: "BinaryOperations", description: "Bit manipulation techniques.", level: "intermediate", prerequisites: [] }
+];
+
+export const coursesDataWithIds = coursesData.map((course, index) => ({
+    ...course,
+    _id: new mongoose.Types.ObjectId()
+}));
