@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import { logout } from '../utils/auth';
 // You can use any icon library. Here, we use Heroicons SVGs for demonstration.
 const ChatIcon = () => (
   <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -43,13 +44,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Clear auth tokens or user data as needed
-    localStorage.clear();
-    navigate("/login");
+    logout(navigate);
   };
 
   const handleUpdateProfile = () => {
-    navigate("/onboarding");
+    navigate("/student-profile");
   };
 
   return (
