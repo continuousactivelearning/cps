@@ -7,56 +7,59 @@ export interface SubtitleDownloadResult {
   langCode: string;
 }
 
-export async function downloadSubtitles(videoId: string, outputDir: string): Promise<SubtitleDownloadResult> {
+export async function downloadSubtitles(
+  videoId: string,
+  outputDir: string,
+): Promise<SubtitleDownloadResult> {
   const baseUrl = `https://www.youtube.com/watch?v=${videoId}`;
+  const output = path.join(outputDir, `${videoId}.%(ext)s`);
 
-  const output = path.join(outputDir, `${videoId}.%(ext)s`).replace(/\\/g, '/');
+  // Hardcoded cookies.txt path
+  const cookiesFile = path.resolve(__dirname, 'cookies.txt'); // Adjust path if cookies.txt is elsewhere
+
+  // Ensure output directory exists
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
+  // Common yt-dlp arguments
+  const commonArgs = [
+    '--cookies', cookiesFile,
+    '--proxy', '',
+    '--no-check-certificate',
+    '--write-auto-sub',
+    '--write-sub',
+    '--skip-download',
+    '-o', output,
+    baseUrl,
+  ];
 
 
   // Try downloading English subtitles first
   try {
-    await execa('python', [
-    '-m', 'yt_dlp',
-    '--write-auto-sub',
-    '--write-sub',
-    '--sub-lang', 'en',
-    '--skip-download',
-    '-o', output,
-    baseUrl,
-  ]);
+    await execa('yt-dlp', ['--sub-lang', 'en', ...commonArgs]);
 
     const enVtt = fs.readdirSync(outputDir).find(f => f.startsWith(videoId) && f.endsWith('.en.vtt'));
     if (enVtt) {
       return { filePath: path.join(outputDir, enVtt), langCode: 'en' };
     }
-    console.warn(`[WARN] English subtitle file not found for ${videoId}`);
-  } catch (e) {
-    console.warn(`[WARN] Failed to download English subtitles for ${videoId}`);
+  } catch (err) {
+    console.warn(`English subtitles not found for ${videoId}. Falling back to best available language.`);
   }
 
-  // Fallback: download all subtitles and pick the first available
+  // Fallback to best available language
   try {
-    await execa('yt-dlp', [
-      '--write-auto-sub',
-      '--write-sub',
-      '--all-subs',
-      '--skip-download',
-      '-o', output,
-      baseUrl,
-    ]);
+    await execa('yt-dlp', ['--sub-lang', 'best', ...commonArgs]);
 
-    const fallback = fs.readdirSync(outputDir).find(f =>
-  f.startsWith(videoId) && f.endsWith('.vtt')
-);
-
+    const fallback = fs.readdirSync(outputDir).find(f => f.startsWith(videoId) && f.endsWith('.vtt'));
     if (fallback) {
       const langMatch = fallback.match(/\.(\w+)\.vtt$/);
-const detectedLang = langMatch?.[1] ?? 'unknown';
-
+      const detectedLang = langMatch?.[1] ?? 'unknown';
       return { filePath: path.join(outputDir, fallback), langCode: detectedLang };
     }
   } catch (error) {
-    console.error(`[ERROR] yt-dlp failed for ${videoId}:`, error);
+    console.error(`Failed to download subtitles for ${videoId}:`, error);
+    console.log(error);
   }
 
   throw new Error(`No subtitles found for video: ${videoId}`);

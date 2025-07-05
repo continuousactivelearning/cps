@@ -90,7 +90,7 @@ export const requestPasswordReset= async(req:any,res:any)=>{
   const user = await User.findOne({email});
   if (!user) return res.status(400).send("User not found");
   const token= jwt.sign({id:user._id},process.env.JWT_SECRET!,{expiresIn:"15m"});
-  const resetLink = `http://localhost:5173/reset-password?token=${token}`;
+  const resetLink = `https://cps-ten.vercel.app/reset-password?token=${token}`;
   await sendEmail(email, "Reset your password", `Click here to reset: ${resetLink} \nToken valid for only 15 minutes`);
 
   res.send("Reset email sent");
