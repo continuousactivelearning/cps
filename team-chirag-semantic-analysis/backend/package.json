@@ -6,6 +6,7 @@
     "start": "node index.js",
     "build": "tsc",
     "dev": "nodemon --watch . --ext ts --exec ts-node index.ts",
+    "setup": "ts-node setup-typescript-chat.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

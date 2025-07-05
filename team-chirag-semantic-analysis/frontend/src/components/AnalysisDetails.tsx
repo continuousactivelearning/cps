@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { LinkPreview } from './LinkPreview';
 import { getYouTubeVideoId } from '../utils/linkUtils';
 
@@ -27,6 +29,7 @@ interface Analysis {
   logged?: boolean;
   small_talk?: boolean;
   graph_based?: boolean;
+  learning_session_active?: boolean;
   error?: string;
 }
 
@@ -140,17 +143,80 @@ const AnalysisDetails: React.FC<AnalysisDetailsProps> = ({ analysis, onProgressA
           </div>
 
           {analysis.next_step_explanation && (
-            <div className="mb-4">
-              <h4 className="font-semibold text-blue-800 mb-2 flex items-center">
-                <span className="mr-2">📖</span>
-                What you'll learn:
-              </h4>
-              <div className="text-sm text-gray-700 leading-relaxed bg-white p-3 rounded-md border border-blue-100 max-h-64 overflow-y-auto">
-                {analysis.next_step_explanation.split('\n').map((paragraph, index) => (
-                  <p key={index} className="mb-2 last:mb-0">
-                    {paragraph}
-                  </p>
-                ))}
+            <div className="mb-6">
+              <div className="flex items-center mb-3 bg-blue-25 p-2 rounded-md">
+                <div className="flex-shrink-0 w-6 h-6 bg-blue-200 rounded-full flex items-center justify-center mr-3">
+                  <span className="text-blue-700 font-bold text-sm">📖</span>
+                </div>
+                <h4 className="font-semibold text-blue-800 text-sm">
+                  What you'll learn:
+                </h4>
+              </div>
+              <div className="text-sm text-gray-700 leading-relaxed bg-white p-4 rounded-md border border-blue-100 max-h-80 overflow-y-auto shadow-inner markdown-content">
+                <ReactMarkdown 
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    h1: ({children}) => <h1 className="text-lg font-bold text-blue-900 mb-3 pb-2 border-b border-blue-200">{children}</h1>,
+                    h2: ({children}) => <h2 className="text-base font-semibold text-blue-800 mb-2 pb-1 border-b border-blue-100">{children}</h2>,
+                    h3: ({children}) => <h3 className="text-sm font-semibold text-blue-700 mb-2">{children}</h3>,
+                    h4: ({children}) => <h4 className="text-sm font-medium text-blue-600 mb-1">{children}</h4>,
+                    p: ({children}) => <p className="mb-3 text-gray-700 leading-relaxed last:mb-0">{children}</p>,
+                    ul: ({children}) => <ul className="list-disc pl-5 mb-3 space-y-1">{children}</ul>,
+                    ol: ({children}) => <ol className="list-decimal pl-5 mb-3 space-y-1">{children}</ol>,
+                    li: ({children}) => <li className="text-gray-700 leading-relaxed">{children}</li>,
+                    code: ({children, className}) => {
+                      const isInline = !className;
+                      return isInline ? (
+                        <code className="bg-blue-50 text-blue-800 px-1.5 py-0.5 rounded text-xs font-mono border border-blue-200">
+                          {children}
+                        </code>
+                      ) : (
+                        <code className={className}>{children}</code>
+                      );
+                    },
+                    pre: ({children}) => (
+                      <pre className="bg-gray-900 text-gray-100 p-3 rounded-md overflow-x-auto text-xs font-mono mb-3 border border-gray-700">
+                        {children}
+                      </pre>
+                    ),
+                    blockquote: ({children}) => (
+                      <blockquote className="border-l-4 border-blue-300 pl-4 py-2 my-3 bg-blue-25 italic text-blue-800">
+                        {children}
+                      </blockquote>
+                    ),
+                    strong: ({children}) => <strong className="font-semibold text-blue-900">{children}</strong>,
+                    em: ({children}) => <em className="italic text-blue-700">{children}</em>,
+                    a: ({href, children}) => (
+                      <a 
+                        href={href} 
+                        className="text-blue-600 hover:text-blue-800 underline decoration-blue-300 hover:decoration-blue-600 transition-colors"
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        {children}
+                      </a>
+                    ),
+                    table: ({children}) => (
+                      <div className="overflow-x-auto mb-3">
+                        <table className="min-w-full border border-gray-300 rounded-md overflow-hidden">
+                          {children}
+                        </table>
+                      </div>
+                    ),
+                    th: ({children}) => (
+                      <th className="bg-blue-50 border border-gray-300 px-3 py-2 text-left font-semibold text-blue-900 text-xs">
+                        {children}
+                      </th>
+                    ),
+                    td: ({children}) => (
+                      <td className="border border-gray-300 px-3 py-2 text-gray-700 text-xs">
+                        {children}
+                      </td>
+                    ),
+                  }}
+                >
+                  {analysis.next_step_explanation}
+                </ReactMarkdown>
               </div>
             </div>
           )}
@@ -193,7 +259,7 @@ const AnalysisDetails: React.FC<AnalysisDetailsProps> = ({ analysis, onProgressA
           )}
 
           {/* Learning progression buttons */}
-          {(analysis as any).learning_session_active && onProgressAction && (
+          {analysis.learning_session_active && onProgressAction && (
             <div className="mt-4 pt-3 border-t border-blue-200">
               <h4 className="font-semibold text-blue-800 mb-3">Ready to continue your learning journey?</h4>
               <div className="flex flex-wrap gap-2">
