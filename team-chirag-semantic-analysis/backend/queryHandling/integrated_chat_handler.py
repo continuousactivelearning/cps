@@ -5,8 +5,8 @@ Integrated Chat Handler for DSA Learning System
 This system:
 1. Fetches user_profile.json from frontend/public
 2. Uses real_graph_analyzer.py for gap analysis and topic suggestions
-3. Integrates with Mistral LLM for topic explanations
-4. Uses YouTube API via ollama_dsa_yt.py for video recommendations
+3. Integrates with Groq LLM for topic explanations
+4. Uses YouTube API via groq_dsa_yt.py for video recommendations
 5. Handles dynamic queries not in graph_data.json
 6. Logs unknown queries for future graph expansion
 """
@@ -19,6 +19,10 @@ import time
 from typing import Dict, List, Optional, Tuple
 from pathlib import Path
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Add the current directory to path for imports
 current_dir = Path(__file__).parent
@@ -28,7 +32,7 @@ sys.path.append(str(current_dir / "dynamic"))
 
 try:
     from real_graph_analyzer import RealGraphLearningAnalyzer
-    from groq_dsa_yt import YouTubeResourceFinder
+    from groq_dsa_yt import YouTubeResourceFinder, generate_response
 except ImportError as e:
     print(f"Import error: {e}")
     print("Trying alternative imports...")
@@ -37,10 +41,10 @@ except ImportError as e:
         sys.path.append(str(current_dir / "static" / "graph"))
         sys.path.append(str(current_dir / "dynamic"))
         from real_graph_analyzer import RealGraphLearningAnalyzer
-        from groq_dsa_yt import YouTubeResourceFinder
+        from groq_dsa_yt import YouTubeResourceFinder, generate_response
     except ImportError as e2:
         print(f"Alternative import error: {e2}")
-        print("Please ensure real_graph_analyzer.py and ollama_dsa_yt.py are in the correct locations")
+        print("Please ensure real_graph_analyzer.py and groq_dsa_yt.py are in the correct locations")
         RealGraphLearningAnalyzer = None
         YouTubeResourceFinder = None
 
@@ -68,9 +72,9 @@ class IntegratedChatHandler:
             self.graph_analyzer = None
             self.youtube_finder = None
         
-        # Mistral API configuration (add your API key)
-        # self.mistral_api_key = "KEY"
-        # self.mistral_base_url = "https://api.mistral.ai/v1/chat/completions"
+        # Groq API configuration
+        self.groq_api_key = os.getenv("GROQ_API_KEY")
+        self.groq_base_url = "https://api.groq.com/openai/v1/chat/completions"
         
         # Learning session tracking
         self.learning_sessions_path = current_dir / "learning_sessions.json"
@@ -208,6 +212,9 @@ class IntegratedChatHandler:
     
     def detect_learning_intents(self, query: str, chat_history: List[Dict]) -> Dict:
         """Detect user intents related to learning flow progression."""
+        # Limit chat history processing for performance - only use last 3 messages
+        limited_history = chat_history[-3:] if chat_history else []
+        
         intents = {
             'wants_next_topic': False,
             'confirms_understanding': False,
@@ -421,72 +428,82 @@ class IntegratedChatHandler:
             print(f"Error in gap analysis: {e}")
             return {'gaps': [], 'suggestions': [], 'learning_path': []}
     
-    def generate_mistral_response(self, query: str, context: Dict) -> str:
-        """Generate response using Ollama's local Mistral model."""
+    def _truncate_for_tokens(self, text: str, max_length: int = 300) -> str:
+        """Truncate text to save tokens while preserving meaning."""
+        if len(text) <= max_length:
+            return text
+        
+        # Try to truncate at word boundary
+        truncated = text[:max_length]
+        last_space = truncated.rfind(' ')
+        if last_space > max_length * 0.8:  # If we can find a good break point
+            return truncated[:last_space] + "..."
+        else:
+            return truncated + "..."
+    
+    def generate_groq_response(self, query: str, context: Dict) -> str:
+        """Generate response using Groq API via groq_dsa_yt module with optimized token usage."""
         try:
             # Handle small talk with direct responses
             if context.get('is_small_talk'):
                 return self.generate_fallback_response(query, context)
             
-            # Prepare context for Mistral for DSA queries
-            system_prompt = """You are an expert DSA (Data Structures and Algorithms) tutor. 
-            Provide clear, concise explanations of concepts, include code examples when helpful, 
-            and give practical learning advice. Keep responses focused and educational.
-            Always be encouraging and supportive."""
+            # Check if Groq API key is available
+            if not self.groq_api_key:
+                print("Warning: GROQ_API_KEY not found. Using fallback response.")
+                return self.generate_fallback_response(query, context)
             
-            user_context = ""
+            # Optimized system prompt - more concise
+            system_prompt = """You are a DSA tutor. Provide clear, concise explanations with examples. Be encouraging and educational."""
+            
+            # Build concise user context - limit token usage
+            user_context_parts = []
+            
             if context.get('target_topic'):
                 topic = context['target_topic']
-                user_context += f"\nUser is asking about: {topic['name']}"
-                if topic.get('description'):
-                    user_context += f"\nTopic description: {topic['description']}"
+                topic_name = topic['name'] if isinstance(topic, dict) else str(topic)
+                user_context_parts.append(f"Topic: {self._truncate_for_tokens(topic_name, 30)}")
             
             if context.get('gaps') and len(context['gaps']) > 0:
-                gaps = context['gaps'][:3]  # Top 3 gaps
-                user_context += f"\nUser's learning gaps: {', '.join(gaps)}"
+                gaps = context['gaps'][:2]  # Limit to top 2 gaps
+                gaps_str = ', '.join(gaps)
+                user_context_parts.append(f"Gaps: {self._truncate_for_tokens(gaps_str, 50)}")
             
             if context.get('learning_path') and len(context['learning_path']) > 0:
-                path = context['learning_path'][:5]  # First 5 steps
-                user_context += f"\nSuggested learning path: {' → '.join(path)}"
+                path = context['learning_path'][:3]  # Limit to first 3 steps
+                path_str = ' → '.join(path)
+                user_context_parts.append(f"Path: {self._truncate_for_tokens(path_str, 60)}")
             
             if context.get('known_concepts') and len(context['known_concepts']) > 0:
-                known = context['known_concepts'][:5]
-                user_context += f"\nUser already knows: {', '.join(known)}"
+                known = context['known_concepts'][:2]  # Reduced to 2 concepts
+                known_str = ', '.join(known)
+                user_context_parts.append(f"Knows: {self._truncate_for_tokens(known_str, 40)}")
             
-            prompt = f"{query}\n\nContext:{user_context}"
-            
-            # Use Ollama local API
-            ollama_data = {
-                "model": "mistral",
-                "prompt": prompt,
-                "system": system_prompt,
-                "stream": False,
-                "options": {
-                    "temperature": 0.3,
-                    "top_p": 0.9,
-                    "num_ctx": 2048,
-                }
-            }
-            
-            response = requests.post("http://localhost:11434/api/generate", 
-                                   json=ollama_data, timeout=30)
-            
-            if response.status_code == 200:
-                result = response.json()
-                return result.get("response", "").strip()
+            # Create concise prompt
+            if user_context_parts:
+                context_str = ' | '.join(user_context_parts)
+                # Ensure total context doesn't exceed token limit
+                context_str = self._truncate_for_tokens(context_str, 200)
+                prompt = f"{query}\n\nContext: {context_str}"
             else:
-                print(f"Ollama API error: {response.status_code}")
+                prompt = query
+            
+            # Use the generate_response function from groq_dsa_yt.py with reduced max_tokens
+            response = generate_response(prompt, system_prompt)
+            
+            # Check if response indicates an error
+            if response.startswith("Error:"):
+                print(f"Groq API error: {response}")
                 return self.generate_fallback_response(query, context)
+            
+            return response.strip()
                 
-        except requests.exceptions.ConnectionError:
-            print("Error: Could not connect to Ollama server. Make sure Ollama is running.")
-            return self.generate_fallback_response(query, context)
         except Exception as e:
-            print(f"Error generating Ollama response: {e}")
+            print(f"Error generating Groq response: {e}")
             return self.generate_fallback_response(query, context)
     
     def generate_fallback_response(self, query: str, context: Dict) -> str:
-        """Generate a comprehensive fallback response when Mistral API is not available."""
+        """Generate a comprehensive fallback response when Groq API is not available."""
         response_parts = []
         
         # Handle small talk
@@ -757,6 +774,11 @@ class IntegratedChatHandler:
         """Main handler for chat messages with learning flow support."""
         timestamp = datetime.now().isoformat()
         
+        # Limit chat history to last 3-4 messages for token optimization
+        limited_chat_history = None
+        if chat_history:
+            limited_chat_history = chat_history[-4:]  # Keep only last 4 messages
+        
         try:
             # Load user profile
             user_profile = self.load_user_profile()
@@ -770,8 +792,8 @@ class IntegratedChatHandler:
             # Get learning session
             learning_session = self.get_learning_session(user_id)
             
-            # Analyze the query with chat history context
-            query_analysis = self.analyze_user_query(message, user_profile, chat_history)
+            # Analyze the query with limited chat history context
+            query_analysis = self.analyze_user_query(message, user_profile, limited_chat_history)
             
             # Handle learning flow intents first
             if query_analysis['learning_intent']['satisfied_with_topic']:
@@ -781,17 +803,17 @@ class IntegratedChatHandler:
                 return self.handle_next_topic_request(user_id, learning_session, query_analysis)
             
             if query_analysis['learning_intent']['needs_more_explanation']:
-                return self.handle_more_explanation_request(message, learning_session, query_analysis, chat_history)
+                return self.handle_more_explanation_request(message, learning_session, query_analysis, limited_chat_history)
             
             if query_analysis['learning_intent']['wants_to_complete_topic']:
                 return self.handle_topic_completion(user_id, learning_session, query_analysis)
             
             if query_analysis['learning_intent']['says_no_need_help']:
-                return self.handle_no_response(user_id, learning_session, query_analysis, chat_history)
+                return self.handle_no_response(user_id, learning_session, query_analysis, limited_chat_history)
             
             # Handle small talk
             if query_analysis['is_small_talk']:
-                response = self.generate_mistral_response(message, {'is_small_talk': True})
+                response = self.generate_groq_response(message, {'is_small_talk': True})
                 return {
                     'response': response,
                     'videos': [],
@@ -823,7 +845,7 @@ class IntegratedChatHandler:
                         next_step = step
                         break
 
-                # Prepare context for Mistral and YouTube for the next step
+                # Prepare context for Groq and YouTube for the next step
                 next_step_context = {
                     'target_topic': {'name': next_step} if next_step else gap_analysis.get('target_topic'),
                     'gaps': gap_analysis.get('gaps', []),
@@ -833,7 +855,7 @@ class IntegratedChatHandler:
                 }
 
                 # Generate explanation and videos for the next step
-                next_step_explanation = self.generate_mistral_response(next_step or message, next_step_context) if next_step else None
+                next_step_explanation = self.generate_groq_response(next_step or message, next_step_context) if next_step else None
                 next_step_videos = self.get_video_recommendations(next_step or message, next_step_context) if next_step else []
 
                 # Generate concise overall response - focus on the topic and path
@@ -869,13 +891,13 @@ class IntegratedChatHandler:
                 # Dynamic handling for topics not in our graph
                 self.log_unknown_query(message, timestamp)
                 
-                # Use Mistral to generate response without graph context
+                # Use Groq to generate response without graph context
                 context = {
                     'dynamic_query': True,
                     'known_concepts': query_analysis['truly_known_topics'],
                     'is_small_talk': False
                 }
-                response = self.generate_mistral_response(message, context)
+                response = self.generate_groq_response(message, context)
                 
                 # Get video recommendations based on the query itself
                 videos = self.get_video_recommendations(message, context)
@@ -928,7 +950,7 @@ class IntegratedChatHandler:
                     'is_small_talk': False
                 }
                 
-                explanation = self.generate_mistral_response(f"Explain {next_topic} in detail", context)
+                explanation = self.generate_groq_response(f"Explain {next_topic} in detail", context)
                 videos = self.get_video_recommendations(next_topic, context)
                 
                 response = f"🎉 Great! You've completed **{completed_topic}**!\n\n"
@@ -990,36 +1012,42 @@ class IntegratedChatHandler:
                     requested_aspect = aspect
                     break
             
-            # Generate more detailed explanation using chat history context
+            # Generate more detailed explanation using limited chat history context
             context_from_history = ""
             if chat_history:
-                context_from_history = f"Previous conversation context: {json.dumps(chat_history[-3:])}"
+                # Only use last 2-3 messages for context to reduce tokens
+                recent_messages = chat_history[-2:]  # Reduced to 2 messages
+                # Create concise context summary
+                context_summary = []
+                for msg in recent_messages:
+                    if isinstance(msg, dict):
+                        content = msg.get('content', msg.get('message', str(msg)))
+                        # Truncate each message
+                        truncated = self._truncate_for_tokens(str(content), 60)
+                        context_summary.append(truncated)
+                context_from_history = " | ".join(context_summary)
             
             if requested_aspect:
                 # Provide specific type of explanation
                 if requested_aspect == 'example':
-                    detailed_prompt = f"Provide detailed, practical examples of {current_topic} with step-by-step walkthroughs."
+                    detailed_prompt = f"Provide examples of {current_topic} with step-by-step walkthrough."
                 elif requested_aspect == 'implementation':
-                    detailed_prompt = f"Show code implementation of {current_topic} with detailed comments and explanations."
+                    detailed_prompt = f"Show code implementation of {current_topic} with comments."
                 elif requested_aspect == 'use_case':
-                    detailed_prompt = f"Explain real-world use cases and applications of {current_topic}."
+                    detailed_prompt = f"Explain use cases of {current_topic}."
                 elif requested_aspect == 'comparison':
-                    detailed_prompt = f"Compare {current_topic} with similar concepts, highlighting key differences."
+                    detailed_prompt = f"Compare {current_topic} with similar concepts."
                 else:
-                    detailed_prompt = f"Provide a step-by-step explanation of how {current_topic} works."
+                    detailed_prompt = f"Step-by-step explanation of {current_topic}."
             else:
-                detailed_prompt = f"""The user is learning about {current_topic} but needs more explanation. 
-                User said: "{message}"
-                {context_from_history}
+                # More concise prompt to save tokens
+                detailed_prompt = f"""User learning {current_topic} needs help. User said: "{message}"
+                {context_from_history if len(context_from_history) < 200 else ""}
                 
-                Please provide a more detailed, beginner-friendly explanation with:
-                1. Simple definitions
-                2. Real-world analogies
-                3. Step-by-step examples
-                4. Common misconceptions to avoid
-                5. Practical coding examples
+                Provide beginner-friendly explanation with:
+                1. Simple definition 2. Example 3. Key points
                 
-                Be encouraging and patient."""
+                Be encouraging."""
             
             context = {
                 'target_topic': {'name': current_topic},
@@ -1029,7 +1057,7 @@ class IntegratedChatHandler:
                 'is_small_talk': False
             }
             
-            detailed_explanation = self.generate_mistral_response(detailed_prompt, context)
+            detailed_explanation = self.generate_groq_response(detailed_prompt, context)
             videos = self.get_video_recommendations(f"{current_topic} tutorial beginner {requested_aspect or ''}", context)
             
             response = f"No worries! Let me explain **{current_topic}** in more detail"
@@ -1131,7 +1159,7 @@ class IntegratedChatHandler:
                         'is_small_talk': False
                     }
                     
-                    explanation = self.generate_mistral_response(f"Explain {next_topic} in detail", context)
+                    explanation = self.generate_groq_response(f"Explain {next_topic} in detail", context)
                     videos = self.get_video_recommendations(next_topic, context)
                     
                     return {
