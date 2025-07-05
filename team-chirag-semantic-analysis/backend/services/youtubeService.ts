@@ -1,4 +1,4 @@
-import { YouTubeVideo } from '../types/VideoResource';
+import { YouTubeVideo } from '../types/videoResource';
 // Use YouTube Data API v3 or scraping tools like `youtube-sr`, `ytsr`, `play-dl`, or puppeteer
 
 export class YouTubeResourceFinder {
