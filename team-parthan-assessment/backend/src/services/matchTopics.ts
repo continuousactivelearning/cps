@@ -3,6 +3,7 @@
 
 import * as XLSX from 'xlsx';
 import Fuse from 'fuse.js';
+import { cleanText } from './textCleaner';
 
 export function loadConceptsFromExcel(filePath: string): string[] {
   const workbook = XLSX.readFile(filePath);
@@ -35,7 +36,8 @@ export function identifyConcepts(text: string, concepts: string[]): string[] {
 
   // Use sliding window of phrases (2-3 words)
   const words = cleanedText.split(/\s+/);
-  const phrases: string[] = [];
+  const phrases: string[] = [...words];
+  
   for (let i = 0; i < words.length - 1; i++) {
     phrases.push(`${words[i]} ${words[i + 1]}`);
     if (i < words.length - 2) {
