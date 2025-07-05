@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your understanding of topological sorting in Directed Acyclic Graphs (DAGs) using Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Topological Sort"
+    courseName: "TopologicalSort"
   },
   quizScore: 20,
   questions: [
@@ -28,14 +28,14 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "BFS and DFS", optionTag: "A" },
         { optionText: "Kruskal's Algorithm", optionTag: "C" },
-        { optionText: "Dijkstra’s Algorithm", optionTag: "D" },
+        { optionText: "Dijkstra's Algorithm", optionTag: "D" },
         { optionText: "Bellman-Ford", optionTag: "B" }
       ],
       correctOption: "A",
       score: 1
     },
     {
-      questionText: "Which data structure is used in Kahn’s algorithm for Topological Sorting?",
+      questionText: "Which data structure is used in Kahn's algorithm for Topological Sorting?",
       options: [
         { optionText: "Stack", optionTag: "C" },
         { optionText: "Queue", optionTag: "D" },
@@ -101,7 +101,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "How is indegree used in Kahn’s algorithm?",
+      questionText: "How is indegree used in Kahn's algorithm?",
       options: [
         { optionText: "To count visited vertices", optionTag: "A" },
         { optionText: "To identify source vertices", optionTag: "B" },
@@ -123,7 +123,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What happens if multiple vertices have indegree 0 in Kahn’s algorithm?",
+      questionText: "What happens if multiple vertices have indegree 0 in Kahn's algorithm?",
       options: [
         { optionText: "Cycle occurs", optionTag: "A" },
         { optionText: "Randomly pick one", optionTag: "C" },
@@ -145,7 +145,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the base condition to stop Kahn’s algorithm?",
+      questionText: "What is the base condition to stop Kahn's algorithm?",
       options: [
         { optionText: "No unvisited edges", optionTag: "D" },
         { optionText: "Queue becomes empty", optionTag: "B" },
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which Java method is used to remove elements from a Queue in Kahn’s algorithm?",
+      questionText: "Which Java method is used to remove elements from a Queue in Kahn's algorithm?",
       options: [
         { optionText: "remove()", optionTag: "C" },
         { optionText: "pop()", optionTag: "B" },
@@ -215,14 +215,14 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "DFS and BFS", optionTag: "D" },
         { optionText: "Dijkstra", optionTag: "C" },
-        { optionText: "Prim’s", optionTag: "A" },
-        { optionText: "Kruskal’s", optionTag: "B" }
+        { optionText: "Prim's", optionTag: "A" },
+        { optionText: "Kruskal's", optionTag: "B" }
       ],
       correctOption: "D",
       score: 1
     },
     {
-      questionText: "Which Java collection helps maintaining order of insertion during Kahn’s algorithm?",
+      questionText: "Which Java collection helps maintaining order of insertion during Kahn's algorithm?",
       options: [
         { optionText: "LinkedList", optionTag: "B" },
         { optionText: "HashSet", optionTag: "A" },

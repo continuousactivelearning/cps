@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz evaluates your understanding of Binary Trees and related operations in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Binary Trees"
+    courseName: "BinaryTrees"
   },
   quizScore: 20,
   questions: [

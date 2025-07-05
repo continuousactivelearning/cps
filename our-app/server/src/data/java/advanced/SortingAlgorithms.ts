@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz assesses in-depth knowledge of sorting algorithms, time complexities, and Java implementations.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Sorting Algorithms"
+    courseName: "SortingAlgorithms"
   },
   quizScore: 20,
   questions: [

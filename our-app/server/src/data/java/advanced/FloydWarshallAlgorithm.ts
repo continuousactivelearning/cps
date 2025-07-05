@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Evaluate your understanding of the Floyd-Warshall algorithm used for solving all-pairs shortest path problems.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Floyd-Warshall Algorithm"
+    courseName: "FloydWarshallAlgorithm"
   },
   quizScore: 20,
   questions: [

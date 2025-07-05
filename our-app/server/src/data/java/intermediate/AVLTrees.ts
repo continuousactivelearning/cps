@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your understanding of AVL Trees and their operations.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "AVL Trees"
+    courseName: "AVLTrees"
   },
   quizScore: 20,
   questions: [

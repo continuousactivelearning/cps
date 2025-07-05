@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz evaluates deep understanding of searching algorithms, edge cases, and Java-based optimizations.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Searching Algorithms"
+    courseName: "SearchingAlgorithms"
   },
   quizScore: 20,
   questions: [
@@ -222,7 +222,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the return value of Java’s binarySearch() when the element is not found?",
+      questionText: "What is the return value of Java's binarySearch() when the element is not found?",
       options: [
         { optionText: "null", optionTag: "A" },
         { optionText: "-1", optionTag: "B" },

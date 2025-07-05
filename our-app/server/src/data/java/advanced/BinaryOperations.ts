@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Advanced quiz on binary operations including bitwise manipulation in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Binary Operations"
+    courseName: "BinaryOperations"
   },
   quizScore: 20,
   questions: [
@@ -158,7 +158,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "How to count set bits in an integer?",
       options: [
-        { optionText: "Using Brian Kernighan’s Algorithm", optionTag: "C" },
+        { optionText: "Using Brian Kernighan's Algorithm", optionTag: "C" },
         { optionText: "Divide repeatedly", optionTag: "B" },
         { optionText: "Modulo by 2", optionTag: "D" },
         { optionText: "Bitwise AND with 0", optionTag: "A" }

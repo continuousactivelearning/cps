@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your understanding of B-Trees, their structure, and operations used in file systems and databases.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "B-Trees"
+    courseName: "BTrees"
   },
   quizScore: 20,
   questions: [
@@ -194,7 +194,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "Height balancing using rotation", optionTag: "C" },
         { optionText: "Using sibling pointers", optionTag: "A" },
         { optionText: "Using rules for minimum and maximum keys", optionTag: "B" },
-        { optionText: "They don’t balance", optionTag: "D" }
+        { optionText: "They don't balance", optionTag: "D" }
       ],
       correctOption: "B",
       score: 1

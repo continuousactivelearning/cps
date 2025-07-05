@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
     description: "This quiz tests your advanced knowledge of Linked Lists in Java.",
     topic: {
         courseID: new mongoose.Types.ObjectId(),
-        courseName: "Linked Lists"
+        courseName: "LinkedLists"
     },
     quizScore: 20,
     questions: [

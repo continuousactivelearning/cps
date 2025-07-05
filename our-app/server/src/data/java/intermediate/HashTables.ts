@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz evaluates your understanding of Hash Tables and their implementation in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Hash Tables"
+    courseName: "HashTables"
   },
   quizScore: 20,
   questions: [
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which data structure is used behind Java’s HashMap?",
+      questionText: "Which data structure is used behind Java's HashMap?",
       options: [
         { optionText: "Array", optionTag: "A" },
         { optionText: "Array of LinkedList/Binary Tree", optionTag: "B" },

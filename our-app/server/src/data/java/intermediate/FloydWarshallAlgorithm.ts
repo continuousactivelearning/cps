@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of the Floyd-Warshall algorithm used for all-pairs shortest path problems.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Floyd-Warshall Algorithm"
+    courseName: "FloydWarshallAlgorithm"
   },
   quizScore: 20,
   questions: [
@@ -125,10 +125,10 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which algorithm is better for sparse graphs?",
       options: [
-        { optionText: "Dijkstra’s", optionTag: "A" },
+        { optionText: "Dijkstra's", optionTag: "A" },
         { optionText: "Floyd-Warshall", optionTag: "C" },
-        { optionText: "Kruskal’s", optionTag: "D" },
-        { optionText: "Prim’s", optionTag: "B" }
+        { optionText: "Kruskal's", optionTag: "D" },
+        { optionText: "Prim's", optionTag: "B" }
       ],
       correctOption: "A",
       score: 1

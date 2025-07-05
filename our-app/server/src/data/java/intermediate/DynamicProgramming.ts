@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of dynamic programming concepts in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Dynamic Programming"
+    courseName: "DynamicProgramming"
   },
   quizScore: 20,
   questions: [
@@ -156,7 +156,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What’s the complexity of the longest common subsequence using DP?",
+      questionText: "What's the complexity of the longest common subsequence using DP?",
       options: [
         { optionText: "O(m*n)", optionTag: "A" },
         { optionText: "O(n)", optionTag: "B" },

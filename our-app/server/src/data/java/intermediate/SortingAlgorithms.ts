@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of sorting techniques, complexities, and implementations in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Sorting Algorithms"
+    courseName: "SortingAlgorithms"
   },
   quizScore: 20,
   questions: [
@@ -200,7 +200,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which sort is used in Java’s Arrays.sort() for primitive types?",
+      questionText: "Which sort is used in Java's Arrays.sort() for primitive types?",
       options: [
         { optionText: "Merge Sort", optionTag: "A" },
         { optionText: "Quick Sort", optionTag: "B" },

@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your knowledge on the Divide and Conquer paradigm in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Divide and Conquer"
+    courseName: "DivideAndConquer"
   },
   quizScore: 20,
   questions: [
@@ -95,7 +95,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "Merge Sort", optionTag: "A" },
         { optionText: "Quick Sort", optionTag: "B" },
         { optionText: "Linear Search", optionTag: "C" },
-        { optionText: "Strassen’s Matrix Multiplication", optionTag: "D" }
+        { optionText: "Strassen's Matrix Multiplication", optionTag: "D" }
       ],
       correctOption: "C",
       score: 1

@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz tests your advanced understanding of complexity analysis in Java and algorithmic thinking.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Complexity Analysis"
+    courseName: "ComplexityAnalysis"
   },
   quizScore: 20,
   questions: [

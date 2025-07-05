@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your grasp on Depth-First Search traversal, implementation, and problem-solving in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Depth-First Search (DFS)"
+    courseName: "DFS"
   },
   quizScore: 20,
   questions: [
@@ -39,7 +39,7 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "DFS", optionTag: "A" },
         { optionText: "BFS", optionTag: "B" },
-        { optionText: "Dijkstra’s", optionTag: "C" },
+        { optionText: "Dijkstra's", optionTag: "C" },
         { optionText: "Bellman-Ford", optionTag: "D" }
       ],
       correctOption: "A",
@@ -159,9 +159,9 @@ const quizData: Partial<QuizDocument> = {
       questionText: "DFS can be used to find strongly connected components using which algorithm?",
       options: [
         { optionText: "Kosaraju's", optionTag: "A" },
-        { optionText: "Dijkstra’s", optionTag: "B" },
+        { optionText: "Dijkstra's", optionTag: "B" },
         { optionText: "Floyd-Warshall", optionTag: "C" },
-        { optionText: "Prim’s", optionTag: "D" }
+        { optionText: "Prim's", optionTag: "D" }
       ],
       correctOption: "A",
       score: 1

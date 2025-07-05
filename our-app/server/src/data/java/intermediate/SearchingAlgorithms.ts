@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your grasp of Java searching algorithms and their complexity, use-cases, and variations.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Searching Algorithms"
+    courseName: "SearchingAlgorithms"
   },
   quizScore: 20,
   questions: [
@@ -70,9 +70,9 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "What is the advantage of jump search over linear search?",
       options: [
-        { optionText: "It doesn’t require sorting", optionTag: "A" },
+        { optionText: "It doesn't require sorting", optionTag: "A" },
         { optionText: "It reduces the number of comparisons", optionTag: "B" },
-        { optionText: "It’s more accurate", optionTag: "C" },
+        { optionText: "It's more accurate", optionTag: "C" },
         { optionText: "It works on any data type", optionTag: "D" }
       ],
       correctOption: "B",

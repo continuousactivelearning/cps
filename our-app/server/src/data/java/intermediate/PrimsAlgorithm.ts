@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your understanding of Prim's algorithm for Minimum Spanning Tree (MST) construction.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Prim's Algorithm"
+    courseName: "PrimsAlgorithm"
   },
   quizScore: 20,
   questions: [
@@ -79,7 +79,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of the following Java classes is useful for implementing a priority queue in Prim’s algorithm?",
+      questionText: "Which of the following Java classes is useful for implementing a priority queue in Prim's algorithm?",
       options: [
         { optionText: "PriorityQueue", optionTag: "A" },
         { optionText: "LinkedList", optionTag: "C" },
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Prim’s algorithm selects edges based on what?",
+      questionText: "Prim's algorithm selects edges based on what?",
       options: [
         { optionText: "Minimum edge weight connecting to MST", optionTag: "B" },
         { optionText: "Maximum edge weight", optionTag: "C" },
@@ -101,7 +101,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "In an n-node connected graph, the MST produced by Prim’s algorithm has how many edges?",
+      questionText: "In an n-node connected graph, the MST produced by Prim's algorithm has how many edges?",
       options: [
         { optionText: "n - 1", optionTag: "C" },
         { optionText: "n", optionTag: "A" },
@@ -134,7 +134,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Prim’s algorithm stops when:",
+      questionText: "Prim's algorithm stops when:",
       options: [
         { optionText: "All vertices are included in MST", optionTag: "C" },
         { optionText: "All edges are visited", optionTag: "A" },
@@ -145,7 +145,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Can Prim’s algorithm be applied to disconnected graphs?",
+      questionText: "Can Prim's algorithm be applied to disconnected graphs?",
       options: [
         { optionText: "No", optionTag: "D" },
         { optionText: "Yes", optionTag: "B" },
@@ -156,7 +156,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "If all edge weights are equal, what is the nature of the MST returned by Prim’s algorithm?",
+      questionText: "If all edge weights are equal, what is the nature of the MST returned by Prim's algorithm?",
       options: [
         { optionText: "Any spanning tree", optionTag: "A" },
         { optionText: "The one with maximum leaves", optionTag: "B" },
@@ -189,18 +189,18 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the difference between Prim’s and Kruskal’s algorithms?",
+      questionText: "What is the difference between Prim's and Kruskal's algorithms?",
       options: [
-        { optionText: "Prim’s builds tree by expanding vertex set; Kruskal’s by adding edges", optionTag: "D" },
-        { optionText: "Kruskal’s uses adjacency list only", optionTag: "B" },
-        { optionText: "Prim’s works on directed graphs", optionTag: "C" },
+        { optionText: "Prim's builds tree by expanding vertex set; Kruskal's by adding edges", optionTag: "D" },
+        { optionText: "Kruskal's uses adjacency list only", optionTag: "B" },
+        { optionText: "Prim's works on directed graphs", optionTag: "C" },
         { optionText: "Both are same", optionTag: "A" }
       ],
       correctOption: "D",
       score: 1
     },
     {
-      questionText: "In Prim’s algorithm, how do you prevent revisiting the same vertex?",
+      questionText: "In Prim's algorithm, how do you prevent revisiting the same vertex?",
       options: [
         { optionText: "Mark vertex as visited", optionTag: "A" },
         { optionText: "Use a visited array", optionTag: "B" },

@@ -2,18 +2,18 @@ import { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
-  title: "Java Dijkstra’s Algorithm - Advanced Quiz",
+  title: "Java Dijkstra's Algorithm - Advanced Quiz",
   quizLevel: "advanced",
   lang: "java",
-  description: "Test your knowledge of Dijkstra’s Algorithm for shortest path computation in weighted graphs.",
+  description: "Test your knowledge of Dijkstra's Algorithm for shortest path computation in weighted graphs.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Dijkstra’s Algorithm"
+    courseName: "DijkstrasAlgorithm"
   },
   quizScore: 20,
   questions: [
     {
-      questionText: "What is Dijkstra’s Algorithm primarily used for?",
+      questionText: "What is Dijkstra's Algorithm primarily used for?",
       options: [
         { optionText: "Topological sorting", optionTag: "C" },
         { optionText: "Detecting cycles", optionTag: "D" },
@@ -24,7 +24,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the time complexity of Dijkstra’s Algorithm using a min-heap (priority queue)?",
+      questionText: "What is the time complexity of Dijkstra's Algorithm using a min-heap (priority queue)?",
       options: [
         { optionText: "O(V^2)", optionTag: "C" },
         { optionText: "O(V + E)", optionTag: "B" },
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which data structure is commonly used to implement Dijkstra’s priority queue?",
+      questionText: "Which data structure is commonly used to implement Dijkstra's priority queue?",
       options: [
         { optionText: "Stack", optionTag: "C" },
         { optionText: "Queue", optionTag: "D" },
@@ -46,7 +46,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Dijkstra’s Algorithm fails in graphs containing:",
+      questionText: "Dijkstra's Algorithm fails in graphs containing:",
       options: [
         { optionText: "Positive edge weights", optionTag: "B" },
         { optionText: "Disconnected components", optionTag: "D" },
@@ -68,7 +68,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "In Java, which collection is ideal for Dijkstra’s priority queue?",
+      questionText: "In Java, which collection is ideal for Dijkstra's priority queue?",
       options: [
         { optionText: "ArrayList", optionTag: "C" },
         { optionText: "HashMap", optionTag: "D" },
@@ -79,7 +79,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What does the relaxation step in Dijkstra’s Algorithm do?",
+      questionText: "What does the relaxation step in Dijkstra's Algorithm do?",
       options: [
         { optionText: "Removes the edge", optionTag: "D" },
         { optionText: "Updates the edge weight", optionTag: "B" },
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which vertex is picked at each step of Dijkstra’s Algorithm?",
+      questionText: "Which vertex is picked at each step of Dijkstra's Algorithm?",
       options: [
         { optionText: "Vertex with maximum distance", optionTag: "D" },
         { optionText: "Vertex not yet visited", optionTag: "C" },
@@ -101,7 +101,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What happens if Dijkstra’s is run on a graph with a negative weight edge?",
+      questionText: "What happens if Dijkstra's is run on a graph with a negative weight edge?",
       options: [
         { optionText: "Incorrect results", optionTag: "D" },
         { optionText: "It halts", optionTag: "C" },
@@ -112,10 +112,10 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which algorithm is preferred over Dijkstra’s for graphs with negative weights?",
+      questionText: "Which algorithm is preferred over Dijkstra's for graphs with negative weights?",
       options: [
         { optionText: "Bellman-Ford", optionTag: "C" },
-        { optionText: "Prim’s", optionTag: "B" },
+        { optionText: "Prim's", optionTag: "B" },
         { optionText: "DFS", optionTag: "A" },
         { optionText: "BFS", optionTag: "D" }
       ],
@@ -123,7 +123,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the output of Dijkstra’s Algorithm?",
+      questionText: "What is the output of Dijkstra's Algorithm?",
       options: [
         { optionText: "Minimum spanning tree", optionTag: "A" },
         { optionText: "Shortest path lengths from source", optionTag: "C" },
@@ -134,7 +134,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which type of graph is suitable for Dijkstra’s Algorithm?",
+      questionText: "Which type of graph is suitable for Dijkstra's Algorithm?",
       options: [
         { optionText: "Graphs with negative cycles", optionTag: "C" },
         { optionText: "Graphs with zero or positive weights", optionTag: "B" },
@@ -145,7 +145,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of these is NOT used in Dijkstra’s implementation?",
+      questionText: "Which of these is NOT used in Dijkstra's implementation?",
       options: [
         { optionText: "PriorityQueue", optionTag: "C" },
         { optionText: "Distance array", optionTag: "A" },
@@ -156,7 +156,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Dijkstra’s algorithm works well with:",
+      questionText: "Dijkstra's algorithm works well with:",
       options: [
         { optionText: "Graphs with all negative weights", optionTag: "D" },
         { optionText: "Graphs with cycles", optionTag: "A" },
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "In Dijkstra’s algorithm, which vertex is never updated again?",
+      questionText: "In Dijkstra's algorithm, which vertex is never updated again?",
       options: [
         { optionText: "The source", optionTag: "C" },
         { optionText: "The vertex already in the queue", optionTag: "D" },
@@ -178,7 +178,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of the following Java classes is not suitable for Dijkstra’s PQ?",
+      questionText: "Which of the following Java classes is not suitable for Dijkstra's PQ?",
       options: [
         { optionText: "TreeSet", optionTag: "C" },
         { optionText: "PriorityQueue", optionTag: "B" },
@@ -200,7 +200,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which property of graph matters most for Dijkstra’s performance?",
+      questionText: "Which property of graph matters most for Dijkstra's performance?",
       options: [
         { optionText: "Number of edges", optionTag: "D" },
         { optionText: "Weight of edges", optionTag: "B" },
@@ -211,7 +211,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "In Java, how is the shortest path stored during Dijkstra’s run?",
+      questionText: "In Java, how is the shortest path stored during Dijkstra's run?",
       options: [
         { optionText: "Visited array", optionTag: "C" },
         { optionText: "Queue size", optionTag: "D" },
@@ -222,7 +222,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What makes Dijkstra’s greedy in nature?",
+      questionText: "What makes Dijkstra's greedy in nature?",
       options: [
         { optionText: "It explores all paths", optionTag: "D" },
         { optionText: "Chooses path with largest edge", optionTag: "B" },

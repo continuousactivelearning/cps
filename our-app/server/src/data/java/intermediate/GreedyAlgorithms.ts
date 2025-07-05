@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of Greedy Algorithms in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Greedy Algorithms"
+    courseName: "GreedyAlgorithms"
   },
   quizScore: 20,
   questions: [
@@ -70,7 +70,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which graph algorithm is greedy in nature?",
       options: [
-        { optionText: "Kruskal’s MST", optionTag: "A" },
+        { optionText: "Kruskal's MST", optionTag: "A" },
         { optionText: "Bellman-Ford", optionTag: "B" },
         { optionText: "Floyd-Warshall", optionTag: "C" },
         { optionText: "DFS", optionTag: "D" }
@@ -112,7 +112,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which data structure is essential for Prim’s algorithm?",
+      questionText: "Which data structure is essential for Prim's algorithm?",
       options: [
         { optionText: "Queue", optionTag: "A" },
         { optionText: "Stack", optionTag: "B" },
@@ -158,8 +158,8 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which algorithm is used for job scheduling problems?",
       options: [
-        { optionText: "Prim’s algorithm", optionTag: "A" },
-        { optionText: "Dijkstra’s algorithm", optionTag: "B" },
+        { optionText: "Prim's algorithm", optionTag: "A" },
+        { optionText: "Dijkstra's algorithm", optionTag: "B" },
         { optionText: "Job Sequencing with Deadlines", optionTag: "C" },
         { optionText: "Floyd-Warshall", optionTag: "D" }
       ],

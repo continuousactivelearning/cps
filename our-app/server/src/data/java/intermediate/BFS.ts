@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your understanding of BFS traversal, implementation, and applications in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Breadth-First Search (BFS)"
+    courseName: "BFS"
   },
   quizScore: 20,
   questions: [
@@ -92,10 +92,10 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which of these algorithms is conceptually similar to BFS?",
       options: [
-        { optionText: "Dijkstra’s Algorithm", optionTag: "A" },
+        { optionText: "Dijkstra's Algorithm", optionTag: "A" },
         { optionText: "DFS", optionTag: "B" },
         { optionText: "Quicksort", optionTag: "C" },
-        { optionText: "Prim’s Algorithm", optionTag: "D" }
+        { optionText: "Prim's Algorithm", optionTag: "D" }
       ],
       correctOption: "A",
       score: 1
@@ -183,7 +183,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "DFS", optionTag: "A" },
         { optionText: "Level Order", optionTag: "B" },
         { optionText: "BFS", optionTag: "C" },
-        { optionText: "Prim’s Algorithm", optionTag: "D" }
+        { optionText: "Prim's Algorithm", optionTag: "D" }
       ],
       correctOption: "D",
       score: 1

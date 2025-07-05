@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of the two pointers technique in Java programming.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Two Pointers"
+    courseName: "TwoPointers"
   },
   quizScore: 20,
   questions: [
@@ -101,7 +101,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What’s a typical use-case for a fast and slow pointer?",
+      questionText: "What's a typical use-case for a fast and slow pointer?",
       options: [
         { optionText: "Linked list cycle detection", optionTag: "B" },
         { optionText: "Sorting arrays", optionTag: "A" },

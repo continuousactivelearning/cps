@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your advanced understanding of Red-Black Trees and their balancing rules in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Red-Black Trees"
+    courseName: "RedBlackTrees"
   },
   quizScore: 20,
   questions: [
@@ -81,7 +81,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which property ensures balancing in Red-Black Trees?",
       options: [
-        { optionText: "Red node can’t have red child", optionTag: "D" },
+        { optionText: "Red node can't have red child", optionTag: "D" },
         { optionText: "Black nodes on each path must be same", optionTag: "C" },
         { optionText: "Root must be black", optionTag: "B" },
         { optionText: "All are required", optionTag: "A" }
@@ -172,7 +172,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "0", optionTag: "D" },
         { optionText: "1", optionTag: "B" },
         { optionText: "2", optionTag: "A" },
-        { optionText: "Can’t have red children", optionTag: "C" }
+        { optionText: "Can't have red children", optionTag: "C" }
       ],
       correctOption: "C",
       score: 1
