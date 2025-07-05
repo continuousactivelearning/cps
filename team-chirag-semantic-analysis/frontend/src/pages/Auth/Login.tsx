@@ -23,6 +23,7 @@ import { z } from 'zod';
 import GoogleIcon from '@mui/icons-material/Google';
 import Lottie from 'lottie-react';
 import aiAnimation from '../../assets/ai-lottie.json';
+import type { GoogleAuthMessageEvent } from '../../types/auth';
 
 const LoginSchema = z.object({
   email: z.string().email({ message: 'Enter a valid email address' }),
@@ -51,6 +52,8 @@ const Login: React.FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     try {
+      // Simulate API call with form data
+      console.log('Login attempt with:', data.email);
       await new Promise((res) => setTimeout(res, 1000));
       localStorage.setItem('token', 'dummy-auth-token');
 
@@ -67,7 +70,7 @@ const Login: React.FC = () => {
     }
   };
 
-  // ✅ Updated popup-based Google login with immediate redirect
+  // ✅ Updated popup-based Google login with first-time user check
   const handleGoogleLogin = () => {
     const width = 500, height = 600;
     const left = window.innerWidth / 2 - width / 2;
@@ -75,26 +78,87 @@ const Login: React.FC = () => {
 
     const authWindow = window.open(
       'http://localhost:5000/auth/google',
-      '_blank',
-      `width=${width},height=${height},top=${top},left=${left}`
+      'googleAuth',
+      `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`
     );
 
-    const messageListener = (event: MessageEvent) => {
+    if (!authWindow) {
+      setSnackbarMsg('Popup blocked. Please allow popups and try again.');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+      return;
+    }
+
+    const messageListener = (event: GoogleAuthMessageEvent) => {
       if (event.origin !== 'http://localhost:5000') return;
-      const { token, user } = event.data;
+      const { token, user, isFirstTime, error } = event.data;
 
       if (token && user) {
         localStorage.setItem('token', token);
         localStorage.setItem('userProfile', JSON.stringify(user));
 
-        authWindow?.close();
+        // Clean up listeners first
         window.removeEventListener('message', messageListener);
+        
+        // Try to close the popup safely
+        try {
+          if (authWindow && !authWindow.closed) {
+            authWindow.close();
+          }
+        } catch (authCloseError) {
+          console.warn('Could not close auth window:', authCloseError);
+        }
 
-        // ✅ Redirect to dashboard or chat
-        navigate('/chat');
+        // ✅ Check if user is first-time and redirect accordingly
+        if (isFirstTime) {
+          setSnackbarMsg('Welcome! Let\'s get you set up.');
+          setSnackbarSeverity('success');
+          setSnackbarOpen(true);
+          // Redirect to onboarding page for first-time users
+          setTimeout(() => navigate('/onboarding'), 1000);
+        } else {
+          setSnackbarMsg('Welcome back!');
+          setSnackbarSeverity('success');
+          setSnackbarOpen(true);
+          // Redirect to chat for returning users
+          setTimeout(() => navigate('/chat'), 1000);
+        }
+      } else if (error) {
+        setSnackbarMsg('Authentication failed. Please try again.');
+        setSnackbarSeverity('error');
+        setSnackbarOpen(true);
+        window.removeEventListener('message', messageListener);
+        try {
+          if (authWindow && !authWindow.closed) {
+            authWindow.close();
+          }
+        } catch (authErrorClose) {
+          console.warn('Could not close auth window:', authErrorClose);
+        }
       }
     };
 
+    // Handle popup close detection with polling instead of window.closed
+    let pollTimer: NodeJS.Timeout;
+    const pollForClose = () => {
+      pollTimer = setInterval(() => {
+        try {
+          if (authWindow.closed) {
+            clearInterval(pollTimer);
+            window.removeEventListener('message', messageListener);
+            return;
+          }
+          // Try to access the window location to detect navigation
+          if (authWindow.location.href.includes('localhost:5173')) {
+            clearInterval(pollTimer);
+          }
+        } catch {
+          // Cross-origin error is expected, continue polling
+        }
+      }, 1000);
+    };
+
+    pollForClose();
     window.addEventListener('message', messageListener);
   };
 

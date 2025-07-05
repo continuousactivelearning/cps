@@ -1,6 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import { updateUserOnboarding } from '../controllers/authController';
+import { optionalAuth } from '../middleware/auth';
 
 const router = express.Router();
 
@@ -17,12 +18,13 @@ router.get('/google/callback', passport.authenticate('google', {
 }), (req, res) => {
   const user = req.user as any;
   const token = user.token;
+  const isFirstTime = user.isFirstTime;
 
   const html = `
     <html>
       <body>
         <script>
-          window.opener.postMessage(${JSON.stringify({ token, user })}, "http://localhost:5173");
+          window.opener.postMessage(${JSON.stringify({ token, user, isFirstTime })}, "http://localhost:5173");
           window.close();
         </script>
       </body>
@@ -32,7 +34,7 @@ router.get('/google/callback', passport.authenticate('google', {
   res.send(html);
 });
 
-// ✅ Onboarding data route
-router.post('/onboarding', updateUserOnboarding);
+// ✅ Onboarding data route with optional auth middleware
+router.post('/onboarding', optionalAuth, updateUserOnboarding);
 
 export default router;

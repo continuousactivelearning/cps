@@ -45,7 +45,8 @@ const UserSchema = new mongoose.Schema({
   avatar: { type: String },
   userInfo: UserInfoSchema,
   knownConcepts: KnownConceptsSchema,
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
 });
 
 export default mongoose.model('User', UserSchema);

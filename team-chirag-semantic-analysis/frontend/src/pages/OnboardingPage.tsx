@@ -112,9 +112,11 @@ interface TopicWithSubtopics {
 }
 
 interface UserProfile {
+  _id?: string;
+  name: string;
+  email: string;
+  avatar?: string;
   userInfo: {
-    name: string;
-    email: string;
     programmingExperience: string;
     knownLanguages: string[];
     dsaExperience: string;
@@ -257,10 +259,16 @@ const generateUserProfile = async (formData: OnboardingDataWithSubtopics): Promi
     graphData
   );
 
+  // Get current user profile from localStorage
+  const currentUserStr = localStorage.getItem('userProfile');
+  const currentUser = currentUserStr ? JSON.parse(currentUserStr) : null;
+
   return {
+    _id: currentUser?._id || '',
+    name: currentUser?.name || localStorage.getItem('signupName') || '',
+    email: currentUser?.email || localStorage.getItem('signupEmail') || '',
+    avatar: currentUser?.avatar || '',
     userInfo: {
-      name: localStorage.getItem('signupName') || '',
-      email: localStorage.getItem('signupEmail') || '',
       programmingExperience: formData.programmingExperience,
       knownLanguages: formData.knownLanguages,
       dsaExperience: formData.dsaExperience,
@@ -271,7 +279,7 @@ const generateUserProfile = async (formData: OnboardingDataWithSubtopics): Promi
       totalTopics: totalTopics,
       totalSubtopics: totalSubtopics
     },
-    createdAt: new Date().toISOString(),
+    createdAt: currentUser?.createdAt || new Date().toISOString(),
   };
 };
 
@@ -286,26 +294,40 @@ const saveUserProfile = async (userProfile: UserProfile): Promise<void> => {
     console.log(`Total topics: ${userProfile.knownConcepts.totalTopics}`);
     console.log(`Total subtopics: ${userProfile.knownConcepts.totalSubtopics}`);
 
-    // ✅ Send to backend API instead of downloading JSON
-    const response = await fetch('http://localhost:5000/api/users/onboarding', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
+    const requestBody = {
+      email: userProfile.email,  // Use email from userProfile
+      userInfo: {
+        programmingExperience: userProfile.userInfo.programmingExperience,
+        knownLanguages: userProfile.userInfo.knownLanguages,
+        dsaExperience: userProfile.userInfo.dsaExperience,
+        preferredPace: userProfile.userInfo.preferredPace
       },
-      body: JSON.stringify({
-        email: userProfile.userInfo.email,  // Email is used to identify user in DB
-        userInfo: {
-          programmingExperience: userProfile.userInfo.programmingExperience,
-          knownLanguages: userProfile.userInfo.knownLanguages,
-          dsaExperience: userProfile.userInfo.dsaExperience,
-          preferredPace: userProfile.userInfo.preferredPace
-        },
-        knownConcepts: userProfile.knownConcepts
-      })
+      knownConcepts: userProfile.knownConcepts
+    };
+
+    console.log('🚀 Sending onboarding data to backend:', {
+      email: requestBody.email,
+      userInfo: requestBody.userInfo,
+      knownConceptsTopicsCount: requestBody.knownConcepts.topics.length,
+      token: localStorage.getItem('token') ? 'Present' : 'Missing'
     });
 
+    // ✅ Send to backend API instead of downloading JSON
+    const response = await fetch('http://localhost:5000/auth/onboarding', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      },
+      body: JSON.stringify(requestBody)
+    });
+
+    console.log('📡 Response status:', response.status);
+    const responseText = await response.text();
+    console.log('📡 Response body:', responseText);
+
     if (!response.ok) {
-      throw new Error('Failed to save user profile to database');
+      throw new Error(`Failed to save user profile to database: ${response.status} ${responseText}`);
     }
     // Also allow JSON download after saving to DB
 const dataStr = JSON.stringify(userProfile, null, 2);
@@ -444,12 +466,8 @@ export const OnboardingPage: React.FC = () => {
       // Mark onboarding as completed in localStorage
       localStorage.setItem('onboardingCompleted', 'true');
       
-      // Save profile data for profile page (legacy format for compatibility)
-      localStorage.setItem('userProfile', JSON.stringify({ 
-        ...formData, 
-        email: localStorage.getItem('signupEmail'), 
-        name: localStorage.getItem('signupName') 
-      }));
+      // Update the user profile in localStorage with the complete onboarding data
+      localStorage.setItem('userProfile', JSON.stringify(userProfile));
 
       // Navigate to main app
       navigate('/chat');

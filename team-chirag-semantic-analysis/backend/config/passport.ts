@@ -17,20 +17,26 @@ passport.use(new GoogleStrategy({
       const email = emails?.[0].value;
 
       let user = await User.findOne({ email });
+      let isFirstTime = false;
 
       if (!user) {
         user = await User.create({
+          googleId: id,
           name: displayName,
           email,
           avatar: photos?.[0].value,
         });
+        isFirstTime = true;
+      } else {
+        // Check if user has completed onboarding (has userInfo and knownConcepts)
+        isFirstTime = !user.userInfo || !user.knownConcepts || !user.knownConcepts.topics || user.knownConcepts.topics.length === 0;
       }
 
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
         expiresIn: '7d',
       });
 
-      return done(null, { ...user.toObject(), token });
+      return done(null, { ...user.toObject(), token, isFirstTime });
     } catch (error) {
       return done(error);
     }
