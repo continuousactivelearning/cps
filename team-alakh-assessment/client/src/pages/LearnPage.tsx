@@ -12,11 +12,13 @@ import {
   FileText,
   Video,
   BookMarked,
+  ChevronLeft,
   ChevronRight,
   ChevronDown,
   Plus,
   Minus,
 } from "lucide-react";
+import { Listbox, Transition } from "@headlessui/react";
 import api from "../services/api";
 import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "../components/ThemeToggle";
@@ -49,6 +51,9 @@ const LearnPage: React.FC = () => {
     new Set([0])
   );
   const [error, setError] = useState("");
+  const [isDownloading, setIsDownloading] = useState<Record<string, boolean>>(
+    {}
+  ); // New state for download loading
 
   interface LearningHistoryEntry {
     moduleId: string;
@@ -173,6 +178,7 @@ const LearnPage: React.FC = () => {
   };
 
   const downloadMaterial = async (moduleId: string, title: string) => {
+    setIsDownloading((prev) => ({ ...prev, [moduleId]: true })); // Set loading true for this module
     try {
       const token = localStorage.getItem("token");
       const response = await api.get(
@@ -194,6 +200,8 @@ const LearnPage: React.FC = () => {
     } catch (err) {
       console.error("Error downloading material:", err);
       alert("Failed to download PDF. Please try again.");
+    } finally {
+      setIsDownloading((prev) => ({ ...prev, [moduleId]: false })); // Set loading false for this module
     }
   };
 
@@ -259,23 +267,22 @@ const LearnPage: React.FC = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-500"
+      className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 transition-colors duration-500"
     >
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-2 md:px-4 py-2 md:py-4">
+          <div className="flex items-center justify-between gap-1 sm:gap-0">
             <button
               onClick={() => navigate("/dashboard")}
-              className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 transition-colors"
+              className="flex items-center space-x-1 sm:space-x-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 transition-colors text-xs sm:text-base"
             >
-              <ArrowLeft className="h-5 w-5" />
-              <span>Back to Dashboard</span>
+              <ArrowLeft className="h-4 sm:h-5 w-4 sm:w-5" />
+              <span className="hidden md:inline">Back to Dashboard</span>
             </button>
 
-            {/*Font size control */}
-            <div>
-              <div className="flex items-center space-x-2 bg-gray-50 shadow-md text-ray-700 dark:bg-gray-700 dark:text-gray-300 rounded-lg p-1">
+            <div className="hidden md:block">
+              <div className="flex items-center space-x-1 sm:space-x-2 bg-gray-50 shadow-md text-gray-700 dark:bg-gray-700 dark:text-gray-300 rounded-lg p-1 text-xs sm:text-sm">
                 <button
                   onClick={() => {
                     if (fontSize === "xl") setFontSize("lg");
@@ -286,9 +293,9 @@ const LearnPage: React.FC = () => {
                   className="p-1 rounded-md hover:bg-white hover:bg-opacity-20 disabled:opacity-50"
                   aria-label="Decrease font size"
                 >
-                  <Minus className="h-5 w-5" />
+                  <Minus className="h-3 sm:h-5 w-3 sm:w-5" />
                 </button>
-                <span className="text-sm w-6 text-center">{fontSize}</span>
+                <span className="text-xs w-6 text-center">{fontSize}</span>
                 <button
                   onClick={() => {
                     if (fontSize === "sm") setFontSize("base");
@@ -299,57 +306,212 @@ const LearnPage: React.FC = () => {
                   className="p-1 rounded-md hover:bg-white hover:bg-opacity-20 disabled:opacity-50"
                   aria-label="Increase font size"
                 >
-                  <Plus className="h-5 w-5" />
+                  <Plus className="h-3 sm:h-5 w-3 sm:w-5" />
                 </button>
               </div>
             </div>
 
+            <div className="md:hidden">
+              <ThemeToggle />
+            </div>
 
-
-            <div className="flex items-center space-x-3">
-              <div className="bg-blue-600 p-2 rounded-xl">
-                <BookOpen className="h-6 w-6 text-white" />
+            <div className="flex items-center space-x-2 sm:space-x-3 sm:w-auto justify-center sm:justify-end">
+              <div className="flex bg-blue-600 p-2 rounded-xl">
+                <BookOpen className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+              <div className="text-center md:text-left">
+                <h1 className="text-sm sm:text-xl font-bold text-gray-900 dark:text-gray-100 truncate max-w-[150px] sm:max-w-none overflow-x-hidden">
                   Learning: {topic}
                 </h1>
-                <div className="flex items-center space-x-2 mt-1">
-                  <div className="w-24 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div className="flex items-center justify-start space-x-1 sm:space-x-2 mt-1">
+                  <div className="w-16 sm:w-24 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                     <div
                       className="bg-green-600 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${totalProgress}%` }}
                     />
                   </div>
-                  <span className="text-sm text-gray-600 dark:text-gray-300">
+                  <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
                     {totalProgress}% Complete
                   </span>
                 </div>
               </div>
             </div>
 
+            <div className="md:hidden">
+              <div className="flex items-center space-x-1 sm:space-x-2 bg-gray-50 shadow-md text-gray-700 dark:bg-gray-700 dark:text-gray-300 rounded-lg p-1 text-xs sm:text-sm">
+                <button
+                  onClick={() => {
+                    if (fontSize === "xl") setFontSize("lg");
+                    else if (fontSize === "lg") setFontSize("base");
+                    else if (fontSize === "base") setFontSize("sm");
+                  }}
+                  disabled={fontSize === "sm"}
+                  className="p-1 rounded-md hover:bg-white hover:bg-opacity-20 disabled:opacity-50"
+                  aria-label="Decrease font size"
+                >
+                  <Minus className="h-3 sm:h-5 w-3 sm:w-5" />
+                </button>
+                <button
+                  onClick={() => {
+                    if (fontSize === "sm") setFontSize("base");
+                    else if (fontSize === "base") setFontSize("lg");
+                    else if (fontSize === "lg") setFontSize("xl");
+                  }}
+                  disabled={fontSize === "xl"}
+                  className="p-1 rounded-md hover:bg-white hover:bg-opacity-20 disabled:opacity-50"
+                  aria-label="Increase font size"
+                >
+                  <Plus className="h-3 sm:h-5 w-3 sm:w-5" />
+                </button>
+              </div>
+            </div>
 
-            
-
-            <div className="">
+            <div className="hidden md:block">
               <ThemeToggle />
             </div>
 
             <button
               onClick={() => navigate(`/quiz/${encodeURIComponent(topic!)}`)}
-              className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors"
+              className="hidden sm:flex flex items-center space-x-1 sm:space-x-2 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white text-xs sm:text-base px-3 py-2 rounded-lg transition-colors"
             >
-              <Trophy className="h-4 w-4" />
+              <Trophy className="h-3 sm:h-4 w-3 sm:w-4" />
               <span>Take Quiz</span>
             </button>
           </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-2 md:px-4 py-8">
+        {/* Mobile Module Dropdown */}
+        <div className="sm:hidden mb-6 relative z-20">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+            <BookMarked className="h-5 w-5 mr-2 text-blue-600" />
+            Learning Modules
+          </h3>
+          <Listbox
+            value={currentModuleIndex}
+            onChange={(index) => {
+              setCurrentModuleIndex(index);
+              fetchAndDisplayModuleContent(modules[index]);
+            }}
+          >
+            {({ open }) => (
+              <>
+                <Listbox.Button className="relative w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-3 shadow-md flex items-center justify-between text-sm">
+                  <span className="flex items-center space-x-2">
+                    <div
+                      className={`w-5 h-5 rounded-full flex items-center justify-center scroll-y-auto overflow-y-scroll bg-red ${
+                        modules[currentModuleIndex]?.completed
+                          ? "bg-green-100 text-green-600"
+                          : "bg-white bg-opacity-20 text-white"
+                      }`}
+                    >
+                      {modules[currentModuleIndex]?.completed ? (
+                        <CheckCircle className="h-3 w-3" />
+                      ) : (
+                        <span className="text-xs">
+                          {currentModuleIndex + 1}
+                        </span>
+                      )}
+                    </div>
+                    <span className="font-semibold truncate">
+                      {modules[currentModuleIndex]?.title}
+                    </span>
+                  </span>
+                  <ChevronDown className="h-4 w-4 text-white" />
+                </Listbox.Button>
+
+                <Transition
+                  show={open}
+                  enter="transition ease-out duration-100"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
+                >
+                  {/* Styled Listbox.Options to mimic desktop sidebar */}
+                  <Listbox.Options className="overflow-y-scroll absolute mt-2 w-full h-[400%] rounded-2xl shadow-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden p-6 space-y-3">
+                    {modules.map((module, index) => (
+                      // Styled Listbox.Option to mimic desktop sidebar items
+                      <Listbox.Option
+                        key={module.id}
+                        value={index}
+                        className={({ active }) =>
+                          `cursor-pointer select-none w-full p-3 flex items-center justify-between rounded-lg transition-colors border
+                           ${
+                             active
+                               ? "bg-blue-50 dark:bg-gray-700 border-blue-200 dark:border-gray-600"
+                               : "hover:bg-gray-50 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700"
+                           }
+                           ${
+                             currentModuleIndex === index
+                               ? "bg-blue-100 dark:bg-gray-700 border-blue-300 dark:border-gray-600"
+                               : "" // No additional border for non-active, non-hovered
+                           }`
+                        }
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div
+                            className={`w-6 h-6 rounded-full flex items-center justify-center ${
+                              module.completed
+                                ? "bg-green-100 text-green-600"
+                                : "bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500"
+                            }`}
+                          >
+                            {module.completed ? (
+                              <CheckCircle className="h-4 w-4" />
+                            ) : (
+                              <span className="text-xs font-medium">
+                                {index + 1}
+                              </span>
+                            )}
+                          </div>
+                          <div>
+                            <p className="font-medium text-sm text-gray-900 dark:text-gray-100">
+                              {module.title}
+                            </p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center">
+                              <Clock className="h-3 w-3 mr-1" />
+                              {module.duration}
+                            </p>
+                          </div>
+                        </div>
+                        {/* Optional: Add a subtle indicator for current module if desired */}
+                        {currentModuleIndex === index && (
+                          <span className="text-blue-600 dark:text-blue-400 text-xs ml-2">
+                            Active
+                          </span>
+                        )}
+                        {module.downloadUrl && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation(); // Prevent Listbox.Option from closing when clicking download
+                              downloadMaterial(module.id, module.title);
+                            }}
+                            className="flex-shrink-0 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 p-2 rounded-full transition-colors"
+                            title="Download material"
+                            disabled={isDownloading[module.id]}
+                          >
+                            {isDownloading[module.id] ? (
+                              <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                            ) : (
+                              <Download className="h-4 w-4" />
+                            )}
+                          </button>
+                        )}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </Transition>
+              </>
+            )}
+          </Listbox>
+        </div>
+
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Learning Modules Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="hidden sm:block w-[95vw] md:w-full lg:col-span-1">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sticky top-8 transition-colors">
               <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
                 <BookMarked className="h-5 w-5 mr-2 text-blue-600" />
@@ -458,20 +620,20 @@ const LearnPage: React.FC = () => {
           </div>
 
           {/* Main Content Area */}
-          <div className="lg:col-span-3">
+          <div className="w-[95vw] md:w-full lg:col-span-3">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition-colors">
               {/* Content Header */}
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-6 text-white">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 md:px-8 py-3 md:py-6 text-white">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center md:space-x-4 space-x-2">
                     <div className="bg-white bg-opacity-20 p-3 rounded-xl">
-                      <BookOpen className="h-8 w-8 text-white" />
+                      <BookOpen className="h-6 md:h-8 w-6 md:w-8 text-white" />
                     </div>
                     <div>
-                      <h1 className="text-3xl font-bold">
+                      <h1 className="text-lg md:text-3xl font-bold">
                         {currentModule?.title || topic}
                       </h1>
-                      <p className="text-blue-100 mt-1">
+                      <p className="text-sm md:text-base text-blue-100 md:mt-1">
                         {currentModule?.type === "video"
                           ? "Video Content"
                           : currentModule?.type === "text"
@@ -486,17 +648,17 @@ const LearnPage: React.FC = () => {
                   {currentModule && !currentModule.completed && (
                     <button
                       onClick={() => handleModuleComplete(currentModule.id)}
-                      className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2"
+                      className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white md:px-4 px-2 py-2 rounded-lg transition-colors flex items-center space-x-2"
                     >
                       <CheckCircle className="h-4 w-4" />
-                      <span>Mark Complete</span>
+                      <span className="hidden md:inline">Mark Complete</span>
                     </button>
                   )}
                 </div>
               </div>
 
               {/* Content Body - Rendered Markdown */}
-              <div className="p-8">
+              <div className="p-4 md:p-8">
                 <div
                   className={`prose ${
                     fontSize === "sm"
@@ -528,11 +690,11 @@ const LearnPage: React.FC = () => {
                       disabled={currentModuleIndex === 0}
                       className="flex items-center space-x-2 bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors"
                     >
-                      <ArrowLeft className="h-4 w-4" />
-                      <span>Previous</span>
+                      <ChevronLeft className="h-4 w-4" />
+                      <span className="hidden md:inline">Previous</span>
                     </button>
 
-                    <span className="text-gray-600 dark:text-gray-300">
+                    <span className="text-sm md:text-base text-gray-600 dark:text-gray-300">
                       Module {currentModuleIndex + 1} of {modules.length}
                     </span>
 
@@ -545,24 +707,24 @@ const LearnPage: React.FC = () => {
                       disabled={currentModuleIndex === modules.length - 1}
                       className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors"
                     >
-                      <span>Next</span>
+                      <span className="hidden md:inline">Next</span>
                       <ChevronRight className="h-4 w-4" />
                     </button>
                   </div>
                 )}
 
                 {/* Action Section */}
-                <div className="mt-12 p-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-gray-800 dark:to-gray-800 rounded-xl border border-green-200 dark:border-green-700 transition-colors">
+                <div className="no-scrollbar mt-12 p-2 md:p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-gray-800 dark:to-gray-800 rounded-xl border border-green-200 dark:border-green-700 transition-colors">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
+                    <div className="flex justify-between items-center space-x-6">
                       <div className="bg-green-100 dark:bg-green-800 p-3 rounded-xl">
-                        <CheckCircle className="h-8 w-8 text-green-600" />
+                        <CheckCircle className="h-6 md:h-8 W-6 md:w-8 text-green-600" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                        <h3 className="text-sm md:text-xl font-semibold text-gray-900 dark:text-white">
                           Ready to Test Your Knowledge?
                         </h3>
-                        <p className="text-gray-600 dark:text-gray-300 mt-1">
+                        <p className="text-sm hidden md:block text-gray-600 dark:text-gray-300 mt-1">
                           Take the quiz to demonstrate your understanding and
                           unlock new topics.
                         </p>
@@ -573,10 +735,10 @@ const LearnPage: React.FC = () => {
                       onClick={() =>
                         navigate(`/quiz/${encodeURIComponent(topic!)}`)
                       }
-                      className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg"
+                      className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white font-semibold py-2 md:py-3 px-3 md:px-6 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg"
                     >
                       <Play className="h-5 w-5" />
-                      <span>Start Quiz</span>
+                      <span className="text-xs md:text-base">Start Quiz</span>
                     </button>
                   </div>
                 </div>

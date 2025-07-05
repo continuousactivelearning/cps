@@ -948,7 +948,7 @@ const QuizPage: React.FC = () => {
 
   if (!quizStarted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 py-8 transition-colors duration-500">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 px-2 md:px-4 py-8 transition-colors duration-500">
         <div className="max-w-2xl mx-auto">
           <button
             onClick={() => navigate("/dashboard")}
@@ -958,12 +958,12 @@ const QuizPage: React.FC = () => {
             <span>Back to Dashboard</span>
           </button>
 
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center animate-fadeInScale transition-all duration-500">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 md:p-8 text-center animate-fadeInScale transition-all duration-500">
             <div className="bg-blue-100 dark:bg-blue-900 p-4 rounded-full w-fit mx-auto mb-6 transition-colors duration-500">
-              <Trophy className="h-12 w-12 text-blue-600 dark:text-blue-400" />
+              <Trophy className="h-8 md:h-12 w-8 md:w-12 text-blue-600 dark:text-blue-400" />
             </div>
 
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-500">
+            <h1 className="text-xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-500">
               {topic} Quiz
             </h1>
 
@@ -971,7 +971,7 @@ const QuizPage: React.FC = () => {
               <h3 className="font-semibold text-gray-900 dark:text-white mb-4 transition-colors duration-500">
                 Quiz Instructions:
               </h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300 transition-colors duration-500">
+              <ul className="text-sm md:text-base space-y-2 text-gray-700 dark:text-gray-300 transition-colors duration-500">
                 <li>• 10 AI-generated questions specific to {topic}</li>
                 <li>• 5 minutes time limit</li>
                 <li>• You need 7/10 correct answers to pass</li>
@@ -997,7 +997,7 @@ const QuizPage: React.FC = () => {
 
             <button
               onClick={handleStartQuiz}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg text-lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 md:py-6 px-4 md:px-8 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg text:sm md:text-lg"
             >
               Start Quiz
             </button>
@@ -1009,7 +1009,7 @@ const QuizPage: React.FC = () => {
 
   if (showEvaluation && evaluationData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 py-8 transition-colors duration-500">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-2 md:p-4 py-4 md:p-8 transition-colors duration-500">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <button
@@ -1017,9 +1017,9 @@ const QuizPage: React.FC = () => {
               className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors duration-300"
             >
               <ArrowLeft className="h-5 w-5" />
-              <span>Back to Results</span>
+              <span className="hidden md:inline">Back to Results</span>
             </button>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors">
+            <h1 className="w-full md:w-1/4 text-center md:text-right text-lg md:text-2xl font-bold text-gray-900 dark:text-white transition-colors">
               Quiz Evaluation
             </h1>
           </div>
@@ -1033,9 +1033,9 @@ const QuizPage: React.FC = () => {
                 return (
                   <div
                     key={index}
-                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-100 dark:border-gray-700 transition-colors duration-300"
+                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-3 md:p-6 border border-gray-100 dark:border-gray-700 transition-colors duration-300"
                   >
-                    <div className="flex items-start space-x-4 mb-4">
+                    <div className="flex items-start space-x-2 md:space-x-4 mb-4">
                       <div
                         className={`p-2 rounded-full ${
                           isCorrect
@@ -1044,17 +1044,17 @@ const QuizPage: React.FC = () => {
                         } transition-colors`}
                       >
                         {isCorrect ? (
-                          <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                          <CheckCircle className="h-3 md:h-6 w-3 md:w-6 text-green-600 dark:text-green-400" />
                         ) : (
-                          <XCircle className="h-6 w-6 text-red-600 dark:text-red-400" />
+                          <XCircle className="h-3 md:h-6 w-3 md:w-6 text-red-600 dark:text-red-400" />
                         )}
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 transition-colors">
-                          Question {index + 1}: {question.question}
+                        <h3 className="text-sm md:text-lg font-semibold text-gray-900 dark:text-white mb-3 transition-colors">
+                          <span className="hidden md:inline">Question </span><span className="md:hidden">Q.</span>{index + 1}: {question.question}
                         </h3>
 
-                        <div className="space-y-2">
+                        <div className="space-y-2 text-xs md:text-base">
                           {question.options.map((option, optionIndex) => {
                             const isUserAnswer = userAnswer === optionIndex;
                             const isCorrectAnswer =
@@ -1090,12 +1090,12 @@ const QuizPage: React.FC = () => {
                                   </span>
                                   <div className="flex items-center space-x-2">
                                     {isUserAnswer && (
-                                      <span className="text-xs bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full">
+                                      <span className="hidden md:inline text-xs bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full">
                                         Your Answer
                                       </span>
                                     )}
                                     {isCorrectAnswer && (
-                                      <span className="text-xs bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200 px-2 py-1 rounded-full">
+                                      <span className="hidden md:inline text-xs bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200 px-2 py-1 rounded-full">
                                         Correct Answer
                                       </span>
                                     )}
@@ -1119,41 +1119,41 @@ const QuizPage: React.FC = () => {
 
   if (showResults) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 py-8 transition-colors duration-500">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 px-4 py-4 md:py-8 transition-colors duration-500">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 text-center animate-fadeInScale">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 md:p-8 text-center animate-fadeInScale">
             <div
-              className={`p-4 rounded-full w-fit mx-auto mb-6 ${
+              className={`p-4 rounded-full w-fit mx-auto mb-4 md:mb-6 ${
                 passed
                   ? "bg-green-100 dark:bg-green-900"
                   : "bg-red-100 dark:bg-red-900"
               }`}
             >
               {passed ? (
-                <Trophy className="h-12 w-12 text-green-600 dark:text-green-400" />
+                <Trophy className="h-8 md:h-12 w-8 md:w-12 text-green-600 dark:text-green-400" />
               ) : (
-                <XCircle className="h-12 w-12 text-red-600 dark:text-red-400" />
+                <XCircle className="h-8 md:h-12 w-8 md:w-12 text-red-600 dark:text-red-400" />
               )}
             </div>
 
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Quiz Complete!
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2 md:mb-4">
+              Quiz Completed!
             </h1>
 
-            <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 mb-8 transition-colors">
-              <div className="flex items-center justify-between mb-4">
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 mb-6 md:mb-8 transition-colors">
+              <div className="flex items-center justify-between mb-2 md:mb-4">
                 <span className="text-gray-600 dark:text-gray-300">
                   Your Score:
                 </span>
-                <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                <span className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">
                   {score}/10
                 </span>
               </div>
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-2 md:mb-4">
                 <span className="text-gray-600 dark:text-gray-300">
                   Percentage:
                 </span>
-                <span className="text-xl font-semibold text-gray-900 dark:text-white">
+                <span className="text-lg md:text-xl font-semibold text-gray-900 dark:text-white">
                   {Math.round((score / 10) * 100)}%
                 </span>
               </div>
@@ -1174,7 +1174,7 @@ const QuizPage: React.FC = () => {
             </div>
 
             <div
-              className={`p-4 rounded-xl mb-8 ${
+              className={`p-2 md:p-4 rounded-xl mb-6 md:mb-8 ${
                 passed
                   ? "bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-700"
                   : "bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-700"
@@ -1185,7 +1185,7 @@ const QuizPage: React.FC = () => {
                   passed
                     ? "text-green-800 dark:text-green-300"
                     : "text-red-800 dark:text-red-300"
-                }`}
+                } text-sm md:text-base transition-colors`}
               >
                 {passed
                   ? `Congratulations! You've mastered ${topic} and can now proceed with topics that depend on it.`
@@ -1193,20 +1193,20 @@ const QuizPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4 md:mb-6">
               <button
                 onClick={handleShowEvaluation}
                 className="flex items-center justify-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300"
               >
                 <Eye className="h-5 w-5" />
-                <span>Evaluate Submission</span>
+                <span className="text-sm md:text-base">Evaluate Submission</span>
               </button>
               <button
                 onClick={handleRetakeQuiz}
                 className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300"
               >
                 <RotateCcw className="h-5 w-5" />
-                <span>Retake Quiz</span>
+                <span className="text-sm md:text-base">Retake Quiz</span>
               </button>
             </div>
 
@@ -1219,12 +1219,12 @@ const QuizPage: React.FC = () => {
                   className="flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300"
                 >
                   <BookOpen className="h-5 w-5" />
-                  <span>Learn {topic}</span>
+                  <span className="text-sm md:text-base">Learn {topic}</span>
                 </button>
               )}
               <button
                 onClick={() => navigate("/dashboard")}
-                className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300"
+                className="text-sm md:text-base bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300"
               >
                 Back to Dashboard
               </button>
@@ -1293,8 +1293,8 @@ const QuizPage: React.FC = () => {
         </div>
 
         {/* Question Card */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 animate-fadeInScale transition-colors duration-300">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 md:p-8 animate-fadeInScale transition-colors duration-300">
+          <h2 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white mb-3 md:mb-6">
             {quizData.questions[currentQuestion].question}
           </h2>
 
@@ -1314,7 +1314,7 @@ const QuizPage: React.FC = () => {
                   >
                     <div className="flex items-center space-x-3">
                       <div
-                        className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                        className={`w-4 md:w-6 h-4 md:h-6 rounded-full border-2 flex items-center justify-center ${
                           isSelected
                             ? "border-blue-500 bg-blue-500"
                             : "border-gray-300 dark:border-gray-600"
@@ -1324,7 +1324,7 @@ const QuizPage: React.FC = () => {
                           <CheckCircle className="h-4 w-4 text-white" />
                         )}
                       </div>
-                      <span className="text-lg text-gray-900 dark:text-gray-100">
+                      <span className="text-sm md:text-lg text-gray-900 dark:text-gray-100">
                         {option}
                       </span>
                     </div>
@@ -1338,17 +1338,17 @@ const QuizPage: React.FC = () => {
             <button
               onClick={handleNextQuestion}
               disabled={selectedAnswer === null || isSubmitting}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-2 md:py-3 px-4 md:px-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
             >
               {isSubmitting ? (
                 <div className="flex items-center space-x-2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   <span>Submitting...</span>
-                </div>
+                </div> 
               ) : currentQuestion === quizData.questions.length - 1 ? (
-                "Submit Quiz"
+                <div>Submit<span className="hidden md:inline">Quiz</span></div>
               ) : (
-                "Next Question"
+                <div>Next <span className="hidden md:inline">Question</span></div> 
               )}
             </button>
           </div>
