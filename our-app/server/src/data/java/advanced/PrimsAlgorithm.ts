@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your knowledge of Prim's Algorithm, a greedy method to find the Minimum Spanning Tree (MST) in a weighted undirected graph.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Prim's Algorithm"
+    courseName: "PrimsAlgorithm"
   },
   quizScore: 20,
   questions: [
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the time complexity of Prim’s algorithm using an adjacency matrix and simple array?",
+      questionText: "What is the time complexity of Prim's algorithm using an adjacency matrix and simple array?",
       options: [
         { optionText: "O(V log V)", optionTag: "B" },
         { optionText: "O(V^2)", optionTag: "C" },
@@ -57,7 +57,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Prim’s algorithm is a _____ algorithm.",
+      questionText: "Prim's algorithm is a _____ algorithm.",
       options: [
         { optionText: "Greedy", optionTag: "D" },
         { optionText: "Divide and Conquer", optionTag: "C" },
@@ -145,7 +145,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which vertex does Prim’s algorithm visit next?",
+      questionText: "Which vertex does Prim's algorithm visit next?",
       options: [
         { optionText: "One with least weight edge to visited set", optionTag: "C" },
         { optionText: "Random node", optionTag: "D" },
@@ -159,7 +159,7 @@ const quizData: Partial<QuizDocument> = {
       questionText: "Prim's algorithm is most similar to:",
       options: [
         { optionText: "Bellman-Ford", optionTag: "A" },
-        { optionText: "Dijkstra’s algorithm", optionTag: "B" },
+        { optionText: "Dijkstra's algorithm", optionTag: "B" },
         { optionText: "DFS", optionTag: "D" },
         { optionText: "Binary search", optionTag: "C" }
       ],
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What does Prim’s algorithm minimize?",
+      questionText: "What does Prim's algorithm minimize?",
       options: [
         { optionText: "Number of vertices", optionTag: "A" },
         { optionText: "Total edge weights", optionTag: "B" },
@@ -181,7 +181,7 @@ const quizData: Partial<QuizDocument> = {
       questionText: "What happens if all edge weights are equal?",
       options: [
         { optionText: "Any MST can be returned", optionTag: "C" },
-        { optionText: "Prim’s fails", optionTag: "D" },
+        { optionText: "Prim's fails", optionTag: "D" },
         { optionText: "Result is undefined", optionTag: "B" },
         { optionText: "It takes longer to compute", optionTag: "A" }
       ],
@@ -189,7 +189,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "In Prim’s algorithm, how is a cycle avoided?",
+      questionText: "In Prim's algorithm, how is a cycle avoided?",
       options: [
         { optionText: "Cycle detection", optionTag: "D" },
         { optionText: "Backtracking", optionTag: "A" },
@@ -204,7 +204,7 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "Prim's", optionTag: "A" },
         { optionText: "Kruskal's", optionTag: "B" },
-        { optionText: "Dijkstra’s", optionTag: "C" },
+        { optionText: "Dijkstra's", optionTag: "C" },
         { optionText: "Borůvka's", optionTag: "D" }
       ],
       correctOption: "C",

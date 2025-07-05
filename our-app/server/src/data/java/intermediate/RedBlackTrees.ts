@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your understanding of Red-Black Trees, their rules, and operations.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Red-Black Trees"
+    courseName: "RedBlackTrees"
   },
   quizScore: 20,
   questions: [
@@ -178,7 +178,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which color has no constraint on children’s color?",
+      questionText: "Which color has no constraint on children's color?",
       options: [
         { optionText: "Black", optionTag: "A" },
         { optionText: "Red", optionTag: "B" },

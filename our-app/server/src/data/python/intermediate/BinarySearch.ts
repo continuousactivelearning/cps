@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of Binary Search and its applications in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Binary Search",
+    courseName: "BinarySearch",
   },
   quizScore: 20,
   questions: [

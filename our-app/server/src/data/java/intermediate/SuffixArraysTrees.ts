@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your knowledge on Suffix Arrays and Suffix Trees for string manipulation and pattern matching.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Suffix Arrays/Trees"
+    courseName: "SuffixArraysTrees"
   },
   quizScore: 20,
   questions: [
@@ -126,8 +126,8 @@ const quizData: Partial<QuizDocument> = {
       questionText: "Which algorithm builds a suffix tree in linear time?",
       options: [
         { optionText: "Ukkonen's algorithm", optionTag: "B" },
-        { optionText: "Prim’s algorithm", optionTag: "A" },
-        { optionText: "Kruskal’s algorithm", optionTag: "C" },
+        { optionText: "Prim's algorithm", optionTag: "A" },
+        { optionText: "Kruskal's algorithm", optionTag: "C" },
         { optionText: "Floyd-Warshall", optionTag: "D" }
       ],
       correctOption: "B",

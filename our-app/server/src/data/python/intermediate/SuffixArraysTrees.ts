@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of Suffix Arrays and Suffix Trees in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Suffix Arrays/Trees",
+    courseName: "SuffixArraysTrees",
   },
   quizScore: 20,
   questions: [
@@ -114,10 +114,10 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which of these algorithms is used to construct a suffix tree in linear time?",
       options: [
-        { optionText: "Ukkonen’s Algorithm", optionTag: "A" },
-        { optionText: "Kruskal’s Algorithm", optionTag: "B" },
-        { optionText: "Dijkstra’s Algorithm", optionTag: "C" },
-        { optionText: "Tarjan’s Algorithm", optionTag: "D" }
+        { optionText: "Ukkonen's Algorithm", optionTag: "A" },
+        { optionText: "Kruskal's Algorithm", optionTag: "B" },
+        { optionText: "Dijkstra's Algorithm", optionTag: "C" },
+        { optionText: "Tarjan's Algorithm", optionTag: "D" }
       ],
       correctOption: "A",
       score: 1

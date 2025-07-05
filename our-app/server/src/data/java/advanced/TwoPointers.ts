@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Master advanced problems using the Two Pointers technique in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Two Pointers"
+    courseName: "TwoPointers"
   },
   quizScore: 20,
   questions: [
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What’s the advantage of Two Pointers over brute-force?",
+      questionText: "What's the advantage of Two Pointers over brute-force?",
       options: [
         { optionText: "Less code complexity", optionTag: "C" },
         { optionText: "Improved time complexity", optionTag: "B" },
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What’s the time complexity of most Two Pointers solutions?",
+      questionText: "What's the time complexity of most Two Pointers solutions?",
       options: [
         { optionText: "O(log n)", optionTag: "D" },
         { optionText: "O(n^2)", optionTag: "C" },

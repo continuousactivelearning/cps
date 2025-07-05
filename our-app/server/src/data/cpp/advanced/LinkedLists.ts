@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz assesses advanced knowledge of linked list manipulation, memory management, and algorithmic operations in C++.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Linked Lists"
+    courseName: "LinkedLists"
   },
   quizScore: 20,
   questions: [
@@ -48,7 +48,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "How to detect a loop in a singly linked list?",
       options: [
-        { optionText: "Floyd’s Cycle Detection", optionTag: "A" },
+        { optionText: "Floyd's Cycle Detection", optionTag: "A" },
         { optionText: "Binary Search", optionTag: "B" },
         { optionText: "Two stacks", optionTag: "C" },
         { optionText: "Reverse and check", optionTag: "D" }
@@ -134,7 +134,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What’s the space complexity to reverse a singly linked list?",
+      questionText: "What's the space complexity to reverse a singly linked list?",
       options: [
         { optionText: "O(1)", optionTag: "A" },
         { optionText: "O(n)", optionTag: "B" },

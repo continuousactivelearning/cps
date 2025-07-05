@@ -2,13 +2,13 @@ import { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
-  title: "Python Kruskal’s Algorithm - Intermediate Quiz",
+  title: "Python Kruskal's Algorithm - Intermediate Quiz",
   quizLevel: "intermediate",
   lang: "python",
-  description: "Test your understanding of Kruskal’s Algorithm for building Minimum Spanning Trees (MSTs).",
+  description: "Test your understanding of Kruskal's Algorithm for building Minimum Spanning Trees (MSTs).",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Kruskal’s Algorithm"
+    courseName: "KruskalsAlgorithm"
   },
   quizScore: 20,
   questions: [
@@ -24,7 +24,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What data structure is essential for Kruskal’s Algorithm?",
+      questionText: "What data structure is essential for Kruskal's Algorithm?",
       options: [
         { optionText: "Disjoint Set Union (DSU)", optionTag: "A" },
         { optionText: "Priority Queue", optionTag: "B" },
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the first step in Kruskal’s Algorithm?",
+      questionText: "What is the first step in Kruskal's Algorithm?",
       options: [
         { optionText: "Sort all edges based on weights", optionTag: "A" },
         { optionText: "Traverse from any node", optionTag: "B" },
@@ -46,7 +46,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which approach does Kruskal’s Algorithm follow?",
+      questionText: "Which approach does Kruskal's Algorithm follow?",
       options: [
         { optionText: "Greedy", optionTag: "A" },
         { optionText: "Dynamic Programming", optionTag: "B" },
@@ -68,7 +68,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What condition is checked before adding an edge in Kruskal’s Algorithm?",
+      questionText: "What condition is checked before adding an edge in Kruskal's Algorithm?",
       options: [
         { optionText: "If both vertices belong to different sets", optionTag: "A" },
         { optionText: "If edge weight is odd", optionTag: "B" },
@@ -79,7 +79,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which sorting algorithm is commonly used in Kruskal’s Algorithm?",
+      questionText: "Which sorting algorithm is commonly used in Kruskal's Algorithm?",
       options: [
         { optionText: "Any efficient sorting algorithm (e.g., quicksort)", optionTag: "A" },
         { optionText: "Bubble sort", optionTag: "B" },
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "When does Kruskal’s Algorithm terminate?",
+      questionText: "When does Kruskal's Algorithm terminate?",
       options: [
         { optionText: "When V-1 edges are included in MST", optionTag: "A" },
         { optionText: "When all vertices are sorted", optionTag: "B" },
@@ -101,7 +101,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Kruskal’s Algorithm is best suited for which type of graph?",
+      questionText: "Kruskal's Algorithm is best suited for which type of graph?",
       options: [
         { optionText: "Sparse graphs", optionTag: "A" },
         { optionText: "Dense graphs", optionTag: "B" },
@@ -112,7 +112,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the time complexity of Kruskal’s Algorithm (with DSU and efficient sort)?",
+      questionText: "What is the time complexity of Kruskal's Algorithm (with DSU and efficient sort)?",
       options: [
         { optionText: "O(E log E)", optionTag: "A" },
         { optionText: "O(V^2)", optionTag: "B" },
@@ -123,7 +123,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "In Kruskal’s Algorithm, how is a cycle avoided?",
+      questionText: "In Kruskal's Algorithm, how is a cycle avoided?",
       options: [
         { optionText: "By ensuring vertices are in different sets", optionTag: "A" },
         { optionText: "By using DFS", optionTag: "B" },
@@ -134,7 +134,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "If Kruskal’s Algorithm is applied to a disconnected graph, what does it yield?",
+      questionText: "If Kruskal's Algorithm is applied to a disconnected graph, what does it yield?",
       options: [
         { optionText: "Minimum spanning forest", optionTag: "A" },
         { optionText: "No result", optionTag: "B" },
@@ -156,7 +156,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of the following is not true about Kruskal’s Algorithm?",
+      questionText: "Which of the following is not true about Kruskal's Algorithm?",
       options: [
         { optionText: "It always gives the correct MST for connected graphs", optionTag: "A" },
         { optionText: "It forms cycles during execution", optionTag: "B" },
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "In Kruskal’s Algorithm, how is the union operation used?",
+      questionText: "In Kruskal's Algorithm, how is the union operation used?",
       options: [
         { optionText: "To merge two disjoint sets", optionTag: "A" },
         { optionText: "To delete a vertex", optionTag: "B" },
@@ -178,7 +178,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Kruskal’s Algorithm ensures the MST is:",
+      questionText: "Kruskal's Algorithm ensures the MST is:",
       options: [
         { optionText: "Acyclic and connected", optionTag: "A" },
         { optionText: "Acyclic and directed", optionTag: "B" },
@@ -200,7 +200,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "How are edges added in Kruskal’s Algorithm?",
+      questionText: "How are edges added in Kruskal's Algorithm?",
       options: [
         { optionText: "Sorted by weight and added one-by-one", optionTag: "A" },
         { optionText: "Randomly", optionTag: "B" },
@@ -222,7 +222,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which graph property is not necessary for Kruskal’s Algorithm?",
+      questionText: "Which graph property is not necessary for Kruskal's Algorithm?",
       options: [
         { optionText: "Connectivity", optionTag: "A" },
         { optionText: "Undirected", optionTag: "B" },

@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
     description: "This quiz tests your basic understanding of Linked Lists in Python.",
     topic: {
         courseID: new mongoose.Types.ObjectId(),
-        courseName: "Linked Lists"
+        courseName: "LinkedLists"
     },
     quizScore: 20,
     questions: [

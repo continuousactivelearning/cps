@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Evaluate your understanding of Disjoint Set Union (DSU), also known as Union-Find data structure.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Disjoint Set Union"
+    courseName: "DisjointSetUnion"
   },
   quizScore: 20,
   questions: [
@@ -224,7 +224,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "DSU can be used in offline queries by which algorithm?",
       options: [
-        { optionText: "Tarjan’s Algorithm", optionTag: "D" },
+        { optionText: "Tarjan's Algorithm", optionTag: "D" },
         { optionText: "Dijkstra", optionTag: "B" },
         { optionText: "BFS", optionTag: "C" },
         { optionText: "Prim", optionTag: "A" }

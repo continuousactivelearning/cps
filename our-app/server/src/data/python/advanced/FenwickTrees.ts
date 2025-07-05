@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your advanced understanding of Binary Indexed Trees (Fenwick Trees).",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Fenwick Trees",
+    courseName: "FenwickTrees",
   },
   quizScore: 20,
   questions: [
@@ -138,7 +138,7 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "Counting inversions", optionTag: "C" },
         { optionText: "DFS", optionTag: "A" },
-        { optionText: "Prim’s Algorithm", optionTag: "B" },
+        { optionText: "Prim's Algorithm", optionTag: "B" },
         { optionText: "Union Find", optionTag: "D" },
       ],
       correctOption: "C",

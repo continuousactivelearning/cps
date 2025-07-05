@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your knowledge of binary tree properties, traversals, and operations in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Binary Trees"
+    courseName: "BinaryTrees"
   },
   quizScore: 20,
   questions: [

@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your understanding of Bellman-Ford Algorithm used to find shortest paths in graphs with negative weights.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Bellman-Ford Algorithm"
+    courseName: "BellmanFordAlgorithm"
   },
   quizScore: 20,
   questions: [
@@ -46,7 +46,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of the following can Bellman-Ford detect that Dijkstra’s cannot?",
+      questionText: "Which of the following can Bellman-Ford detect that Dijkstra's cannot?",
       options: [
         { optionText: "Longest path", optionTag: "C" },
         { optionText: "Negative weight cycle", optionTag: "D" },

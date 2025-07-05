@@ -5,10 +5,10 @@ const quizData: Partial<QuizDocument> = {
   title: "Java Kruskal's Algorithm - Intermediate Quiz",
   quizLevel: "intermediate",
   lang: "java",
-  description: "Test your understanding of Kruskal’s algorithm used to find the Minimum Spanning Tree (MST).",
+  description: "Test your understanding of Kruskal's algorithm used to find the Minimum Spanning Tree (MST).",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Kruskal's Algorithm"
+    courseName: "KruskalsAlgorithm"
   },
   quizScore: 20,
   questions: [
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Kruskal’s algorithm is based on which approach?",
+      questionText: "Kruskal's algorithm is based on which approach?",
       options: [
         { optionText: "Greedy", optionTag: "C" },
         { optionText: "Backtracking", optionTag: "D" },
@@ -57,7 +57,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the first step in Kruskal’s algorithm?",
+      questionText: "What is the first step in Kruskal's algorithm?",
       options: [
         { optionText: "Sort all edges by weight", optionTag: "B" },
         { optionText: "Pick a random vertex", optionTag: "C" },
@@ -68,7 +68,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "How are edges added to the MST in Kruskal’s algorithm?",
+      questionText: "How are edges added to the MST in Kruskal's algorithm?",
       options: [
         { optionText: "In increasing order of weight", optionTag: "A" },
         { optionText: "In decreasing order of weight", optionTag: "D" },
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of the following is NOT used in Kruskal’s algorithm?",
+      questionText: "Which of the following is NOT used in Kruskal's algorithm?",
       options: [
         { optionText: "Priority Queue", optionTag: "D" },
         { optionText: "Disjoint Set Union", optionTag: "A" },
@@ -101,7 +101,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Kruskal’s algorithm can be applied on which type of graph?",
+      questionText: "Kruskal's algorithm can be applied on which type of graph?",
       options: [
         { optionText: "Undirected, weighted", optionTag: "B" },
         { optionText: "Unweighted, directed", optionTag: "D" },
@@ -112,7 +112,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Kruskal’s algorithm avoids cycles using which technique?",
+      questionText: "Kruskal's algorithm avoids cycles using which technique?",
       options: [
         { optionText: "Union-Find", optionTag: "C" },
         { optionText: "Recursion", optionTag: "A" },
@@ -123,7 +123,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which sorting technique is typically used in Kruskal’s algorithm?",
+      questionText: "Which sorting technique is typically used in Kruskal's algorithm?",
       options: [
         { optionText: "Any efficient sorting like Merge Sort", optionTag: "B" },
         { optionText: "Bubble Sort", optionTag: "A" },
@@ -134,7 +134,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the worst-case time complexity of Kruskal’s algorithm?",
+      questionText: "What is the worst-case time complexity of Kruskal's algorithm?",
       options: [
         { optionText: "O(E log E)", optionTag: "D" },
         { optionText: "O(V^3)", optionTag: "C" },
@@ -145,7 +145,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of these will cause Kruskal’s algorithm to reject an edge?",
+      questionText: "Which of these will cause Kruskal's algorithm to reject an edge?",
       options: [
         { optionText: "If it creates a cycle", optionTag: "A" },
         { optionText: "If it is the maximum edge", optionTag: "C" },
@@ -156,7 +156,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the main advantage of Kruskal’s algorithm over Prim’s?",
+      questionText: "What is the main advantage of Kruskal's algorithm over Prim's?",
       options: [
         { optionText: "Works better for sparse graphs", optionTag: "B" },
         { optionText: "Handles negative weights", optionTag: "A" },
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "How are cycles avoided in Kruskal’s algorithm?",
+      questionText: "How are cycles avoided in Kruskal's algorithm?",
       options: [
         { optionText: "Using Disjoint Sets", optionTag: "C" },
         { optionText: "Using DFS", optionTag: "D" },
@@ -178,7 +178,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of the following Java libraries help implement Kruskal’s algorithm?",
+      questionText: "Which of the following Java libraries help implement Kruskal's algorithm?",
       options: [
         { optionText: "Collections.sort and Union-Find custom class", optionTag: "B" },
         { optionText: "Scanner and BufferedReader", optionTag: "C" },
@@ -189,7 +189,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which is true about the MST formed by Kruskal’s algorithm?",
+      questionText: "Which is true about the MST formed by Kruskal's algorithm?",
       options: [
         { optionText: "Always contains V - 1 edges", optionTag: "D" },
         { optionText: "Contains all edges", optionTag: "A" },
@@ -200,7 +200,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which sorting algorithm should be used for better performance in Kruskal’s?",
+      questionText: "Which sorting algorithm should be used for better performance in Kruskal's?",
       options: [
         { optionText: "Merge Sort or Quick Sort", optionTag: "A" },
         { optionText: "Selection Sort", optionTag: "B" },
@@ -211,7 +211,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the output of Kruskal’s algorithm?",
+      questionText: "What is the output of Kruskal's algorithm?",
       options: [
         { optionText: "Minimum Spanning Tree", optionTag: "C" },
         { optionText: "Sorted edges", optionTag: "A" },

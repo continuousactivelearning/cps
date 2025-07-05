@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Quiz to assess foundational understanding of Bellman-Ford Algorithm in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Bellman-Ford Algorithm",
+    courseName: "BellmanFordAlgorithm",
   },
   quizScore: 20,
   questions: [

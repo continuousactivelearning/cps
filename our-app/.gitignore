@@ -8,6 +8,7 @@ dist/
 .idea
 *.tgz
 .DS_Store
+*.env
 
 # Logs
 logs
@@ -24,6 +25,7 @@ dist-ssr
 client/node_modules/
 client/dist/
 client/.env
+client/*.env
 
 # Server
 server/node_modules/
@@ -34,6 +36,8 @@ validation*.ts
 validate*.ts
 VALIDATION*.md
 VALIDATION*.ts
+server/*.env
+
 
 # Shared (optional)
 shared/dist/
@@ -52,3 +56,6 @@ Thumbs.db
 # Temporary files used for testing or development by the team-9
 temp*.ts
 temp
+
+our-app/server/.env
+our-app/client/.env

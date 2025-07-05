@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Quiz to assess understanding of Greedy Algorithms in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Greedy Algorithms",
+    courseName: "GreedyAlgorithms",
   },
   quizScore: 20,
   questions: [

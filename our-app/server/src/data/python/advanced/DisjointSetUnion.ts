@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your advanced knowledge of Disjoint Set Union (Union-Find) data structure.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Disjoint Set Union",
+    courseName: "DisjointSetUnion",
   },
   quizScore: 20,
   questions: [
@@ -159,8 +159,8 @@ const quizData: Partial<QuizDocument> = {
       questionText: "Which algorithm uses DSU internally for MST construction?",
       options: [
         { optionText: "Kruskal's algorithm", optionTag: "C" },
-        { optionText: "Prim’s algorithm", optionTag: "D" },
-        { optionText: "Dijkstra’s algorithm", optionTag: "A" },
+        { optionText: "Prim's algorithm", optionTag: "D" },
+        { optionText: "Dijkstra's algorithm", optionTag: "A" },
         { optionText: "Bellman-Ford algorithm", optionTag: "B" },
       ],
       correctOption: "C",

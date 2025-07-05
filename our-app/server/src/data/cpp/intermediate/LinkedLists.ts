@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz evaluates your understanding of singly and doubly linked lists operations in C++.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Linked Lists"
+    courseName: "LinkedLists"
   },
   quizScore: 20,
   questions: [
@@ -92,7 +92,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "How do you detect a cycle in a linked list efficiently?",
       options: [
-        { optionText: "Floyd’s Cycle Detection Algorithm", optionTag: "A" },
+        { optionText: "Floyd's Cycle Detection Algorithm", optionTag: "A" },
         { optionText: "DFS", optionTag: "B" },
         { optionText: "Linear Scan", optionTag: "C" },
         { optionText: "Binary Search", optionTag: "D" }
@@ -146,7 +146,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What happens if you delete a node without updating the previous node’s pointer?",
+      questionText: "What happens if you delete a node without updating the previous node's pointer?",
       options: [
         { optionText: "List gets disconnected", optionTag: "A" },
         { optionText: "List remains the same", optionTag: "B" },

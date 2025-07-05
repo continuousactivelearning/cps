@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This advanced quiz tests your in-depth knowledge of hash tables, collision handling, hashing functions, and internal mechanisms in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Hash Tables"
+    courseName: "HashTables"
   },
   quizScore: 20,
   questions: [
@@ -160,7 +160,7 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "They cannot be stored", optionTag: "A" },
         { optionText: "Last inserted will overwrite previous", optionTag: "B" },
-        { optionText: "They’ll go in same bucket", optionTag: "C" },
+        { optionText: "They'll go in same bucket", optionTag: "C" },
         { optionText: "Compile error", optionTag: "D" }
       ],
       correctOption: "C",

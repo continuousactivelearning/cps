@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of Disjoint Set Union (Union-Find) data structure in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Disjoint Set Union",
+    courseName: "DisjointSetUnion",
   },
   quizScore: 20,
   questions: [

@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your knowledge on suffix arrays and suffix trees used for advanced string processing.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Suffix Arrays/Trees"
+    courseName: "SuffixArraysTrees"
   },
   quizScore: 20,
   questions: [
@@ -38,7 +38,7 @@ const quizData: Partial<QuizDocument> = {
       questionText: "Which algorithm can be used to construct a suffix array?",
       options: [
         { optionText: "Manacher's Algorithm", optionTag: "C" },
-        { optionText: "Kasai’s Algorithm", optionTag: "B" },
+        { optionText: "Kasai's Algorithm", optionTag: "B" },
         { optionText: "Suffix Link Method", optionTag: "D" },
         { optionText: "DFS", optionTag: "A" }
       ],
@@ -68,7 +68,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the time complexity of building a suffix tree using Ukkonen’s algorithm?",
+      questionText: "What is the time complexity of building a suffix tree using Ukkonen's algorithm?",
       options: [
         { optionText: "O(n)", optionTag: "B" },
         { optionText: "O(n^2)", optionTag: "A" },
@@ -84,7 +84,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "Knuth-Morris-Pratt", optionTag: "C" },
         { optionText: "Rabin-Karp", optionTag: "A" },
         { optionText: "Burrows-Wheeler Transform", optionTag: "D" },
-        { optionText: "Manacher’s Algorithm", optionTag: "B" }
+        { optionText: "Manacher's Algorithm", optionTag: "B" }
       ],
       correctOption: "D",
       score: 1
@@ -158,7 +158,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which of the following improves the performance of LCP computation?",
       options: [
-        { optionText: "Kasai’s Algorithm", optionTag: "B" },
+        { optionText: "Kasai's Algorithm", optionTag: "B" },
         { optionText: "Radix Sort", optionTag: "D" },
         { optionText: "Binary Search", optionTag: "C" },
         { optionText: "DFS traversal", optionTag: "A" }
@@ -216,7 +216,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "Suffix Sort", optionTag: "A" },
         { optionText: "Longest Repeated Substring", optionTag: "C" },
         { optionText: "Min-Heap Sort", optionTag: "D" },
-        { optionText: "Prim’s Shortest Path", optionTag: "B" }
+        { optionText: "Prim's Shortest Path", optionTag: "B" }
       ],
       correctOption: "C",
       score: 1

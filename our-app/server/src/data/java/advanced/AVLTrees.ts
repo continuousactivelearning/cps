@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Challenge your knowledge on AVL Trees, rotations, and balancing operations in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "AVL Trees"
+    courseName: "AVLTrees"
   },
   quizScore: 20,
   questions: [
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "If a node’s left subtree is higher by 2 and its left child has left child, which rotation?",
+      questionText: "If a node's left subtree is higher by 2 and its left child has left child, which rotation?",
       options: [
         { optionText: "Right Rotation", optionTag: "A" },
         { optionText: "Left Rotation", optionTag: "D" },

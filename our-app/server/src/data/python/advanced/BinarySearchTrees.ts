@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Evaluate your advanced understanding of Binary Search Trees (BSTs) in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Binary Search Trees",
+    courseName: "BinarySearchTrees",
   },
   quizScore: 20,
   questions: [
@@ -178,7 +178,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What’s the space complexity of recursive BST insertion?",
+      questionText: "What's the space complexity of recursive BST insertion?",
       options: [
         { optionText: "O(n)", optionTag: "A" },
         { optionText: "O(log n)", optionTag: "B" },

@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Evaluate your knowledge on Segment Trees, used in range queries and updates.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Segment Trees"
+    courseName: "SegmentTrees"
   },
   quizScore: 20,
   questions: [
@@ -172,7 +172,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "Inorder", optionTag: "D" },
         { optionText: "Postorder", optionTag: "B" },
         { optionText: "Preorder", optionTag: "A" },
-        { optionText: "None. It’s not tree traversal dependent", optionTag: "C" }
+        { optionText: "None. It's not tree traversal dependent", optionTag: "C" }
       ],
       correctOption: "C",
       score: 1

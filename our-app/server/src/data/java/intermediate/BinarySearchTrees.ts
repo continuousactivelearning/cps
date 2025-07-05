@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz evaluates your understanding of Binary Search Trees (BST) and operations related to them in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Binary Search Trees"
+    courseName: "BinarySearchTrees"
   },
   quizScore: 20,
   questions: [

@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Quiz to assess understanding of Topological Sort basics in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Topological Sort",
+    courseName: "TopologicalSort",
   },
   quizScore: 20,
   questions: [

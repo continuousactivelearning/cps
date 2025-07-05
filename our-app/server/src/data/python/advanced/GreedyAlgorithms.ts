@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your mastery of Greedy algorithm techniques in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Greedy Algorithms",
+    courseName: "GreedyAlgorithms",
   },
   quizScore: 20,
   questions: [
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What’s the time complexity of the greedy algorithm for Activity Selection?",
+      questionText: "What's the time complexity of the greedy algorithm for Activity Selection?",
       options: [
         { optionText: "O(n log n)", optionTag: "A" },
         { optionText: "O(n^2)", optionTag: "B" },
@@ -72,14 +72,14 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "Prim's Algorithm", optionTag: "A" },
         { optionText: "0/1 Knapsack", optionTag: "B" },
-        { optionText: "Kruskal’s Algorithm", optionTag: "C" },
+        { optionText: "Kruskal's Algorithm", optionTag: "C" },
         { optionText: "Huffman Encoding", optionTag: "D" },
       ],
       correctOption: "B",
       score: 1,
     },
     {
-      questionText: "Which of the following problems does Prim’s Algorithm solve?",
+      questionText: "Which of the following problems does Prim's Algorithm solve?",
       options: [
         { optionText: "Shortest path", optionTag: "A" },
         { optionText: "Minimum Spanning Tree", optionTag: "B" },
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is the greedy choice in Kruskal’s algorithm?",
+      questionText: "What is the greedy choice in Kruskal's algorithm?",
       options: [
         { optionText: "Choose smallest weight edge that doesn't form a cycle", optionTag: "A" },
         { optionText: "Choose largest weight edge", optionTag: "B" },
@@ -136,9 +136,9 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which of the following is a greedy algorithm for MST?",
       options: [
-        { optionText: "Dijkstra’s", optionTag: "A" },
+        { optionText: "Dijkstra's", optionTag: "A" },
         { optionText: "Floyd-Warshall", optionTag: "B" },
-        { optionText: "Prim’s", optionTag: "C" },
+        { optionText: "Prim's", optionTag: "C" },
         { optionText: "Bellman-Ford", optionTag: "D" },
       ],
       correctOption: "C",
@@ -156,7 +156,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What’s the space complexity of Kruskal’s algorithm using Union-Find?",
+      questionText: "What's the space complexity of Kruskal's algorithm using Union-Find?",
       options: [
         { optionText: "O(V + E)", optionTag: "A" },
         { optionText: "O(E log V)", optionTag: "B" },
@@ -200,7 +200,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What’s the goal in greedy graph coloring?",
+      questionText: "What's the goal in greedy graph coloring?",
       options: [
         { optionText: "Maximize colors used", optionTag: "A" },
         { optionText: "Minimize colors used", optionTag: "B" },

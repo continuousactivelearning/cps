@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz assesses your advanced knowledge of Binary Search Trees (BSTs) including insertion, deletion, traversal, balancing, and applications.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Binary Search Trees"
+    courseName: "BinarySearchTrees"
   },
   quizScore: 20,
   questions: [
@@ -116,7 +116,7 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "They are more balanced than regular BSTs", optionTag: "A" },
         { optionText: "They are not BSTs", optionTag: "B" },
-        { optionText: "They don’t allow duplicates", optionTag: "C" },
+        { optionText: "They don't allow duplicates", optionTag: "C" },
         { optionText: "They are slower", optionTag: "D" }
       ],
       correctOption: "A",

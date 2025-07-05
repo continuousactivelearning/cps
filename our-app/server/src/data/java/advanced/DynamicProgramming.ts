@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of solving problems with overlapping subproblems and optimal substructure using dynamic programming.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Dynamic Programming"
+    courseName: "DynamicProgramming"
   },
   quizScore: 20,
   questions: [
@@ -215,7 +215,7 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "Can be optimized to O(1) in some cases", optionTag: "B" },
         { optionText: "Always O(n^2)", optionTag: "D" },
-        { optionText: "Can’t be reduced", optionTag: "A" },
+        { optionText: "Can't be reduced", optionTag: "A" },
         { optionText: "Only bottom-up uses memory", optionTag: "C" }
       ],
       correctOption: "B",

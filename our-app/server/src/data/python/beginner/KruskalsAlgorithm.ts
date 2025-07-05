@@ -2,18 +2,18 @@ import { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
-  title: "Python - Kruskal’s Algorithm - Beginner Quiz",
+  title: "Python - Kruskal's Algorithm - Beginner Quiz",
   quizLevel: "beginner",
   lang: "python",
-  description: "Quiz to assess understanding of Kruskal’s Algorithm basics in Python.",
+  description: "Quiz to assess understanding of Kruskal's Algorithm basics in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Kruskal’s Algorithm",
+    courseName: "KruskalsAlgorithm",
   },
   quizScore: 20,
   questions: [
     {
-      questionText: "What is the main purpose of Kruskal’s Algorithm?",
+      questionText: "What is the main purpose of Kruskal's Algorithm?",
       options: [
         { optionText: "To find the maximum flow", optionTag: "C" },
         { optionText: "To detect cycles", optionTag: "A" },
@@ -24,7 +24,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which data structure is primarily used in Kruskal’s Algorithm?",
+      questionText: "Which data structure is primarily used in Kruskal's Algorithm?",
       options: [
         { optionText: "Queue", optionTag: "A" },
         { optionText: "Stack", optionTag: "C" },
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "How does Kruskal’s Algorithm process edges?",
+      questionText: "How does Kruskal's Algorithm process edges?",
       options: [
         { optionText: "From largest to smallest", optionTag: "B" },
         { optionText: "In random order", optionTag: "D" },
@@ -46,7 +46,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is the time complexity of Kruskal’s Algorithm?",
+      questionText: "What is the time complexity of Kruskal's Algorithm?",
       options: [
         { optionText: "O(V log V)", optionTag: "B" },
         { optionText: "O(E log V)", optionTag: "C" },
@@ -57,7 +57,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is the first step in Kruskal’s Algorithm?",
+      questionText: "What is the first step in Kruskal's Algorithm?",
       options: [
         { optionText: "Traverse the graph", optionTag: "C" },
         { optionText: "Sort all the edges", optionTag: "D" },
@@ -68,7 +68,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which type of graph does Kruskal’s Algorithm apply to?",
+      questionText: "Which type of graph does Kruskal's Algorithm apply to?",
       options: [
         { optionText: "Unweighted graphs", optionTag: "C" },
         { optionText: "Directed graphs only", optionTag: "A" },
@@ -79,7 +79,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "How does Kruskal’s Algorithm avoid cycles?",
+      questionText: "How does Kruskal's Algorithm avoid cycles?",
       options: [
         { optionText: "Using a stack", optionTag: "D" },
         { optionText: "Using visited array", optionTag: "B" },
@@ -101,7 +101,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is the stopping condition for Kruskal’s Algorithm?",
+      questionText: "What is the stopping condition for Kruskal's Algorithm?",
       options: [
         { optionText: "All nodes have degree 2", optionTag: "A" },
         { optionText: "Number of edges in MST = V - 1", optionTag: "C" },
@@ -112,7 +112,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Kruskal’s Algorithm is based on which strategy?",
+      questionText: "Kruskal's Algorithm is based on which strategy?",
       options: [
         { optionText: "Divide and conquer", optionTag: "C" },
         { optionText: "Greedy", optionTag: "A" },
@@ -147,7 +147,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Kruskal’s Algorithm guarantees what kind of MST?",
+      questionText: "Kruskal's Algorithm guarantees what kind of MST?",
       options: [
         { optionText: "A unique MST", optionTag: "C" },
         { optionText: "The lightest possible MST", optionTag: "B" },
@@ -158,7 +158,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which edge is considered next during the loop in Kruskal’s?",
+      questionText: "Which edge is considered next during the loop in Kruskal's?",
       options: [
         { optionText: "The next smallest weight edge", optionTag: "C" },
         { optionText: "The next largest degree edge", optionTag: "D" },
@@ -169,7 +169,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "How is a graph typically represented for Kruskal’s Algorithm?",
+      questionText: "How is a graph typically represented for Kruskal's Algorithm?",
       options: [
         { optionText: "Adjacency matrix", optionTag: "D" },
         { optionText: "List of edges", optionTag: "A" },
@@ -180,18 +180,18 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which algorithm is most similar to Kruskal’s?",
+      questionText: "Which algorithm is most similar to Kruskal's?",
       options: [
         { optionText: "Bellman-Ford", optionTag: "C" },
         { optionText: "Floyd-Warshall", optionTag: "B" },
-        { optionText: "Prim’s", optionTag: "D" },
-        { optionText: "Dijkstra’s", optionTag: "A" },
+        { optionText: "Prim's", optionTag: "D" },
+        { optionText: "Dijkstra's", optionTag: "A" },
       ],
       correctOption: "D",
       score: 1,
     },
     {
-      questionText: "What happens if we don’t use DSU in Kruskal’s?",
+      questionText: "What happens if we don't use DSU in Kruskal's?",
       options: [
         { optionText: "Algorithm fails to find MST", optionTag: "C" },
         { optionText: "Algorithm becomes faster", optionTag: "A" },
@@ -213,7 +213,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What kind of input does Kruskal’s Algorithm need?",
+      questionText: "What kind of input does Kruskal's Algorithm need?",
       options: [
         { optionText: "Unsorted list of edges", optionTag: "D" },
         { optionText: "Sorted list of nodes", optionTag: "A" },
@@ -224,7 +224,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Kruskal’s Algorithm stops adding edges when:",
+      questionText: "Kruskal's Algorithm stops adding edges when:",
       options: [
         { optionText: "The number of edges is V-1", optionTag: "A" },
         { optionText: "All nodes have even degrees", optionTag: "C" },

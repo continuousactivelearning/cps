@@ -2,13 +2,13 @@ import { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
-  title: "Python - Prim’s Algorithm - Beginner Quiz",
+  title: "Python - Prim's Algorithm - Beginner Quiz",
   quizLevel: "beginner",
   lang: "python",
-  description: "Quiz to assess understanding of Prim’s Algorithm basics in Python.",
+  description: "Quiz to assess understanding of Prim's Algorithm basics in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Prim’s Algorithm",
+    courseName: "PrimsAlgorithm",
   },
   quizScore: 20,
   questions: [
@@ -57,7 +57,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Prim’s Algorithm starts from which node?",
+      questionText: "Prim's Algorithm starts from which node?",
       options: [
         { optionText: "Node with maximum degree", optionTag: "D" },
         { optionText: "Any arbitrary node", optionTag: "C" },
@@ -112,7 +112,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What type of graph does Prim’s Algorithm work on?",
+      questionText: "What type of graph does Prim's Algorithm work on?",
       options: [
         { optionText: "Unweighted Graph", optionTag: "A" },
         { optionText: "Directed Acyclic Graph", optionTag: "B" },
@@ -125,10 +125,10 @@ const quizData: Partial<QuizDocument> = {
 
     // Next 10 Questions
     {
-      questionText: "Which algorithm is similar in function to Prim’s?",
+      questionText: "Which algorithm is similar in function to Prim's?",
       options: [
-        { optionText: "Dijkstra’s", optionTag: "A" },
-        { optionText: "Kruskal’s", optionTag: "B" },
+        { optionText: "Dijkstra's", optionTag: "A" },
+        { optionText: "Kruskal's", optionTag: "B" },
         { optionText: "Floyd-Warshall", optionTag: "D" },
         { optionText: "DFS", optionTag: "C" },
       ],
@@ -147,7 +147,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is added to the MST in each iteration of Prim’s?",
+      questionText: "What is added to the MST in each iteration of Prim's?",
       options: [
         { optionText: "A new node with highest cost", optionTag: "C" },
         { optionText: "Shortest path edge", optionTag: "A" },
@@ -158,10 +158,10 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which traversal is similar to Prim’s edge selection strategy?",
+      questionText: "Which traversal is similar to Prim's edge selection strategy?",
       options: [
         { optionText: "Breadth-First Search", optionTag: "C" },
-        { optionText: "Dijkstra’s Algorithm", optionTag: "A" },
+        { optionText: "Dijkstra's Algorithm", optionTag: "A" },
         { optionText: "Depth-First Search", optionTag: "D" },
         { optionText: "Topological Sort", optionTag: "B" },
       ],
@@ -169,18 +169,18 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Can Prim’s Algorithm be applied to disconnected graphs?",
+      questionText: "Can Prim's Algorithm be applied to disconnected graphs?",
       options: [
         { optionText: "Yes, always", optionTag: "B" },
         { optionText: "Only with directed edges", optionTag: "D" },
-        { optionText: "No, because MST doesn’t exist", optionTag: "A" },
+        { optionText: "No, because MST doesn't exist", optionTag: "A" },
         { optionText: "Only with loops", optionTag: "C" },
       ],
       correctOption: "A",
       score: 1,
     },
     {
-      questionText: "What determines the stopping condition of Prim’s Algorithm?",
+      questionText: "What determines the stopping condition of Prim's Algorithm?",
       options: [
         { optionText: "All edges visited", optionTag: "D" },
         { optionText: "Heap is empty", optionTag: "B" },
@@ -191,7 +191,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which of the following does Prim’s Algorithm avoid?",
+      questionText: "Which of the following does Prim's Algorithm avoid?",
       options: [
         { optionText: "Edges with highest weights", optionTag: "A" },
         { optionText: "Cycles", optionTag: "B" },
@@ -213,7 +213,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Prim’s Algorithm builds the MST using which strategy?",
+      questionText: "Prim's Algorithm builds the MST using which strategy?",
       options: [
         { optionText: "Top-down", optionTag: "C" },
         { optionText: "Greedy", optionTag: "A" },
@@ -224,7 +224,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which edge does Prim’s Algorithm prioritize?",
+      questionText: "Which edge does Prim's Algorithm prioritize?",
       options: [
         { optionText: "Shortest path edge", optionTag: "C" },
         { optionText: "Heaviest unvisited edge", optionTag: "A" },

@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your knowledge of Topological Sort in Directed Acyclic Graphs (DAGs).",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Topological Sort"
+    courseName: "TopologicalSort"
   },
   quizScore: 20,
   questions: [
@@ -29,7 +29,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "DFS", optionTag: "A" },
         { optionText: "BFS only", optionTag: "B" },
         { optionText: "Prim's Algorithm", optionTag: "C" },
-        { optionText: "Kruskal’s Algorithm", optionTag: "D" }
+        { optionText: "Kruskal's Algorithm", optionTag: "D" }
       ],
       correctOption: "A",
       score: 1
@@ -70,9 +70,9 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which algorithm can also be used for Topological Sorting?",
       options: [
-        { optionText: "Kahn’s Algorithm", optionTag: "A" },
-        { optionText: "Dijkstra’s Algorithm", optionTag: "B" },
-        { optionText: "Kruskal’s Algorithm", optionTag: "C" },
+        { optionText: "Kahn's Algorithm", optionTag: "A" },
+        { optionText: "Dijkstra's Algorithm", optionTag: "B" },
+        { optionText: "Kruskal's Algorithm", optionTag: "C" },
         { optionText: "Bellman-Ford Algorithm", optionTag: "D" }
       ],
       correctOption: "A",
@@ -101,7 +101,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Kahn’s Algorithm uses which technique to process nodes?",
+      questionText: "Kahn's Algorithm uses which technique to process nodes?",
       options: [
         { optionText: "Queue and in-degree tracking", optionTag: "A" },
         { optionText: "Stack and depth tracking", optionTag: "B" },
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "In Kahn’s Algorithm, which node is selected first?",
+      questionText: "In Kahn's Algorithm, which node is selected first?",
       options: [
         { optionText: "Node with 0 in-degree", optionTag: "A" },
         { optionText: "Node with maximum degree", optionTag: "B" },
@@ -222,7 +222,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which Python module can help in queue processing during Kahn’s Algorithm?",
+      questionText: "Which Python module can help in queue processing during Kahn's Algorithm?",
       options: [
         { optionText: "collections.deque", optionTag: "A" },
         { optionText: "sys", optionTag: "B" },

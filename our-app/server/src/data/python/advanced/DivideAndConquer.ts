@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your understanding of Divide and Conquer algorithms using Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Divide and Conquer",
+    courseName: "DivideAndConquer",
   },
   quizScore: 20,
   questions: [
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What’s the best case time complexity of Quick Sort?",
+      questionText: "What's the best case time complexity of Quick Sort?",
       options: [
         { optionText: "O(n^2)", optionTag: "A" },
         { optionText: "O(log n)", optionTag: "B" },
@@ -126,9 +126,9 @@ const quizData: Partial<QuizDocument> = {
       questionText: "Which technique is used to solve matrix multiplication using divide and conquer?",
       options: [
         { optionText: "Matrix chain multiplication", optionTag: "A" },
-        { optionText: "Strassen’s algorithm", optionTag: "B" },
+        { optionText: "Strassen's algorithm", optionTag: "B" },
         { optionText: "Greedy", optionTag: "C" },
-        { optionText: "Kruskal’s algorithm", optionTag: "D" },
+        { optionText: "Kruskal's algorithm", optionTag: "D" },
       ],
       correctOption: "B",
       score: 1,
@@ -214,7 +214,7 @@ const quizData: Partial<QuizDocument> = {
       questionText: "Which of the following is solved using Divide and Conquer?",
       options: [
         { optionText: "Tower of Hanoi", optionTag: "A" },
-        { optionText: "Kruskal’s MST", optionTag: "B" },
+        { optionText: "Kruskal's MST", optionTag: "B" },
         { optionText: "Shortest path", optionTag: "C" },
         { optionText: "BFS traversal", optionTag: "D" },
       ],

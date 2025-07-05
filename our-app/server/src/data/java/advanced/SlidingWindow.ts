@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Master advanced problems using the Sliding Window technique in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Sliding Window"
+    courseName: "SlidingWindow"
   },
   quizScore: 20,
   questions: [

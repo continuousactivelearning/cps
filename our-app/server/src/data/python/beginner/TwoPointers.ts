@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your basic understanding of the Two Pointers technique in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Two Pointers"
+    courseName: "TwoPointers"
   },
   quizScore: 20,
   questions: [

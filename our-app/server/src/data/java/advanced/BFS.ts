@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your advanced understanding of BFS traversal and its applications in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Breadth-First Search (BFS)"
+    courseName: "BFS"
   },
   quizScore: 20,
   questions: [
@@ -26,7 +26,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "In a BFS traversal, when is a node considered fully explored?",
       options: [
-        { optionText: "After it’s pushed to queue", optionTag: "A" },
+        { optionText: "After it's pushed to queue", optionTag: "A" },
         { optionText: "After all neighbors are visited", optionTag: "B" },
         { optionText: "When it's encountered first", optionTag: "C" },
         { optionText: "After depth exceeds 2", optionTag: "D" }
@@ -161,7 +161,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "BFS with in-degree array", optionTag: "A" },
         { optionText: "DFS recursion", optionTag: "B" },
         { optionText: "Dijkstra's heap", optionTag: "C" },
-        { optionText: "Prim’s priority queue", optionTag: "D" }
+        { optionText: "Prim's priority queue", optionTag: "D" }
       ],
       correctOption: "A",
       score: 1

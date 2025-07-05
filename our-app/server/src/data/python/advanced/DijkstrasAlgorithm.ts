@@ -2,13 +2,13 @@ import { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
-  title: "Python Dijkstra’s Algorithm - Advanced Quiz",
+  title: "Python Dijkstra's Algorithm - Advanced Quiz",
   quizLevel: "advanced",
   lang: "python",
-  description: "Test your understanding of Dijkstra’s algorithm in graph-based problems using Python.",
+  description: "Test your understanding of Dijkstra's algorithm in graph-based problems using Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Dijkstra’s Algorithm",
+    courseName: "DijkstrasAlgorithm",
   },
   quizScore: 20,
   questions: [
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What must the weights of edges be for Dijkstra’s Algorithm to work correctly?",
+      questionText: "What must the weights of edges be for Dijkstra's Algorithm to work correctly?",
       options: [
         { optionText: "All weights must be the same", optionTag: "A" },
         { optionText: "Negative weights are required", optionTag: "B" },
@@ -46,7 +46,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is the time complexity of Dijkstra’s algorithm using a priority queue and adjacency list?",
+      questionText: "What is the time complexity of Dijkstra's algorithm using a priority queue and adjacency list?",
       options: [
         { optionText: "O(V + E)", optionTag: "A" },
         { optionText: "O((V + E) log V)", optionTag: "B" },
@@ -68,7 +68,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is initialized to ∞ at the start of Dijkstra’s Algorithm?",
+      questionText: "What is initialized to ∞ at the start of Dijkstra's Algorithm?",
       options: [
         { optionText: "Parent array", optionTag: "A" },
         { optionText: "Visited array", optionTag: "B" },
@@ -79,7 +79,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "When do we update a node’s distance in Dijkstra’s Algorithm?",
+      questionText: "When do we update a node's distance in Dijkstra's Algorithm?",
       options: [
         { optionText: "When a cycle is found", optionTag: "A" },
         { optionText: "When the new distance is smaller", optionTag: "B" },
@@ -123,7 +123,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which of the following is NOT a valid step in Dijkstra’s Algorithm?",
+      questionText: "Which of the following is NOT a valid step in Dijkstra's Algorithm?",
       options: [
         { optionText: "Pick the node with smallest distance", optionTag: "A" },
         { optionText: "Ignore visited nodes", optionTag: "B" },
@@ -134,7 +134,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which is the best-case time complexity of Dijkstra’s using binary heap?",
+      questionText: "Which is the best-case time complexity of Dijkstra's using binary heap?",
       options: [
         { optionText: "O(1)", optionTag: "A" },
         { optionText: "O(V)", optionTag: "B" },
@@ -145,7 +145,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Can Dijkstra’s algorithm handle negative weights with any modification?",
+      questionText: "Can Dijkstra's algorithm handle negative weights with any modification?",
       options: [
         { optionText: "Yes, using DFS", optionTag: "A" },
         { optionText: "Yes, using Bellman-Ford", optionTag: "B" },
@@ -156,7 +156,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is the output of Dijkstra’s Algorithm?",
+      questionText: "What is the output of Dijkstra's Algorithm?",
       options: [
         { optionText: "Cycle list", optionTag: "A" },
         { optionText: "MST", optionTag: "B" },
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which node is processed first in Dijkstra’s algorithm?",
+      questionText: "Which node is processed first in Dijkstra's algorithm?",
       options: [
         { optionText: "The one with the largest weight", optionTag: "A" },
         { optionText: "Random node", optionTag: "B" },
@@ -200,9 +200,9 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which algorithm is similar to Dijkstra’s but supports negative weights?",
+      questionText: "Which algorithm is similar to Dijkstra's but supports negative weights?",
       options: [
-        { optionText: "Prim’s", optionTag: "A" },
+        { optionText: "Prim's", optionTag: "A" },
         { optionText: "Bellman-Ford", optionTag: "B" },
         { optionText: "DFS", optionTag: "C" },
         { optionText: "Floyd-Warshall", optionTag: "D" },
@@ -211,7 +211,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Dijkstra’s algorithm is primarily used on which kind of graphs?",
+      questionText: "Dijkstra's algorithm is primarily used on which kind of graphs?",
       options: [
         { optionText: "Graphs with negative weights", optionTag: "A" },
         { optionText: "Undirected only", optionTag: "B" },
@@ -222,7 +222,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Dijkstra’s algorithm is most suitable for which scenario?",
+      questionText: "Dijkstra's algorithm is most suitable for which scenario?",
       options: [
         { optionText: "Finding longest paths", optionTag: "A" },
         { optionText: "Solving NP problems", optionTag: "B" },

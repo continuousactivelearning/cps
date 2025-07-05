@@ -2,18 +2,18 @@ import { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
-  title: "Python Dijkstra’s Algorithm - Intermediate Quiz",
+  title: "Python Dijkstra's Algorithm - Intermediate Quiz",
   quizLevel: "intermediate",
   lang: "python",
-  description: "Assess your knowledge of Dijkstra’s shortest path algorithm in Python.",
+  description: "Assess your knowledge of Dijkstra's shortest path algorithm in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Dijkstra’s Algorithm"
+    courseName: "DijkstrasAlgorithm"
   },
   quizScore: 20,
   questions: [
     {
-      questionText: "What type of graph is Dijkstra’s algorithm typically applied to?",
+      questionText: "What type of graph is Dijkstra's algorithm typically applied to?",
       options: [
         { optionText: "Weighted graphs with non-negative weights", optionTag: "A" },
         { optionText: "Unweighted graphs only", optionTag: "B" },
@@ -24,7 +24,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which data structure is commonly used to improve Dijkstra’s algorithm performance?",
+      questionText: "Which data structure is commonly used to improve Dijkstra's algorithm performance?",
       options: [
         { optionText: "Min-heap (priority queue)", optionTag: "A" },
         { optionText: "Stack", optionTag: "B" },
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the time complexity of Dijkstra’s algorithm using a min-heap?",
+      questionText: "What is the time complexity of Dijkstra's algorithm using a min-heap?",
       options: [
         { optionText: "O((V + E) log V)", optionTag: "A" },
         { optionText: "O(V^2)", optionTag: "B" },
@@ -46,7 +46,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What does Dijkstra’s algorithm find?",
+      questionText: "What does Dijkstra's algorithm find?",
       options: [
         { optionText: "Shortest path from a source to all other vertices", optionTag: "A" },
         { optionText: "Longest path in a graph", optionTag: "B" },
@@ -70,7 +70,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "What happens if the graph contains negative weights?",
       options: [
-        { optionText: "Dijkstra’s algorithm may produce incorrect results", optionTag: "A" },
+        { optionText: "Dijkstra's algorithm may produce incorrect results", optionTag: "A" },
         { optionText: "Algorithm runs faster", optionTag: "B" },
         { optionText: "Algorithm skips negative edges", optionTag: "C" },
         { optionText: "No impact", optionTag: "D" }
@@ -79,7 +79,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which graph traversal technique does Dijkstra’s algorithm resemble?",
+      questionText: "Which graph traversal technique does Dijkstra's algorithm resemble?",
       options: [
         { optionText: "BFS with priority queue", optionTag: "A" },
         { optionText: "DFS", optionTag: "B" },
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of these is essential in Dijkstra’s algorithm?",
+      questionText: "Which of these is essential in Dijkstra's algorithm?",
       options: [
         { optionText: "Distance array", optionTag: "A" },
         { optionText: "Visited queue", optionTag: "B" },
@@ -112,7 +112,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of the following languages is commonly used for teaching Dijkstra’s algorithm?",
+      questionText: "Which of the following languages is commonly used for teaching Dijkstra's algorithm?",
       options: [
         { optionText: "Python", optionTag: "A" },
         { optionText: "HTML", optionTag: "B" },
@@ -123,7 +123,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "In the worst case, Dijkstra’s algorithm can visit how many vertices?",
+      questionText: "In the worst case, Dijkstra's algorithm can visit how many vertices?",
       options: [
         { optionText: "All vertices", optionTag: "A" },
         { optionText: "Only the start vertex", optionTag: "B" },
@@ -134,7 +134,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is initialized to infinity in Dijkstra’s algorithm?",
+      questionText: "What is initialized to infinity in Dijkstra's algorithm?",
       options: [
         { optionText: "Distance to each node", optionTag: "A" },
         { optionText: "Edge weights", optionTag: "B" },
@@ -145,7 +145,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of these is false about Dijkstra’s?",
+      questionText: "Which of these is false about Dijkstra's?",
       options: [
         { optionText: "It can handle negative weights", optionTag: "A" },
         { optionText: "It finds shortest path", optionTag: "B" },
@@ -156,7 +156,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Why is a priority queue important for Dijkstra’s?",
+      questionText: "Why is a priority queue important for Dijkstra's?",
       options: [
         { optionText: "To fetch the next closest node efficiently", optionTag: "A" },
         { optionText: "To store all visited nodes", optionTag: "B" },
@@ -200,7 +200,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of the following does Dijkstra’s NOT require?",
+      questionText: "Which of the following does Dijkstra's NOT require?",
       options: [
         { optionText: "Negative edge handling", optionTag: "A" },
         { optionText: "Priority Queue", optionTag: "B" },
@@ -222,7 +222,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which case breaks Dijkstra’s correctness?",
+      questionText: "Which case breaks Dijkstra's correctness?",
       options: [
         { optionText: "Negative weight edges", optionTag: "A" },
         { optionText: "Positive cycles", optionTag: "B" },

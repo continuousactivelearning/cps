@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Challenge your understanding of DFS traversal and its advanced applications in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Depth-First Search (DFS)"
+    courseName: "DFS"
   },
   quizScore: 20,
   questions: [
@@ -95,7 +95,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "Cycle Detection", optionTag: "A" },
         { optionText: "Shortest Distance", optionTag: "B" },
         { optionText: "Greedy Scheduling", optionTag: "C" },
-        { optionText: "Dijkstra’s Path", optionTag: "D" }
+        { optionText: "Dijkstra's Path", optionTag: "D" }
       ],
       correctOption: "A",
       score: 1
@@ -170,8 +170,8 @@ const quizData: Partial<QuizDocument> = {
       questionText: "Which of the following uses DFS at its core?",
       options: [
         { optionText: "Topological Sorting", optionTag: "A" },
-        { optionText: "Dijkstra’s Algorithm", optionTag: "B" },
-        { optionText: "Prim’s Algorithm", optionTag: "C" },
+        { optionText: "Dijkstra's Algorithm", optionTag: "B" },
+        { optionText: "Prim's Algorithm", optionTag: "C" },
         { optionText: "Bellman-Ford", optionTag: "D" }
       ],
       correctOption: "A",

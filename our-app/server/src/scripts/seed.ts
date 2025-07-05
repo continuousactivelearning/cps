@@ -1,9 +1,28 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import mongoose from "mongoose";
 import seedCourses from "./seedCourses";
 import seedUsers from "./seedUsers";
+// Java seeding scripts
 import seedJavaBeginnerQuizzes from "./difficulty-based/seedJavaBeginnerQuizzes";
 import seedJavaIntermediateQuizzes from "./difficulty-based/seedJavaIntermediateQuizzes";
 import seedJavaAdvancedQuizzes from "./difficulty-based/seedJavaAdvancedQuizzes";
+
+// C++ seeding scripts
+import seedCppBeginnerQuizzes from "./difficulty-based/seedCppBeginnerQuizzes";
+import seedCppIntermediateQuizzes from "./difficulty-based/seedCppIntermediateQuizzes";
+import seedCppAdvancedQuizzes from "./difficulty-based/seedCppAdvancedQuizzes";
+
+// JavaScript seeding scripts
+import seedJavaScriptBeginnerQuizzes from "./difficulty-based/seedJavaScriptBeginnerQuizzes";
+import seedJavaScriptIntermediateQuizzes from "./difficulty-based/seedJavaScriptIntermediateQuizzes";
+import seedJavaScriptAdvancedQuizzes from "./difficulty-based/seedJavaScriptAdvancedQuizzes";
+
+// Python seeding scripts
+import seedPythonBeginnerQuizzes from "./difficulty-based/seedPythonBeginnerQuizzes";
+import seedPythonIntermediateQuizzes from "./difficulty-based/seedPythonIntermediateQuizzes";
+import seedPythonAdvancedQuizzes from "./difficulty-based/seedPythonAdvancedQuizzes";
 import seedBasicQuizzes from "./seedBasicQuizzes";
 
 // Topic-based seeding is available but not used by default
@@ -41,11 +60,32 @@ const seedData = async (options: {
 
         if (options.all || options.quiz) {
             console.log("Seeding quizzes...");
-            // Using difficulty-based seeding approach
+            
+            // Java quizzes
+            console.log("Seeding Java quizzes...");
             await seedJavaBeginnerQuizzes();
             await seedJavaIntermediateQuizzes();
             await seedJavaAdvancedQuizzes();
-            console.log("✅ Quizzes seeded successfully");
+            
+            // C++ quizzes
+            console.log("Seeding C++ quizzes...");
+            await seedCppBeginnerQuizzes();
+            await seedCppIntermediateQuizzes();
+            await seedCppAdvancedQuizzes();
+            
+            // JavaScript quizzes
+            console.log("Seeding JavaScript quizzes...");
+            await seedJavaScriptBeginnerQuizzes();
+            await seedJavaScriptIntermediateQuizzes();
+            await seedJavaScriptAdvancedQuizzes();
+            
+            // Python quizzes
+            console.log("Seeding Python quizzes...");
+            await seedPythonBeginnerQuizzes();
+            await seedPythonIntermediateQuizzes();
+            await seedPythonAdvancedQuizzes();
+            
+            console.log("✅ All quizzes seeded successfully");
 
             // Alternative topic-based approach
             // await seedJavaTopicQuizzes();

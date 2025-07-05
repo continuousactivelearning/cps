@@ -8,12 +8,12 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your knowledge of Dijkstra's shortest path algorithm in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Dijkstra's Algorithm"
+    courseName: "DijkstrasAlgorithm"
   },
   quizScore: 20,
   questions: [
     {
-      questionText: "What does Dijkstra’s algorithm find?",
+      questionText: "What does Dijkstra's algorithm find?",
       options: [
         { optionText: "Shortest path from source to all vertices", optionTag: "A" },
         { optionText: "Longest path in a graph", optionTag: "B" },
@@ -24,7 +24,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What data structure is commonly used in Dijkstra’s algorithm?",
+      questionText: "What data structure is commonly used in Dijkstra's algorithm?",
       options: [
         { optionText: "Priority Queue", optionTag: "A" },
         { optionText: "Stack", optionTag: "B" },
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the time complexity of Dijkstra’s algorithm using a min-heap?",
+      questionText: "What is the time complexity of Dijkstra's algorithm using a min-heap?",
       options: [
         { optionText: "O((V + E) log V)", optionTag: "C" },
         { optionText: "O(VE)", optionTag: "B" },
@@ -46,7 +46,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Can Dijkstra’s algorithm handle negative weights?",
+      questionText: "Can Dijkstra's algorithm handle negative weights?",
       options: [
         { optionText: "No", optionTag: "A" },
         { optionText: "Yes, always", optionTag: "B" },
@@ -57,7 +57,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Dijkstra’s algorithm initializes the source distance as:",
+      questionText: "Dijkstra's algorithm initializes the source distance as:",
       options: [
         { optionText: "0", optionTag: "B" },
         { optionText: "Infinity", optionTag: "A" },
@@ -68,7 +68,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which graph type is best for Dijkstra’s algorithm?",
+      questionText: "Which graph type is best for Dijkstra's algorithm?",
       options: [
         { optionText: "Weighted graph with non-negative edges", optionTag: "D" },
         { optionText: "Unweighted graph", optionTag: "B" },
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is updated in every iteration of Dijkstra’s algorithm?",
+      questionText: "What is updated in every iteration of Dijkstra's algorithm?",
       options: [
         { optionText: "Shortest distance of neighbor vertices", optionTag: "C" },
         { optionText: "Edge weight", optionTag: "B" },
@@ -112,7 +112,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Dijkstra’s algorithm assumes:",
+      questionText: "Dijkstra's algorithm assumes:",
       options: [
         { optionText: "No negative weights", optionTag: "C" },
         { optionText: "Graph is cyclic", optionTag: "B" },

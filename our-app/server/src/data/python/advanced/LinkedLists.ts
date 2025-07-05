@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz evaluates your advanced understanding of Linked Lists in Python, including circular, doubly linked lists, and algorithmic manipulations.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Linked Lists"
+    courseName: "LinkedLists"
   },
   quizScore: 20,
   questions: [
@@ -48,10 +48,10 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which of the following algorithms is best to detect a loop in a linked list?",
       options: [
-        { optionText: "Floyd’s Cycle Detection", optionTag: "A" },
+        { optionText: "Floyd's Cycle Detection", optionTag: "A" },
         { optionText: "DFS", optionTag: "B" },
         { optionText: "BFS", optionTag: "C" },
-        { optionText: "Kadane’s", optionTag: "D" }
+        { optionText: "Kadane's", optionTag: "D" }
       ],
       correctOption: "A",
       score: 1
@@ -213,7 +213,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "How to detect a cycle in a linked list efficiently?",
       options: [
-        { optionText: "Floyd’s Tortoise and Hare", optionTag: "A" },
+        { optionText: "Floyd's Tortoise and Hare", optionTag: "A" },
         { optionText: "Use a stack", optionTag: "B" },
         { optionText: "Bubble sort", optionTag: "C" },
         { optionText: "DFS", optionTag: "D" }

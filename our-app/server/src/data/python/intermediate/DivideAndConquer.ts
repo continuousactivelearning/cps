@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your understanding of the Divide and Conquer algorithm design paradigm in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Divide and Conquer"
+    courseName: "DivideAndConquer"
   },
   quizScore: 20,
   questions: [

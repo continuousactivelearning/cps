@@ -9,7 +9,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of Binary Search Tree (BST) operations, properties, and traversals in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Binary Search Trees"
+    courseName: "BinarySearchTrees"
   },
   quizScore: 20,
   questions: [

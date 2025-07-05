@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your skills in solving problems using the Two Pointers technique in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Two Pointers",
+    courseName: "TwoPointers",
   },
   quizScore: 20,
   questions: [
@@ -128,7 +128,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "Requires sorted input in most cases", optionTag: "D" },
         { optionText: "Uses excessive memory", optionTag: "A" },
         { optionText: "Only works on graphs", optionTag: "B" },
-        { optionText: "Doesn’t handle strings", optionTag: "C" },
+        { optionText: "Doesn't handle strings", optionTag: "C" },
       ],
       correctOption: "D",
       score: 1,

@@ -5,10 +5,10 @@ const quizData: Partial<QuizDocument> = {
   title: "Python Kruskal's Algorithm - Advanced Quiz",
   quizLevel: "advanced",
   lang: "python",
-  description: "Assess your understanding of Kruskal’s Algorithm for constructing MSTs.",
+  description: "Assess your understanding of Kruskal's Algorithm for constructing MSTs.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Kruskal's Algorithm",
+    courseName: "KruskalsAlgorithm",
   },
   quizScore: 20,
   questions: [
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "The first step in Kruskal’s algorithm is to:",
+      questionText: "The first step in Kruskal's algorithm is to:",
       options: [
         { optionText: "Create adjacency matrix", optionTag: "A" },
         { optionText: "Sort all edges", optionTag: "B" },
@@ -57,7 +57,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Kruskal’s algorithm stops when:",
+      questionText: "Kruskal's algorithm stops when:",
       options: [
         { optionText: "All edges are included", optionTag: "A" },
         { optionText: "MST has V-1 edges", optionTag: "B" },
@@ -68,7 +68,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is the time complexity of Kruskal’s algorithm?",
+      questionText: "What is the time complexity of Kruskal's algorithm?",
       options: [
         { optionText: "O(V log V)", optionTag: "A" },
         { optionText: "O(E log E)", optionTag: "B" },
@@ -79,7 +79,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What ensures cycle detection in Kruskal’s Algorithm?",
+      questionText: "What ensures cycle detection in Kruskal's Algorithm?",
       options: [
         { optionText: "DFS traversal", optionTag: "A" },
         { optionText: "Union operation in DSU", optionTag: "B" },
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which condition is checked before adding an edge in Kruskal’s Algorithm?",
+      questionText: "Which condition is checked before adding an edge in Kruskal's Algorithm?",
       options: [
         { optionText: "Edge connects to leaf", optionTag: "A" },
         { optionText: "Vertices are from different sets", optionTag: "B" },
@@ -112,7 +112,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which Python built-in function is typically used to sort edges in Kruskal’s?",
+      questionText: "Which Python built-in function is typically used to sort edges in Kruskal's?",
       options: [
         { optionText: "heapq.heapify", optionTag: "A" },
         { optionText: "sorted()", optionTag: "B" },
@@ -123,7 +123,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What type of graph does Kruskal’s algorithm require?",
+      questionText: "What type of graph does Kruskal's algorithm require?",
       options: [
         { optionText: "Undirected and connected", optionTag: "A" },
         { optionText: "Directed and connected", optionTag: "B" },
@@ -134,7 +134,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Kruskal’s algorithm selects edges based on:",
+      questionText: "Kruskal's algorithm selects edges based on:",
       options: [
         { optionText: "Vertex value", optionTag: "A" },
         { optionText: "Smallest weight", optionTag: "B" },
@@ -145,7 +145,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "In DSU, the ‘find’ function is used to:",
+      questionText: "In DSU, the 'find' function is used to:",
       options: [
         { optionText: "Locate edge", optionTag: "A" },
         { optionText: "Identify parent set", optionTag: "B" },
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What’s the worst-case time for DSU operations with optimizations?",
+      questionText: "What's the worst-case time for DSU operations with optimizations?",
       options: [
         { optionText: "O(n)", optionTag: "A" },
         { optionText: "O(log n)", optionTag: "B" },
@@ -178,7 +178,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which edge is considered next in Kruskal’s?",
+      questionText: "Which edge is considered next in Kruskal's?",
       options: [
         { optionText: "Highest weight edge", optionTag: "A" },
         { optionText: "Already included edge", optionTag: "B" },
@@ -189,7 +189,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Kruskal’s algorithm always results in:",
+      questionText: "Kruskal's algorithm always results in:",
       options: [
         { optionText: "Unique MST", optionTag: "A" },
         { optionText: "DFS tree", optionTag: "B" },
@@ -200,7 +200,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Kruskal’s can be applied to:",
+      questionText: "Kruskal's can be applied to:",
       options: [
         { optionText: "Disconnected graphs", optionTag: "A" },
         { optionText: "Unconnected graphs", optionTag: "B" },
@@ -211,7 +211,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "MST generated by Kruskal’s algorithm has:",
+      questionText: "MST generated by Kruskal's algorithm has:",
       options: [
         { optionText: "No cycles", optionTag: "A" },
         { optionText: "Maximum edges", optionTag: "B" },
@@ -222,7 +222,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which edge causes rejection in Kruskal’s?",
+      questionText: "Which edge causes rejection in Kruskal's?",
       options: [
         { optionText: "Duplicates", optionTag: "A" },
         { optionText: "Forms a cycle", optionTag: "B" },

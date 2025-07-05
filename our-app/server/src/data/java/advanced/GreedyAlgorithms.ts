@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your mastery of Greedy algorithm design techniques in Java.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Greedy Algorithms"
+    courseName: "GreedyAlgorithms"
   },
   quizScore: 20,
   questions: [
@@ -40,7 +40,7 @@ const quizData: Partial<QuizDocument> = {
         { optionText: "Fractional Knapsack", optionTag: "C" },
         { optionText: "Prim's Algorithm", optionTag: "B" },
         { optionText: "0/1 Knapsack", optionTag: "A" },
-        { optionText: "Kruskal’s Algorithm", optionTag: "D" }
+        { optionText: "Kruskal's Algorithm", optionTag: "D" }
       ],
       correctOption: "A",
       score: 1
@@ -50,8 +50,8 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "Floyd-Warshall", optionTag: "B" },
         { optionText: "Bellman-Ford", optionTag: "D" },
-        { optionText: "Prim’s Algorithm", optionTag: "C" },
-        { optionText: "Dijkstra’s Algorithm", optionTag: "A" }
+        { optionText: "Prim's Algorithm", optionTag: "C" },
+        { optionText: "Dijkstra's Algorithm", optionTag: "A" }
       ],
       correctOption: "C",
       score: 1
@@ -68,7 +68,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the time complexity of Kruskal’s Algorithm using Union-Find?",
+      questionText: "What is the time complexity of Kruskal's Algorithm using Union-Find?",
       options: [
         { optionText: "O(E log V)", optionTag: "D" },
         { optionText: "O(V²)", optionTag: "A" },
@@ -136,8 +136,8 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Why does greedy fail in some coin change problems?",
       options: [
-        { optionText: "Doesn’t explore all options", optionTag: "C" },
-        { optionText: "It’s too slow", optionTag: "B" },
+        { optionText: "Doesn't explore all options", optionTag: "C" },
+        { optionText: "It's too slow", optionTag: "B" },
         { optionText: "Incorrect syntax", optionTag: "D" },
         { optionText: "Coins not sorted", optionTag: "A" }
       ],

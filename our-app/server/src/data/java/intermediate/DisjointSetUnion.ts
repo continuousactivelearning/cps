@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Evaluate your understanding of Disjoint Set Union (Union-Find) data structure used in graph algorithms.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Disjoint Set Union"
+    courseName: "DisjointSetUnion"
   },
   quizScore: 20,
   questions: [
@@ -70,8 +70,8 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which algorithm uses DSU to detect cycles?",
       options: [
-        { optionText: "Kruskal’s Algorithm", optionTag: "C" },
-        { optionText: "Prim’s Algorithm", optionTag: "D" },
+        { optionText: "Kruskal's Algorithm", optionTag: "C" },
+        { optionText: "Prim's Algorithm", optionTag: "D" },
         { optionText: "Bellman-Ford", optionTag: "A" },
         { optionText: "Dijkstra", optionTag: "B" }
       ],
@@ -112,7 +112,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "How does DSU help in Kruskal’s Algorithm?",
+      questionText: "How does DSU help in Kruskal's Algorithm?",
       options: [
         { optionText: "Avoids cycles while selecting edges", optionTag: "A" },
         { optionText: "Finds shortest path", optionTag: "B" },

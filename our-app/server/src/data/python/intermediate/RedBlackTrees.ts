@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "This quiz tests your understanding of Red-Black Trees in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Red-Black Trees",
+    courseName: "RedBlackTrees",
   },
   quizScore: 20,
   questions: [

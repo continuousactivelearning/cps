@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Quiz to assess understanding of Suffix Arrays and Suffix Trees in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Suffix Arrays/Trees",
+    courseName: "SuffixArraysTrees",
   },
   quizScore: 20,
   questions: [

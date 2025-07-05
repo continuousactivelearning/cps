@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of Segment Trees for range queries and updates.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Segment Trees",
+    courseName: "SegmentTrees",
   },
   quizScore: 20,
   questions: [
@@ -116,7 +116,7 @@ const quizData: Partial<QuizDocument> = {
       options: [
         { optionText: "Lazy Propagation", optionTag: "C" },
         { optionText: "DFS", optionTag: "D" },
-        { optionText: "Kruskal’s algorithm", optionTag: "B" },
+        { optionText: "Kruskal's algorithm", optionTag: "B" },
         { optionText: "Hashing", optionTag: "A" },
       ],
       correctOption: "C",
