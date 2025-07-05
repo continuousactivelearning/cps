@@ -5,10 +5,10 @@ const quizData: Partial<QuizDocument> = {
   title: "Python Prim's Algorithm - Advanced Quiz",
   quizLevel: "advanced",
   lang: "python",
-  description: "Test your proficiency in Prim’s Algorithm for Minimum Spanning Tree.",
+  description: "Test your proficiency in Prim's Algorithm for Minimum Spanning Tree.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Prim's Algorithm",
+    courseName: "PrimsAlgorithm",
   },
   quizScore: 20,
   questions: [
@@ -68,7 +68,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Prim’s algorithm always produces:",
+      questionText: "Prim's algorithm always produces:",
       options: [
         { optionText: "Shortest path tree", optionTag: "A" },
         { optionText: "Breadth-first tree", optionTag: "B" },
@@ -79,7 +79,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is the stopping condition for Prim’s algorithm?",
+      questionText: "What is the stopping condition for Prim's algorithm?",
       options: [
         { optionText: "When all edges are visited", optionTag: "A" },
         { optionText: "When all vertices are included", optionTag: "B" },
@@ -123,7 +123,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What ensures correctness of Prim’s algorithm?",
+      questionText: "What ensures correctness of Prim's algorithm?",
       options: [
         { optionText: "Greedy strategy and cut property", optionTag: "A" },
         { optionText: "Backtracking", optionTag: "B" },
@@ -134,7 +134,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Prim’s algorithm belongs to which algorithmic paradigm?",
+      questionText: "Prim's algorithm belongs to which algorithmic paradigm?",
       options: [
         { optionText: "Greedy", optionTag: "A" },
         { optionText: "Backtracking", optionTag: "B" },
@@ -145,7 +145,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is the weight of the MST after Prim’s execution?",
+      questionText: "What is the weight of the MST after Prim's execution?",
       options: [
         { optionText: "Sum of all edge weights", optionTag: "A" },
         { optionText: "Sum of weights in MST", optionTag: "B" },
@@ -189,7 +189,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Which step ensures Prim’s greedy nature?",
+      questionText: "Which step ensures Prim's greedy nature?",
       options: [
         { optionText: "Selecting lightest edge to unvisited vertex", optionTag: "A" },
         { optionText: "DFS", optionTag: "B" },
@@ -211,7 +211,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "Prim’s algorithm can result in different MSTs depending on:",
+      questionText: "Prim's algorithm can result in different MSTs depending on:",
       options: [
         { optionText: "Start node and equal edge weights", optionTag: "A" },
         { optionText: "Graph type", optionTag: "B" },
@@ -222,10 +222,10 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What is true about the MST obtained using Prim’s?",
+      questionText: "What is true about the MST obtained using Prim's?",
       options: [
         { optionText: "It is always unique", optionTag: "A" },
-        { optionText: "It is same as Dijkstra’s tree", optionTag: "B" },
+        { optionText: "It is same as Dijkstra's tree", optionTag: "B" },
         { optionText: "It contains V-1 edges", optionTag: "C" },
         { optionText: "It is a DAG", optionTag: "D" },
       ],

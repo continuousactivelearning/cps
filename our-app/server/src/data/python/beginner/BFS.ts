@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of BFS concepts and applications in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Breadth-First Search (BFS)",
+    courseName: "BFS",
   },
   quizScore: 20,
   questions: [

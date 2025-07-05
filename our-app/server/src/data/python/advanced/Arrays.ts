@@ -2,13 +2,13 @@ import { QuizDocument } from "../../../interfaces/Document_Interfaces";
 import mongoose from "mongoose";
 
 const quizData: Partial<QuizDocument> = {
-  title: "Python Strings - Intermediate Quiz",
-  quizLevel: "intermediate",
+  title: "Python Arrays - Advanced Quiz",
+  quizLevel: "advanced",
   lang: "python",
-  description: "This quiz evaluates your understanding of string manipulation, built-in functions, and intermediate-level string operations in Python.",
+  description: "This quiz evaluates your understanding of advanced array operations and algorithms in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Strings"
+    courseName: "Arrays"
   },
   quizScore: 20,
   questions: [

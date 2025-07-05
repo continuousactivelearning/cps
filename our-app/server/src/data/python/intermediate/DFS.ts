@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your understanding of Depth-First Search algorithm in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Depth-First Search (DFS)"
+    courseName: "DFS"
   },
   quizScore: 20,
   questions: [

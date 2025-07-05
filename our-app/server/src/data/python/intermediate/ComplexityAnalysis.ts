@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Evaluate your understanding of time and space complexity analysis in Python programming.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Complexity Analysis"
+    courseName: "ComplexityAnalysis"
   },
   quizScore: 20,
   questions: [

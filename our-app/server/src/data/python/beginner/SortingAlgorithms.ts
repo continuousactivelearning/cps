@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your foundational understanding of sorting algorithms in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Sorting Algorithms"
+    courseName: "SortingAlgorithms"
   },
   quizScore: 20,
   questions: [

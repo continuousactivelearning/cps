@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your understanding of common sorting algorithms in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Sorting Algorithms"
+    courseName: "SortingAlgorithms"
   },
   quizScore: 20,
   questions: [
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Python’s built-in sort is based on which algorithm?",
+      questionText: "Python's built-in sort is based on which algorithm?",
       options: [
         { optionText: "Timsort", optionTag: "A" },
         { optionText: "Heap Sort", optionTag: "B" },

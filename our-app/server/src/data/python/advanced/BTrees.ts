@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Test your knowledge of B-Trees, widely used in databases and file systems.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "B-Trees",
+    courseName: "BTrees",
   },
   quizScore: 20,
   questions: [
@@ -156,7 +156,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What’s a major difference between B-Trees and Binary Trees?",
+      questionText: "What's a major difference between B-Trees and Binary Trees?",
       options: [
         { optionText: "B-Trees can have more than 2 children per node", optionTag: "A" },
         { optionText: "Binary trees can have any number of children", optionTag: "B" },

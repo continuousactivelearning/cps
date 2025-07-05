@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Evaluate your understanding of dynamic programming techniques in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Dynamic Programming",
+    courseName: "DynamicProgramming",
   },
   quizScore: 20,
   questions: [
@@ -123,7 +123,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1,
     },
     {
-      questionText: "What’s the base condition for the Fibonacci DP solution?",
+      questionText: "What's the base condition for the Fibonacci DP solution?",
       options: [
         { optionText: "fib(0) = 1, fib(1) = 1", optionTag: "A" },
         { optionText: "fib(0) = 0, fib(1) = 1", optionTag: "B" },
@@ -224,9 +224,9 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "Which DP algorithm is used in text comparison?",
       options: [
-        { optionText: "Dijkstra’s", optionTag: "A" },
+        { optionText: "Dijkstra's", optionTag: "A" },
         { optionText: "Edit Distance", optionTag: "B" },
-        { optionText: "Prim’s", optionTag: "C" },
+        { optionText: "Prim's", optionTag: "C" },
         { optionText: "Binary Search", optionTag: "D" },
       ],
       correctOption: "B",

@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Challenge your mastery of DFS traversal in graphs using Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Depth-First Search (DFS)",
+    courseName: "DFS",
   },
   quizScore: 20,
   questions: [

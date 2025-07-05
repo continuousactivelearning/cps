@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Quiz to assess understanding of dynamic programming concepts in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Dynamic Programming",
+    courseName: "DynamicProgramming",
   },
   quizScore: 20,
   questions: [

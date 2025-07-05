@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your deep understanding of BFS traversal in graphs using Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Breadth-First Search (BFS)",
+    courseName: "BFS",
   },
   quizScore: 20,
   questions: [

@@ -5,15 +5,15 @@ const quizData: Partial<QuizDocument> = {
   title: "Python Prim's Algorithm - Intermediate Quiz",
   quizLevel: "intermediate",
   lang: "python",
-  description: "Test your knowledge on Prim’s Algorithm for Minimum Spanning Trees.",
+  description: "Test your knowledge on Prim's Algorithm for Minimum Spanning Trees.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Prim's Algorithm"
+    courseName: "PrimsAlgorithm"
   },
   quizScore: 20,
   questions: [
     {
-      questionText: "What is the primary purpose of Prim’s Algorithm?",
+      questionText: "What is the primary purpose of Prim's Algorithm?",
       options: [
         { optionText: "To find the Minimum Spanning Tree", optionTag: "A" },
         { optionText: "To sort vertices", optionTag: "B" },
@@ -24,7 +24,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which data structure optimizes Prim’s Algorithm?",
+      questionText: "Which data structure optimizes Prim's Algorithm?",
       options: [
         { optionText: "Min Heap", optionTag: "A" },
         { optionText: "Stack", optionTag: "B" },
@@ -35,7 +35,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the time complexity of Prim’s Algorithm using a priority queue?",
+      questionText: "What is the time complexity of Prim's Algorithm using a priority queue?",
       options: [
         { optionText: "O(E log V)", optionTag: "A" },
         { optionText: "O(VE)", optionTag: "B" },
@@ -46,7 +46,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Prim’s Algorithm always starts from:",
+      questionText: "Prim's Algorithm always starts from:",
       options: [
         { optionText: "An arbitrary node", optionTag: "A" },
         { optionText: "Node with smallest value", optionTag: "B" },
@@ -57,7 +57,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "In Prim’s Algorithm, what is updated during each iteration?",
+      questionText: "In Prim's Algorithm, what is updated during each iteration?",
       options: [
         { optionText: "Minimum edge weight to connect a new vertex", optionTag: "A" },
         { optionText: "Total number of cycles", optionTag: "B" },
@@ -81,7 +81,7 @@ const quizData: Partial<QuizDocument> = {
     {
       questionText: "What happens if the graph is disconnected?",
       options: [
-        { optionText: "Prim’s algorithm cannot generate MST", optionTag: "A" },
+        { optionText: "Prim's algorithm cannot generate MST", optionTag: "A" },
         { optionText: "It creates multiple MSTs", optionTag: "B" },
         { optionText: "It restarts from zero", optionTag: "C" },
         { optionText: "It removes all edges", optionTag: "D" }
@@ -90,7 +90,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "How does Prim’s Algorithm select the next edge?",
+      questionText: "How does Prim's Algorithm select the next edge?",
       options: [
         { optionText: "Based on minimum edge weight", optionTag: "A" },
         { optionText: "Randomly", optionTag: "B" },
@@ -101,7 +101,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which algorithm is Prim’s Algorithm similar to?",
+      questionText: "Which algorithm is Prim's Algorithm similar to?",
       options: [
         { optionText: "Dijkstra's Algorithm", optionTag: "A" },
         { optionText: "BFS", optionTag: "B" },
@@ -112,7 +112,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the base case for Prim’s Algorithm?",
+      questionText: "What is the base case for Prim's Algorithm?",
       options: [
         { optionText: "MST starts with one node and grows", optionTag: "A" },
         { optionText: "All vertices are visited first", optionTag: "B" },
@@ -134,7 +134,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of the following is true for Prim’s Algorithm?",
+      questionText: "Which of the following is true for Prim's Algorithm?",
       options: [
         { optionText: "It never forms a cycle", optionTag: "A" },
         { optionText: "It forms at least one cycle", optionTag: "B" },
@@ -145,7 +145,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Prim’s algorithm can be implemented using which strategy?",
+      questionText: "Prim's algorithm can be implemented using which strategy?",
       options: [
         { optionText: "Greedy", optionTag: "A" },
         { optionText: "Divide and Conquer", optionTag: "B" },
@@ -156,7 +156,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is stored in the priority queue during Prim’s Algorithm?",
+      questionText: "What is stored in the priority queue during Prim's Algorithm?",
       options: [
         { optionText: "Vertices and their edge weights", optionTag: "A" },
         { optionText: "DFS sequence", optionTag: "B" },
@@ -167,7 +167,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which one is **not** required in Prim’s implementation?",
+      questionText: "Which one is **not** required in Prim's implementation?",
       options: [
         { optionText: "Visited array", optionTag: "A" },
         { optionText: "Graph matrix/list", optionTag: "B" },
@@ -178,7 +178,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "What is the space complexity of Prim’s Algorithm?",
+      questionText: "What is the space complexity of Prim's Algorithm?",
       options: [
         { optionText: "O(V + E)", optionTag: "A" },
         { optionText: "O(E^2)", optionTag: "B" },
@@ -200,7 +200,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Which of the following Python libraries can be used to simulate Prim’s Algorithm?",
+      questionText: "Which of the following Python libraries can be used to simulate Prim's Algorithm?",
       options: [
         { optionText: "heapq", optionTag: "A" },
         { optionText: "collections", optionTag: "B" },
@@ -211,7 +211,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "When does Prim’s algorithm terminate?",
+      questionText: "When does Prim's algorithm terminate?",
       options: [
         { optionText: "When all vertices are included in MST", optionTag: "A" },
         { optionText: "After first edge is added", optionTag: "B" },
@@ -222,7 +222,7 @@ const quizData: Partial<QuizDocument> = {
       score: 1
     },
     {
-      questionText: "Prim’s algorithm assumes which property of graphs?",
+      questionText: "Prim's algorithm assumes which property of graphs?",
       options: [
         { optionText: "Connected and weighted", optionTag: "A" },
         { optionText: "Unweighted and directed", optionTag: "B" },

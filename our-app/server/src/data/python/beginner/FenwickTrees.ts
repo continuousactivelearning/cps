@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Quiz to assess understanding of Fenwick Trees (Binary Indexed Trees) in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Fenwick Trees",
+    courseName: "FenwickTrees",
   },
   quizScore: 20,
   questions: [

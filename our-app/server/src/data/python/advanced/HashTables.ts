@@ -8,7 +8,7 @@ const quizData: Partial<QuizDocument> = {
   description: "Assess your mastery of Hash Tables and dictionaries in Python.",
   topic: {
     courseID: new mongoose.Types.ObjectId(),
-    courseName: "Hash Tables",
+    courseName: "HashTables",
   },
   quizScore: 20,
   questions: [
