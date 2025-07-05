@@ -23,6 +23,15 @@ interface AIAnalysis {
   known_topics?: string[];
   dynamic?: boolean;
   logged?: boolean;
+  learning_session_active?: boolean;
+  graph_based?: boolean;
+  small_talk?: boolean;
+  topic_completed?: string;
+  progress?: string;
+  awaiting_confirmation?: boolean;
+  current_topic?: string;
+  confirmation_requested?: boolean;
+  error?: string;
 }
 
 interface AIResponse {
@@ -166,7 +175,7 @@ export const ChatContainer: React.FC = () => {
         timestamp: msg.timestamp.toISOString()
       }));
 
-      const res = await fetch('http://localhost:8000/api/chat', {
+      const res = await fetch('http://localhost:5000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
