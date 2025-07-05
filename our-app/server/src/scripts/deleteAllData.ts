@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import mongoose from 'mongoose';
 import Course from '../models/Course';
 import Quiz from '../models/Quiz';
