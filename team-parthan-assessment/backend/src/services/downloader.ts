@@ -1,6 +1,8 @@
-import execa from 'execa';
+// Developed by Manjistha Bidkar
+import { execa } from 'execa';
 import * as fs from 'fs';
 import * as path from 'path';
+import { config } from '../config';
 
 export interface SubtitleDownloadResult {
   filePath: string;
@@ -14,8 +16,7 @@ export async function downloadSubtitles(
   const baseUrl = `https://www.youtube.com/watch?v=${videoId}`;
   const output = path.join(outputDir, `${videoId}.%(ext)s`);
 
-  // Hardcoded cookies.txt path
-  const cookiesFile = path.resolve(__dirname, 'cookies.txt'); // Adjust path if cookies.txt is elsewhere
+  const cookiesFile = config.COOKIES_PATH;
 
   // Ensure output directory exists
   if (!fs.existsSync(outputDir)) {
@@ -25,7 +26,6 @@ export async function downloadSubtitles(
   // Common yt-dlp arguments
   const commonArgs = [
     '--cookies', cookiesFile,
-    '--proxy', '',
     '--no-check-certificate',
     '--write-auto-sub',
     '--write-sub',
@@ -34,6 +34,9 @@ export async function downloadSubtitles(
     baseUrl,
   ];
 
+  if (config.PROXY) {
+    commonArgs.unshift('--proxy', config.PROXY);
+  }
 
   // Try downloading English subtitles first
   try {
@@ -59,7 +62,6 @@ export async function downloadSubtitles(
     }
   } catch (error) {
     console.error(`Failed to download subtitles for ${videoId}:`, error);
-    console.log(error);
   }
 
   throw new Error(`No subtitles found for video: ${videoId}`);
