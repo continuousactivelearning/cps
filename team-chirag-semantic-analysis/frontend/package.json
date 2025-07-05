@@ -18,7 +18,6 @@
     "@react-oauth/google": "^0.12.2",
     "@tailwindcss/vite": "^4.1.10",
     "axios": "^1.7.2",
-    "firebase": "^11.9.1",
     "framer-motion": "^12.23.0",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.516.0",

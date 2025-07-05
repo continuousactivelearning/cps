@@ -12,12 +12,15 @@ import {
   Paper,
   Tooltip,
   Typography,
+  CircularProgress,
+  Alert,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header"; // ✅ Add Header
-import { useTheme } from "../hooks/useTheme"; // <-- Import your custom hook
+import Header from "../components/Header";
+import { useTheme } from "../hooks/useTheme";
+import { userService } from "../services/userService";
 
 interface UserProfile {
   name?: string;
@@ -33,22 +36,137 @@ interface UserProfile {
 
 const StudentProfile = () => {
   const [profile, setProfile] = useState<UserProfile>({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { theme } = useTheme(); // <-- Use your theme hook
+  const { theme } = useTheme();
 
   useEffect(() => {
-    const raw = localStorage.getItem("userProfile");
-    if (raw) setProfile(JSON.parse(raw));
+    const fetchUserProfile = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Check localStorage for user data first
+        const raw = localStorage.getItem("userProfile");
+        let localUserData = null;
+        if (raw) {
+          localUserData = JSON.parse(raw);
+          console.log('📦 Found localStorage data:', localUserData);
+        }
+
+        // If we have user email from localStorage, fetch from MongoDB
+        const userEmail = localUserData?.email;
+        
+        if (userEmail) {
+          console.log('🔍 Fetching profile for:', userEmail);
+          console.log('🔍 Auth source: localStorage');
+          
+          try {
+            const apiProfile = await userService.getUserProfile(userEmail);
+            console.log('📊 API Profile response:', apiProfile);
+            
+            if (apiProfile) {
+              // Transform API response to component state
+              const transformedProfile: UserProfile = {
+                name: apiProfile.name || localUserData?.name || 'User',
+                email: apiProfile.email || userEmail,
+                profileImage: apiProfile.avatar || localUserData?.avatar || undefined,
+                programmingExperience: apiProfile.userInfo?.programmingExperience || undefined,
+                knownLanguages: apiProfile.userInfo?.knownLanguages || [],
+                dsaExperience: apiProfile.userInfo?.dsaExperience || undefined,
+                preferredPace: apiProfile.userInfo?.preferredPace || undefined,
+                // Extract focus areas from known concepts topics
+                focusAreas: apiProfile.knownConcepts?.topics?.map(topic => topic.name) || [],
+                learningGoals: [] // This might need to be added to the backend model
+              };
+              console.log('✅ Transformed profile:', transformedProfile);
+              setProfile(transformedProfile);
+            } else {
+              console.log('⚠️ No API profile found, using localStorage data');
+              // Fallback to localStorage user info
+              setProfile({
+                name: localUserData?.name || 'User',
+                email: userEmail,
+                profileImage: localUserData?.avatar || undefined,
+              });
+            }
+          } catch (apiError) {
+            console.error('❌ API Error:', apiError);
+            // Fallback to localStorage user info
+            setProfile({
+              name: localUserData?.name || 'User',
+              email: userEmail,
+              profileImage: localUserData?.avatar || undefined,
+            });
+          }
+        } else {
+          console.log('🔍 No authenticated user, checking localStorage only');
+          // Fallback to localStorage for non-authenticated users
+          if (localUserData) {
+            console.log('📦 Using localStorage data only');
+            setProfile({
+              name: localUserData.name || 'User',
+              email: localUserData.email,
+              profileImage: localUserData.avatar,
+              // Try to extract any other data from localStorage
+              programmingExperience: localUserData.programmingExperience,
+              knownLanguages: localUserData.knownLanguages || [],
+              dsaExperience: localUserData.dsaExperience,
+              preferredPace: localUserData.preferredPace,
+              focusAreas: localUserData.focusAreas || [],
+            });
+          } else {
+            console.log('⚠️ No user data found anywhere');
+            setProfile({});
+          }
+        }
+      } catch (err) {
+        console.error('❌ Error fetching user profile:', err);
+        setError('Failed to load profile. Please try again.');
+        
+        // Final fallback to localStorage on error
+        const raw = localStorage.getItem("userProfile");
+        if (raw) {
+          const localUserData = JSON.parse(raw);
+          setProfile({
+            name: localUserData.name || 'User',
+            email: localUserData.email,
+            profileImage: localUserData.avatar,
+          });
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
   }, []);
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        const newProfile = { ...profile, profileImage: reader.result as string };
+      reader.onloadend = async () => {
+        const imageDataUrl = reader.result as string;
+        const newProfile = { ...profile, profileImage: imageDataUrl };
         setProfile(newProfile);
+        
+        // Save to localStorage as backup
         localStorage.setItem("userProfile", JSON.stringify(newProfile));
+        
+        // TODO: Add API call to update avatar in backend
+        // This would require adding an endpoint to update user avatar
+        try {
+          const userEmail = profile.email;
+          if (userEmail) {
+            console.log('Updating avatar in backend for:', userEmail);
+            await userService.updateUserAvatar(userEmail, imageDataUrl);
+            console.log('Avatar updated successfully in backend');
+          }
+        } catch (error) {
+          console.error('Failed to update avatar in backend:', error);
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -137,11 +255,30 @@ const StudentProfile = () => {
             <CloseIcon />
           </IconButton>
 
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          {/* Loading State */}
+          {loading && (
+            <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+              <CircularProgress size={60} />
+              <Typography variant="h6" sx={{ ml: 2 }}>
+                Loading profile...
+              </Typography>
+            </Box>
+          )}
+
+          {/* Error State */}
+          {error && !loading && (
+            <Alert severity="error" sx={{ mt: 6, mb: 4 }}>
+              {error}
+            </Alert>
+          )}
+
+          {/* Profile Content */}
+          {!loading && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
             <Paper
               elevation={8}
               sx={{
@@ -205,8 +342,23 @@ const StudentProfile = () => {
 
               <Divider sx={{ mb: 4 }} />
 
-              {/* Info Sections (Experience, Languages, Goals...) */}
-              {/* [Keep all info boxes as-is: no changes needed here] */}
+              {/* Learning Progress Summary */}
+              {profile.focusAreas && profile.focusAreas.length > 0 && (
+                <Box mb={4}>
+                  <Typography variant="overline" color="text.secondary">
+                    Learning Progress
+                  </Typography>
+                  <Box mt={1} display="flex" flexWrap="wrap" gap={2}>
+                    <Chip 
+                      label={`${profile.focusAreas.length} Topics Known`} 
+                      color="success" 
+                      sx={{ borderRadius: 2 }} 
+                    />
+                  </Box>
+                </Box>
+              )}
+
+              {/* Programming & DSA Experience */}
 
               {/* Programming & DSA Experience */}
               <Box
@@ -302,6 +454,7 @@ const StudentProfile = () => {
               </Box>
             </Paper>
           </motion.div>
+        )}
         </Container>
       </Box>
     </div>
