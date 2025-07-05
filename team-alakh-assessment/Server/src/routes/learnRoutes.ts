@@ -87,16 +87,29 @@ const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 export async function generateLearningModules(
   topic: string
 ): Promise<typeof LearningModule> {
-  const prompt = `
-You are an educational content generator. Produce a clean JSON array with 5–7 learning modules for the topic: "${topic}".
+const prompt = `
+You are an expert educational content creator. Generate a JSON array of 5–7 comprehensive learning modules for the topic: "${topic}".
 
-Each module should contain the following fields:
-- "title": string (title of the module)
-- "content": string (markdown-formatted learning material, approx. 700–1000 words, escape any special/control characters)
-- "duration": string (e.g., "30 min", "1 hour")
-- "type": string ("text", "video", or "interactive")
+Each module must include:
+- "title": Clear, descriptive module title.
+- "content": Markdown-formatted, highly detailed learning material (900–1300 words). Structure with:
+    - Headings (H1, H2, H3)
+    - Step-by-step explanations
+    - Real-world examples and analogies
+    - Practical applications and use-cases
+    - Lists, tables, and code blocks (where relevant)
+    - Key takeaways or summary and important note or quote at the end. (Use blockquote for quotes and important notes.)
+    - Engaging, accessible language for beginners and intermediates
+- "duration": Estimated time to complete (e.g., "45 min", "1 hour").
+- "type": "text", "video", or "interactive" (choose "text" unless otherwise specified).
 
-⚠️ Output must ONLY be valid JSON. No text, no markdown, no explanation outside the JSON array. Escape special characters (e.g., \\n, \\") inside strings.
+Requirements:
+- Output ONLY valid JSON (no markdown, no extra text).
+- Escape all special characters (e.g., \\n, \\").
+- Content should be self-contained, user-friendly, and suitable for self-study.
+- For code blocks use tripple (~) symbol (e.g., \~\~\~ code block \~\~\~
+- Each module should build on the previous, covering the topic thoroughly.
+- Avoid Including type, title and duration in content.
 
 Return only the raw JSON array.
 `;
@@ -356,6 +369,7 @@ router.get(
               font-family: 'Roboto', sans-serif;
               margin: 20px;
               color: #000;
+              text-align: justify;
             }
             h1 { font-size: 24px; color: #002147; margin-bottom: 12px; }
             h2 { font-size: 20px; color: #333; margin-bottom: 8px; }

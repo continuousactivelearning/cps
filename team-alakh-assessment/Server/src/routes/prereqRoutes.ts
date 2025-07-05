@@ -14,9 +14,10 @@ if (!GROQ_API_KEY) {
 }
 
 async function generatePrerequisites(topic: string): Promise<string[]> {
-  const prompt = `List the prerequisite topics to learn "${topic}" as a JSON array. 
+  const prompt = `List the prerequisite topics required to learn "${topic}" as a JSON array. 
 Each item should be a string or an object with 'prerequisite' and 'description'. 
-Respond with raw JSON only, no markdown formatting.`;
+Respond with raw JSON only, no markdown formatting.
+Don't give too many prerequisites, just the essential ones, keep the no. as minimum as possible.`;
 
   try {
     const response = await fetch(GROQ_API_URL, {

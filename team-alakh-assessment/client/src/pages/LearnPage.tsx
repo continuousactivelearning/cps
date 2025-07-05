@@ -671,7 +671,7 @@ const LearnPage: React.FC = () => {
                   } dark:prose-invert max-w-none text-gray-800 dark:text-gray-100 transition-all duration-200`}
                 >
                   <div
-                    className="text-justify leading-relaxed"
+                    className="leading-relaxed"
                     dangerouslySetInnerHTML={{
                       __html: renderedContent,
                     }}
