@@ -52,10 +52,8 @@ const Login: React.FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     try {
-      console.log('Login attempt with:', data.email);
-      
       // Call backend login API
-      const response = await fetch('http://localhost:5000/auth/login', {
+      const response = await fetch(`${import.meta.env.VITE_AUTH_BASE_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,9 +65,6 @@ const Login: React.FC = () => {
       });
 
       const result = await response.json();
-      
-      console.log('🔍 Full login response:', result);
-      console.log('🔍 User object:', result.user);
 
       if (!response.ok) {
         throw new Error(result.message || 'Login failed');
@@ -90,21 +85,12 @@ const Login: React.FC = () => {
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
 
-      // Navigate based on onboarding status
-      console.log('User onboarding status:', {
-        hasCompletedOnboarding: result.user.hasCompletedOnboarding,
-        isFirstTime: result.user.isFirstTime
-      });
-
       if (result.user.hasCompletedOnboarding) {
-        console.log('User has completed onboarding, redirecting to /chat');
         setTimeout(() => navigate('/chat'), 1000);
       } else {
-        console.log('User needs onboarding, redirecting to /onboarding');
         setTimeout(() => navigate('/onboarding'), 1000);
       }
     } catch (error) {
-      console.error('Login error:', error);
       setSnackbarMsg(error instanceof Error ? error.message : 'Login failed. Please try again.');
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
@@ -120,7 +106,7 @@ const Login: React.FC = () => {
     const top = window.innerHeight / 2 - height / 2;
 
     const authWindow = window.open(
-      'http://localhost:5000/auth/google',
+      `${import.meta.env.VITE_AUTH_BASE_URL}/google`,
       'googleAuth',
       `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`
     );
@@ -133,7 +119,7 @@ const Login: React.FC = () => {
     }
 
     const messageListener = (event: GoogleAuthMessageEvent) => {
-      if (event.origin !== 'http://localhost:5000') return;
+      if (event.origin !== import.meta.env.VITE_API_BASE_URL) return;
       const { token, user, isFirstTime, error } = event.data;
 
       if (token && user) {
@@ -148,8 +134,8 @@ const Login: React.FC = () => {
           if (authWindow && !authWindow.closed) {
             authWindow.close();
           }
-        } catch (authCloseError) {
-          console.warn('Could not close auth window:', authCloseError);
+        } catch {
+          // Error closing auth window, continue silently
         }
 
         // ✅ Check if user is first-time and redirect accordingly
@@ -175,8 +161,8 @@ const Login: React.FC = () => {
           if (authWindow && !authWindow.closed) {
             authWindow.close();
           }
-        } catch (authErrorClose) {
-          console.warn('Could not close auth window:', authErrorClose);
+        } catch {
+          // Error closing auth window, continue silently
         }
       }
     };
@@ -192,7 +178,7 @@ const Login: React.FC = () => {
             return;
           }
           // Try to access the window location to detect navigation
-          if (authWindow.location.href.includes('localhost:5173')) {
+          if (authWindow.location.href.includes(new URL(import.meta.env.VITE_FRONTEND_URL).hostname)) {
             clearInterval(pollTimer);
           }
         } catch {

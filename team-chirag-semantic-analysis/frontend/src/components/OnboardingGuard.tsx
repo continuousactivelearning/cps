@@ -16,8 +16,7 @@ export const OnboardingGuard: React.FC<OnboardingGuardProps> = ({ children }) =>
         // Use the robust utility function to check onboarding status
         const isCompleted = hasCompletedOnboarding();
         setStatus(isCompleted ? 'completed' : 'incomplete');
-      } catch (error) {
-        console.error('Error checking onboarding status:', error);
+      } catch {
         setStatus('incomplete');
       }
     };

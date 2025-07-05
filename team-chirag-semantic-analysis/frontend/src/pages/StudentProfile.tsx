@@ -52,19 +52,14 @@ const StudentProfile = () => {
         let localUserData = null;
         if (raw) {
           localUserData = JSON.parse(raw);
-          console.log('📦 Found localStorage data:', localUserData);
         }
 
         // If we have user email from localStorage, fetch from MongoDB
         const userEmail = localUserData?.email;
         
         if (userEmail) {
-          console.log('🔍 Fetching profile for:', userEmail);
-          console.log('🔍 Auth source: localStorage');
-          
           try {
             const apiProfile = await userService.getUserProfile(userEmail);
-            console.log('📊 API Profile response:', apiProfile);
             
             if (apiProfile) {
               // Transform API response to component state
@@ -80,10 +75,8 @@ const StudentProfile = () => {
                 focusAreas: apiProfile.knownConcepts?.topics?.map(topic => topic.name) || [],
                 learningGoals: [] // This might need to be added to the backend model
               };
-              console.log('✅ Transformed profile:', transformedProfile);
               setProfile(transformedProfile);
             } else {
-              console.log('⚠️ No API profile found, using localStorage data');
               // Fallback to localStorage user info
               setProfile({
                 name: localUserData?.name || 'User',
@@ -91,8 +84,7 @@ const StudentProfile = () => {
                 profileImage: localUserData?.avatar || undefined,
               });
             }
-          } catch (apiError) {
-            console.error('❌ API Error:', apiError);
+          } catch {
             // Fallback to localStorage user info
             setProfile({
               name: localUserData?.name || 'User',
@@ -101,10 +93,8 @@ const StudentProfile = () => {
             });
           }
         } else {
-          console.log('🔍 No authenticated user, checking localStorage only');
           // Fallback to localStorage for non-authenticated users
           if (localUserData) {
-            console.log('📦 Using localStorage data only');
             setProfile({
               name: localUserData.name || 'User',
               email: localUserData.email,
@@ -117,12 +107,10 @@ const StudentProfile = () => {
               focusAreas: localUserData.focusAreas || [],
             });
           } else {
-            console.log('⚠️ No user data found anywhere');
             setProfile({});
           }
         }
-      } catch (err) {
-        console.error('❌ Error fetching user profile:', err);
+      } catch {
         setError('Failed to load profile. Please try again.');
         
         // Final fallback to localStorage on error
@@ -160,12 +148,10 @@ const StudentProfile = () => {
         try {
           const userEmail = profile.email;
           if (userEmail) {
-            console.log('Updating avatar in backend for:', userEmail);
             await userService.updateUserAvatar(userEmail, imageDataUrl);
-            console.log('Avatar updated successfully in backend');
           }
-        } catch (error) {
-          console.error('Failed to update avatar in backend:', error);
+        } catch {
+          // Avatar update failed, but local update is still applied
         }
       };
       reader.readAsDataURL(file);

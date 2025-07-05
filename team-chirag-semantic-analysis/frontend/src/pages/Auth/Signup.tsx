@@ -58,10 +58,8 @@ const Signup: React.FC = () => {
   const onSubmit = async (data: SignupFormData) => {
     setLoading(true);
     try {
-      console.log('Signup attempt with:', data.email, data.name);
-      
       // Call backend registration API
-      const response = await fetch('http://localhost:5000/auth/register', {
+      const response = await fetch(`${import.meta.env.VITE_AUTH_BASE_URL}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +86,6 @@ const Signup: React.FC = () => {
       setSnackbarOpen(true);
       setNavigateOnSnackbarClose(true);
     } catch (error) {
-      console.error('Signup error:', error);
       setSnackbarMsg(error instanceof Error ? error.message : 'Signup failed. Please try again.');
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
@@ -110,13 +107,13 @@ const Signup: React.FC = () => {
     const top = window.innerHeight / 2 - height / 2;
 
     const authWindow = window.open(
-      'http://localhost:5000/auth/google',
+      `${import.meta.env.VITE_AUTH_BASE_URL}/google`,
       '_blank',
       `width=${width},height=${height},top=${top},left=${left}`
     );
 
     const messageListener = (event: MessageEvent) => {
-      if (event.origin !== 'http://localhost:5000') return;
+      if (event.origin !== import.meta.env.VITE_API_BASE_URL) return;
 
       const { token, user } = event.data;
 

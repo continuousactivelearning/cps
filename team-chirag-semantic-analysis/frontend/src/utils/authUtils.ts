@@ -10,16 +10,10 @@ export const hasCompletedOnboarding = (): boolean => {
     // Check user profile data from localStorage
     const userProfileStr = localStorage.getItem('userProfile');
     if (!userProfileStr) {
-      console.log('❌ No user profile found in localStorage');
       return false;
     }
 
     const userProfile: UserProfile = JSON.parse(userProfileStr);
-    console.log('🔍 Checking onboarding status for user:', {
-      email: userProfile.email,
-      hasCompletedOnboarding: userProfile.hasCompletedOnboarding,
-      isFirstTime: userProfile.isFirstTime
-    });
     
     // Check the hasCompletedOnboarding flag from backend
     if (userProfile.hasCompletedOnboarding !== undefined) {
@@ -43,10 +37,8 @@ export const hasCompletedOnboarding = (): boolean => {
       userProfile.knownConcepts.topics.length > 0;
 
     const result = !!(hasUserInfo && hasKnownConcepts);
-    console.log('🔍 Fallback onboarding check result:', result);
     return result;
-  } catch (error) {
-    console.error('Error checking onboarding status:', error);
+  } catch {
     return false;
   }
 };
@@ -66,8 +58,7 @@ export const getCurrentUserProfile = (): UserProfile | null => {
   try {
     const userProfileStr = localStorage.getItem('userProfile');
     return userProfileStr ? JSON.parse(userProfileStr) : null;
-  } catch (error) {
-    console.error('Error getting user profile:', error);
+  } catch {
     return null;
   }
 };
