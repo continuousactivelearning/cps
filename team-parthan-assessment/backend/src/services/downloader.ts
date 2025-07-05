@@ -26,6 +26,7 @@ export async function downloadSubtitles(
   const commonArgs = [
     '--cookies', cookiesFile,
     '--proxy', 'scraperapi:7c98f3382f2b5c0fc248ac58a2ee9d91@proxy-server.scraperapi.com:8001',
+    '--no-check-certificate',
     '--write-auto-sub',
     '--write-sub',
     '--skip-download',
