@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import Graph from './components/Graph';
-import Quiz from './components/Quiz';
+// import Graph from './components/Graph'; // Unused import
+// import Quiz from './components/Quiz'; // Unused import
 import LandingPage from './components/LandingPage';
 import AuthForms from './components/AuthForms';
-import UserProfile from './components/UserProfile';
-import { v4 as uuidv4 } from 'uuid';
+// import UserProfile from './components/UserProfile'; // Unused import
+// import { v4 as uuidv4 } from 'uuid'; // Unused import
 import AdminDashboard from './components/AdminDashboard';
 import StudentDashboard from './components/StudentDashboard';
+import LearningInterfaceComponent from './components/LearningInterface';
 import { WebSocketProvider, useWebSocket } from './contexts/WebSocketContext';
-import { API_ENDPOINTS, API_BASE_URL } from './config/api';
+// import { API_ENDPOINTS, API_BASE_URL } from './config/api'; // Unused import
+import GlobalStyles from './components/GlobalStyles';
 
-// Type definitions
+
+// Type definitions (unused - commented out)
+/*
 type PrereqData = {
   topic: string;
   prerequisites: string[];
@@ -24,6 +29,7 @@ type MCQ = {
   options: string[];
   answer: string;
 };
+*/
 
 interface User {
   id: string;
@@ -37,7 +43,137 @@ interface User {
   avatar?: string;
 }
 
-function AppContent() {
+// Auth wrapper component
+function AuthWrapper() {
+  const [user, setUser] = useState<User | null>(null);
+  const [showAuthForms, setShowAuthForms] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { connect: connectWebSocket, disconnect: disconnectWebSocket } = useWebSocket();
+
+  // Check authentication on mount
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('user');
+
+    if (token && userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+        // Set default authorization header for all requests
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        // Connect to WebSocket
+        connectWebSocket(token);
+
+        // Redirect to appropriate dashboard if on root
+        if (location.pathname === '/') {
+          if (parsedUser.role === 'admin') {
+            navigate('/admin');
+          } else if (parsedUser.role === 'student') {
+            navigate('/student');
+          }
+        }
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+      }
+    }
+  }, [connectWebSocket, navigate, location.pathname]);
+
+  const handleAuthSuccess = (token: string, userData: User) => {
+    setUser(userData);
+    setShowAuthForms(false);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    // Connect to WebSocket after successful authentication
+    connectWebSocket(token);
+
+    // Navigate to appropriate dashboard
+    if (userData.role === 'admin') {
+      navigate('/admin');
+    } else if (userData.role === 'student') {
+      navigate('/student');
+    }
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setShowAuthForms(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    delete axios.defaults.headers.common['Authorization'];
+    // Disconnect WebSocket
+    disconnectWebSocket();
+    // Navigate to home page
+    navigate('/');
+  };
+
+  const handleBackFromLearning = () => {
+    // Refresh user data from localStorage before navigating back
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+      } catch (error) {
+        console.error('Error parsing updated user data:', error);
+      }
+    }
+    navigate('/student');
+  };
+
+  return (
+    <>
+      <GlobalStyles />
+      {showAuthForms && (
+        <AuthForms onAuthSuccess={handleAuthSuccess} onClose={() => setShowAuthForms(false)} />
+      )}
+
+      <Routes>
+        {/* Landing page */}
+        <Route path="/" element={<LandingPage onStartLearning={() => setShowAuthForms(true)} onAuthClick={() => setShowAuthForms(true)} />} />
+
+        {/* Auth route */}
+        <Route path="/auth" element={<AuthForms onAuthSuccess={handleAuthSuccess} onClose={() => navigate('/')} />} />
+
+        {/* Admin routes */}
+        <Route path="/admin/*" element={
+          user && user.role === 'admin' ? (
+            <AdminDashboard user={user} onLogout={handleLogout} />
+          ) : (
+            <Navigate to="/auth" replace />
+          )
+        } />
+
+        {/* Learning interface route - must come before wildcard route */}
+        <Route path="/student/learn" element={
+          user && user.role === 'student' ? (
+            <LearningInterfaceComponent user={user} onBack={handleBackFromLearning} />
+          ) : (
+            <Navigate to="/auth" replace />
+          )
+        } />
+
+        {/* Student dashboard routes */}
+        <Route path="/student/*" element={
+          user && user.role === 'student' ? (
+            <StudentDashboard user={user} onLogout={handleLogout} onStartLearning={() => navigate('/student/learn')} />
+          ) : (
+            <Navigate to="/auth" replace />
+          )
+        } />
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
+  );
+}
+
+
+
+/* Learning Interface Component (unused - using external component)
+function LearningInterface({ user, onBack }: { user: User; onBack: () => void }) {
   const [topic, setTopic] = useState('');
   const [data, setData] = useState<PrereqData | null>(null);
   const [mcqs, setMcqs] = useState<MCQ[] | null>(null);
@@ -50,15 +186,7 @@ function AppContent() {
   const [attemptsToday, setAttemptsToday] = useState(0);
   const [canAttempt, setCanAttempt] = useState(true);
   const [quizPassed, setQuizPassed] = useState(false);
-
-  // Authentication state
-  const [user, setUser] = useState<User | null>(null);
-  const [showAuthForms, setShowAuthForms] = useState(false);
-  const [showUserProfile, setShowUserProfile] = useState(false);
-  const [showLearningInterface, setShowLearningInterface] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'checking' | 'connected' | 'disconnected'>('checking');
-
-  const { connect: connectWebSocket, disconnect: disconnectWebSocket } = useWebSocket();
 
   // Function to refresh user data
   const refreshUserData = async () => {
@@ -67,46 +195,16 @@ function AppContent() {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       const updatedUser = response.data;
-      setUser(updatedUser);
       localStorage.setItem('user', JSON.stringify(updatedUser));
     } catch (error: any) {
       console.error('Error refreshing user data:', error);
-      
-      // Handle authentication errors
-      if (error.response && error.response.status === 401) {
-        console.log('Token expired, logging out user');
-        handleLogout();
-      }
-      // Don't show alert for refresh errors as they're not critical
     }
   };
-
-  // Check authentication on mount
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
-    
-    if (token && userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        setUser(parsedUser);
-        // Set default authorization header for all requests
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        // Connect to WebSocket
-        connectWebSocket(token);
-      } catch (error) {
-        console.error('Error parsing user data:', error);
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-      }
-    }
-  }, [connectWebSocket]);
 
   // Check remaining attempts on mount or topic change
   useEffect(() => {
     const checkAttempts = async () => {
-      console.log('checkAttempts called with topic:', topic, 'data:', !!data);
-      if (!topic || !data) return; // Only check if we have both topic and prerequisite data
+      if (!topic || !data) return;
       try {
         const res = await axios.get(API_ENDPOINTS.QUIZ_ATTEMPTS, {
           params: { topic },
@@ -115,88 +213,26 @@ function AppContent() {
         setCanAttempt(res.data.canAttempt);
       } catch (err) {
         console.error('Error checking quiz attempts:', err);
-        // Don't show alert here as this is just a background check
       }
     };
     checkAttempts();
-  }, [topic, data]); // Add data as dependency
-
-  // Test connection when learning interface is opened
-  useEffect(() => {
-    if (showLearningInterface) {
-      testConnection();
-    }
-  }, [showLearningInterface]);
-
-  const handleAuthSuccess = (token: string, userData: User) => {
-    setUser(userData);
-    setShowAuthForms(false);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    // Connect to WebSocket after successful authentication
-    connectWebSocket(token);
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-    setShowUserProfile(false);
-    setShowLearningInterface(false);
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    delete axios.defaults.headers.common['Authorization'];
-    // Disconnect WebSocket
-    disconnectWebSocket();
-    // Reset all app state
-    setTopic('');
-    setData(null);
-    setMcqs(null);
-    setLoading(false);
-    setIsAcknowledged(false);
-    setQuizLoading(false);
-    setSelectedConcept(null);
-    setConceptSummary('');
-    setCurrentQuizSessionId(uuidv4());
-    setAttemptsToday(0);
-    setCanAttempt(true);
-    setQuizPassed(false);
-  };
-
-  const handleStartLearning = () => {
-    setShowLearningInterface(true);
-    
-    // Check if there's a selected topic for quiz from the dashboard
-    const selectedTopicForQuiz = localStorage.getItem('selectedTopicForQuiz');
-    if (selectedTopicForQuiz) {
-      setTopic(selectedTopicForQuiz);
-      localStorage.removeItem('selectedTopicForQuiz'); // Clear it after use
-    }
-  };
-
-  // Handle selected topic when learning interface is shown
-  useEffect(() => {
-    if (showLearningInterface) {
-      const selectedTopicForQuiz = localStorage.getItem('selectedTopicForQuiz');
-      if (selectedTopicForQuiz) {
-        setTopic(selectedTopicForQuiz);
-        localStorage.removeItem('selectedTopicForQuiz');
-      }
-    }
-  }, [showLearningInterface]);
+  }, [topic, data]);
 
   // Auto-load prerequisites when topic is set from dashboard
   useEffect(() => {
-    const autoLoadPrerequisites = async () => {
-      if (topic && showLearningInterface && !data && !loading) {
-        // Check if this topic already has prerequisites in user data
-        const userPrereq = user?.prerequisites?.find(p => p.topic === topic);
-        if (userPrereq) {
-          setData(userPrereq);
-          setIsAcknowledged(true); // Auto-acknowledge since user already has prerequisites
-        }
+    const selectedTopicForQuiz = localStorage.getItem('selectedTopicForQuiz');
+    if (selectedTopicForQuiz) {
+      setTopic(selectedTopicForQuiz);
+      localStorage.removeItem('selectedTopicForQuiz');
+
+      // Check if this topic already has prerequisites in user data
+      const userPrereq = user?.prerequisites?.find(p => p.topic === selectedTopicForQuiz);
+      if (userPrereq) {
+        setData(userPrereq);
+        setIsAcknowledged(true);
       }
-    };
-    
-    autoLoadPrerequisites();
-  }, [topic, showLearningInterface, user, data, loading]);
+    }
+  }, [user]);
 
   // Test connection to backend
   const testConnection = async (): Promise<boolean> => {
@@ -212,13 +248,16 @@ function AppContent() {
     }
   };
 
+  useEffect(() => {
+    testConnection();
+  }, []);
+
   const handleSubmit = async () => {
     if (!topic.trim()) {
       alert('Please enter a topic.');
       return;
     }
 
-    // Test connection first
     const isConnected = await testConnection();
     if (!isConnected) {
       alert(`Cannot connect to server. Please make sure the backend is running on ${API_BASE_URL}`);
@@ -237,29 +276,12 @@ function AppContent() {
     try {
       const res = await axios.post(API_ENDPOINTS.PREREQUISITES, { topic });
       setData(res.data);
-      // Refresh user data to get updated topics and prerequisites
       await refreshUserData();
     } catch (err: any) {
       console.error('Error fetching prerequisites:', err);
-      
-      // Provide more specific error messages
-      if (err.response) {
-        // Server responded with error status
-        if (err.response.status === 401) {
-          alert('Authentication error. Please log in again.');
-          handleLogout();
-        } else if (err.response.status === 400) {
-          alert(`Invalid request: ${err.response.data.error || 'Please check your input.'}`);
-        } else if (err.response.status === 500) {
-          alert('Server error. Please try again later.');
-        } else {
-          alert(`Error: ${err.response.data.error || 'Failed to fetch prerequisites.'}`);
-        }
-      } else if (err.request) {
-        // Network error - server not responding
-        alert('Cannot connect to server. Please check if the backend is running.');
+      if (err.response?.status === 401) {
+        alert('Authentication error. Please log in again.');
       } else {
-        // Other error
         alert('Failed to fetch prerequisites. Please try again.');
       }
     } finally {
@@ -268,13 +290,8 @@ function AppContent() {
   };
 
   const fetchMCQs = async (resetCache: boolean = false) => {
-    if (!data || (!isAcknowledged && !resetCache)) {
-      if (!data) console.warn("No prerequisite data to fetch MCQs for.");
-      if (!isAcknowledged && !resetCache) console.warn("Prerequisites not acknowledged yet.");
-      return;
-    }
+    if (!data || (!isAcknowledged && !resetCache)) return;
 
-    // Check attempts before fetching
     try {
       const res = await axios.get(API_ENDPOINTS.QUIZ_ATTEMPTS, {
         params: { topic: data.topic },
@@ -287,7 +304,6 @@ function AppContent() {
       }
     } catch (err) {
       console.error('Error checking quiz attempts:', err);
-      // Don't show alert here, just log the error
       return;
     }
 
@@ -302,7 +318,6 @@ function AppContent() {
         restart: resetCache,
       });
       setMcqs(res.data);
-      console.log("MCQs fetched successfully. Current quiz ID:", currentQuizSessionId);
     } catch (err) {
       console.error('Error fetching MCQs:', err);
       alert('Failed to fetch quiz questions. Please try again.');
@@ -327,9 +342,7 @@ function AppContent() {
   };
 
   const handleQuizRestart = async (score: number, passed: boolean) => {
-    console.log("App.tsx: Quiz restart requested by Quiz component. Score:", score, "Passed:", passed);
     if (passed) {
-      console.log("Restart blocked: User passed the quiz.");
       setQuizPassed(true);
       return;
     }
@@ -341,12 +354,10 @@ function AppContent() {
       setAttemptsToday(res.data.attemptsToday);
       setCanAttempt(res.data.canAttempt);
       if (!res.data.canAttempt) {
-        console.log("Restart blocked: Max attempts reached.");
         return;
       }
     } catch (err) {
       console.error('Error checking quiz attempts:', err);
-      // Don't show alert here, just log the error and return
       return;
     }
 
@@ -366,7 +377,6 @@ function AppContent() {
       });
       setAttemptsToday((prev) => prev + 1);
       setCanAttempt(attemptsToday + 1 < 3);
-      // Refresh user data to get updated quiz scores
       await refreshUserData();
     } catch (err) {
       console.error('Error recording quiz attempt:', err);
@@ -374,309 +384,154 @@ function AppContent() {
     }
   };
 
-  // If user is authenticated and wants to learn, show learning interface
-  if (user && showLearningInterface) {
-    return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(90deg, #6366f1 0%, #2dd4bf 100%)' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-            <h1 style={{ color: 'white', fontSize: '2rem', fontWeight: 'bold' }}>LearnPath</h1>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-              {/* Connection Status Indicator */}
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '8px 12px',
-                background: connectionStatus === 'connected' ? 'rgba(16, 185, 129, 0.2)' :
-                           connectionStatus === 'checking' ? 'rgba(245, 158, 11, 0.2)' :
-                           'rgba(239, 68, 68, 0.2)',
+  return (
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(90deg, #6366f1 0%, #2dd4bf 100%)' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
+          <h1 style={{ color: 'white', fontSize: '2rem', fontWeight: 'bold' }}>LearnPath</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <button
+              onClick={onBack}
+              style={{
+                padding: '10px 20px',
+                background: 'rgba(255, 255, 255, 0.2)',
+                color: 'white',
+                border: 'none',
                 borderRadius: '8px',
-                border: '1px solid',
-                borderColor: connectionStatus === 'connected' ? '#10b981' :
+                cursor: 'pointer',
+                fontWeight: '600'
+              }}
+            >
+              ← Back to Dashboard
+            </button>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '8px 12px',
+              background: connectionStatus === 'connected' ? 'rgba(16, 185, 129, 0.2)' :
+                         connectionStatus === 'checking' ? 'rgba(245, 158, 11, 0.2)' :
+                         'rgba(239, 68, 68, 0.2)',
+              borderRadius: '8px',
+              border: '1px solid',
+              borderColor: connectionStatus === 'connected' ? '#10b981' :
+                         connectionStatus === 'checking' ? '#f59e0b' :
+                         '#ef4444',
+            }}>
+              <div style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                background: connectionStatus === 'connected' ? '#10b981' :
                            connectionStatus === 'checking' ? '#f59e0b' :
                            '#ef4444',
-              }}>
-                <div style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  background: connectionStatus === 'connected' ? '#10b981' :
-                             connectionStatus === 'checking' ? '#f59e0b' :
-                             '#ef4444',
-                  animation: connectionStatus === 'checking' ? 'pulse 1s infinite' : 'none',
-                }} />
-                <span style={{
-                  color: 'white',
-                  fontSize: '14px',
-                  fontWeight: '500',
-                }}>
-                  {connectionStatus === 'connected' ? 'Connected' :
-                   connectionStatus === 'checking' ? 'Checking...' :
-                   'Disconnected'}
-                </span>
-                {connectionStatus === 'disconnected' && (
-                  <button
-                    onClick={testConnection}
-                    style={{
-                      background: 'rgba(255,255,255,0.2)',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      padding: '4px 8px',
-                      cursor: 'pointer',
-                      fontSize: '12px',
-                      marginLeft: '8px',
-                    }}
-                  >
-                    Retry
-                  </button>
-                )}
-              </div>
-              
-              <button
-                onClick={() => setShowLearningInterface(false)}
-                style={{
-                  background: 'rgba(255,255,255,0.2)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  padding: '10px 20px',
-                  cursor: 'pointer',
-                  fontSize: '16px',
-                }}
-              >
-                Back to Dashboard
-              </button>
+              }} />
+              <span style={{ color: 'white', fontSize: '14px', fontWeight: '500' }}>
+                {connectionStatus === 'connected' ? 'Connected' :
+                 connectionStatus === 'checking' ? 'Checking...' :
+                 'Disconnected'}
+              </span>
             </div>
-          </div>
-          
-          <div style={{ background: 'white', borderRadius: '12px', padding: '30px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}>
-            <div style={{ marginBottom: '30px' }}>
-              <input
-                type="text"
-                value={topic}
-                onChange={(e) => {
-                  console.log('Topic changed to:', e.target.value);
-                  setTopic(e.target.value);
-                }}
-                placeholder="Enter a topic you want to learn..."
-                style={{
-                  width: '100%',
-                  padding: '15px',
-                  fontSize: '18px',
-                  border: '2px solid #e5e7eb',
-                  borderRadius: '8px',
-                  marginBottom: '20px',
-                }}
-                onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
-              />
-              
-              {connectionStatus === 'disconnected' && (
-                <div style={{
-                  background: '#fef2f2',
-                  border: '1px solid #fecaca',
-                  borderRadius: '8px',
-                  padding: '12px',
-                  marginBottom: '20px',
-                  color: '#991b1b',
-                  fontSize: '14px',
-                }}>
-                  <strong>⚠️ Connection Issue:</strong> Cannot connect to the server. Please make sure:
-                  <ul style={{ margin: '8px 0 0 20px', padding: 0 }}>
-                    <li>The backend server is running on {API_BASE_URL}</li>
-                    <li>You are logged in with a valid account</li>
-                    <li>There are no firewall or network issues</li>
-                  </ul>
-                </div>
-              )}
-              
-              <button
-                onClick={handleSubmit}
-                disabled={loading || connectionStatus === 'disconnected'}
-                style={{
-                  background: connectionStatus === 'disconnected' ? '#9ca3af' : '#6366f1',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  padding: '15px 30px',
-                  fontSize: '18px',
-                  cursor: (loading || connectionStatus === 'disconnected') ? 'not-allowed' : 'pointer',
-                  opacity: (loading || connectionStatus === 'disconnected') ? 0.6 : 1,
-                }}
-              >
-                {loading ? 'Loading...' : connectionStatus === 'disconnected' ? 'Server Disconnected' : 'Generate Prerequisites'}
-              </button>
-            </div>
-
-            {data && (
-              <div>
-                <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>
-                  Prerequisites for: {data.topic}
-                </h2>
-                
-                <div style={{ display: 'flex', gap: '30px', marginBottom: '30px' }}>
-                  {/* Left side - Prerequisite Summary */}
-                  <div style={{ flex: '1', minWidth: '300px' }}>
-                    <h3 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '15px', color: '#374151' }}>
-                      Prerequisites Summary
-                    </h3>
-                    <div style={{
-                      background: '#f9fafb',
-                      padding: '20px',
-                      borderRadius: '8px',
-                      lineHeight: '1.6',
-                      border: '1px solid #e5e7eb',
-                      minHeight: '400px'
-                    }}>
-                      <p style={{ marginBottom: '15px', color: '#4b5563' }}>
-                        To successfully learn <strong>{data.topic}</strong>, you should have a solid understanding of the following concepts:
-                      </p>
-                      <ol style={{ paddingLeft: '20px', color: '#374151' }}>
-                        {data.prerequisites.map((prereq, index) => (
-                          <li key={index} style={{ marginBottom: '10px' }}>
-                            <strong>{prereq}</strong>
-                            <button
-                              onClick={() => handleConceptClick(prereq)}
-                              style={{
-                                background: 'none',
-                                border: 'none',
-                                color: '#6366f1',
-                                cursor: 'pointer',
-                                fontSize: '14px',
-                                marginLeft: '10px',
-                                textDecoration: 'underline'
-                              }}
-                            >
-                              Learn more
-                            </button>
-                          </li>
-                        ))}
-                      </ol>
-                      {selectedConcept && (
-                        <div style={{ marginTop: '20px', padding: '15px', background: '#e0f2fe', borderRadius: '6px', border: '1px solid #0288d1' }}>
-                          <h4 style={{ marginBottom: '10px', color: '#0277bd' }}>{selectedConcept}</h4>
-                          <p style={{ color: '#01579b', lineHeight: '1.5' }}>{conceptSummary}</p>
-                          <button
-                            onClick={() => setSelectedConcept(null)}
-                            style={{
-                              background: '#0288d1',
-                              color: 'white',
-                              border: 'none',
-                              borderRadius: '4px',
-                              padding: '5px 10px',
-                              cursor: 'pointer',
-                              fontSize: '12px',
-                              marginTop: '10px'
-                            }}
-                          >
-                            Close
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Right side - Graph */}
-                  <div style={{ flex: '1', minWidth: '400px' }}>
-                    <h3 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '15px', color: '#374151' }}>
-                      Learning Path Visualization
-                    </h3>
-                    <Graph topic={data.topic} prerequisites={data.prerequisites} />
-                  </div>
-                </div>
-
-                {!isAcknowledged && (
-                  <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                    <button
-                      onClick={() => setIsAcknowledged(true)}
-                      style={{
-                        background: '#10b981',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        padding: '15px 30px',
-                        fontSize: '18px',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      I Understand These Prerequisites
-                    </button>
-                  </div>
-                )}
-
-                {isAcknowledged && !mcqs && (
-                  <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                    <button
-                      onClick={() => fetchMCQs()}
-                      disabled={quizLoading}
-                      style={{
-                        background: '#6366f1',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '8px',
-                        padding: '15px 30px',
-                        fontSize: '18px',
-                        cursor: quizLoading ? 'not-allowed' : 'pointer',
-                        opacity: quizLoading ? 0.6 : 1,
-                      }}
-                    >
-                      {quizLoading ? 'Generating Quiz...' : 'Take Quiz'}
-                    </button>
-                  </div>
-                )}
-
-                {mcqs && (
-                  <Quiz
-                    mcqs={mcqs}
-                    quizId={currentQuizSessionId}
-                    onRestartQuiz={handleQuizRestart}
-                    onSubmitQuiz={handleQuizSubmit}
-                    canAttempt={canAttempt}
-                    attemptsToday={attemptsToday}
-                    quizPassed={quizPassed}
-                    topic={data.topic}
-                    onLearningPathGenerated={refreshUserData}
-                  />
-                )}
-              </div>
-            )}
           </div>
         </div>
-      </div>
-    );
-  }
 
-  return (
-    <>
-      {showAuthForms && (
-        <AuthForms onAuthSuccess={handleAuthSuccess} onClose={() => setShowAuthForms(false)} />
-      )}
-      {user && user.role === 'admin' ? (
-        <AdminDashboard user={user} onLogout={handleLogout} />
-      ) : user && user.role === 'student' ? (
-        <StudentDashboard 
-          user={user} 
-          onLogout={handleLogout} 
-          onStartLearning={handleStartLearning}
-        />
-      ) : (
-        <LandingPage 
-          onStartLearning={() => setShowAuthForms(true)}
-          onAuthClick={() => setShowAuthForms(true)}
-        />
-      )}
-      {showUserProfile && user && (
-        <UserProfile user={user} onLogout={handleLogout} onClose={() => setShowUserProfile(false)} />
-      )}
-    </>
+        // Learning Interface Content
+        <div style={{ background: 'white', borderRadius: '12px', padding: '30px', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
+          {!data ? (
+            <div>
+              <h2 style={{ marginBottom: '20px', color: '#1f2937' }}>Enter a Topic to Learn</h2>
+              <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+                <input
+                  type="text"
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                  placeholder="e.g., Machine Learning, React, Python..."
+                  style={{
+                    flex: 1,
+                    padding: '12px',
+                    border: '2px solid #e5e7eb',
+                    borderRadius: '8px',
+                    fontSize: '16px'
+                  }}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
+                />
+                <button
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  style={{
+                    padding: '12px 24px',
+                    background: loading ? '#9ca3af' : '#6366f1',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    fontWeight: '600'
+                  }}
+                >
+                  {loading ? 'Loading...' : 'Get Prerequisites'}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              {data && <Graph topic={data.topic} prerequisites={data.prerequisites} />}
+              {selectedConcept && (
+                <div style={{ marginTop: '20px', padding: '20px', background: '#f9fafb', borderRadius: '8px' }}>
+                  <h3 style={{ marginBottom: '10px', color: '#1f2937' }}>{selectedConcept}</h3>
+                  <div style={{ color: '#4b5563', lineHeight: '1.6' }}>
+                    {conceptSummary.split('\n').map((line, index) => (
+                      <p key={index} style={{ margin: '8px 0' }}>{line}</p>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {data && !mcqs && isAcknowledged && (
+                <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                  <button
+                    onClick={() => fetchMCQs()}
+                    disabled={quizLoading || !canAttempt}
+                    style={{
+                      padding: '12px 24px',
+                      background: quizLoading || !canAttempt ? '#9ca3af' : '#10b981',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: quizLoading || !canAttempt ? 'not-allowed' : 'pointer',
+                      fontWeight: '600'
+                    }}
+                  >
+                    {quizLoading ? 'Loading Quiz...' : !canAttempt ? `Max attempts reached (${attemptsToday}/3)` : 'Start Quiz'}
+                  </button>
+                </div>
+              )}
+              {mcqs && (
+                <Quiz
+                  mcqs={mcqs}
+                  quizId={currentQuizSessionId}
+                  onSubmitQuiz={handleQuizSubmit}
+                  onRestartQuiz={handleQuizRestart}
+                  attemptsToday={attemptsToday}
+                  canAttempt={canAttempt}
+                  quizPassed={quizPassed}
+                  topic={data?.topic || ''}
+                  onLearningPathGenerated={refreshUserData}
+                  onBackToHome={handleBackFromLearning}
+                />
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
+*/
+
 
 function App() {
   return (
     <WebSocketProvider>
-      <AppContent />
+      <AuthWrapper />
     </WebSocketProvider>
   );
 }
