@@ -278,31 +278,50 @@ const generateUserProfile = async (formData: OnboardingDataWithSubtopics): Promi
 // Function to save user profile
 const saveUserProfile = async (userProfile: UserProfile): Promise<void> => {
   try {
-    // Save to localStorage
+    // Save to localStorage for backup
     localStorage.setItem('userProfile', JSON.stringify(userProfile));
-    
-    // Log the profile structure for debugging
+
+    // Log for debugging
     console.log('User profile generated:', userProfile);
     console.log(`Total topics: ${userProfile.knownConcepts.totalTopics}`);
     console.log(`Total subtopics: ${userProfile.knownConcepts.totalSubtopics}`);
-    
-    // Also create a downloadable JSON file for the user
-    const dataStr = JSON.stringify(userProfile, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    
-    // Use timestamp for unique filename
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const exportFileDefaultName = `user_profile_${timestamp}.json`;
-    
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-    
-    console.log('User profile saved successfully:', userProfile);
+
+    // ✅ Send to backend API instead of downloading JSON
+    const response = await fetch('http://localhost:5000/api/users/onboarding', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: userProfile.userInfo.email,  // Email is used to identify user in DB
+        userInfo: {
+          programmingExperience: userProfile.userInfo.programmingExperience,
+          knownLanguages: userProfile.userInfo.knownLanguages,
+          dsaExperience: userProfile.userInfo.dsaExperience,
+          preferredPace: userProfile.userInfo.preferredPace
+        },
+        knownConcepts: userProfile.knownConcepts
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to save user profile to database');
+    }
+    // Also allow JSON download after saving to DB
+const dataStr = JSON.stringify(userProfile, null, 2);
+const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+const exportFileDefaultName = `user_profile_${timestamp}.json`;
+
+const linkElement = document.createElement('a');
+linkElement.setAttribute('href', dataUri);
+linkElement.setAttribute('download', exportFileDefaultName);
+linkElement.click();
+
+    console.log('✅ User profile saved to MongoDB Atlas successfully');
   } catch (error) {
-    console.error('Error saving user profile:', error);
-    // Fallback: save to localStorage only
+    console.error('❌ Error saving user profile:', error);
+    // Still fallback to localStorage
     localStorage.setItem('userProfile', JSON.stringify(userProfile));
     throw error;
   }
