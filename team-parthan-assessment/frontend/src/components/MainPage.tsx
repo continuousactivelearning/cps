@@ -941,7 +941,7 @@ const MainPage: React.FC = () => {
                     <Upload className="w-12 h-12 md:w-16 md:h-16 text-gray-300 mx-auto mb-4" />
                     <h3 className="text-base md:text-lg font-medium text-gray-900 mb-2">No custom content yet</h3>
                     <p className="text-gray-600 mb-4 text-sm md:text-base px-4">
-                      Upload YouTube videos, PDFs, or images to generate AI-powered quizzes
+                      Upload PDFs to generate AI-powered quizzes
                     </p>
                     <button
                       onClick={() => setShowUploadModal(true)}
