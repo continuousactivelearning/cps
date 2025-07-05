@@ -25,6 +25,7 @@
     "mongoose": "^8.15.2",
     "multer": "^2.0.1",
     "nodemailer": "^7.0.3",
+    "openai": "^5.8.2",
     "pdf-parse": "^1.1.1",
     "sharp": "^0.34.2",
     "tesseract.js": "^6.0.1",
