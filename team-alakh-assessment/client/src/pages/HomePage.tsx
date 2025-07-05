@@ -470,9 +470,14 @@ const HomePage: React.FC = () => {
             {/* Desktop Navigation */}
             <div className="flex items-center md:gap-4">
               <ThemeToggle />
+              {userEmail && (
+                <div className="hidden lg:block bg-white dark:bg-gray-800 px-4 py-2 rounded-full shadow-sm border dark:border-gray-600 text-black dark:text-white font-medium">
+                  ● {userEmail}
+                </div>
+              )}
               <Link
                 to="/login"
-                className="flex gap-1 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-4 py-2 rounded-lg transition-colors"
+                className="flex items-center justify-center gap-1 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-4 py-2 rounded-lg transition-colors"
               >
                 <LogIn size={20} color="currentColor" /> <div className="hidden md:block">Sign In</div>
               </Link>
@@ -939,7 +944,7 @@ const HomePage: React.FC = () => {
             ].map((item, idx) => (
               <motion.div
                 key={item.src}
-                className="flex flex-col items-center w-64 sm:w-[90%] md:w-[60%] lg:w-[40%] xl:w-[30%] min-w-[100vw] sm:min-w-[90vw] md:min-w-[60vw] snap-center"
+                className="flex flex-col items-center w-64 sm:w-[20%] min-w-[100vw] sm:min-w-[23.7%] snap-center"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
@@ -949,7 +954,7 @@ const HomePage: React.FC = () => {
                   alt={item.alt}
                   className="rounded-xl shadow-lg w-full h-auto mb-4 transition-transform hover:scale-105 bg-white/20 border border-blue-200 object-contain"
                 />
-                <p className="text-white/90 text-center text-sm sm:text-base bg-blue-900/60 rounded-lg px-4 py-2 shadow w-full">
+                <p className="text-white/90 text-center text-sm sm:text-base bg-blue-900/60 rounded-lg px-4 py-4 shadow w-full">
                   {item.desc}
                 </p>
               </motion.div>
