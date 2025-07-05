@@ -1180,127 +1180,178 @@ const MainPage: React.FC = () => {
 
           <div className="space-y-6">
             {/* Content Type Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                Choose Content Type
-              </label>
-              <div className="grid grid-cols-3 gap-3">
-                <button
-                  onClick={() => setUploadType("youtube")}
-                  className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "youtube"
-                    ? "border-red-500 bg-red-50"
-                    : "border-gray-200 hover:border-gray-300"
-                    }`}
-                >
-                  <Youtube className="w-6 h-6 md:w-8 md:h-8 text-red-500 mx-auto mb-2" />
-                  <div className="text-xs md:text-sm font-medium">YouTube</div>
-                </button>
-                <button
-                  onClick={() => setUploadType("pdf")}
-                  className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "pdf"
-                    ? "border-red-500 bg-red-50"
-                    : "border-gray-200 hover:border-gray-300"
-                    }`}
-                >
-                  <FileText className="w-6 h-6 md:w-8 md:h-8 text-red-500 mx-auto mb-2" />
-                  <div className="text-xs md:text-sm font-medium">PDF</div>
-                </button>
-                <button
-                  onClick={() => setUploadType("image")}
-                  className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "image"
-                    ? "border-blue-500 bg-blue-50"
-                    : "border-gray-200 hover:border-gray-300"
-                    }`}
-                >
-                  <Image className="w-6 h-6 md:w-8 md:h-8 text-blue-500 mx-auto mb-2" />
-                  <div className="text-xs md:text-sm font-medium">Image</div>
-                </button>
-              </div>
-            </div>
+            <div className="space-y-6">
+  {/* Content Type Selection */}
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-3">
+      Choose Content Type
+    </label>
+    <div className="grid grid-cols-3 gap-3">
+      {/*
+      <button
+        onClick={() => setUploadType("youtube")}
+        className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "youtube"
+          ? "border-red-500 bg-red-50"
+          : "border-gray-200 hover:border-gray-300"
+          }`}
+      >
+        <Youtube className="w-6 h-6 md:w-8 md:h-8 text-red-500 mx-auto mb-2" />
+        <div className="text-xs md:text-sm font-medium">YouTube</div>
+      </button>
+      */}
+      <button
+        onClick={() => setUploadType("pdf")}
+        className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "pdf"
+          ? "border-red-500 bg-red-50"
+          : "border-gray-200 hover:border-gray-300"
+          }`}
+      >
+        <FileText className="w-6 h-6 md:w-8 md:h-8 text-red-500 mx-auto mb-2" />
+        <div className="text-xs md:text-sm font-medium">PDF</div>
+      </button>
+      {/*
+      <button
+        onClick={() => setUploadType("image")}
+        className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "image"
+          ? "border-blue-500 bg-blue-50"
+          : "border-gray-200 hover:border-gray-300"
+          }`}
+      >
+        <Image className="w-6 h-6 md:w-8 md:h-8 text-blue-500 mx-auto mb-2" />
+        <div className="text-xs md:text-sm font-medium">Image</div>
+      </button>
+      */}
+    </div>
+  </div>
 
+  {/* YouTube Input - Commented Out */}
+  {/*
+  {uploadType === "youtube" && (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        YouTube Video URL
+      </label>
+      <input
+        type="url"
+        value={youtubeUrl}
+        onChange={(e) => setYoutubeUrl(e.target.value)}
+        placeholder="https://www.youtube.com/watch?v=..."
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+      />
+      <p className="text-xs text-gray-500 mt-2">
+        Our AI will analyze the video content and generate relevant DSA questions
+      </p>
+      <div>
+        <ConceptAnalyzer
+          youtubeUrl={youtubeUrl}
+          typeofinput={uploadType}
+          concepts={concepts}
+          setConcepts={setConcepts}
+          loading={loadingConcepts}
+          setLoading={setLoadingConcepts}
+          topics={topics}
+        />
+      </div>
+    </div>
+  )}
+  */}
 
-            {/* Content Input */}
-            {uploadType === "youtube" && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  YouTube Video URL
-                </label>
-                <input
-                  type="url"
-                  value={youtubeUrl}
-                  onChange={(e) => setYoutubeUrl(e.target.value)}
-                  placeholder="https://www.youtube.com/watch?v=..."
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                />
-                <p className="text-xs text-gray-500 mt-2">
-                  Our AI will analyze the video content and generate relevant DSA questions
-                </p>
+  {/* PDF Upload - Active */}
+  {uploadType === "pdf" && (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        Upload PDF Document
+      </label>
+      <div
+        onClick={() => fileInputRef.current?.click()}
+        className="border-2 border-dashed border-gray-300 rounded-lg p-6 md:p-8 text-center cursor-pointer hover:border-gray-400 transition-colors"
+      >
+        <Upload className="w-8 h-8 md:w-12 md:h-12 text-gray-400 mx-auto mb-4" />
+        <p className="text-sm text-gray-600 mb-2">Click to upload or drag and drop</p>
+        <p className="text-xs text-gray-500">PDF files up to 10MB</p>
+      </div>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".pdf"
+        onChange={(e) => {
+          handleFileUpload(e.target.files);
+          const file = e.target.files?.[0];
+          if (file) {
+            setUploadedFile(file);
+            setConcepts(null);
+          }
+        }}
+        className="hidden"
+      />
+      {uploadedFile && (
+        <p className="mt-2 text-sm text-gray-600">
+          Selected file: <span className="font-medium">{uploadedFile.name}</span>
+        </p>
+      )}
+      <div>
+        <ConceptAnalyzer
+          file={uploadedFile}
+          typeofinput={uploadType}
+          concepts={concepts}
+          setConcepts={setConcepts}
+          loading={loadingConcepts}
+          setLoading={setLoadingConcepts}
+          topics={topics}
+        />
+      </div>
+    </div>
+  )}
 
-                {/* Analyzer */}
-                <div>
-                  <ConceptAnalyzer
-                    youtubeUrl={youtubeUrl}
-                    typeofinput={uploadType}
-                    concepts={concepts}
-                    setConcepts={setConcepts}
-                    loading={loadingConcepts}
-                    setLoading={setLoadingConcepts}
-                    topics={topics}
-                  />
-                </div>
-
-              </div>
-            )}
-
-            {(uploadType === "pdf" || uploadType === "image") && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Upload {uploadType === "pdf" ? "PDF Document" : "Image"}
-                </label>
-                <div
-                  onClick={() => fileInputRef.current?.click()}
-                  className="border-2 border-dashed border-gray-300 rounded-lg p-6 md:p-8 text-center cursor-pointer hover:border-gray-400 transition-colors"
-                >
-                  <Upload className="w-8 h-8 md:w-12 md:h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-sm text-gray-600 mb-2">Click to upload or drag and drop</p>
-                  <p className="text-xs text-gray-500">
-                    {uploadType === "pdf" ? "PDF files up to 10MB" : "PNG, JPG, GIF up to 5MB"}
-                  </p>
-                </div>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept={uploadType === "pdf" ? ".pdf" : "image/*"}
-                  onChange={(e) => {
-                    handleFileUpload(e.target.files);
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      setUploadedFile(file);
-                      setConcepts(null);
-                    }
-                  }
-
-                  }
-                  className="hidden"
-                />
-                {uploadedFile && (
-                  <p className="mt-2 text-sm text-gray-600">
-                    Selected file: <span className="font-medium">{uploadedFile.name}</span>
-                  </p>
-                )}
-                {/* Analyzer */}
-                <div>
-                  <ConceptAnalyzer
-                    file={uploadedFile}
-                    typeofinput={uploadType}
-                    concepts={concepts}
-                    setConcepts={setConcepts}
-                    loading={loadingConcepts}
-                    setLoading={setLoadingConcepts}
-                    topics={topics}
-                  /></div>
-              </div>
-            )}
+  {/* Image Upload - Commented Out */}
+  {/*
+  {uploadType === "image" && (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-2">
+        Upload Image
+      </label>
+      <div
+        onClick={() => fileInputRef.current?.click()}
+        className="border-2 border-dashed border-gray-300 rounded-lg p-6 md:p-8 text-center cursor-pointer hover:border-gray-400 transition-colors"
+      >
+        <Upload className="w-8 h-8 md:w-12 md:h-12 text-gray-400 mx-auto mb-4" />
+        <p className="text-sm text-gray-600 mb-2">Click to upload or drag and drop</p>
+        <p className="text-xs text-gray-500">PNG, JPG, GIF up to 5MB</p>
+      </div>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={(e) => {
+          handleFileUpload(e.target.files);
+          const file = e.target.files?.[0];
+          if (file) {
+            setUploadedFile(file);
+            setConcepts(null);
+          }
+        }}
+        className="hidden"
+      />
+      {uploadedFile && (
+        <p className="mt-2 text-sm text-gray-600">
+          Selected file: <span className="font-medium">{uploadedFile.name}</span>
+        </p>
+      )}
+      <div>
+        <ConceptAnalyzer
+          file={uploadedFile}
+          typeofinput={uploadType}
+          concepts={concepts}
+          setConcepts={setConcepts}
+          loading={loadingConcepts}
+          setLoading={setLoadingConcepts}
+          topics={topics}
+        />
+      </div>
+    </div>
+  )}
+  */}
+</div>
 
 
 
