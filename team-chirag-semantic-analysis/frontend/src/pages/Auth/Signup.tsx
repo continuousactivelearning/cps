@@ -20,8 +20,6 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import GoogleIcon from '@mui/icons-material/Google';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { app } from '../../firebase/config';
 import Lottie from 'lottie-react';
 import aiAnimation from '../../assets/ai-lottie.json';
 
@@ -59,7 +57,6 @@ const Signup: React.FC = () => {
   const onSubmit = async (data: SignupFormData) => {
     setLoading(true);
     try {
-      // Simulate backend auth
       await new Promise((res) => setTimeout(res, 1000));
       localStorage.setItem('token', 'dummy-auth-token');
       localStorage.setItem('signupEmail', data.email);
@@ -86,25 +83,38 @@ const Signup: React.FC = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      localStorage.setItem('token', await user.getIdToken());
-      localStorage.setItem('signupEmail', user.email || '');
-      localStorage.setItem('signupName', user.displayName || '');
-      setSnackbarMsg('Google signup successful!');
-      setSnackbarSeverity('success');
-      setSnackbarOpen(true);
-      setNavigateOnSnackbarClose(true);
-    } catch (error) {
-      console.error(error);
-      setSnackbarMsg('Google signup failed.');
-      setSnackbarSeverity('error');
-      setSnackbarOpen(true);
-    }
+  const handleGoogleLogin = () => {
+    const width = 500, height = 600;
+    const left = window.innerWidth / 2 - width / 2;
+    const top = window.innerHeight / 2 - height / 2;
+
+    const authWindow = window.open(
+      'http://localhost:5000/auth/google',
+      '_blank',
+      `width=${width},height=${height},top=${top},left=${left}`
+    );
+
+    const messageListener = (event: MessageEvent) => {
+      if (event.origin !== 'http://localhost:5000') return;
+
+      const { token, user } = event.data;
+
+      if (token && user) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('signupEmail', user.email || '');
+        localStorage.setItem('signupName', user.name || '');
+        localStorage.setItem('onboardingCompleted', 'false');
+
+        setSnackbarMsg('Google signup successful!');
+        setSnackbarSeverity('success');
+        setSnackbarOpen(true);
+        setNavigateOnSnackbarClose(true);
+        authWindow?.close();
+        window.removeEventListener('message', messageListener);
+      }
+    };
+
+    window.addEventListener('message', messageListener);
   };
 
   return (
@@ -120,7 +130,6 @@ const Signup: React.FC = () => {
         overflow: 'hidden',
       }}
     >
-      {/* Decorative background shapes */}
       <Box sx={{
         position: 'absolute',
         top: -100,
@@ -150,28 +159,23 @@ const Signup: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <Paper 
-            elevation={12} 
-            sx={{ 
-              p: { xs: 3, sm: 4 }, 
+          <Paper
+            elevation={12}
+            sx={{
+              p: { xs: 3, sm: 4 },
               borderRadius: 4,
               background: 'rgba(255, 255, 255, 0.95)',
               backdropFilter: 'blur(20px)',
               border: '1px solid rgba(255, 255, 255, 0.2)',
             }}
           >
-            {/* Header with Mascot */}
             <Box sx={{ textAlign: 'center', mb: 4 }}>
               <Box sx={{ width: 80, height: 80, margin: '0 auto', mb: 2 }}>
-                <Lottie 
-                  animationData={aiAnimation} 
-                  style={{ width: 80, height: 80 }} 
-                  loop 
-                />
+                <Lottie animationData={aiAnimation} style={{ width: 80, height: 80 }} loop />
               </Box>
-              <Typography 
-                variant="h4" 
-                sx={{ 
+              <Typography
+                variant="h4"
+                sx={{
                   fontWeight: 700,
                   background: 'linear-gradient(45deg, #1976d2, #26c6da)',
                   backgroundClip: 'text',
@@ -187,7 +191,7 @@ const Signup: React.FC = () => {
               </Typography>
             </Box>
 
-            {/* Google Sign-In */}
+            {/* Google Button */}
             <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -226,6 +230,7 @@ const Signup: React.FC = () => {
             </Divider>
 
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              {/* Email */}
               <TextField
                 label="Email Address"
                 fullWidth
@@ -236,15 +241,13 @@ const Signup: React.FC = () => {
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     borderRadius: 2,
-                    '&:hover fieldset': {
-                      borderColor: '#42a5f5',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#1976d2',
-                    },
+                    '&:hover fieldset': { borderColor: '#42a5f5' },
+                    '&.Mui-focused fieldset': { borderColor: '#1976d2' },
                   },
                 }}
               />
+
+              {/* Password */}
               <TextField
                 label="Password"
                 type={showPassword ? 'text' : 'password'}
@@ -256,10 +259,7 @@ const Signup: React.FC = () => {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton 
-                        onClick={() => setShowPassword((prev) => !prev)}
-                        sx={{ color: '#666' }}
-                      >
+                      <IconButton onClick={() => setShowPassword((prev) => !prev)} sx={{ color: '#666' }}>
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
@@ -268,15 +268,13 @@ const Signup: React.FC = () => {
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     borderRadius: 2,
-                    '&:hover fieldset': {
-                      borderColor: '#42a5f5',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#1976d2',
-                    },
+                    '&:hover fieldset': { borderColor: '#42a5f5' },
+                    '&.Mui-focused fieldset': { borderColor: '#1976d2' },
                   },
                 }}
               />
+
+              {/* Confirm Password */}
               <TextField
                 label="Confirm Password"
                 type={showConfirmPassword ? 'text' : 'password'}
@@ -288,10 +286,7 @@ const Signup: React.FC = () => {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton 
-                        onClick={() => setShowConfirmPassword((prev) => !prev)}
-                        sx={{ color: '#666' }}
-                      >
+                      <IconButton onClick={() => setShowConfirmPassword((prev) => !prev)} sx={{ color: '#666' }}>
                         {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
@@ -300,23 +295,22 @@ const Signup: React.FC = () => {
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     borderRadius: 2,
-                    '&:hover fieldset': {
-                      borderColor: '#42a5f5',
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#1976d2',
-                    },
+                    '&:hover fieldset': { borderColor: '#42a5f5' },
+                    '&.Mui-focused fieldset': { borderColor: '#1976d2' },
                   },
                 }}
               />
+
+              {/* Submit Button */}
               <Button
                 type="submit"
                 variant="contained"
                 fullWidth
                 size="large"
-                sx={{ 
-                  mt: 3, 
-                  mb: 3,
+                disabled={!isDirty || !isValid || loading}
+                startIcon={loading ? <CircularProgress size={20} /> : null}
+                sx={{
+                  mt: 3, mb: 3,
                   bgcolor: '#26c6da',
                   color: '#fff',
                   fontWeight: 600,
@@ -335,8 +329,6 @@ const Signup: React.FC = () => {
                   },
                   transition: 'all 0.2s',
                 }}
-                disabled={!isDirty || !isValid || loading}
-                startIcon={loading ? <CircularProgress size={20} /> : null}
               >
                 {loading ? 'Creating Account...' : 'Create Account'}
               </Button>
@@ -344,10 +336,10 @@ const Signup: React.FC = () => {
 
             <Typography variant="body2" align="center" sx={{ color: '#666' }}>
               Already have an account?{' '}
-              <Button 
-                variant="text" 
+              <Button
+                variant="text"
                 onClick={() => navigate('/login')}
-                sx={{ 
+                sx={{
                   color: '#1976d2',
                   fontWeight: 600,
                   textTransform: 'none',
