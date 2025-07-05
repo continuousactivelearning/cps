@@ -168,7 +168,7 @@ const ChatWidget: React.FC = () => {
   };
   const agentBubble: React.CSSProperties = {
     background: "#f3f8f7",
-    color: "#222",
+    color: "#181a20",
     padding: "14px 20px",
     borderRadius: "16px 16px 16px 4px",
     maxWidth: "80%",
@@ -180,7 +180,7 @@ const ChatWidget: React.FC = () => {
   };
   const userBubble: React.CSSProperties = {
     background: "#17695b",
-    color: "#fff",
+    color: "#181a20",
     padding: "14px 20px",
     borderRadius: "16px 16px 4px 16px",
     maxWidth: "80%",
@@ -201,7 +201,7 @@ const ChatWidget: React.FC = () => {
   };
   const poweredByStyle: React.CSSProperties = {
     fontSize: "13px",
-    color: "#bbb",
+    color: "#181a20",
     textAlign: "center",
     padding: "10px 0 14px 0",
     background: "#fff",
@@ -213,7 +213,7 @@ const ChatWidget: React.FC = () => {
     borderRadius: "16px",
     outline: "none",
     fontSize: "1rem",
-    color: "#222",
+    color: "#181a20",
     background: "#fff",
   };
   const sendBtnStyle: React.CSSProperties = {
@@ -304,7 +304,7 @@ const ChatWidget: React.FC = () => {
                   }}
                 >
                   <span style={agentIcon}>🤖</span>
-                  <span>{msg.text}</span>
+                  <span style={{ color: '#181a20', opacity: 1, fontWeight: 600 }}>{msg.text}</span>
                 </div>
               ) : (
                 <div
@@ -314,7 +314,7 @@ const ChatWidget: React.FC = () => {
                     marginTop: idx === 0 ? "200px" : "0"
                   }}
                 >
-                  {msg.text}
+                  <span style={{ color: '#181a20', opacity: 1, fontWeight: 600 }}>{msg.text}</span>
                 </div>
               )
             )}

@@ -1,19 +1,19 @@
 .team-faq-page {
   /* Theme variables scoped to this page only */
-  --primary: #2196f3;
-  --accent: #00bcd4;
-  --accent2: #90d5ff;
-  --accent3: #e3f2fd;
-  --background: #f4fbff;
-  --surface: #ffffff;
-  --text: #1a237e;
-  --text-secondary: #4f5b62;
-  --link: #1976d2;
-  --sidebar-bg: #e3f2fd;
-  --navbar-bg: #e3f2fd;
-  --card-bg: #f8fbff;
-  --border-color: #b3e5fc;
-  background: var(--background);
+  --primary: #60a5fa;
+  --accent: #a5b4fc;
+  --accent2: #99f6e4;
+  --accent3: #fef9c3;
+  --background: #fff;
+  --surface: #fff;
+  --text: #1e293b;
+  --text-secondary: #64748b;
+  --link: #6366f1;
+  --sidebar-bg: #e0e7ff;
+  --navbar-bg: #e0e7ff;
+  --card-bg: #fff;
+  --border-color: #bae6fd;
+  background: #fff !important;
   color: var(--text);
   width: 100%;
   min-height: 100vh;
@@ -25,23 +25,33 @@
   position: relative;
 }
 
-.team-faq-page[data-theme="dark"],
-[data-theme="dark"] .team-faq-page {
-  --primary: #1e90ff;
-  --accent: #00ff85;
-  --accent2: #23244a;
-  --accent3: #23244a;
-  --background: #10131a;
-  --surface: #181c24;
-  --text: #f0f0f0;
-  --text-secondary: #b0b0b0;
-  --link: #1e90ff;
-  --sidebar-bg: #181c24;
-  --navbar-bg: #181c24;
-  --card-bg: #23244a;
-  --border-color: #23244a;
+.dark-theme .team-faq-page {
+  --primary: #818cf8;
+  --accent: #5eead4;
+  --accent2: #a5b4fc;
+  --accent3: #fde68a;
+  --background: #181a20;
+  --surface: #181a20;
+  --text: #f3f4f6;
+  --text-secondary: #a5b4fc;
+  --link: #a5b4fc;
+  --sidebar-bg: #23244a;
+  --navbar-bg: #23244a;
+  --card-bg: #181a20;
+  --border-color: #334155;
+  background: #181a20 !important;
 }
 
+/* Override any global page-container backgrounds */
+.team-faq-page.page-container,
+.page-container .team-faq-page {
+  background: #fff !important;
+}
+
+.dark-theme .team-faq-page.page-container,
+.dark-theme .page-container .team-faq-page {
+  background: #181a20 !important;
+}
 
 /* .team-faq-page .theme-toggle {
   position: absolute;
@@ -70,8 +80,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--surface);
+  background: linear-gradient(120deg, #e0e7ff 0%, #f0f7ff 100%);
   box-shadow: 0 2px 12px rgba(33, 150, 243, 0.07);
+}
+
+.dark-theme .team-faq-page .hero-section {
+  background: #181a20 !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
 }
 
 .team-faq-page .hero-bg {
@@ -96,7 +111,7 @@
   display: block;
   font-size: 2.3rem;
   font-weight: 800;
-  color: var(--primary);
+  color: #1e40af !important;
   letter-spacing: 1px;
 }
 .team-faq-page .hero-tagline {
@@ -146,9 +161,9 @@
   }
 }
 .team-faq-page .team-card {
-  background: var(--card-bg);
-  border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(33, 150, 243, 0.08);
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0f7ff 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 rgba(80, 80, 160, 0.10);
   padding: 1.5rem 1.2rem;
   text-align: center;
   transition: transform 0.18s, box-shadow 0.18s;
@@ -157,11 +172,11 @@
   min-width: 200px;
   width: 100%;
   max-width: 320px;
-  border: 1px solid var(--border-color);
+  border: 1px solid #c7d2fe;
 }
 .team-faq-page .team-card:hover {
   transform: translateY(-8px) scale(1.04);
-  box-shadow: 0 8px 32px var(--accent);
+  box-shadow: 0 16px 64px 0 rgba(30,41,59,0.35) !important;
 }
 .team-faq-page .card-img-wrapper {
   width: 90px;
@@ -233,8 +248,9 @@
   justify-content: center;
 }
 .team-faq-page .objective-card {
-  background: var(--accent3);
-  border-radius: 12px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px 0 rgba(80, 80, 160, 0.10);
   padding: 1.2rem 1.2rem;
   display: flex;
   align-items: flex-start;
@@ -243,9 +259,9 @@
   color: var(--text);
   width: 240px;
   min-height: 110px;
-  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.07);
   transition: background 0.2s;
   flex-direction: row;
+  border: 1px solid #bae6fd;
 }
 .team-faq-page .objective-icon {
   font-size: 1.5rem;
@@ -287,8 +303,8 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--primary);
-  color: #fff;
+  background: #14b8a6 !important;
+  color: #fff !important;
   padding: 0.5rem 1.1rem;
   border-radius: 8px;
   font-weight: 600;
@@ -321,9 +337,12 @@
   margin: 0 auto;
 }
 .team-faq-page .faq-item {
-  border-bottom: 1px solid var(--primary);
+  background: linear-gradient(135deg, #f3f4f6 0%, #e0e7ff 100%);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(80, 80, 160, 0.10);
   margin-bottom: 0.5rem;
   transition: background 0.2s;
+  border: 1px solid #e0e7ff;
 }
 .team-faq-page .faq-question {
   width: 100%;
@@ -400,8 +419,9 @@
   flex-wrap: wrap;
 }
 .team-faq-page .objective-card {
-  background: var(--accent3);
-  border-radius: 12px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px 0 rgba(80, 80, 160, 0.10);
   padding: 1.2rem 1.2rem;
   display: flex;
   align-items: flex-start;
@@ -410,10 +430,10 @@
   color: var(--text);
   width: 240px;
   min-height: 110px;
-  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.07);
   transition: background 0.2s;
   flex-direction: row;
   justify-content: flex-start;
+  border: 1px solid #bae6fd;
 }
 
 .team-faq-page .main-action-links {
@@ -451,8 +471,8 @@
 }
 .team-faq-page .deploy-btn {
   display: inline-block;
-  background: var(--primary);
-  color: #fff;
+  background: #14b8a6 !important;
+  color: #fff !important;
   padding: 0.5rem 1.1rem;
   border-radius: 8px;
   font-weight: 600;
@@ -479,4 +499,178 @@
   padding: 1rem 0 0.5rem 0;
   border-top: 1px solid var(--border-color);
   background: transparent;
+}
+
+.dark-theme .team-card,
+.dark-theme .team-faq-page .team-card {
+  background: linear-gradient(135deg, #23244a 0%, #181a20 100%);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 rgba(255,255,255,0.06);
+  border: 1px solid #334155;
+}
+.dark-theme .team-card:hover,
+.dark-theme .team-faq-page .team-card:hover {
+  box-shadow: 0 16px 64px 0 rgba(255,255,255,0.45) !important;
+}
+
+.dark-theme .objective-card,
+.dark-theme .team-faq-page .objective-card {
+  background: linear-gradient(135deg, #23244a 0%, #181a20 100%);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px 0 rgba(255,255,255,0.06);
+}
+
+.dark-theme .faq-item,
+.dark-theme .team-faq-page .faq-item {
+  background: linear-gradient(135deg, #23244a 0%, #181a20 100%);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(255,255,255,0.06);
+}
+
+.team-faq-page, .team-faq-page h1, .team-faq-page h2, .team-faq-page h3, .team-faq-page h4, .team-faq-page h5, .team-faq-page h6, .team-faq-page p, .team-faq-page span, .team-faq-page li, .team-faq-page a, .team-faq-page button {
+  color: #181a20 !important;
+}
+
+.dark-theme .team-faq-page, .dark-theme .team-faq-page h1, .dark-theme .team-faq-page h2, .dark-theme .team-faq-page h3, .dark-theme .team-faq-page h4, .dark-theme .team-faq-page h5, .dark-theme .team-faq-page h6, .dark-theme .team-faq-page p, .dark-theme .team-faq-page span, .dark-theme .team-faq-page li, .dark-theme .team-faq-page a, .dark-theme .team-faq-page button {
+  color: #f3f4f6 !important;
+}
+
+/* Soft tone color palette for light theme */
+.team-faq-page .hero-section {
+  background: linear-gradient(120deg, #e0e7ff 0%, #f0f7ff 100%);
+}
+.team-faq-page .team-card {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0f7ff 100%);
+  border: 1px solid #c7d2fe;
+}
+.team-faq-page .objective-card {
+  background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+  border: 1px solid #bae6fd;
+}
+.team-faq-page .faq-item {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e0e7ff 100%);
+  border: 1px solid #e0e7ff;
+}
+.team-faq-page h2, .team-faq-page .role {
+  color: #6366f1 !important;
+}
+
+/* Unique dark hover shadows for team cards in light theme */
+.team-faq-page .team-card:nth-child(1):hover {
+  box-shadow: 0 16px 64px 0 rgba(30, 64, 175, 0.45); /* intense blue shadow */
+}
+.team-faq-page .team-card:nth-child(2):hover {
+  box-shadow: 0 16px 64px 0 rgba(4, 120, 87, 0.42); /* intense teal shadow */
+}
+.team-faq-page .team-card:nth-child(3):hover {
+  box-shadow: 0 20px 80px 0 rgba(76, 29, 149, 0.60); /* more intense purple shadow */
+}
+.team-faq-page .team-card:nth-child(4):hover {
+  box-shadow: 0 16px 64px 0 rgba(202, 138, 4, 0.42); /* intense yellow shadow */
+}
+.team-faq-page .team-card:nth-child(5):hover {
+  box-shadow: 0 16px 64px 0 rgba(190, 24, 93, 0.42); /* intense pink shadow */
+}
+.team-faq-page .team-card:nth-child(6):hover {
+  box-shadow: 0 16px 64px 0 rgba(5, 150, 105, 0.42); /* intense green shadow */
+}
+
+.dark-theme .team-faq-page .hero-title {
+  color: #fde047 !important;
+}
+
+/* Dark theme: unique dark backgrounds and light hover shadows for team cards */
+.dark-theme .team-card:nth-child(1) {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(1):hover {
+  box-shadow: 0 16px 64px 0 rgba(224,242,254,0.95); /* very light blue shadow */
+}
+.dark-theme .team-card:nth-child(2) {
+  background: linear-gradient(135deg, #134e4a 0%, #115e59 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(2):hover {
+  box-shadow: 0 16px 64px 0 rgba(204,251,241,0.95); /* very light teal shadow */
+}
+.dark-theme .team-card:nth-child(3) {
+  background: linear-gradient(135deg, #312e81 0%, #6d28d9 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(3):hover {
+  box-shadow: 0 16px 64px 0 rgba(237,233,254,0.95); /* very light purple shadow */
+}
+.dark-theme .team-card:nth-child(4) {
+  background: linear-gradient(135deg, #78350f 0%, #f59e42 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(4):hover {
+  box-shadow: 0 16px 64px 0 rgba(254,249,195,0.95); /* very light yellow shadow */
+}
+.dark-theme .team-card:nth-child(5) {
+  background: linear-gradient(135deg, #831843 0%, #db2777 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(5):hover {
+  box-shadow: 0 16px 64px 0 rgba(251,207,232,0.95); /* very light pink shadow */
+}
+.dark-theme .team-card:nth-child(6) {
+  background: linear-gradient(135deg, #064e3b 0%, #059669 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(6):hover {
+  box-shadow: 0 16px 64px 0 rgba(209,250,229,0.95); /* very light green shadow */
+}
+
+/* Light theme: pastel backgrounds for team cards */
+.team-faq-page .team-card:nth-child(1) {
+  background: linear-gradient(135deg, #dbeafe 0%, #f0f7ff 100%);
+}
+.team-faq-page .team-card:nth-child(2) {
+  background: linear-gradient(135deg, #ccfbf1 0%, #e0f2fe 100%);
+}
+.team-faq-page .team-card:nth-child(3) {
+  background: linear-gradient(135deg, #ede9fe 0%, #f3e8ff 100%);
+}
+.team-faq-page .team-card:nth-child(4) {
+  background: linear-gradient(135deg, #fef9c3 0%, #f0fdf4 100%);
+}
+.team-faq-page .team-card:nth-child(5) {
+  background: linear-gradient(135deg, #fbcfe8 0%, #fdf2f8 100%);
+}
+.team-faq-page .team-card:nth-child(6) {
+  background: linear-gradient(135deg, #bbf7d0 0%, #f0fdf4 100%);
+}
+
+/* Dark theme: unique dark backgrounds for team cards */
+.dark-theme .team-card:nth-child(1) {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(2) {
+  background: linear-gradient(135deg, #134e4a 0%, #115e59 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(3) {
+  background: linear-gradient(135deg, #312e81 0%, #6d28d9 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(4) {
+  background: linear-gradient(135deg, #78350f 0%, #f59e42 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(5) {
+  background: linear-gradient(135deg, #831843 0%, #db2777 100%);
+  color: #f3f4f6;
+}
+.dark-theme .team-card:nth-child(6) {
+  background: linear-gradient(135deg, #064e3b 0%, #059669 100%);
+  color: #f3f4f6;
+}
+
+.dark-theme .team-faq-page .project-links a,
+.dark-theme .team-faq-page .deploy-btn {
+  background: #134e4a !important;
+  color: #fff !important;
 }
