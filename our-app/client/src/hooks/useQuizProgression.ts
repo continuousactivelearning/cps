@@ -43,18 +43,17 @@ export function useQuizProgression({ userId, language, topic, difficulties }: Qu
               if (q.quizId && typeof q.quizId === 'object' && q.quizId.$oid) return q.quizId.$oid === quizId;
               return false;
             }).filter((a: any) => typeof a.userScore === 'number' && Array.isArray(a.userAnswers) && a.userAnswers.length > 0);
-            // BASIC: 1 attempt, no lockout, unlock next level regardless of score, lock after 1 attempt
+            // BASIC QUIZ LOGIC: Different progression rules for basic vs topic quizzes
             if (topic === 'basic') {
               if (attempts.length > 0) {
+                // For basic quizzes, mark as completed after any attempt (no passing requirement)
                 completedLevels.push(diff.key);
-                // Lock this level after 1 attempt
-                const lastAttempt = attempts[0];
-                const lastTime = new Date(lastAttempt.updatedAt || userUpdatedAt).getTime();
-                lockedLevels[diff.key] = lastTime + 100 * 365 * 24 * 60 * 60 * 1000; // Effectively forever
+                // Don't add to lockedLevels - allow unlimited retakes
               }
               continue;
             }
-            // OTHER TOPICS: 2 attempts, lockout if both ≤50%
+            
+            // TOPIC QUIZ LOGIC: 2 attempts, lockout if both ≤50%
             const passingAttempt = attempts.find((a: any) => {
               const score = typeof a.userScore === 'number' ? a.userScore : 0;
               const total = Array.isArray(a.userAnswers) ? a.userAnswers.length : 10;
@@ -70,14 +69,21 @@ export function useQuizProgression({ userId, language, topic, difficulties }: Qu
                 const total = Array.isArray(a.userAnswers) ? a.userAnswers.length : 10;
                 return total > 0 && (score / total) <= 0.5;
               });
+              
               if (failedAttempts.length >= 2) {
-                const lastAttempt = failedAttempts.reduce((latest: any, curr: any) => {
-                  const lastDate = new Date(latest.updatedAt || latest.createdAt || userUpdatedAt);
-                  const currDate = new Date(curr.updatedAt || curr.createdAt || userUpdatedAt);
-                  return currDate > lastDate ? curr : latest;
-                }, failedAttempts[0]);
-                const lastTime = new Date(lastAttempt.updatedAt || userUpdatedAt).getTime();
+                // Sort by most recent first
+                const sortedFailedAttempts = failedAttempts.sort((a: any, b: any) => {
+                  const aTime = a.submittedAt ? new Date(a.submittedAt).getTime() : 0;
+                  const bTime = b.submittedAt ? new Date(b.submittedAt).getTime() : 0;
+                  return bTime - aTime;
+                });
+                
+                const lastFailedAttempt = sortedFailedAttempts[0];
+                const lastTime = lastFailedAttempt.submittedAt 
+                  ? new Date(lastFailedAttempt.submittedAt).getTime()
+                  : new Date(userUpdatedAt).getTime();
                 const now = Date.now();
+                
                 if (now - lastTime < 24 * 60 * 60 * 1000) {
                   lockedLevels[diff.key] = lastTime + 24 * 60 * 60 * 1000;
                 }

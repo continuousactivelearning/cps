@@ -43,7 +43,11 @@ const userSchema = new Schema<UserDocument>(
                         type: String,
                         enum: ['A', 'B', 'C', 'D']
                     }
-                ]
+                ],
+                submittedAt: {
+                    type: Date,
+                    default: Date.now
+                }
             }
         ],
         customQuizzes: [

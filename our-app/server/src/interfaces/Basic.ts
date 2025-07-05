@@ -28,6 +28,7 @@ export interface QuizInfo {
     quizId: mongoose.Types.ObjectId;
     userScore: number;
     userAnswers: OptionTag[];
+    submittedAt: Date;
 }
 
 export interface CustomQuizInfo {

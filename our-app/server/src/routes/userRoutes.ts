@@ -12,6 +12,8 @@ import {
     getQuestions,
     submitAnswers,
     reviewQuiz,
+    reviewCourse,
+    completeCourse,
     getQuizByLevel,
     submitQuizByLevel,
     reviewQuizByLevel,
@@ -21,7 +23,8 @@ import {
     createCustomQuizForUser,
     submitCustomQuizAnswers,
     getCustomQuizById,
-    getUserCustomQuizzes
+    getUserCustomQuizzes,
+    debugUserQuizHistory
 } from '../controllers/userDashboardController';
 
 const router = express.Router();
@@ -36,6 +39,9 @@ router.post('/', createUser as RequestHandler);
 
 // GET /api/users/:id/dashboard
 router.get('/:id/dashboard', getUserDashboard as RequestHandler);
+
+// GET /api/users/:id/debug-quiz-history - Debug endpoint for quiz history issues
+router.get('/:id/debug-quiz-history', debugUserQuizHistory as RequestHandler);
 
 // GET /api/users/:id/recommend-path?target=CourseName
 router.get('/:id/recommend-path', getRecommendedPathForUser as RequestHandler);
@@ -67,6 +73,12 @@ router.get('/:id/quiz/:level/review', reviewQuizByLevel as RequestHandler);
 // POST /api/users/:id/assessment
 router.post('/:id/assessment', createAssessment as RequestHandler);
 
+// GET /api/users/:id/courses/:courseName/review
+router.get('/:id/courses/:courseName/review', reviewCourse as RequestHandler);
+
+// PUT /api/users/:id/courses/:courseName/complete
+router.put('/:id/courses/:courseName/complete', completeCourse as RequestHandler);
+
 // GET /api/users/:id/:lang/:quizLevel/:topic/questions
 router.get('/:id/:lang/:quizLevel/:topic/questions', getQuestions as RequestHandler);
 
@@ -85,4 +97,4 @@ router.delete('/:id', deleteUser as RequestHandler);
 // GET /api/users/:id - Get user by ID (must come last)
 router.get('/:id', getUserById as RequestHandler);
 
-export default router; 
+export default router;

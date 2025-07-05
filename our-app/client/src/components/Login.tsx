@@ -1,13 +1,50 @@
-import React, { useState, useContext, FormEvent } from "react";
-import { AuthContext } from "./AuthContext"; // Update the path if needed
+import React, { useState, useContext, FormEvent, useEffect } from "react";
+import { AuthContext } from "./AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
-  const [isSignup, setIsSignup] = useState<boolean>(true);
+  const [isSignup, setIsSignup] = useState<boolean>(false);
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
 
-  const { login, signup } = useContext(AuthContext);
+  const { userId, loading, login, signup } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  // Redirect to dashboard if already logged in
+  useEffect(() => {
+    if (!loading && userId) {
+      navigate('/dashboard');
+    }
+  }, [userId, loading, navigate]);
+
+  // Show loading spinner while checking authentication
+  if (loading) {
+    return (
+      <div className="container-fluid d-flex align-items-center justify-content-center min-vh-100 bg-light">
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="mt-3">Checking authentication...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't show login form if user is already authenticated
+  if (userId) {
+    return (
+      <div className="container-fluid d-flex align-items-center justify-content-center min-vh-100 bg-light">
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Redirecting...</span>
+          </div>
+          <p className="mt-3">Already logged in. Redirecting to dashboard...</p>
+        </div>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,6 +75,7 @@ const Login: React.FC = () => {
         style={{ width: "100%", maxWidth: "400px" }}
       >
         <h2 className="mb-4 text-center">{isSignup ? "Sign Up" : "Login"}</h2>
+        
         <form onSubmit={handleSubmit}>
           {isSignup && (
             <div className="mb-3">
@@ -50,11 +88,10 @@ const Login: React.FC = () => {
                 className="form-control"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
-                placeholder="Enter your username"
+                required
               />
             </div>
           )}
-
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email
@@ -65,11 +102,10 @@ const Login: React.FC = () => {
               className="form-control"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
+              required
             />
           </div>
-
-          <div className="mb-4">
+          <div className="mb-3">
             <label htmlFor="password" className="form-label">
               Password
             </label>
@@ -79,25 +115,24 @@ const Login: React.FC = () => {
               className="form-control"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
+              required
             />
           </div>
-
           <button type="submit" className="btn btn-primary w-100">
-            {isSignup ? "Sign up" : "Login"}
+            {isSignup ? "Sign Up" : "Login"}
           </button>
-
-          <p className="mt-3 text-center">
-            {isSignup ? "Already have an account?" : "Don't have an account?"}
-            <button
-              type="button"
-              className="btn btn-link ms-2 p-0"
-              onClick={() => setIsSignup(!isSignup)}
-            >
-              {isSignup ? "Login" : "Sign up"}
-            </button>
-          </p>
         </form>
+        <div className="mt-3 text-center">
+          <button
+            type="button"
+            className="btn btn-link text-decoration-none"
+            onClick={() => setIsSignup(!isSignup)}
+          >
+            {isSignup
+              ? "Already have an account? Login"
+              : "Don't have an account? Sign Up"}
+          </button>
+        </div>
       </div>
     </div>
   );

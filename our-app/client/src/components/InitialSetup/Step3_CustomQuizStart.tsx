@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useCustomQuizProgression } from '../../hooks/useCustomQuizProgression';
 
 interface Props {
   userId: string;
@@ -15,28 +15,48 @@ const difficulties = [
 
 const Step3_CustomQuizStart: React.FC<Props> = ({ userId, onNext }) => {
   const navigate = useNavigate();
-  const [completed, setCompleted] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-
-    // Fetch user object to get customQuizzes
-    axios.get(`/api/users/${userId}`).then(res => {
-
-
-      const customQuizInfos = res.data.customQuizzes || [];
-      // Get completed custom quiz levels
-      const done = customQuizInfos
-        .filter((q: any) => q.quizId && q.quizId.level)
-        .map((q: any) => q.quizId.level);
-      setCompleted(done);
-      setLoading(false);
-    }).catch(() => setLoading(false));
-  }, [userId]);
+  const { completed, lockedUntil, loading, refresh } = useCustomQuizProgression({ userId, difficulties });
 
   const handleStartQuiz = (difficulty: string) => {
-    // Navigate to custom quiz with difficulty level
-    navigate(`/users/${userId}/quiz?level=${difficulty}`);
+    const difficultyOrder = ['beginner', 'intermediate', 'advanced'];
+    const currentIndex = difficultyOrder.indexOf(difficulty);
+    
+    // Check if previous levels are completed (sequential unlock)
+    for (let i = 0; i < currentIndex; i++) {
+      if (!completed.includes(difficultyOrder[i])) {
+        alert(`Please complete ${difficultyOrder[i]} level first before attempting ${difficulty} level.`);
+        return;
+      }
+    }
+    
+    // Check if this level is locked (already completed)
+    if (lockedUntil[difficulty]) {
+      alert(`You have already completed the ${difficulty} level. Each level can only be attempted once.`);
+      return;
+    }
+    
+    // Navigate to custom quiz with difficulty level and context
+    navigate(`/users/${userId}/quiz?level=${difficulty}&context=setup`);
+  };
+
+  const isDifficultyAvailable = (difficulty: string) => {
+    const difficultyOrder = ['beginner', 'intermediate', 'advanced'];
+    const currentIndex = difficultyOrder.indexOf(difficulty);
+    
+    // Check if this level is locked (already completed)
+    if (lockedUntil[difficulty]) return false;
+    
+    // First level (beginner) is always available if not locked
+    if (currentIndex === 0) return true;
+    
+    // Other levels require previous levels to be completed
+    for (let i = 0; i < currentIndex; i++) {
+      if (!completed.includes(difficultyOrder[i])) {
+        return false;
+      }
+    }
+    
+    return true;
   };
 
   if (loading) return <div className="text-center py-5">Loading...</div>;
@@ -52,38 +72,90 @@ const Step3_CustomQuizStart: React.FC<Props> = ({ userId, onNext }) => {
         {difficulties.map(d => (
           <div key={d.key} className="col-lg-4 col-md-6">
             <div 
-              className={`card h-100 border-0 text-center cursor-pointer ${completed.includes(d.key) ? 'bg-light border-success border-2' : 'shadow-sm'}`}
+              className={`card h-100 border-0 text-center cursor-pointer ${
+                completed.includes(d.key) 
+                  ? 'bg-success bg-opacity-10 border-success border-2' 
+                  : !isDifficultyAvailable(d.key)
+                    ? 'bg-light border-secondary border-2'
+                    : 'shadow-sm'
+              }`}
               style={{ 
-                cursor: completed.includes(d.key) ? 'not-allowed' : 'pointer',
+                cursor: completed.includes(d.key) || !isDifficultyAvailable(d.key) ? 'not-allowed' : 'pointer',
                 transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                 transform: 'translateY(0)',
-                opacity: completed.includes(d.key) ? 0.7 : 1
+                opacity: completed.includes(d.key) || !isDifficultyAvailable(d.key) ? 0.7 : 1
               }}
               onMouseEnter={(e) => {
-                if (!completed.includes(d.key)) {
+                if (!completed.includes(d.key) && isDifficultyAvailable(d.key)) {
                   e.currentTarget.style.transform = 'translateY(-8px)';
                   e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
                 }
               }}
               onMouseLeave={(e) => {
-                if (!completed.includes(d.key)) {
+                if (!completed.includes(d.key) && isDifficultyAvailable(d.key)) {
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.12)';
                 }
               }}
             >
               <div className="card-body py-5">
+                <div className="mb-3">
+                  {completed.includes(d.key) ? (
+                    <div className="text-success">
+                      <i className="fas fa-check-circle fa-3x"></i>
+                      <div className="mt-2">
+                        <span className="badge bg-success px-3 py-2">Completed</span>
+                      </div>
+                    </div>
+                  ) : !isDifficultyAvailable(d.key) ? (
+                    <div className="text-secondary">
+                      <i className="fas fa-lock fa-3x"></i>
+                      <div className="mt-2">
+                        <span className="badge bg-secondary px-3 py-2">Locked</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={d.color}>
+                      <i className="fas fa-play-circle fa-3x"></i>
+                      <div className="mt-2">
+                        <span className="badge bg-primary px-3 py-2">Available</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
                 <h3 className={`card-title fw-bold mb-3 ${d.color}`}>
                   {d.name}
-                  {completed.includes(d.key) && <span className="ms-2 text-success">✓</span>}
                 </h3>
                 <p className="card-text text-muted mb-4">{d.description}</p>
                 <button
-                  className={`btn ${completed.includes(d.key) ? 'btn-success' : 'btn-outline-primary'}`}
-                  onClick={() => handleStartQuiz(d.key)}
-                  disabled={completed.includes(d.key)}
+                  className={`btn ${
+                    completed.includes(d.key) 
+                      ? 'btn-success' 
+                      : !isDifficultyAvailable(d.key)
+                        ? 'btn-secondary'
+                        : 'btn-outline-primary'
+                  }`}
+                  onClick={() => {
+                    if (completed.includes(d.key)) {
+                      alert(`You have already completed the ${d.key} level!`);
+                    } else if (!isDifficultyAvailable(d.key)) {
+                      const difficultyOrder = ['beginner', 'intermediate', 'advanced'];
+                      const currentIndex = difficultyOrder.indexOf(d.key);
+                      if (currentIndex > 0) {
+                        alert(`Please complete ${difficultyOrder[currentIndex - 1]} level first!`);
+                      }
+                    } else {
+                      handleStartQuiz(d.key);
+                    }
+                  }}
+                  disabled={completed.includes(d.key) || !isDifficultyAvailable(d.key)}
                 >
-                  {completed.includes(d.key) ? 'Completed' : 'Start Quiz'}
+                  {completed.includes(d.key) 
+                    ? 'Completed' 
+                    : !isDifficultyAvailable(d.key)
+                      ? 'Locked'
+                      : 'Start Quiz'
+                  }
                 </button>
               </div>
             </div>
@@ -101,9 +173,7 @@ const Step3_CustomQuizStart: React.FC<Props> = ({ userId, onNext }) => {
             disabled={completed.length < 3}
             onClick={() => onNext && onNext()}
           >
-
-            {completed.length < 3 ? `Complete ${3 - completed.length} more level${3 - completed.length > 1 ? 's' : ''} to continue` : 'Continue to Path Selection →'}
-
+            {completed.length < 3 ? `Complete ${3 - completed.length} more level${3 - completed.length > 1 ? 's' : ''} to continue` : 'Complete Setup →'}
           </button>
         </div>
       )}

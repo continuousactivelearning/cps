@@ -4,6 +4,8 @@ import axios from 'axios';
 import Step0_ChooseLanguage from '../components/InitialSetup/Step0_ChooseLanguage';
 import Step1_BasicQuizStart from '../components/InitialSetup/Step1_BasicQuizStart';
 import Step2_Assessment from '../components/InitialSetup/Step2_Assessment';
+import Step3_CustomQuizStart from '../components/InitialSetup/Step3_CustomQuizStart';
+import Step4_TargetSelector from '../components/InitialSetup/Step4_TargetSelector';
 
 
 interface Quiz {
@@ -49,50 +51,29 @@ const InitialSetup: React.FC = () => {
         setDashboard(data);
         if (data.lang) setLanguage(data.lang);
         
-        // Updated logic for new schema - check all three levels are completed
+        // Check basic quiz completion by fetching quiz details
         const basicQuizDone = data.quizzes && data.lang && (() => {
-          const completedLevels = data.quizzes
-            .filter((q) => {
-              if (!q.quizId || typeof q.quizId !== 'object') return false;
-              const level = (q.quizId as any).level;
-              const topic = (q.quizId as any).topic;
-              const language = (q.quizId as any).language;
-              return (
-                language?.toLowerCase() === data.lang?.toLowerCase() &&
-                (level === 'beginner' || level === 'intermediate' || level === 'advanced') &&
-                (topic?.courseName === 'basic' || !topic || Object.keys(topic).length === 0)
-              );
-            })
-            .map((q: any) => (q.quizId as any).level);
-          
-          // Check if all three levels are completed
-          const requiredLevels = ['beginner', 'intermediate', 'advanced'];
-          return requiredLevels.every(level => completedLevels.includes(level));
+          return data.quizzes.length >= 3; // Simple check - if user has completed 3 quizzes, basic quiz is done
         })();
         
         const assessmentDone = data.courses && data.courses.length > 0 && data.lang;
-        const customQuizDone = data.customQuizzes && data.lang && (() => {
-          const completedLevels = data.customQuizzes
-            .filter((q) => {
-              if (!q.quizId || typeof q.quizId !== 'object') return false;
-              const level = (q.quizId as any).level;
-              return level === 'beginner' || level === 'intermediate' || level === 'advanced';
-            })
-            .map((q: any) => (q.quizId as any).level);
-          
-          // Check if all three levels are completed
-          const requiredLevels = ['beginner', 'intermediate', 'advanced'];
-          return requiredLevels.every(level => completedLevels.includes(level));
-        })();
         
-        const pathChosen = data.courses && data.courses.filter(c => c.status === 'in-progress').length > 0;
+        // Check custom quiz completion
+        const customQuizDone = data.customQuizzes && data.customQuizzes.length >= 3; // Simple check
+        
+        // Check if target concept is set (user has courses with in-progress status)
+        const targetConceptSet = data.courses && data.courses.some((course: any) => course.status === 'in-progress');
 
         if (!data.lang) setStep(0);
         else if (!basicQuizDone) setStep(1);
         else if (!assessmentDone) setStep(2);
         else if (!customQuizDone) setStep(3);
-        else if (!pathChosen) setStep(4);
-        else setStep(5);
+        else if (!targetConceptSet) setStep(4);
+        else {
+          // All steps completed, redirect to dashboard
+          navigate('/dashboard');
+          return;
+        }
       } catch (error) {
         console.error('Error fetching user data:', error);
         // If there's an error, start from language selection
@@ -112,7 +93,7 @@ const InitialSetup: React.FC = () => {
       <div className="container mt-5 d-flex flex-column align-items-center justify-content-center">
         {/* STEP INDICATOR */}
         <div className="d-flex justify-content-center mb-4">
-          {['Lang', 'Basic', 'Assess', 'Custom', 'Path', 'Done'].map((label, index) => (
+          {['Lang', 'Basic', 'Assess', 'Custom', 'Target'].map((label, index) => (
             <div
               key={index}
               className={`mx-1 px-3 py-2 rounded-pill ${
@@ -149,6 +130,8 @@ const InitialSetup: React.FC = () => {
           )}
           {step === 1 && <Step1_BasicQuizStart userId={userId} language={language} onNext={goNext} />}
           {step === 2 && <Step2_Assessment userId={userId} language={language} onNext={goNext} />}
+          {step === 3 && <Step3_CustomQuizStart userId={userId} onNext={goNext} />}
+          {step === 4 && <Step4_TargetSelector userId={userId} onNext={() => navigate('/dashboard')} />}
           
         </div>
       </div>
