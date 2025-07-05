@@ -5,6 +5,8 @@ export interface UserProfile {
   name: string;
   email: string;
   avatar?: string;
+  hasCompletedOnboarding?: boolean; // Added this field
+  isFirstTime?: boolean; // Added this field
   userInfo?: {
     programmingExperience: string;
     knownLanguages: string[];

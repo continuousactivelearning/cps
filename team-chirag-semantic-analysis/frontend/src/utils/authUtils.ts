@@ -3,25 +3,36 @@ import type { UserProfile } from '../types/auth';
 
 /**
  * Checks if the current user has completed onboarding
- * Returns true if user has both userInfo and knownConcepts data
+ * Returns true if user has hasCompletedOnboarding flag set to true
  */
 export const hasCompletedOnboarding = (): boolean => {
   try {
-    // Check localStorage flag first (for backwards compatibility)
+    // Check user profile data from localStorage
+    const userProfileStr = localStorage.getItem('userProfile');
+    if (!userProfileStr) {
+      console.log('❌ No user profile found in localStorage');
+      return false;
+    }
+
+    const userProfile: UserProfile = JSON.parse(userProfileStr);
+    console.log('🔍 Checking onboarding status for user:', {
+      email: userProfile.email,
+      hasCompletedOnboarding: userProfile.hasCompletedOnboarding,
+      isFirstTime: userProfile.isFirstTime
+    });
+    
+    // Check the hasCompletedOnboarding flag from backend
+    if (userProfile.hasCompletedOnboarding !== undefined) {
+      return userProfile.hasCompletedOnboarding === true;
+    }
+
+    // Fallback: Check localStorage flag (for backwards compatibility)
     const onboardingFlag = localStorage.getItem('onboardingCompleted');
     if (onboardingFlag === 'true') {
       return true;
     }
 
-    // Check user profile data
-    const userProfileStr = localStorage.getItem('userProfile');
-    if (!userProfileStr) {
-      return false;
-    }
-
-    const userProfile: UserProfile = JSON.parse(userProfileStr);
-    
-    // User has completed onboarding if they have both userInfo and knownConcepts with topics
+    // Fallback: Check if user has both userInfo and knownConcepts data
     const hasUserInfo = userProfile.userInfo && 
       userProfile.userInfo.programmingExperience && 
       userProfile.userInfo.dsaExperience && 
@@ -31,7 +42,9 @@ export const hasCompletedOnboarding = (): boolean => {
       userProfile.knownConcepts.topics && 
       userProfile.knownConcepts.topics.length > 0;
 
-    return !!(hasUserInfo && hasKnownConcepts);
+    const result = !!(hasUserInfo && hasKnownConcepts);
+    console.log('🔍 Fallback onboarding check result:', result);
+    return result;
   } catch (error) {
     console.error('Error checking onboarding status:', error);
     return false;

@@ -52,17 +52,60 @@ const Login: React.FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     try {
-      // Simulate API call with form data
       console.log('Login attempt with:', data.email);
-      await new Promise((res) => setTimeout(res, 1000));
-      localStorage.setItem('token', 'dummy-auth-token');
+      
+      // Call backend login API
+      const response = await fetch('http://localhost:5000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      const result = await response.json();
+      
+      console.log('🔍 Full login response:', result);
+      console.log('🔍 User object:', result.user);
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Login failed');
+      }
+
+      // Store user data and token
+      localStorage.setItem('token', result.token);
+      localStorage.setItem('userProfile', JSON.stringify(result.user));
+      
+      // Set onboarding flag for compatibility
+      if (result.user.hasCompletedOnboarding) {
+        localStorage.setItem('onboardingCompleted', 'true');
+      } else {
+        localStorage.removeItem('onboardingCompleted');
+      }
 
       setSnackbarMsg('Login successful!');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
-      navigate('/chat');
-    } catch {
-      setSnackbarMsg('Something went wrong. Please try again.');
+
+      // Navigate based on onboarding status
+      console.log('User onboarding status:', {
+        hasCompletedOnboarding: result.user.hasCompletedOnboarding,
+        isFirstTime: result.user.isFirstTime
+      });
+
+      if (result.user.hasCompletedOnboarding) {
+        console.log('User has completed onboarding, redirecting to /chat');
+        setTimeout(() => navigate('/chat'), 1000);
+      } else {
+        console.log('User needs onboarding, redirecting to /onboarding');
+        setTimeout(() => navigate('/onboarding'), 1000);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setSnackbarMsg(error instanceof Error ? error.message : 'Login failed. Please try again.');
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
     } finally {

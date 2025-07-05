@@ -25,6 +25,7 @@ import aiAnimation from '../../assets/ai-lottie.json';
 
 // Zod schema
 const SignupSchema = z.object({
+  name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
   email: z.string().email({ message: 'Enter a valid email address' }),
   password: z.string().min(6, { message: 'Minimum 6 characters required' }),
   confirmPassword: z.string().min(6, { message: 'Please confirm your password' }),
@@ -57,18 +58,38 @@ const Signup: React.FC = () => {
   const onSubmit = async (data: SignupFormData) => {
     setLoading(true);
     try {
-      await new Promise((res) => setTimeout(res, 1000));
-      localStorage.setItem('token', 'dummy-auth-token');
-      localStorage.setItem('signupEmail', data.email);
-      localStorage.setItem('signupName', data.email.split('@')[0]);
-      localStorage.setItem('onboardingCompleted', 'false');
+      console.log('Signup attempt with:', data.email, data.name);
+      
+      // Call backend registration API
+      const response = await fetch('http://localhost:5000/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      });
 
-      setSnackbarMsg('Signup successful! Redirecting...');
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Registration failed');
+      }
+
+      // Store user data and token
+      localStorage.setItem('token', result.token);
+      localStorage.setItem('userProfile', JSON.stringify(result.user));
+
+      setSnackbarMsg('Signup successful! Redirecting to onboarding...');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
       setNavigateOnSnackbarClose(true);
-    } catch {
-      setSnackbarMsg('Signup failed. Try again.');
+    } catch (error) {
+      console.error('Signup error:', error);
+      setSnackbarMsg(error instanceof Error ? error.message : 'Signup failed. Please try again.');
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
     } finally {
@@ -230,6 +251,23 @@ const Signup: React.FC = () => {
             </Divider>
 
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              {/* Name */}
+              <TextField
+                label="Full Name"
+                fullWidth
+                margin="normal"
+                {...register('name')}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: 2,
+                    '&:hover fieldset': { borderColor: '#42a5f5' },
+                    '&.Mui-focused fieldset': { borderColor: '#1976d2' },
+                  },
+                }}
+              />
+
               {/* Email */}
               <TextField
                 label="Email Address"

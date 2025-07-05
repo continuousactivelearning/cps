@@ -1,9 +1,13 @@
 import express from 'express';
 import passport from 'passport';
-import { updateUserOnboarding, getUserProfile, updateUserAvatar, verifyUser, createTestUser, debugUsers } from '../controllers/authController';
+import { updateUserOnboarding, getUserProfile, updateUserAvatar, verifyUser, createTestUser, debugUsers, registerUser, loginUser, debugUserData } from '../controllers/authController';
 import { optionalAuth } from '../middleware/auth';
 
 const router = express.Router();
+
+// Local Authentication Routes
+router.post('/register', registerUser);
+router.post('/login', loginUser);
 
 // Google OAuth route
 router.get('/google', passport.authenticate('google', {
@@ -48,6 +52,9 @@ router.put('/avatar', updateUserAvatar);
 
 // ✅ Debug route to check users in database
 router.get('/debug/users', debugUsers);
+
+// ✅ Debug route to check specific user data
+router.get('/debug/user', debugUserData);
 
 // ✅ Create test user with sample data (for development)
 router.post('/debug/create-test-user', createTestUser);
