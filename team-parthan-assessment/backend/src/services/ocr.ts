@@ -6,6 +6,7 @@
 import Tesseract from 'tesseract.js';
 import path from 'path';
 import { PreprocessMode } from './preprocess';
+import { config } from '../config';
 
 // Enum to tag OCR content type
 export enum OCRMode {
@@ -22,8 +23,8 @@ function isProbablyTyped(text: string): boolean {
 }
 
 export async function extractTextFromImage(imagePath: string): Promise<{ text: string, mode: PreprocessMode }> {
-  const langPath = path.join(__dirname, 'tessdata_fast');
-
+  const langPath = config.TESSDATA_PATH;
+  
   try {
      const lightScan = await Tesseract.recognize(imagePath, 'eng+osd', {
       langPath,
@@ -36,16 +37,19 @@ export async function extractTextFromImage(imagePath: string): Promise<{ text: s
     const isTyped = isProbablyTyped(initialText);
     const mode = isTyped ? PreprocessMode.TYPED : PreprocessMode.HANDWRITTEN;
 
+    // Configure Tesseract settings for final scan
     const finalConfig: Record<string, string> = {
       tessedit_pageseg_mode: isTyped ? '6' : '13',
       preserve_interword_spaces: '1'
     };
 
+    // Restrict character set for typed content
     if (isTyped) {
       finalConfig.tessedit_char_whitelist =
         'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:;-()[]{}!?\'" ';
     }
 
+    // Final OCR scan with tuned settings
     const finalScan = await Tesseract.recognize(imagePath, 'eng', {
       langPath,
       logger: () => {},
