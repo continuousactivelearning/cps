@@ -1,13 +1,16 @@
 import express from 'express';
 import passport from 'passport';
+import { updateUserOnboarding } from '../controllers/authController';
 
 const router = express.Router();
 
+// Google OAuth route
 router.get('/google', passport.authenticate('google', {
   scope: ['profile', 'email'],
   session: false
 }));
 
+// Google OAuth callback
 router.get('/google/callback', passport.authenticate('google', {
   session: false,
   failureRedirect: 'http://localhost:5173/login',
@@ -28,5 +31,8 @@ router.get('/google/callback', passport.authenticate('google', {
 
   res.send(html);
 });
+
+// ✅ Onboarding data route
+router.post('/onboarding', updateUserOnboarding);
 
 export default router;

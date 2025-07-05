@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import passport from 'passport'; // ✅ add passport
-import './config/passport'; // ✅ register the Google strategy
+import './config/passport'; // register the Google strategy
 import authRoutes from './routes/authRoutes';
 
 dotenv.config();
@@ -17,14 +17,16 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(passport.initialize()); // ✅ initialize passport
-
+app.use('/api/users', authRoutes);
 app.use('/auth', authRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Backend is running with TypeScript!');
 });
 
-mongoose.connect(process.env.MONGODB_URI!)
+mongoose.connect(process.env.MONGODB_URI!, {
+  dbName: process.env.DATABASE_NAME
+})
   .then(() => {
     console.log('✅ Connected to MongoDB');
     app.listen(PORT, () => {

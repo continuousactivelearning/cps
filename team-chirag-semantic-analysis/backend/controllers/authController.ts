@@ -1,52 +1,39 @@
-// backend/controllers/authController.ts
+// backend/controllers/userController.ts
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
 import User from '../models/User';
-import { getGoogleUser } from '../services/googleAuthService';
 
-export const googleAuthHandler = async (req: Request, res: Response): Promise<void> => {
-  const { idToken, accessToken } = req.query;
-
-  if (!idToken || !accessToken) {
-    res.status(400).send('Missing idToken or accessToken');
-    return;
-  }
-
+export const updateUserOnboarding = async (req: Request, res: Response): Promise<void> => {
   try {
-    const googleUser = await getGoogleUser(idToken as string, accessToken as string);
+    const { email, userInfo, knownConcepts } = req.body;
 
-    if (!googleUser.verified_email) {
-      res.status(403).send('Google account not verified');
+    if (!email || !userInfo || !knownConcepts) {
+      console.warn('❗ Missing required fields in onboarding submission');
+      res.status(400).json({ message: 'Missing required fields: email, userInfo, or knownConcepts' });
       return;
     }
 
-    let user = await User.findOne({ email: googleUser.email });
-    if (!user) {
-      user = await User.create({
-        name: googleUser.name,
-        email: googleUser.email,
-        avatar: googleUser.picture,
-      });
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          userInfo,
+          knownConcepts,
+          updatedAt: new Date(),
+        },
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      console.warn(`❗ User not found with email: ${email}`);
+      res.status(404).json({ message: 'User not found' });
+      return;
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
-      expiresIn: '7d',
-    });
-
-    const html = `
-      <html>
-        <body>
-          <script>
-            window.opener.postMessage(${JSON.stringify({ token, user })}, "http://localhost:5173");
-            window.close();
-          </script>
-        </body>
-      </html>
-    `;
-
-    res.send(html);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Authentication failed');
+    console.log(`✅ Onboarding data updated for user: ${email}`);
+    res.status(200).json({ message: 'Onboarding data saved successfully', user: updatedUser });
+  } catch (error) {
+    console.error('❌ Error saving onboarding data:', error);
+    res.status(500).json({ message: 'Server error', error: error instanceof Error ? error.message : 'Unknown error' });
   }
 };
