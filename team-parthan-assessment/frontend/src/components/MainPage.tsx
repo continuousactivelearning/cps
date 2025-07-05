@@ -41,7 +41,7 @@ const MainPage: React.FC = () => {
   // const [showProfile, setShowProfile] = useState(false);
   const [showLoader, setLoader] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
-  const [uploadType, setUploadType] = useState<'youtube' | 'pdf' | 'image'>('youtube');
+  const [uploadType, setUploadType] = useState<'youtube' | 'pdf' | 'image'>('pdf');
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [customContents, setCustomContents] = useState<CustomContent[]>([]);
   const [generatedQuizzes, setGeneratedQuizzes] = useState<Quiz[]>([]);
