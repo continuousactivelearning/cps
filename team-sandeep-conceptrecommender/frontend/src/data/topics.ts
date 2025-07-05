@@ -701,7 +701,7 @@ export const topics = [
           ],
         },
         {
-          name: "Linked Lists",
+          name: "LinkedLists",
           description: "Linked lists are a linear data structure that store a collection of elements of the same type in contiguous memory locations. They are used to represent data in a structured way and are the foundation for many other data structures.",
           tutorials: [
             {
@@ -4607,7 +4607,7 @@ Python
         ]
     },
     {
-        "name": "Depth-First Search (DFS)",
+        "name": "DFS",
         "description": "Explore the Depth-First Search algorithm, a fundamental graph traversal technique that dives deep into each branch before backtracking. Learn its mechanics, implementations, and various applications.",
         "tutorials": [
             {
@@ -4628,7 +4628,7 @@ Python
         ]
     },
     {
-        "name": "Breadth-First Search (BFS)",
+        "name": "BFS",
         "description": "Explore the Breadth-First Search algorithm, a fundamental graph traversal technique that explores nodes layer by layer. Learn its mechanics, implementations, and various applications, especially for finding shortest paths in unweighted graphs.",
         "tutorials": [
             {
@@ -4644,7 +4644,7 @@ Python
         ]
     },
     {
-        "name": "Dijkstra's Algorithm",
+        "name": "Dijkstra",
         "description": "Master Dijkstra's Algorithm, a cornerstone for finding the shortest paths in weighted graphs. Understand its greedy approach, efficiency with priority queues, and where it shines (and falls short).",
         "tutorials": [
             {
@@ -4656,7 +4656,7 @@ Python
                 "id": "dijkstra-2",
                 "title": "Advanced Dijkstra and Related Shortest Path Algorithms",
                 "content": "``````cpp\n// ... inside Dijkstra's loop, after dist[v] update ...\nif (dist[u] + weight < dist[v]) {\n    dist[v] = dist[u] + weight;\n    parent[v] = u; // Store parent\n    pq.push({dist[v], v});\n}\n\n// ... after Dijkstra's finishes ...\n// To reconstruct path to target_vertex:\nstd::vector<int> path;\nint curr = target_vertex;\nwhile (curr != -1) { // -1 usually denotes no parent (source or unreachable)\n    path.push_back(curr);\n    curr = parent[curr];\n}\nstd::reverse(path.begin(), path.end()); // Reverse to get source to target order\n// 'path' now contains the shortest path\n``````"
-            }            
+            }
             
         ]
     },
@@ -4831,7 +4831,7 @@ Python
                 "id": "sudokusolver-2",
                 "title": "Implementing a Sudoku Solver with Backtracking",
                 "content": "``````cpp\nbool solveSudoku(std::vector<std::vector<int>>& board) {\n    int row, col;\n\n    // Step 1: Find the next empty cell. If none, puzzle is solved.\n    if (!findEmpty(board, row, col)) {\n        return true; // No empty cells left, a solution is found\n    }\n\n    // Step 2: Try digits from 1 to 9 for the current empty cell (row, col)\n    for (int num = 1; num <= 9; ++num) {\n        // Step 3: Check if placing 'num' is valid\n        if (isValid(board, row, col, num)) {\n            // Step 4: If valid, tentatively place the digit\n            board[row][col] = num;\n\n            // Step 5: Recursively call solveSudoku for the next empty cell\n            if (solveSudoku(board)) {\n                return true; // This path led to a solution\n            }\n\n            // Step 6 (BACKTRACK): If the recursive call returned false,\n            // it means 'num' at (row, col) did not lead to a solution.\n            // So, undo the placement (reset to empty) and try the next 'num'.\n            board[row][col] = 0; // Backtrack\n        }\n    }\n\n    // Step 7: If the loop finishes, no digit from 1-9 worked for (row, col).\n    // This means a previous decision was wrong. Signal failure to the caller.\n    return false; // Trigger backtracking in the calling function\n}\n``````"
-            }            
+            }
         ]
     },
     {
@@ -5577,7 +5577,7 @@ Both algorithms are efficient and correct for DAGs. The choice often comes down 
         ]
     },
     {
-        "name": "Divide and Conquer",
+        "name": "DivideAndConquer",
         "description": "Two tutorials on the Divide and Conquer paradigm: an introductory one covering the core concepts, Binary Search, and Merge Sort; and an advanced one discussing Quick Sort, recurrence relations, and complex applications.",
         "tutorials": [
             {
@@ -5749,7 +5749,7 @@ Both algorithms are efficient and correct for DAGs. The choice often comes down 
         ]
     },
     {
-        "name": "Job Assignment Problem Tutorials",
+        "name": "JobAssignment",
         "description": "Two tutorials on the Linear Assignment Problem: an introduction covering its definition and a basic backtracking approach; and a detailed tutorial on the efficient Hungarian Algorithm.",
         "tutorials": [
             {
