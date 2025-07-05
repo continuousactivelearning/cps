@@ -18,12 +18,12 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
   strokeWidth = 8,
   color = 'blue',
   showPercentage = true,
-  animated = true,
+  // animated = true,
   label,
   trackColor
 }) => {
   const { darkMode } = useTheme();
-  
+
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const strokeDasharray = circumference;
@@ -40,7 +40,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
   const finalTrackColor = trackColor || (darkMode ? '#374151' : '#e5e7eb');
 
   return (
-    <div className="relative inline-flex items-center justify-center">
+    <div className="inline-flex relative justify-center items-center">
       <svg
         width={size}
         height={size}
@@ -55,7 +55,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
           strokeWidth={strokeWidth}
           fill="none"
         />
-        
+
         {/* Progress circle */}
         <circle
           cx={size / 2}
@@ -73,9 +73,9 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
           }}
         />
       </svg>
-      
+
       {/* Center content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
+      <div className="flex absolute inset-0 flex-col justify-center items-center">
         {showPercentage && (
           <div className="text-center">
             <div className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>

@@ -24,6 +24,7 @@ const AdminHome: React.FC<AdminHomeProps> = ({ showAddCourseForm = false }) => {
     slug: '',
     syllabusPDF: null as File | null,
     materialPDF: null as File | null,
+    playlistURL: '',
   });
 
   const getAnimationProps = (delay = 0) => ({
@@ -90,6 +91,10 @@ const AdminHome: React.FC<AdminHomeProps> = ({ showAddCourseForm = false }) => {
       alert('Please upload a material PDF');
       return;
     }
+    if (!courseData.playlistURL.trim()) {
+      alert('Please enter a YouTube playlist URL');
+      return;
+    }
 
     setUploading(true);
 
@@ -108,7 +113,8 @@ const AdminHome: React.FC<AdminHomeProps> = ({ showAddCourseForm = false }) => {
         courseName: courseData.courseName,
         slug: courseData.slug,
         syllabusPDF: syllabusURL,
-        materialPDF: materialURL
+        materialPDF: materialURL,
+        playlistURL: courseData.playlistURL,
       });
 
       console.log('Course added:', response.data);
@@ -120,11 +126,12 @@ const AdminHome: React.FC<AdminHomeProps> = ({ showAddCourseForm = false }) => {
         slug: '',
         syllabusPDF: null,
         materialPDF: null,
+        playlistURL: '',
       });
       setShowCourseForm(false);
       alert('Course added successfully!');
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('Error adding course:', error);
       const errorMessage = error.response?.data?.message || 'Failed to add course';
@@ -376,6 +383,17 @@ const AdminHome: React.FC<AdminHomeProps> = ({ showAddCourseForm = false }) => {
                   )}
                 </div>
               </div>
+              <label htmlFor="playlistURL">YouTube Playlist URL</label>
+              <input
+                type="url"
+                id="playlistURL"
+                name="playlistURL"
+                placeholder="https://www.youtube.com/playlist?list=..."
+                value={courseData.playlistURL}
+                onChange={e => setCourseData(prev => ({ ...prev, playlistURL: e.target.value }))}
+                required
+                disabled={uploading}
+              />
 
               {/* Form Actions */}
               <div className="form-actions">

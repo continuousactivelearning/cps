@@ -10,10 +10,10 @@ export const courseRouter = Router();
 // Admin routes - require admin role
 courseRouter.post('/add-course', jwtMiddleware, requireRole('admin'), async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { courseId, courseName, slug, syllabusPDF, materialPDF } = req.body;
+    const { courseId, courseName, slug, syllabusPDF, materialPDF, playlistURL } = req.body;
 
     // Validation
-    if (!courseId || !courseName || !slug || !syllabusPDF || !materialPDF) {
+    if (!courseId || !courseName || !slug || !syllabusPDF || !materialPDF || !playlistURL) {
       res.status(400).json({
         message: 'All fields are required'
       });
@@ -47,7 +47,8 @@ courseRouter.post('/add-course', jwtMiddleware, requireRole('admin'), async (req
       courseName,
       slug,
       syllabusPDF,
-      materialPDF
+      materialPDF,
+      playlistURL
     });
 
     res.status(201).json({

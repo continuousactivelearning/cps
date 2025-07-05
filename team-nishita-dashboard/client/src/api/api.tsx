@@ -60,6 +60,7 @@ export interface Course {
   slug: string;
   syllabusPDF: string;
   materialPDF: string;
+  playlistURL: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -117,6 +118,7 @@ export const addCourse = (courseData: {
   slug: string;
   syllabusPDF: string;
   materialPDF: string;
+  playlistURL: string;
 }): Promise<{ data: CourseResponse }> =>
   api.post('/courses/add-course', courseData);
 

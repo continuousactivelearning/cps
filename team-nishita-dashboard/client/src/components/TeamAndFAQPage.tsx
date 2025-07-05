@@ -7,7 +7,6 @@ import {
   FaAward,
   FaRobot,
   FaUserFriends,
-  FaLightbulb,
   FaChevronUp,
   FaChevronDown
 } from "react-icons/fa";
@@ -160,7 +159,7 @@ const FAQAccordion: React.FC<{ faqs: FAQ[] }> = ({ faqs }) => {
               opacity: openIndex === idx ? 1 : 0
             }}
           >
-            <p>{faq.answer.replace('✉️', '')}{faq.answer.includes('✉️') && <FaEnvelope style={{marginLeft: 4, verticalAlign: 'middle'}} />}</p>
+            <p>{faq.answer.replace('✉️', '')}{faq.answer.includes('✉️') && <FaEnvelope style={{ marginLeft: 4, verticalAlign: 'middle' }} />}</p>
           </div>
         </div>
       ))}

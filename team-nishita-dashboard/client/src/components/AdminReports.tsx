@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const sampleReports = [
   { id: 1, type: 'Bug', user: 'alice', description: 'Quiz not loading on course page', date: '2024-06-03', status: 'Open' },

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ProgressBar from './ProgressBar';
+// import ProgressBar from './ProgressBar';
 import { useTheme } from '../contexts/ThemeContext';
 
 interface ProgressTrackerProps {
@@ -73,11 +73,11 @@ const ProgressTracker: React.FC<ProgressTrackerProps> = ({ onProgressUpdate }) =
       </h3>
 
       {error && (
-        <div className="mb-6 p-3 bg-red-100 dark:bg-red-900 border border-red-400 text-red-700 dark:text-red-300 rounded flex items-center justify-between">
+        <div className="flex justify-between items-center p-3 mb-6 text-red-700 bg-red-100 rounded border border-red-400 dark:text-red-300 dark:bg-red-900">
           <span>{error}</span>
           <button
             onClick={() => setError(null)}
-            className="ml-4 text-red-500 hover:text-red-700 font-bold"
+            className="ml-4 font-bold text-red-500 hover:text-red-700"
           >
             ×
           </button>
@@ -85,7 +85,7 @@ const ProgressTracker: React.FC<ProgressTrackerProps> = ({ onProgressUpdate }) =
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div>
 
             <label className={`block text-sm font-medium mb-1 transition-all duration-300 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -165,7 +165,7 @@ const ProgressTracker: React.FC<ProgressTrackerProps> = ({ onProgressUpdate }) =
             name="isCheckedIn"
             checked={formData.isCheckedIn}
             onChange={handleInputChange}
-            className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            className="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
           />
 
           <label className={`ml-2 block text-sm transition-all duration-300 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -177,7 +177,7 @@ const ProgressTracker: React.FC<ProgressTrackerProps> = ({ onProgressUpdate }) =
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium py-3 px-4 rounded-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-2"
+          className="py-3 px-4 mt-2 w-full font-medium text-white bg-blue-600 rounded-md transition duration-200 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none disabled:bg-blue-400"
         >
           {loading ? 'Updating...' : 'Update Progress'}
         </button>
@@ -191,7 +191,7 @@ const ProgressTracker: React.FC<ProgressTrackerProps> = ({ onProgressUpdate }) =
 
             Today's Summary
           </h4>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
             <div>
 
               <div className={`text-lg font-bold transition-all duration-300 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
