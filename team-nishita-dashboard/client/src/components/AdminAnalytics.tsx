@@ -1,5 +1,3 @@
-import React from 'react';
-
 const metrics = [
   { label: 'Total Users', value: 1234 },
   { label: 'Active Users', value: 89 },

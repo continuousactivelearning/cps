@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Layout from './Layout';
-import ProgressBar from './ProgressBar';
-import ProgressTracker from './ProgressTracker';
+// import ProgressBar from './ProgressBar';
+// import ProgressTracker from './ProgressTracker';
 import CircularProgress from './CircularProgress';
 import { useTheme } from '../contexts/ThemeContext';
 import { BookOpen, Award, Clock, Medal, BarChart3 } from 'lucide-react';
@@ -29,17 +29,17 @@ const DUMMY_STATS = [
   { _id: '2025-07-07', lessonsCompleted: 0, quizzesTaken: 0, studyTime: 0, pointsEarned: 0, checkIns: 0 },
 ];
 
-const isEmptySummary = (summary: any) => {
-  if (!summary) return true;
-  return Object.values(summary).every((v) => v === 0);
-};
+// const isEmptySummary = (summary: any) => {
+//   if (!summary) return true;
+//   return Object.values(summary).every((v) => v === 0);
+// };
 
-const MILESTONES = [
-  { label: 'First Quiz', achieved: (summary: any) => summary.totalQuizzesTaken > 0 },
-  { label: '5 Lessons', achieved: (summary: any) => summary.totalLessonsCompleted >= 5 },
-  { label: '7-Day Streak', achieved: (summary: any) => summary.loginStreak >= 7 },
-  { label: '100 Points', achieved: (summary: any) => summary.totalPoints >= 100 },
-];
+// const MILESTONES = [
+//   { label: 'First Quiz', achieved: (summary: any) => summary.totalQuizzesTaken > 0 },
+//   { label: '5 Lessons', achieved: (summary: any) => summary.totalLessonsCompleted >= 5 },
+//   { label: '7-Day Streak', achieved: (summary: any) => summary.loginStreak >= 7 },
+//   { label: '100 Points', achieved: (summary: any) => summary.totalPoints >= 100 },
+// ];
 
 const ProgressPage: React.FC = () => {
   const { darkMode } = useTheme();
@@ -75,8 +75,8 @@ const ProgressPage: React.FC = () => {
   if (loading) {
     return (
       <Layout>
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+        <div className="flex justify-center items-center min-h-screen">
+          <div className="w-12 h-12 rounded-full border-b-2 border-blue-500 animate-spin"></div>
         </div>
       </Layout>
     );
@@ -85,9 +85,8 @@ const ProgressPage: React.FC = () => {
   return (
     <Layout>
       <div
-        className={`max-w-7xl mx-auto min-h-screen flex flex-col transition-colors duration-300 ${
-          darkMode ? 'bg-[#181A20]' : 'bg-gradient-to-br from-white to-blue-50'
-        }`}
+        className={`max-w-7xl mx-auto min-h-screen flex flex-col transition-colors duration-300 ${darkMode ? 'bg-[#181A20]' : 'bg-gradient-to-br from-white to-blue-50'
+          }`}
         style={{
           paddingTop: 64,
           paddingLeft: 48,
@@ -97,13 +96,13 @@ const ProgressPage: React.FC = () => {
         {/* Header Section */}
         <div className="flex flex-col items-center" style={{ marginTop: 48, marginBottom: 24 }}>
           <h1
-            className="text-3xl font-extrabold text-white tracking-tight text-center"
+            className="text-3xl font-extrabold tracking-tight text-center text-white"
             style={{ marginBottom: 16, paddingTop: 12, paddingBottom: 12 }}
           >
             Your Learning Progress
           </h1>
           <p
-            className="text-gray-400 text-lg text-center"
+            className="text-lg text-center text-gray-400"
             style={{ marginBottom: 24, paddingLeft: 12, paddingRight: 12 }}
           >
             Continue your learning journey and celebrate your achievements
@@ -111,8 +110,8 @@ const ProgressPage: React.FC = () => {
         </div>
 
         {/* Stat Cards Section - Responsive grid, no horizontal scroll */}
-        <div className="mb-56 mt-24 px-6 md:px-24">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-24">
+        <div className="px-6 mt-24 mb-56 md:px-24">
+          <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 md:gap-24 lg:grid-cols-4">
             {[
               {
                 icon: <BookOpen size={32} className={`${darkMode ? 'text-pink-100' : 'text-blue-700'} mb-4`} />,
@@ -180,10 +179,10 @@ const ProgressPage: React.FC = () => {
         </div>
 
         {/* Circular Progress Section */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-24 mb-56 mt-40 px-6 md:px-24 animate-fade-in">
+        <div className="flex flex-col gap-24 justify-center items-center px-6 mt-40 mb-56 md:flex-row md:px-24 animate-fade-in">
           <div className="flex flex-col items-center p-6">
             <CircularProgress progress={calculateOverallProgress()} size={150} strokeWidth={28} color={darkMode ? "#1e3a8a" : "#60a5fa"} label="Overall" trackColor={!darkMode ? "#dbeafe" : undefined} />
-            <span className="mt-10 text-blue-200 font-semibold text-xl">Overall Progress</span>
+            <span className="mt-10 text-xl font-semibold text-blue-200">Overall Progress</span>
           </div>
           <div className="flex flex-col items-center p-6">
             <CircularProgress
@@ -194,7 +193,7 @@ const ProgressPage: React.FC = () => {
               label="Streak"
               trackColor={!darkMode ? "#fef9c3" : undefined}
             />
-            <span className="mt-10 text-orange-200 font-semibold text-xl">
+            <span className="mt-10 text-xl font-semibold text-orange-200">
               Current Streak: {summaryToShow.currentStreak}
             </span>
           </div>
@@ -207,7 +206,7 @@ const ProgressPage: React.FC = () => {
               label="Check-ins"
               trackColor={!darkMode ? "#ccfbf1" : undefined}
             />
-            <span className="mt-10 text-cyan-200 font-semibold text-xl">
+            <span className="mt-10 text-xl font-semibold text-cyan-200">
               Check-ins: {summaryToShow.totalCheckIns}
             </span>
           </div>
@@ -215,14 +214,12 @@ const ProgressPage: React.FC = () => {
 
         {/* Bar Chart Section */}
         <div
-          className={`rounded-2xl shadow-lg p-24 mb-48 mt-40 flex flex-col items-center justify-center transition-colors duration-300 ${
-            darkMode ? 'bg-gradient-to-br from-gray-900 to-gray-800' : 'bg-gradient-to-br from-white to-blue-50 border border-blue-100'
-          }`}
+          className={`rounded-2xl shadow-lg p-24 mb-48 mt-40 flex flex-col items-center justify-center transition-colors duration-300 ${darkMode ? 'bg-gradient-to-br from-gray-900 to-gray-800' : 'bg-gradient-to-br from-white to-blue-50 border border-blue-100'
+            }`}
         >
           <h3
-            className={`text-5xl font-extrabold mb-16 mt-24 flex items-center justify-center ${
-              darkMode ? 'text-purple-200' : 'text-purple-700'
-            }`}
+            className={`text-5xl font-extrabold mb-16 mt-24 flex items-center justify-center ${darkMode ? 'text-purple-200' : 'text-purple-700'
+              }`}
             style={{
               letterSpacing: '0.05em',
               textAlign: 'center',
@@ -232,12 +229,12 @@ const ProgressPage: React.FC = () => {
             <BarChart3 size={56} className={`mr-8 ${darkMode ? 'text-purple-200' : 'text-purple-400'}`} />
             Daily Activity (Last 7 Days)
           </h3>
-          <div className="relative w-full max-w-4xl mx-auto px-2">
+          <div className="relative px-2 mx-auto w-full max-w-4xl">
             {/* Improved Bar Chart */}
             {(() => {
               const studyTimes = statsToShow.slice(-7).map(day => day.studyTime);
               const maxMinutes = Math.max(...studyTimes, 60);
-              let yLabels = [];
+              const yLabels = [];
               const yStep = 15;
               for (let m = Math.ceil(maxMinutes / yStep) * yStep; m >= 0; m -= yStep) {
                 if (m % 60 === 0 && m !== 0) {
@@ -251,8 +248,8 @@ const ProgressPage: React.FC = () => {
               return (
                 <div className="flex w-full">
                   {/* Y Axis */}
-                  <div className="flex flex-col justify-between h-96 mr-2">
-                    {yLabels.map((label, i) => (
+                  <div className="flex flex-col justify-between mr-2 h-96">
+                    {yLabels.map((label) => (
                       <div
                         key={label}
                         className={`font-semibold ${label.includes('h') ? (darkMode ? 'text-base text-purple-300' : 'text-base text-purple-400') : (darkMode ? 'text-xs text-blue-300' : 'text-xs text-blue-400')}`}
@@ -263,24 +260,22 @@ const ProgressPage: React.FC = () => {
                     ))}
                   </div>
 
-                  <div className="flex items-end gap-24 h-[28rem] w-full overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-blue-50 justify-center pl-32">
+                  <div className="flex overflow-x-auto gap-24 justify-center items-end pl-32 w-full h-[28rem] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-blue-50">
                     {statsToShow.slice(-7).map((day, idx) => {
-                      let value = day.studyTime;
+                      const value = day.studyTime;
                       let maxValue = Math.max(...studyTimes, 60);
                       if (maxValue === 0) maxValue = 1;
                       const barHeight = (value / maxValue) * 320;
                       return (
-                        <div key={idx} className="flex flex-col items-center group w-14">
+                        <div key={idx} className="flex flex-col items-center w-14 group">
                           <div
-                            className={`w-32 rounded-t-2xl transition-all duration-500 relative shadow-xl bg-gradient-to-t ${
-                              darkMode ? 'from-blue-400 to-purple-400' : 'from-blue-200 to-purple-100'
-                            }`}
+                            className={`w-32 rounded-t-2xl transition-all duration-500 relative shadow-xl bg-gradient-to-t ${darkMode ? 'from-blue-400 to-purple-400' : 'from-blue-200 to-purple-100'
+                              }`}
                             style={{ height: `${barHeight}px` }}
                           >
                             <div
-                              className={`absolute bottom-full left-1/2 -translate-x-1/2 transform opacity-0 group-hover:opacity-100 pointer-events-none text-sm px-4 py-2 rounded shadow-lg z-10 transition-all duration-300 ${
-                                darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900 border border-blue-100'
-                              }`}
+                              className={`absolute bottom-full left-1/2 -translate-x-1/2 transform opacity-0 group-hover:opacity-100 pointer-events-none text-sm px-4 py-2 rounded shadow-lg z-10 transition-all duration-300 ${darkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900 border border-blue-100'
+                                }`}
                               style={{ marginBottom: '1rem' }}
                             >
                               {`${day.lessonsCompleted} lessons, ${day.quizzesTaken} quizzes, ${formatTime(day.studyTime)} study`}
@@ -288,9 +283,8 @@ const ProgressPage: React.FC = () => {
                           </div>
 
                           {/* X Axis label */}
-                          <span className={`mt-4 font-semibold ${
-                            darkMode ? 'text-blue-200 text-sm' : 'text-blue-700 text-base'
-                          }`}>
+                          <span className={`mt-4 font-semibold ${darkMode ? 'text-blue-200 text-sm' : 'text-blue-700 text-base'
+                            }`}>
                             {new Date(day._id).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                           </span>
                         </div>
@@ -310,29 +304,29 @@ const ProgressPage: React.FC = () => {
         <div style={{ height: 32 }} />
 
         {/* Progress Tracker */}
-        <div className="mb-32 mt-24 flex justify-center w-full">
+        <div className="flex justify-center mt-24 mb-32 w-full">
           <div className={`rounded-2xl shadow-lg px-8 py-12 max-w-full w-full flex flex-col gap-10 items-center 
-            ${darkMode ? 'bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700' : ''}`}>
+      ${darkMode ? 'bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700' : ''}`}>
             <h2 className={`text-3xl font-extrabold tracking-tight text-center mb-4 
               ${darkMode ? 'text-blue-200' : 'text-gray-900'}`}>
               Your Latest Progress (Sample Data)
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+            <div className="grid grid-cols-1 gap-8 w-full md:grid-cols-2">
               {/* Lessons Completed */}
               <div
                 className={`flex flex-col items-center justify-center rounded-xl p-4 w-full transition-colors duration-300 ${darkMode ? '' : 'bg-blue-200/40'}`}
                 style={
                   darkMode
                     ? {
-                        color: '#e0e7ef',
-                        boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
-                        borderRadius: 18,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minHeight: 80,
-                        padding: '24px 16px',
-                      }
+                      color: '#e0e7ef',
+                      boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
+                      borderRadius: 18,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: 80,
+                      padding: '24px 16px',
+                    }
                     : undefined
                 }
               >
@@ -350,14 +344,14 @@ const ProgressPage: React.FC = () => {
                 style={
                   darkMode
                     ? {
-                        color: '#e0e7ef',
-                        boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
-                        borderRadius: 18,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minHeight: 80,
-                        padding: '24px 16px',
-                      }
+                      color: '#e0e7ef',
+                      boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
+                      borderRadius: 18,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: 80,
+                      padding: '24px 16px',
+                    }
                     : undefined
                 }
               >
@@ -375,14 +369,14 @@ const ProgressPage: React.FC = () => {
                 style={
                   darkMode
                     ? {
-                        color: '#e0e7ef',
-                        boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
-                        borderRadius: 18,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minHeight: 80,
-                        padding: '24px 16px',
-                      }
+                      color: '#e0e7ef',
+                      boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
+                      borderRadius: 18,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: 80,
+                      padding: '24px 16px',
+                    }
                     : undefined
                 }
               >
@@ -400,14 +394,14 @@ const ProgressPage: React.FC = () => {
                 style={
                   darkMode
                     ? {
-                        color: '#e0e7ef',
-                        boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
-                        borderRadius: 18,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minHeight: 80,
-                        padding: '24px 16px',
-                      }
+                      color: '#e0e7ef',
+                      boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
+                      borderRadius: 18,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: 80,
+                      padding: '24px 16px',
+                    }
                     : undefined
                 }
               >
@@ -425,14 +419,14 @@ const ProgressPage: React.FC = () => {
                 style={
                   darkMode
                     ? {
-                        color: '#e0e7ef',
-                        boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
-                        borderRadius: 18,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minHeight: 80,
-                        padding: '24px 16px',
-                      }
+                      color: '#e0e7ef',
+                      boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
+                      borderRadius: 18,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: 80,
+                      padding: '24px 16px',
+                    }
                     : undefined
                 }
               >
@@ -450,14 +444,14 @@ const ProgressPage: React.FC = () => {
                 style={
                   darkMode
                     ? {
-                        color: '#e0e7ef',
-                        boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
-                        borderRadius: 18,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minHeight: 80,
-                        padding: '24px 16px',
-                      }
+                      color: '#e0e7ef',
+                      boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
+                      borderRadius: 18,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: 80,
+                      padding: '24px 16px',
+                    }
                     : undefined
                 }
               >
@@ -470,11 +464,11 @@ const ProgressPage: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div >
 
         {/* Smaller Footer */}
-        <footer
-          className="w-full text-center mt-auto border-t border-gray-700"
+        < footer
+          className="mt-auto w-full text-center border-t border-gray-700"
           style={{
             background: 'linear-gradient(90deg, #23263a 0%, #1e2133 100%)',
             color: '#a0aec0',
@@ -485,10 +479,10 @@ const ProgressPage: React.FC = () => {
             marginTop: 24,
           }}
         >
-          <span style={{ fontWeight: 700, color: '#fff' }}>BluePrint</span> &nbsp;|&nbsp; Crafted for learners everywhere &nbsp; &copy; {new Date().getFullYear()} BluePrint Team 6
-        </footer>
-      </div>
-    </Layout>
+          <span style={{ fontWeight: 700, color: '#fff' }}>BluePrint</span> & nbsp;|& nbsp; Crafted for learners everywhere & nbsp; & copy; {new Date().getFullYear()} BluePrint Team 6
+        </footer >
+      </div >
+    </Layout >
   );
 };
 

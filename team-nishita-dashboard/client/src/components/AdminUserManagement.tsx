@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const sampleUsers = [
   { id: 1, username: 'john_doe', role: 'user', status: 'Active', lastLogin: '2024-06-01' },

@@ -6,6 +6,7 @@ import Layout from './components/Layout';
 import UserHome from './components/UserHome';
 import AdminHome from './components/AdminHome';
 import CoursePage from './components/CoursePage';
+import CoursePlaylistPage from './components/CoursePlaylistPage.tsx';
 import ProtectedRoute from './contexts/ProtectedRoute';
 import ChatWidget from "./ChatWidget.tsx";
 import AdminLayout from './components/AdminLayout';
@@ -19,7 +20,7 @@ import AllCoursesPage from './components/AllCoursesPage';
 import AchievementsPage from './components/AchievementPage';
 import TeamAndFAQPage from './components/TeamAndFAQPage.tsx';
 
-import AchievementPage from './components/AchievementPage';
+// import AchievementPage from './components/AchievementPage';
 // import RecommendationsPage from './components/RecommendationPage';
 
 import KnowledgeGraphPage from './components/KnowledgeGraphPage';
@@ -156,11 +157,17 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="/courses/:slug/playlist" element={
+                <ProtectedRoute requiredRole='user'>
+                  <CoursePlaylistPage />
+                </ProtectedRoute>
+              }
+              />
             </Routes>
           </Router>
         </Tooltip.Provider>
       </AuthProvider>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
 

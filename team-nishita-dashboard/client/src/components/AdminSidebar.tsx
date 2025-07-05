@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 // import {  useLocation } from "react-router-dom";
-import { Users, BarChart2, Settings, FileText, MessageSquare, Plus, Home, Menu } from "lucide-react";
+import { Users, BarChart2, FileText, Plus, Home, Menu } from "lucide-react";
 import "./Sidebar.styles.css";
 import { useTheme } from '../contexts/ThemeContext';
 
