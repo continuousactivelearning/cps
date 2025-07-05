@@ -6,7 +6,10 @@ import {
   FaRocket,
   FaAward,
   FaRobot,
-  FaUserFriends
+  FaUserFriends,
+  FaLightbulb,
+  FaChevronUp,
+  FaChevronDown
 } from "react-icons/fa";
 import "./TeamAndFAQPage.css";
 
@@ -32,31 +35,41 @@ const teamMembers: TeamMember[] = [
     name: "Devansh Srivastava",
     role: "Full Stack Dev",
     quote: "APIs are my playground.",
-    funFact: "Ideality is a virtual phenomenon."
+    funFact: "Ideality is a virtual phenomenon.",
+    contact: "9140212547",
+    email: "devansh.srivastava@gmail.com"
   },
   {
     name: "Sonali",
-    role: "Frontend Dev",
+    role: "Full Stack Dev",
     quote: "Tech is the art of turning coffee into software.",
-    funFact: "Sketches in her free time."
+    funFact: "Sketches in her free time.",
+    contact: "9284478013",
+    email: "sonali.d.sharma@gmail.com"
   },
   {
     name: "Deepali",
-    role: "Backend Dev",
+    role: "Full Stack Dev",
     quote: "Innovation is my default setting.",
-    funFact: "Loves mystery novels."
+    funFact: "Loves Solving Problems!!",
+    contact: "8999837442",
+    email: "d11466165@gmail.com"
   },
   {
     name: "Tanisha",
     role: "MERN Stack Dev",
     quote: "User first, always.",
-    funFact: "MERN-ifying ideas into Reality."
+    funFact: "MERN-ifying ideas into Reality.",
+    contact: "81064 78200",
+    email: "tanisha.d.sharma@gmail.com"
   },
   {
     name: "Shiv Kumar Behera",
     role: "Developer",
     quote: "Automate everything.",
-    funFact: "Building projects."
+    funFact: "Building projects.",
+    contact: "7655907780",
+    email: "shivkumarbehera123@gmail.com"
   }
 ];
 
@@ -138,7 +151,7 @@ const FAQAccordion: React.FC<{ faqs: FAQ[] }> = ({ faqs }) => {
             type="button"
           >
             {faq.question}
-            <span className="faq-arrow">{openIndex === idx ? "▲" : "▼"}</span>
+            <span className="faq-arrow">{openIndex === idx ? <FaChevronUp /> : <FaChevronDown />}</span>
           </button>
           <div
             className="faq-answer"
@@ -147,7 +160,7 @@ const FAQAccordion: React.FC<{ faqs: FAQ[] }> = ({ faqs }) => {
               opacity: openIndex === idx ? 1 : 0
             }}
           >
-            <p>{faq.answer}</p>
+            <p>{faq.answer.replace('✉️', '')}{faq.answer.includes('✉️') && <FaEnvelope style={{marginLeft: 4, verticalAlign: 'middle'}} />}</p>
           </div>
         </div>
       ))}
@@ -155,25 +168,55 @@ const FAQAccordion: React.FC<{ faqs: FAQ[] }> = ({ faqs }) => {
   );
 };
 
+const pastelCardGradients = [
+  'linear-gradient(135deg, #dbeafe 0%, #f0f7ff 100%)', // blue
+  'linear-gradient(135deg, #ccfbf1 0%, #e0f2fe 100%)', // teal
+  'linear-gradient(135deg, #ede9fe 0%, #f3e8ff 100%)', // purple
+  'linear-gradient(135deg, #fef9c3 0%, #f0fdf4 100%)', // yellow
+  'linear-gradient(135deg, #fbcfe8 0%, #fdf2f8 100%)', // pink
+  'linear-gradient(135deg, #bbf7d0 0%, #f0fdf4 100%)'  // green
+];
+
+// Utility to detect dark mode
+const useIsDarkTheme = () => {
+  if (typeof window !== 'undefined') {
+    return document.body.classList.contains('dark-theme');
+  }
+  return false;
+};
+
 // TeamCard without image
-const TeamCard: React.FC<{ member: TeamMember }> = ({ member }) => (
-  <div className="team-card">
-    <h3>{member.name}</h3>
-    <p className="role">{member.role}</p>
-    <p className="quote">"{member.quote}"</p>
-    <p className="fun-fact">💡 {member.funFact}</p>
-    {member.contact && (
-      <div className="contact-icons">
-        <a href={`tel:${member.contact}`} title="Call">
-          <FaPhone />
-        </a>
-        <a href={`mailto:${member.email}`} title="Email">
-          <FaEnvelope />
-        </a>
-      </div>
-    )}
-  </div>
-);
+const TeamCard: React.FC<{ member: TeamMember; colorIdx: number }> = ({ member, colorIdx }) => {
+  const isDark = useIsDarkTheme();
+  const pastelBg = isDark ? undefined : pastelCardGradients[colorIdx % pastelCardGradients.length];
+  return (
+    <div
+      className={`team-card`}
+      style={{
+        color: '#334155',
+        boxShadow: '0 4px 24px 0 rgba(80, 80, 160, 0.10)',
+        background: pastelBg
+      }}
+    >
+      <h3>{member.name}</h3>
+      <p className="role">{member.role}</p>
+      <p className="quote">"{member.quote}"</p>
+      <p className="fun-fact">
+        {member.funFact}
+      </p>
+      {member.contact && (
+        <div className="contact-icons">
+          <a href={`tel:${member.contact}`} title="Call">
+            <FaPhone />
+          </a>
+          <a href={`mailto:${member.email}`} title="Email">
+            <FaEnvelope />
+          </a>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const TeamAndFAQPage: React.FC = () => (
   <div className="team-faq-page">
@@ -196,7 +239,7 @@ const TeamAndFAQPage: React.FC = () => (
       <h2>Meet the Team</h2>
       <div className="team-grid">
         {teamMembers.map((member, idx) => (
-          <TeamCard member={member} key={idx} />
+          <TeamCard member={member} colorIdx={idx} key={idx} />
         ))}
       </div>
     </section>
