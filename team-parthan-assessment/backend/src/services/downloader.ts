@@ -17,33 +17,40 @@ export async function downloadSubtitles(videoId: string, outputDir: string): Pro
   const baseUrl = `https://www.youtube.com/watch?v=${videoId}`;
   const output = path.join(outputDir, `${videoId}.%(ext)s`);
 
+  // Ensure output directory exists
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+
+  const commonArgs = [
+    '--write-auto-sub',
+    '--write-sub',
+    '--skip-download',
+    '--user-agent', 'Mozilla/5.0',
+    '-o', output,
+    baseUrl,
+  ];
+
   // Try English first
   try {
     await execa('yt-dlp', [
-      '--write-auto-sub',
-      '--write-sub',
       '--sub-lang', 'en',
-      '--skip-download',
-      '-o', output,
-      baseUrl,
+      ...commonArgs,
     ]);
+
     const enVtt = fs.readdirSync(outputDir).find(f => f.startsWith(videoId) && f.endsWith('.en.vtt'));
     if (enVtt) {
       return { filePath: path.join(outputDir, enVtt), langCode: 'en' };
     }
-  } catch {
-    // Fail silently and fallback below
+  } catch (err) {
+    console.warn(`English subtitles not found for ${videoId}. Falling back to other languages.`);
   }
 
-  // If English not found, fallback to any available language
+  // Fallback to any available subtitle language
   try {
     await execa('yt-dlp', [
-      '--write-auto-sub',
-      '--write-sub',
       '--sub-lang', 'best',
-      '--skip-download',
-      '-o', output,
-      baseUrl,
+      ...commonArgs,
     ]);
 
     const fallback = fs.readdirSync(outputDir).find(f => f.startsWith(videoId) && f.endsWith('.vtt'));
@@ -53,8 +60,8 @@ export async function downloadSubtitles(videoId: string, outputDir: string): Pro
       return { filePath: path.join(outputDir, fallback), langCode: detectedLang };
     }
   } catch (error) {
-    console.error(`Failed to download subtitles for ${videoId}:`, error);
+    console.error(`Failed to download any subtitles for ${videoId}:`, error);
   }
 
-  throw new Error(`No subtitles found for video: ${videoId}`);
+  throw new Error(`No subtitles found for video: ${videoId}`);
 }
