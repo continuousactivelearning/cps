@@ -26,7 +26,6 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
-import { useNavigate } from 'react-router-dom';
 import UserProfileMenu from '../components/UserProfileMenu';
 import { useTheme } from '../contexts/ThemeContext';
 
@@ -74,7 +73,6 @@ const StudentView: React.FC = () => {
   const [error, setError] = useState<string>('');
   const [recentQueries, setRecentQueries] = useState<string[]>([]);
   const [tabValue, setTabValue] = useState<string>('all');
-  const navigate = useNavigate();
   const [feedback, setFeedback] = useState<'like' | 'dislike' | null>(null);
 
 
@@ -105,9 +103,8 @@ const StudentView: React.FC = () => {
       setResults(response.data);
       setRecentQueries(prev => [query, ...prev.slice(0, 4)]);
       setQuery('');
-    } catch (err) {
+    } catch {
       setError('Failed to process query. Please try again.');
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -259,7 +256,7 @@ const StudentView: React.FC = () => {
 
         <Tabs
           value={tabValue}
-          onChange={(e, newValue) => setTabValue(newValue)}
+          onChange={(_, newValue) => setTabValue(newValue)}
           sx={{ mb: 2 }}
         >
           <Tab label="All" value="all" />

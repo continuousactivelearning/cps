@@ -32,14 +32,6 @@ const startServer = async () => {
     app.use(express.urlencoded({ extended: true, limit: '10mb' }));
     app.use(passport.initialize());
 
-    // Request logging in development
-    if (process.env.NODE_ENV === 'development') {
-      app.use((req, res, next) => {
-        console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-        next();
-      });
-    }
-
     // Health check
     app.get('/', (req: Request, res: Response) => {
       res.json({
@@ -66,36 +58,19 @@ const startServer = async () => {
     await mongoose.connect(process.env.MONGODB_URI!, {
       dbName: process.env.DATABASE_NAME
     });
-    console.log('✅ Connected to MongoDB');
 
     // Start server
     const server = app.listen(PORT, () => {
-      console.log(`🚀 Server running at http://localhost:${PORT}`);
-      console.log(`📡 Chat API (TypeScript): http://localhost:${PORT}/api/chat`);
-      console.log(`🔐 Auth API: http://localhost:${PORT}/api/users`);
-      
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`\n📋 Available endpoints:`);
-        console.log(`   POST /api/chat - DSA Learning Chat (replaces Python handler)`);
-        console.log(`   GET  /api/chat/health - Chat service health check`);
-        console.log(`   GET  /api/chat/session/:user_id - Get learning session`);
-        console.log(`   POST /api/chat/session/:user_id/reset - Reset learning session`);
-        console.log(`   POST /api/users/register - User registration`);
-        console.log(`   POST /api/users/login - User login`);
-      }
+      // Server started silently
     });
 
     // Graceful shutdown
     const gracefulShutdown = (signal: string) => {
-      console.log(`\n🛑 ${signal} received, shutting down gracefully...`);
       server.close(async () => {
         try {
           await mongoose.connection.close();
-          console.log('✅ MongoDB connection closed');
-          console.log('✅ Server closed');
           process.exit(0);
         } catch (error) {
-          console.error('❌ Error during shutdown:', error);
           process.exit(1);
         }
       });
@@ -105,7 +80,6 @@ const startServer = async () => {
     process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
   } catch (error) {
-    console.error('❌ Failed to start server:', error);
     process.exit(1);
   }
 };

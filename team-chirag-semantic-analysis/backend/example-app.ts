@@ -30,14 +30,6 @@ const createApp = async (): Promise<express.Application> => {
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-  // Request logging in development
-  if (config.nodeEnv === 'development') {
-    app.use((req, res, next) => {
-      console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-      next();
-    });
-  }
-
   // Health check endpoint
   app.get('/health', (req, res) => {
     res.json({
@@ -73,38 +65,23 @@ const startServer = async (): Promise<void> => {
     const config = await initializeEnvironment();
 
     const server = app.listen(config.port, () => {
-      console.log(`🚀 Server running on port ${config.port}`);
-      console.log(`📡 Chat API available at: http://localhost:${config.port}/api/chat`);
-      console.log(`🏥 Health check: http://localhost:${config.port}/health`);
-      
-      if (config.nodeEnv === 'development') {
-        console.log(`\n📝 API Documentation:`);
-        console.log(`   POST /api/chat - Main chat endpoint`);
-        console.log(`   GET  /api/chat/health - Chat service health`);
-        console.log(`   GET  /api/chat/session/:user_id - Get learning session`);
-        console.log(`   POST /api/chat/session/:user_id/reset - Reset learning session`);
-      }
+      // Server started silently
     });
 
     // Graceful shutdown
     process.on('SIGTERM', () => {
-      console.log('\n🛑 SIGTERM received, shutting down gracefully...');
       server.close(() => {
-        console.log('✅ Server closed');
         process.exit(0);
       });
     });
 
     process.on('SIGINT', () => {
-      console.log('\n🛑 SIGINT received, shutting down gracefully...');
       server.close(() => {
-        console.log('✅ Server closed');
         process.exit(0);
       });
     });
 
   } catch (error) {
-    console.error('❌ Failed to start server:', error);
     process.exit(1);
   }
 };

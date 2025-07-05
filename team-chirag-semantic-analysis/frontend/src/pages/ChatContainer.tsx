@@ -175,7 +175,7 @@ export const ChatContainer: React.FC = () => {
         timestamp: msg.timestamp.toISOString()
       }));
 
-      const res = await fetch('http://localhost:5000/api/chat', {
+      const res = await fetch(import.meta.env.VITE_CHAT_API_URL || 'http://localhost:5000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -204,8 +204,7 @@ export const ChatContainer: React.FC = () => {
         videos: data.videos || [],
         analysis: data.analysis || {}
       };
-    } catch (err) {
-      console.error("Error:", err);
+    } catch {
       showError("There was an error contacting the AI service. Please try again.");
       return {
         response: "There was an error contacting the AI service.",

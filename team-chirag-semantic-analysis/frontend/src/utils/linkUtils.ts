@@ -85,7 +85,7 @@ export const fetchLinkPreview = async (url: string): Promise<LinkPreview> => {
 
     linkPreviewCache.set(url, preview);
     return preview;
-  } catch (error) {
+  } catch {
     const errorPreview: LinkPreview = {
       url,
       domain,
@@ -103,7 +103,7 @@ export const copyToClipboard = async (text: string): Promise<boolean> => {
   try {
     await navigator.clipboard.writeText(text);
     return true;
-  } catch (err) {
+  } catch {
     // Fallback for older browsers
     const textArea = document.createElement('textarea');
     textArea.value = text;

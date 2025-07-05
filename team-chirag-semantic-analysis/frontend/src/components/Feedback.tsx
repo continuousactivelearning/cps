@@ -57,8 +57,8 @@ const Feedback: React.FC<FeedbackProps> = ({ queryId, concepts }) => {
           feedback: ''
       });
       setSubmitted(true);
-    } catch (error) {
-      console.error('Failed to submit feedback:', error);
+    } catch {
+      // Feedback submission failed silently
     }
   };
 

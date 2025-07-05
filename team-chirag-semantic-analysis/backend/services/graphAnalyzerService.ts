@@ -62,7 +62,6 @@ export class GraphAnalyzerService {
         this.performClustering();
       }
     } catch (error) {
-      console.error('Error loading graph data:', error);
       this.graphData = { nodes: [], edges: [] };
     }
   }
@@ -262,7 +261,6 @@ export class GraphAnalyzerService {
       };
 
     } catch (error) {
-      console.error('Error finding optimal learning path:', error);
       return { path: [] };
     }
   }
@@ -459,7 +457,6 @@ export class GraphAnalyzerService {
         completion_percentage: completionPercentage
       };
     } catch (error) {
-      console.error('Error analyzing subtopic learning gaps:', error);
       return { missing_prerequisites: [], recommended_subtopics: [] };
     }
   }
@@ -604,7 +601,6 @@ export class GraphAnalyzerService {
         foundational_missing: foundational
       };
     } catch (error) {
-      console.error('Error in comprehensive learning gap analysis:', error);
       return { recommended_topics: [] };
     }
   }

@@ -66,7 +66,6 @@ export class IntegratedChatHandlerService {
       this.groqService = new GroqResponseService();
 
     } catch (error) {
-      console.error('Error initializing services:', error);
       this.graphAnalyzer = null;
       this.youtubeFinder = null;
       // Still initialize Groq service as fallback
@@ -108,13 +107,8 @@ export class IntegratedChatHandlerService {
         return JSON.parse(data) as UserProfile;
       } catch {
         // File doesn't exist
-      }
-
-      console.log('No user profile found');
-      return null;
-
+      }      return null;
     } catch (error) {
-      console.error('Error loading user profile:', error);
       return null;
     }
   }
@@ -424,7 +418,6 @@ export class IntegratedChatHandlerService {
           };
 
         } catch (methodError) {
-          console.error('Error calling graph analyzer methods:', methodError);
           return {
             gaps: [],
             learning_path: [],
@@ -450,7 +443,6 @@ export class IntegratedChatHandlerService {
         };
 
       } catch (compError) {
-        console.error('Error in comprehensive gap analysis:', compError);
         return {
           gaps: [],
           learning_path: [],
@@ -460,7 +452,6 @@ export class IntegratedChatHandlerService {
       }
 
     } catch (error) {
-      console.error('Error in gap analysis:', error);
       return { gaps: [], learning_path: [], known_concepts: [] };
     }
   }
@@ -537,14 +528,12 @@ export class IntegratedChatHandlerService {
 
       // Check if response indicates an error
       if (response.startsWith("Error:")) {
-        console.log(`Groq API error: ${response}`);
         return this.generateFallbackResponse(query, context);
       }
 
       return response.trim();
 
     } catch (error) {
-      console.error('Error generating Groq response:', error);
       return this.generateFallbackResponse(query, context);
     }
   }
@@ -711,7 +700,6 @@ export class IntegratedChatHandlerService {
       return allVideos.slice(0, 5); // Limit to 5 videos total
 
     } catch (error) {
-      console.error('Error getting video recommendations:', error);
       return [];
     }
   }
@@ -742,7 +730,7 @@ export class IntegratedChatHandlerService {
       await fs.writeFile(this.unknownQueriesLogPath, JSON.stringify(logData, null, 2));
 
     } catch (error) {
-      console.error('Error logging unknown query:', error);
+      // Error logging failed, continue silently
     }
   }
 
@@ -760,7 +748,6 @@ export class IntegratedChatHandlerService {
         this.learningSessions.set(userId, session as LearningSession);
       }
     } catch (error) {
-      console.error('Error loading learning sessions:', error);
       this.learningSessions.clear();
     }
   }
@@ -778,7 +765,7 @@ export class IntegratedChatHandlerService {
 
       await fs.writeFile(this.learningSessionsPath, JSON.stringify(sessionsObj, null, 2));
     } catch (error) {
-      console.error('Error saving learning sessions:', error);
+      // Error saving learning sessions, continue silently
     }
   }
 
@@ -893,7 +880,6 @@ export class IntegratedChatHandlerService {
       }
       return false;
     } catch (error) {
-      console.error('Error adding topic to user profile:', error);
       return false;
     }
   }
@@ -1066,7 +1052,6 @@ export class IntegratedChatHandlerService {
       }
 
     } catch (error) {
-      console.error('Error handling chat message:', error);
       return {
         response: "I'm sorry, there was an error processing your request. Please try again.",
         videos: [],
