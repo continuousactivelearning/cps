@@ -14,7 +14,8 @@ import {
     getQuizzesByLevelAndTopic,
     getQuizzesByLangLevelAndTopic,
     searchQuizzes,
-    debugQuizzes
+    debugQuizzes,
+    getQuizReview
 } from '../controllers/quizController';
 
 const router = express.Router();
@@ -48,6 +49,9 @@ router.get('/level/:level/topic/:topic', getQuizzesByLevelAndTopic as RequestHan
 
 // GET /api/quizzes/lang/:lang/level/:level/topic/:topic
 router.get('/lang/:lang/level/:level/topic/:topic', getQuizzesByLangLevelAndTopic as RequestHandler);
+
+// GET /api/quizzes/:id/review?userId=...
+router.get('/:id/review', getQuizReview as RequestHandler);
 
 // GET /api/quizzes/:id
 router.get('/:id', getQuizById as RequestHandler);

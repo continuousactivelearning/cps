@@ -11,7 +11,6 @@ interface Props {
 
 const Step2_Assessment: React.FC<Props> = ({ userId, language, onNext }) => {
   const [known, setKnown] = useState<string[]>([]);
-  const [target, setTarget] = useState('');
 
   const toggleKnown = (concept: string) => {
     setKnown((prev) =>
@@ -22,35 +21,13 @@ const Step2_Assessment: React.FC<Props> = ({ userId, language, onNext }) => {
   };
 
   const handleSubmit = async () => {
-    // Prepare courses data from known and target concepts
-    const coursesData: Array<{
-      courseName: string;
-      status: string;
-      result: number;
-    }> = [];
+    // Prepare list of known concepts as course names
+    const completedCourses = known;
     
-    // Add known concepts as completed courses
-    known.forEach(concept => {
-      coursesData.push({
-        courseName: concept,
-        status: "completed",
-        result: 100 // Default score for known concepts
-      });
-    });
-    
-    // Add target concept as in-progress course (if not already in known)
-    if (target && !known.includes(target)) {
-      coursesData.push({
-        courseName: target,
-        status: "in-progress",
-        result: 0
-      });
-    }
-    
-    console.log('Submitting assessment with courses:', coursesData);
+    console.log('Submitting assessment with completed courses:', completedCourses);
     try {
-      const res = await axios.post(`/api/users/${userId}/concepts`, {
-        courses: coursesData
+      const res = await axios.post(`/api/users/${userId}/update-user-courses?status=enrolled`, {
+        completedCourses: completedCourses
       });
       if (res.status === 200) {
         console.log('Assessment saved successfully:', res.data);
@@ -119,29 +96,11 @@ const Step2_Assessment: React.FC<Props> = ({ userId, language, onNext }) => {
             </div>
           </div>
           
-          {/* Target Concept Section */}
-          <div className="mb-5">
-            <h3 className="h4 fw-bold mb-4">Select Target Topic</h3>
-            <div className="card border-0 shadow-sm p-4">
-              <select
-                className="form-select form-select-lg"
-                value={target}
-                onChange={(e) => setTarget(e.target.value)}
-                style={{ fontSize: '1.1rem' }}
-              >
-                <option value="">Choose a topic to focus on...</option>
-                {allConcepts.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-          
           {/* Action Buttons */}
           <div className="d-flex gap-3 justify-content-end">
             <button
               className="btn btn-primary btn-lg px-4"
-              disabled={!target || known.length === 0}
+              disabled={known.length === 0}
               onClick={handleSubmit}
               style={{
                 transition: 'transform 0.2s ease, box-shadow 0.2s ease'
