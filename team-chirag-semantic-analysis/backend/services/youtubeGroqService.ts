@@ -29,7 +29,6 @@ export class YouTubeFinderService {
   public async getVideos(searchTerm: string, maxResults: number = 5): Promise<YouTubeVideo[]> {
     try {
       if (!this.apiKey) {
-        console.warn('YouTube API key not found, returning mock videos');
         return this.getMockVideos(searchTerm);
       }
 
@@ -69,7 +68,6 @@ export class YouTubeFinderService {
       return videos;
 
     } catch (error: any) {
-      console.error('Error fetching YouTube videos:', error.message);
       return this.getMockVideos(searchTerm);
     }
   }
@@ -111,7 +109,6 @@ export class YouTubeFinderService {
       }
 
     } catch (error) {
-      console.error('Error enriching video details:', error);
       // Continue without enriched details
     }
   }
@@ -207,7 +204,6 @@ export class GroqResponseService {
   ): Promise<string> {
     try {
       if (!this.apiKey) {
-        console.warn('GROQ_API_KEY not found, returning fallback response');
         return this.generateFallbackResponse(prompt);
       }
 
@@ -240,14 +236,6 @@ export class GroqResponseService {
       return message.trim();
 
     } catch (error: any) {
-      console.error('Error generating Groq response:', error.message);
-      
-      if (error.response?.status === 401) {
-        console.error('Groq API authentication failed');
-      } else if (error.response?.status === 429) {
-        console.error('Groq API rate limit exceeded');
-      }
-      
       return this.generateFallbackResponse(prompt);
     }
   }

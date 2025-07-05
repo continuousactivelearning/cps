@@ -1,9 +1,15 @@
 import express from 'express';
 import passport from 'passport';
-import { updateUserOnboarding, getUserProfile, updateUserAvatar, verifyUser, createTestUser, debugUsers } from '../controllers/authController';
+import { updateUserOnboarding, getUserProfile, updateUserAvatar, verifyUser, registerUser, loginUser } from '../controllers/authController';
 import { optionalAuth } from '../middleware/auth';
+import { getConfig } from '../utils/environment';
 
 const router = express.Router();
+const config = getConfig();
+
+// Local Authentication Routes
+router.post('/register', registerUser);
+router.post('/login', loginUser);
 
 // Google OAuth route
 router.get('/google', passport.authenticate('google', {
@@ -14,7 +20,7 @@ router.get('/google', passport.authenticate('google', {
 // Google OAuth callback
 router.get('/google/callback', passport.authenticate('google', {
   session: false,
-  failureRedirect: 'http://localhost:5173/login',
+  failureRedirect: `${config.frontendUrl}/login`,
 }), (req, res) => {
   const user = req.user as any;
   const token = user.token;
@@ -24,7 +30,7 @@ router.get('/google/callback', passport.authenticate('google', {
     <html>
       <body>
         <script>
-          window.opener.postMessage(${JSON.stringify({ token, user, isFirstTime })}, "http://localhost:5173");
+          window.opener.postMessage(${JSON.stringify({ token, user, isFirstTime })}, "${config.frontendUrl}");
           window.close();
         </script>
       </body>
@@ -45,11 +51,5 @@ router.get('/verify', verifyUser);
 
 // ✅ Update user avatar route
 router.put('/avatar', updateUserAvatar);
-
-// ✅ Debug route to check users in database
-router.get('/debug/users', debugUsers);
-
-// ✅ Create test user with sample data (for development)
-router.post('/debug/create-test-user', createTestUser);
 
 export default router;

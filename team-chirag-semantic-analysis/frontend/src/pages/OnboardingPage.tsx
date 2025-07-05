@@ -139,8 +139,7 @@ const loadGraphData = async (): Promise<GraphData> => {
       throw new Error('Failed to load graph data');
     }
     return await response.json();
-  } catch (error) {
-    console.error('Error loading graph data:', error);
+  } catch {
     // Fallback: return empty structure with sample data for testing
     return { 
       nodes: [
@@ -289,11 +288,6 @@ const saveUserProfile = async (userProfile: UserProfile): Promise<void> => {
     // Save to localStorage for backup
     localStorage.setItem('userProfile', JSON.stringify(userProfile));
 
-    // Log for debugging
-    console.log('User profile generated:', userProfile);
-    console.log(`Total topics: ${userProfile.knownConcepts.totalTopics}`);
-    console.log(`Total subtopics: ${userProfile.knownConcepts.totalSubtopics}`);
-
     const requestBody = {
       email: userProfile.email,  // Use email from userProfile
       userInfo: {
@@ -305,15 +299,8 @@ const saveUserProfile = async (userProfile: UserProfile): Promise<void> => {
       knownConcepts: userProfile.knownConcepts
     };
 
-    console.log('🚀 Sending onboarding data to backend:', {
-      email: requestBody.email,
-      userInfo: requestBody.userInfo,
-      knownConceptsTopicsCount: requestBody.knownConcepts.topics.length,
-      token: localStorage.getItem('token') ? 'Present' : 'Missing'
-    });
-
     // ✅ Send to backend API instead of downloading JSON
-    const response = await fetch('http://localhost:5000/auth/onboarding', {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/auth/onboarding`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -322,27 +309,13 @@ const saveUserProfile = async (userProfile: UserProfile): Promise<void> => {
       body: JSON.stringify(requestBody)
     });
 
-    console.log('📡 Response status:', response.status);
     const responseText = await response.text();
-    console.log('📡 Response body:', responseText);
 
     if (!response.ok) {
       throw new Error(`Failed to save user profile to database: ${response.status} ${responseText}`);
     }
-    // Also allow JSON download after saving to DB
-const dataStr = JSON.stringify(userProfile, null, 2);
-const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-const exportFileDefaultName = `user_profile_${timestamp}.json`;
 
-const linkElement = document.createElement('a');
-linkElement.setAttribute('href', dataUri);
-linkElement.setAttribute('download', exportFileDefaultName);
-linkElement.click();
-
-    console.log('✅ User profile saved to MongoDB Atlas successfully');
   } catch (error) {
-    console.error('❌ Error saving user profile:', error);
     // Still fallback to localStorage
     localStorage.setItem('userProfile', JSON.stringify(userProfile));
     throw error;
@@ -383,8 +356,7 @@ export const OnboardingPage: React.FC = () => {
         const topics = extractTopicsFromGraphData(data);
         setAvailableTopics(topics);
         
-      } catch (error) {
-        console.error('Failed to load graph data:', error);
+      } catch {
         setError('Failed to load course data. Using fallback options.');
         // Set fallback topics if graph data fails to load
         setAvailableTopics([

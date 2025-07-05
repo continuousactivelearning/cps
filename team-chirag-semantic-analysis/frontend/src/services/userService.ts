@@ -1,5 +1,5 @@
 // src/services/userService.ts
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 export interface UserProfile {
   _id?: string;
@@ -39,36 +39,24 @@ export interface ApiResponse<T> {
 
 class UserService {
   async getUserProfile(email: string): Promise<UserProfile | null> {
-    try {
-      const url = `${API_BASE_URL}/auth/profile?email=${encodeURIComponent(email)}`;
-      console.log('🌐 Making API request to:', url);
-      
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+    const url = `${API_BASE_URL}/auth/profile?email=${encodeURIComponent(email)}`;
+    
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-      console.log('📡 API Response status:', response.status);
-      console.log('📡 API Response ok:', response.ok);
-
-      if (!response.ok) {
-        if (response.status === 404) {
-          console.warn('⚠️ User not found in database');
-          return null;
-        }
-        throw new Error(`HTTP error! status: ${response.status}`);
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null;
       }
-
-      const data: ApiResponse<UserProfile> = await response.json();
-      console.log('📊 Raw API response data:', data);
-      console.log('👤 User data from API:', data.user);
-      return data.user || null;
-    } catch (error) {
-      console.error('❌ Error fetching user profile:', error);
-      throw error;
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const data: ApiResponse<UserProfile> = await response.json();
+    return data.user || null;
   }
 
   async updateUserOnboarding(
@@ -76,54 +64,44 @@ class UserService {
     userInfo: UserProfile['userInfo'], 
     knownConcepts: UserProfile['knownConcepts']
   ): Promise<UserProfile | null> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/onboarding`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          userInfo,
-          knownConcepts,
-        }),
-      });
+    const response = await fetch(`${API_BASE_URL}/auth/onboarding`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        userInfo,
+        knownConcepts,
+      }),
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data: ApiResponse<UserProfile> = await response.json();
-      return data.user || null;
-    } catch (error) {
-      console.error('Error updating user onboarding:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const data: ApiResponse<UserProfile> = await response.json();
+    return data.user || null;
   }
 
   async updateUserAvatar(email: string, avatar: string): Promise<UserProfile | null> {
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/avatar`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          avatar,
-        }),
-      });
+    const response = await fetch(`${API_BASE_URL}/auth/avatar`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        avatar,
+      }),
+    });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data: ApiResponse<UserProfile> = await response.json();
-      return data.user || null;
-    } catch (error) {
-      console.error('Error updating user avatar:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const data: ApiResponse<UserProfile> = await response.json();
+    return data.user || null;
   }
 }
 

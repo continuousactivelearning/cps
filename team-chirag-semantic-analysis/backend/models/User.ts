@@ -41,8 +41,10 @@ const UserInfoSchema = new mongoose.Schema(
 const UserSchema = new mongoose.Schema({
   googleId: { type: String },
   name: { type: String, required: true },
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String }, // For local authentication
   avatar: { type: String },
+  isFirstTime: { type: Boolean, default: true }, // Track if user needs onboarding
   userInfo: UserInfoSchema,
   knownConcepts: KnownConceptsSchema,
   createdAt: { type: Date, default: Date.now },

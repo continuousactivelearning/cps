@@ -1,7 +1,5 @@
 // src/utils/auth.ts
 export const logout = (navigate?: (path: string, options?: { replace?: boolean }) => void) => {
-  console.log('🔐 Performing logout...');
-  
   try {
     // Clear all localStorage data
     localStorage.clear();
@@ -11,8 +9,6 @@ export const logout = (navigate?: (path: string, options?: { replace?: boolean }
     // localStorage.removeItem('token');
     // localStorage.removeItem('onboardingComplete');
     // localStorage.removeItem('chatHistory');
-    
-    console.log('✅ User data cleared from localStorage');
     
     // Clear any session storage as well
     sessionStorage.clear();
@@ -24,10 +20,7 @@ export const logout = (navigate?: (path: string, options?: { replace?: boolean }
       // Fallback: redirect using window.location
       window.location.href = "/login";
     }
-    
-    console.log('✅ Logout completed successfully');
-  } catch (error) {
-    console.error('❌ Error during logout:', error);
+  } catch {
     // Even if there's an error, try to navigate to login
     if (navigate) {
       navigate("/login", { replace: true });
@@ -46,8 +39,7 @@ export const isAuthenticated = (): boolean => {
     
     const userData = JSON.parse(userProfile);
     return !!(userData && userData.email);
-  } catch (error) {
-    console.error('Error checking authentication:', error);
+  } catch {
     return false;
   }
 };
@@ -60,8 +52,7 @@ export const getUserFromStorage = () => {
     }
     
     return JSON.parse(userProfile);
-  } catch (error) {
-    console.error('Error getting user from storage:', error);
+  } catch {
     return null;
   }
 };
@@ -71,8 +62,7 @@ export const clearUserData = () => {
     localStorage.removeItem('userProfile');
     localStorage.removeItem('token');
     localStorage.removeItem('onboardingComplete');
-    console.log('✅ User data cleared from storage');
-  } catch (error) {
-    console.error('❌ Error clearing user data:', error);
+  } catch {
+    // Error clearing user data, continue silently
   }
 };

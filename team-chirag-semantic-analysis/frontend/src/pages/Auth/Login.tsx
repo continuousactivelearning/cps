@@ -52,17 +52,46 @@ const Login: React.FC = () => {
   const onSubmit = async (data: LoginFormData) => {
     setLoading(true);
     try {
-      // Simulate API call with form data
-      console.log('Login attempt with:', data.email);
-      await new Promise((res) => setTimeout(res, 1000));
-      localStorage.setItem('token', 'dummy-auth-token');
+      // Call backend login API
+      const response = await fetch(`${import.meta.env.VITE_AUTH_BASE_URL}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Login failed');
+      }
+
+      // Store user data and token
+      localStorage.setItem('token', result.token);
+      localStorage.setItem('userProfile', JSON.stringify(result.user));
+      
+      // Set onboarding flag for compatibility
+      if (result.user.hasCompletedOnboarding) {
+        localStorage.setItem('onboardingCompleted', 'true');
+      } else {
+        localStorage.removeItem('onboardingCompleted');
+      }
 
       setSnackbarMsg('Login successful!');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
-      navigate('/chat');
-    } catch {
-      setSnackbarMsg('Something went wrong. Please try again.');
+
+      if (result.user.hasCompletedOnboarding) {
+        setTimeout(() => navigate('/chat'), 1000);
+      } else {
+        setTimeout(() => navigate('/onboarding'), 1000);
+      }
+    } catch (error) {
+      setSnackbarMsg(error instanceof Error ? error.message : 'Login failed. Please try again.');
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
     } finally {
@@ -77,7 +106,7 @@ const Login: React.FC = () => {
     const top = window.innerHeight / 2 - height / 2;
 
     const authWindow = window.open(
-      'http://localhost:5000/auth/google',
+      `${import.meta.env.VITE_AUTH_BASE_URL}/google`,
       'googleAuth',
       `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`
     );
@@ -90,7 +119,7 @@ const Login: React.FC = () => {
     }
 
     const messageListener = (event: GoogleAuthMessageEvent) => {
-      if (event.origin !== 'http://localhost:5000') return;
+      if (event.origin !== import.meta.env.VITE_API_BASE_URL) return;
       const { token, user, isFirstTime, error } = event.data;
 
       if (token && user) {
@@ -105,8 +134,8 @@ const Login: React.FC = () => {
           if (authWindow && !authWindow.closed) {
             authWindow.close();
           }
-        } catch (authCloseError) {
-          console.warn('Could not close auth window:', authCloseError);
+        } catch {
+          // Error closing auth window, continue silently
         }
 
         // ✅ Check if user is first-time and redirect accordingly
@@ -132,8 +161,8 @@ const Login: React.FC = () => {
           if (authWindow && !authWindow.closed) {
             authWindow.close();
           }
-        } catch (authErrorClose) {
-          console.warn('Could not close auth window:', authErrorClose);
+        } catch {
+          // Error closing auth window, continue silently
         }
       }
     };
@@ -149,7 +178,7 @@ const Login: React.FC = () => {
             return;
           }
           // Try to access the window location to detect navigation
-          if (authWindow.location.href.includes('localhost:5173')) {
+          if (authWindow.location.href.includes(new URL(import.meta.env.VITE_FRONTEND_URL).hostname)) {
             clearInterval(pollTimer);
           }
         } catch {

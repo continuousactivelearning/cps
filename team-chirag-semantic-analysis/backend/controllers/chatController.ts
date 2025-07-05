@@ -36,8 +36,6 @@ export const handleChat = async (req: Request, res: Response, next: NextFunction
     });
 
   } catch (error: any) {
-    console.error('Error in handleChat:', error);
-    
     // Pass the error to Express error handler
     next(error);
   }
@@ -54,7 +52,6 @@ export const healthCheck = async (req: Request, res: Response): Promise<void> =>
       service: 'DSA Learning Chat Handler'
     });
   } catch (error: any) {
-    console.error('Error in health check:', error);
     res.status(500).json({ 
       status: 'error', 
       error: 'Health check failed' 
@@ -87,7 +84,6 @@ export const getLearningSession = async (req: Request, res: Response, next: Next
     });
 
   } catch (error: any) {
-    console.error('Error getting learning session:', error);
     next(error);
   }
 };
@@ -120,7 +116,6 @@ export const resetLearningSession = async (req: Request, res: Response, next: Ne
     });
 
   } catch (error: any) {
-    console.error('Error resetting learning session:', error);
     next(error);
   }
 };

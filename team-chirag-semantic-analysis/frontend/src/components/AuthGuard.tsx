@@ -16,7 +16,6 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
         const userProfile = localStorage.getItem('userProfile');
         
         if (!userProfile) {
-          console.log('🔒 No user profile found in localStorage - redirecting to login');
           setAuthStatus('unauthenticated');
           return;
         }
@@ -26,7 +25,6 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
         try {
           userData = JSON.parse(userProfile);
         } catch {
-          console.error('🔒 Invalid user data in localStorage - redirecting to login');
           localStorage.removeItem('userProfile'); // Clean up invalid data
           setAuthStatus('unauthenticated');
           return;
@@ -34,7 +32,6 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
 
         // Check if user has required fields (email is essential)
         if (!userData.email) {
-          console.log('🔒 Incomplete user data (missing email) - redirecting to login');
           localStorage.removeItem('userProfile'); // Clean up incomplete data
           setAuthStatus('unauthenticated');
           return;
@@ -42,22 +39,18 @@ export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
 
         // Optional: Verify user still exists in backend
         try {
-          const response = await fetch(`http://localhost:5000/auth/verify?email=${encodeURIComponent(userData.email)}`);
+          const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/auth/verify?email=${encodeURIComponent(userData.email)}`);
           if (!response.ok) {
-            console.log('🔒 User verification failed - user may no longer exist');
             localStorage.removeItem('userProfile'); // Clean up data for non-existent user
             setAuthStatus('unauthenticated');
             return;
           }
         } catch {
-          console.warn('⚠️ Could not verify user with backend, but allowing access based on localStorage');
           // Don't fail authentication if backend is temporarily unavailable
         }
 
-        console.log('✅ User authenticated:', userData.email);
         setAuthStatus('authenticated');
-      } catch (error) {
-        console.error('❌ Auth check failed:', error);
+      } catch {
         setAuthStatus('unauthenticated');
       }
     };
