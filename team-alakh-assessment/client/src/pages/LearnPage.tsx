@@ -1,5 +1,5 @@
 // developed by :@AlakhMathur
-import React, { useState, useEffect, useCallback, Fragment } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -623,7 +623,7 @@ const LearnPage: React.FC = () => {
           <div className="w-[95vw] md:w-full lg:col-span-3">
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden transition-colors">
               {/* Content Header */}
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 md:px-8 py-6 text-white">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 md:px-8 py-3 md:py-6 text-white">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center md:space-x-4 space-x-2">
                     <div className="bg-white bg-opacity-20 p-3 rounded-xl">
@@ -633,7 +633,7 @@ const LearnPage: React.FC = () => {
                       <h1 className="text-lg md:text-3xl font-bold">
                         {currentModule?.title || topic}
                       </h1>
-                      <p className="text-sm md:text-base text-blue-100 mt-1">
+                      <p className="text-sm md:text-base text-blue-100 md:mt-1">
                         {currentModule?.type === "video"
                           ? "Video Content"
                           : currentModule?.type === "text"
@@ -658,7 +658,7 @@ const LearnPage: React.FC = () => {
               </div>
 
               {/* Content Body - Rendered Markdown */}
-              <div className="p-8">
+              <div className="p-4 md:p-8">
                 <div
                   className={`prose ${
                     fontSize === "sm"
@@ -671,7 +671,7 @@ const LearnPage: React.FC = () => {
                   } dark:prose-invert max-w-none text-gray-800 dark:text-gray-100 transition-all duration-200`}
                 >
                   <div
-                    className="leading-relaxed"
+                    className="text-justify leading-relaxed"
                     dangerouslySetInnerHTML={{
                       __html: renderedContent,
                     }}
