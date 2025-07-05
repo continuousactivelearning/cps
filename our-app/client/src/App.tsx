@@ -1,3 +1,11 @@
+
+import React, { useState } from 'react'
+import './App.css'
+import ChatbotPage from './components/ChatbotPage'
+
+function App() {
+  const [count, setCount] = useState(0)
+
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -10,8 +18,15 @@ import CourseQuiz from "./components/CourseQuiz";
 import DashboardWrapper from "./components/DashboardWrapper";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+
 const App: React.FC = () => {
   return (
+    <>
+      <ChatbotPage />
+    </>
+  )
+}
+
   <>
       <Navbar />
       <Routes>
