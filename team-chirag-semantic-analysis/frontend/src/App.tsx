@@ -9,9 +9,7 @@ import { ChatContainer } from './pages/ChatContainer';
 import LandingPage from './pages/LandingPage';
 import OnboardingPage from './pages/OnboardingPage';
 import StudentView from './pages/StudentView';
-import StudentProfile from './pages/StudentProfile'; // ✅ Import profile page
-import { AuthProvider } from "./contexts/AuthContext";
-import GoogleLoginPage from "./pages/GoogleLoginPage";
+import StudentProfile from './pages/StudentProfile';
 
 const App = () => {
   return (
@@ -27,8 +25,6 @@ const App = () => {
           </AuthGuard>
         }
       />
-       <Route path="/login" element={<GoogleLoginPage />} />
-          {/* other routes */}
       
       <Route
         path="/student"
