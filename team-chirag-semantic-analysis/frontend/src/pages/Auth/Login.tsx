@@ -47,35 +47,25 @@ const Login: React.FC = () => {
     resolver: zodResolver(LoginSchema),
     mode: 'onChange',
   });
-  
- const onSubmit = async (data: LoginFormData) => {
-  setLoading(true);
-  try {
-    await new Promise((res) => setTimeout(res, 1000));
-    localStorage.setItem('token', 'dummy-auth-token');
 
-    // ✅ Store mock user profile (replace with real fetched user later)
-    const dummyUser = {
-      name: 'Rahul',
-      email: data.email,
-      avatar: '', // You can use a placeholder or default image
-    };
-    localStorage.setItem('userProfile', JSON.stringify(dummyUser));
+  const onSubmit = async (data: LoginFormData) => {
+    setLoading(true);
+    try {
+      await new Promise((res) => setTimeout(res, 1000));
+      localStorage.setItem('token', 'dummy-auth-token');
 
-    setSnackbarMsg('Login successful!');
-    setSnackbarSeverity('success');
-    setSnackbarOpen(true);
-
-    // ✅ Navigate after small delay to show snackbar
-    setTimeout(() => navigate('/chat'), 1000);
-  } catch {
-    setSnackbarMsg('Something went wrong. Please try again.');
-    setSnackbarSeverity('error');
-    setSnackbarOpen(true);
-  } finally {
-    setLoading(false);
-  }
-};
+      setSnackbarMsg('Login successful!');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
+      navigate('/chat');
+    } catch {
+      setSnackbarMsg('Something went wrong. Please try again.');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // ✅ Updated popup-based Google login with immediate redirect
   const handleGoogleLogin = () => {
