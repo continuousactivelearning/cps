@@ -5,6 +5,7 @@ interface ICourse extends Document {
   slug: string;
   syllabusPDF: string;
   materialPDF: string;
+  playlistURL: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -15,7 +16,8 @@ const courseSchema = new mongoose.Schema<ICourse>({
   courseName: { type: String, required: true, unique: true },
   slug: { type: String, required: true },
   syllabusPDF: { type: String, required: true },
-  materialPDF: { type: String, required: true }
+  materialPDF: { type: String, required: true },
+  playlistURL: { type: String, required: true },
 }, { timestamps: true }
 );
 

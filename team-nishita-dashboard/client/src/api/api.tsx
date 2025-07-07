@@ -17,9 +17,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 api.interceptors.response.use(
@@ -32,6 +30,8 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+// ---------- Interfaces ----------
 
 export interface Credentials {
   username: string;
@@ -60,6 +60,7 @@ export interface Course {
   slug: string;
   syllabusPDF: string;
   materialPDF: string;
+  playlistURL: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -73,24 +74,51 @@ export interface CoursesResponse {
   courses: Course[];
 }
 
-// Auth API functions
+// ---------- Achievements ----------
+
+export interface Badge {
+  _id: string;
+  name: string;
+  description: string;
+  pointsAwarded: number;
+  iconUrl?: string;
+}
+
+export interface AchievementResponse {
+  unlockedBadges: Badge[];
+  lockedBadges: Badge[];
+  totalPoints: number;
+  currentStreak: number;
+  highestStreak: number;
+  level: string;
+  totalActiveDays: number;
+}
+
+export const getAchievements = (): Promise<{ data: AchievementResponse }> =>
+  api.get('/achievement/all');
+
+// ---------- Auth ----------
+
 export const login = (credentials: Credentials): Promise<{ data: AuthResponse }> =>
   api.post('/auth/login', credentials);
 
 export const signup = (credentials: Credentials): Promise<{ data: AuthResponse }> =>
   api.post('/auth/register', credentials);
 
-// Calendar API functions
+// ---------- Calendar ----------
+
 export const getCurrentMonthCalendar = () =>
   api.get('/calendar/current-month');
 
-// Course API functions
+// ---------- Course ----------
+
 export const addCourse = (courseData: {
   courseId: number;
   courseName: string;
   slug: string;
   syllabusPDF: string;
   materialPDF: string;
+  playlistURL: string;
 }): Promise<{ data: CourseResponse }> =>
   api.post('/courses/add-course', courseData);
 
@@ -106,7 +134,47 @@ export const getCourseById = (courseId: number): Promise<{ data: { course: Cours
 export const deleteCourse = (courseId: number): Promise<{ data: { message: string } }> =>
   api.delete(`/courses/${courseId}`);
 
-// Utility functions
+// ---------- Progress ----------
+
+export interface ProgressSummary {
+  totalLessonsCompleted: number;
+  totalQuizzesTaken: number;
+  totalStudyTime: number;
+  totalPointsEarned: number;
+  totalPoints: number;
+  currentStreak: number;
+  loginStreak: number;
+  totalCheckIns: number;
+}
+
+export interface DailyProgress {
+  _id: string;
+  lessonsCompleted: number;
+  quizzesTaken: number;
+  studyTime: number;
+  pointsEarned: number;
+  checkIns: number;
+}
+
+export interface ProgressUpdate {
+  lessonsCompleted: number;
+  quizzesTaken: number;
+  studyTime: number;
+  pointsEarned: number;
+  isCheckedIn: boolean;
+}
+
+export const getProgressSummary = (): Promise<{ data: { summary: ProgressSummary } }> =>
+  api.get('/progress/summary');
+
+export const getProgressStats = (): Promise<{ data: { dailyStats: DailyProgress[] } }> =>
+  api.get('/progress/stats');
+
+export const updateProgress = (progressData: ProgressUpdate): Promise<{ data: { message: string } }> =>
+  api.post('/progress/update', progressData);
+
+// ---------- Utils ----------
+
 export const getCurrentUser = (): User | null => {
   const token = localStorage.getItem('token');
   if (!token) return null;

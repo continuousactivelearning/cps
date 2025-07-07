@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 // import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import Navbar from './Navbar';
-import { ArrowLeft, Play, MessageSquare, Award, Download, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Play, Award, Download, ExternalLink } from 'lucide-react';
 import { getCourseBySlug } from '../api/api';
 import type { Course as Course } from '../api/api'
 
@@ -45,8 +45,9 @@ const CoursePage: React.FC = () => {
   }, [slug, navigate]);
 
   const handlePlaylistClick = () => {
-    // Implement playlist navigation
-    alert('Playlist feature coming soon!');
+    if (course?.playlistURL) {
+      navigate(`/courses/${course.slug}/playlist`)
+    }
   };
 
   const handleQuizClick = () => {
@@ -54,10 +55,10 @@ const CoursePage: React.FC = () => {
     alert('Quiz feature coming soon!');
   };
 
-  const handleChatClick = () => {
-    // Implement chat navigation
-    alert('Chat feature coming soon!');
-  };
+  // const handleChatClick = () => {
+  //   // Implement chat navigation
+  //   alert('Chat feature coming soon!');
+  // };
 
   const handleDownload = (url: string) => {
     window.open(url, '_blank');
@@ -122,16 +123,20 @@ const CoursePage: React.FC = () => {
 
           {/* Main Actions */}
           <motion.div className="course-actions-grid" {...getAnimationProps(0.1)}>
-            <div className="action-card primary" onClick={handlePlaylistClick}>
-              <div className="action-icon">
-                <Play size={32} />
+            {course.playlistURL && (
+
+              <div className="action-card primary" onClick={handlePlaylistClick} style={{ cursor: 'pointer' }}>
+                <div className="action-icon">
+                  <Play size={32} />
+                </div>
+                <div className="action-content">
+                  <h3>Video Playlist</h3>
+                  <p>Watch comprehensive video lectures</p>
+                </div>
+                <ExternalLink size={20} className="action-arrow" />
               </div>
-              <div className="action-content">
-                <h3>Video Playlist</h3>
-                <p>Watch comprehensive video lectures</p>
-              </div>
-              <ExternalLink size={20} className="action-arrow" />
-            </div>
+
+            )}
 
             <div className="action-card secondary" onClick={handleQuizClick}>
               <div className="action-icon">
@@ -144,16 +149,16 @@ const CoursePage: React.FC = () => {
               <ExternalLink size={20} className="action-arrow" />
             </div>
 
-            <div className="action-card secondary" onClick={handleChatClick}>
-              <div className="action-icon">
-                <MessageSquare size={32} />
-              </div>
-              <div className="action-content">
-                <h3>AI Chat</h3>
-                <p>Get instant help and clarifications</p>
-              </div>
-              <ExternalLink size={20} className="action-arrow" />
-            </div>
+            {/* <div className="action-card secondary" onClick={handleChatClick}> */}
+            {/*   <div className="action-icon"> */}
+            {/*     <MessageSquare size={32} /> */}
+            {/*   </div> */}
+            {/*   <div className="action-content"> */}
+            {/*     <h3>AI Chat</h3> */}
+            {/*     <p>Get instant help and clarifications</p> */}
+            {/*   </div> */}
+            {/*   <ExternalLink size={20} className="action-arrow" /> */}
+            {/* </div> */}
           </motion.div>
 
           {/* Course Materials */}

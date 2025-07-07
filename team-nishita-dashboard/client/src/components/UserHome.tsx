@@ -64,11 +64,59 @@ const UserHome: React.FC = () => {
         {/* Stats Grid */}
         <motion.div className="user-stats-grid" {...getAnimationProps(0.1)}>
           {stats.map((stat, index) => (
-            <div key={index} className="stat-card">
-              <stat.icon size={24} className="stat-icon" />
-              <div className="stat-content">
-                <div className="stat-label">{stat.label}</div>
-                <div className="stat-value">{stat.value}</div>
+            <div
+              key={index}
+              className={`stat-card ${!darkMode ? 'stat-orange-card' : ''}`}
+              style={
+                darkMode
+                  ? {
+                      background: 'linear-gradient(135deg, #23263a 0%, #181A20 100%)',
+                      border: '2px solid #2d3148',
+                      color: '#fff',
+                      boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
+                      borderRadius: 18,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: 120,
+                      padding: '32px 24px',
+                    }
+                  : undefined
+              }
+            >
+              <stat.icon
+                size={32}
+                className="stat-icon"
+                style={
+                  darkMode
+                    ? {
+                        color:
+                          stat.label === 'Enrolled Courses'
+                            ? '#7dd3fc' // pastel blue
+                            : stat.label === 'Certificates'
+                            ? '#6ee7b7' // pastel teal
+                            : stat.label === 'Hours Learned'
+                            ? '#c4b5fd' // pastel purple
+                            : stat.label === 'Study Groups'
+                            ? '#fde68a' // pastel yellow
+                            : '#fff',
+                        marginBottom: 16,
+                      }
+                    : undefined
+                }
+              />
+              <div className="stat-content" style={{ alignItems: 'center', textAlign: 'center' }}>
+                <div
+                  className="stat-label"
+                  style={darkMode ? { color: '#d1d5db', fontWeight: 500, fontSize: 16 } : undefined}
+                >
+                  {stat.label}
+                </div>
+                <div
+                  className="stat-value"
+                  style={darkMode ? { color: '#fff', fontWeight: 700, fontSize: 28 } : undefined}
+                >
+                  {stat.value}
+                </div>
               </div>
             </div>
           ))}

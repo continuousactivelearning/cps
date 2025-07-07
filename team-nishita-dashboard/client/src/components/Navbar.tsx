@@ -20,7 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({ onLoginClick, onSignUpClick }) => {
         <div className="navbar-container">
           <div className="navbar-brand">
             <Compass className="navbar-icon" />
-            <span>PathPilot</span>
+            <span>BluePrint</span>
           </div>
 
           <div className="navbar-actions">

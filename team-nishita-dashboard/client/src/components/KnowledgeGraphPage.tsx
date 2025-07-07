@@ -82,6 +82,7 @@ const GraphInner: React.FC = () => {
   const [graphNodes, setGraphNodes] = useState<Node[]>([]);
   const [graphEdges, setGraphEdges] = useState<Edge[]>([]);
   const { fitView, setViewport } = useReactFlow();
+  const { darkMode } = useTheme();
 
   const getPrerequisiteChain = (targetId: string): string[] => {
     const visited = new Set<string>();
@@ -111,14 +112,16 @@ const GraphInner: React.FC = () => {
         position: { x: 0, y: 0 },
         style: {
           backgroundColor: isHighlighted
-            ? "#e0f2fe"
+            ? darkMode ? "#1e3a8a" : "#e0f2fe"
             : isCompleted
-              ? "#dcfce7"
-              : "#ffffff",
+              ? darkMode ? "#064e3b" : "#dcfce7"
+              : darkMode ? "#374151" : "#ffffff",
           border: isCompleted
             ? "2px solid #22c55e"
-            : "1px solid #d1d5db",
-          color: isCompleted ? "#166534" : "#111827",
+            : darkMode ? "1px solid #6b7280" : "1px solid #d1d5db",
+          color: isCompleted 
+            ? darkMode ? "#4ade80" : "#166534" 
+            : darkMode ? "#f9fafb" : "#111827",
           fontWeight: 500,
           borderRadius: 8,
           padding: 10,
@@ -137,7 +140,7 @@ const GraphInner: React.FC = () => {
           stroke:
             highlight.includes(prereq) && highlight.includes(module.id)
               ? "#0284c7"
-              : "#888",
+              : darkMode ? "#9ca3af" : "#888",
           strokeWidth:
             highlight.includes(prereq) && highlight.includes(module.id)
               ? 2.5
@@ -154,7 +157,7 @@ const GraphInner: React.FC = () => {
       fitView({ padding: 0.2 });
       setViewport({ x: 40, y: 0, zoom: 1 });
     }, 0);
-  }, [fitView, setViewport]);
+  }, [fitView, setViewport, darkMode]);
 
   useEffect(() => {
     buildGraph();
@@ -201,29 +204,20 @@ const GraphInner: React.FC = () => {
 };
 
 const KnowledgeGraphPage: React.FC = () => {
-    const getAnimationProps = (delay = 0) => ({
-    initial: { opacity: 0, y: 40 },
-    animate: { opacity: 1, y: 0 },
-    transition: {
-      delay,
-      duration: 0.6,
-      type: "spring" as const,
-    },
-  });
   return (
     <Layout>
-      <div className={`min-h-screen px-4 py-6 sm:px-6 lg:px-8  content-wrapper bg-gray-900`}>
-        <div className={`max-w-7xl mx-auto`}>
-          <motion.header className="mb-6" {...getAnimationProps(0.1)}>
-            <h1 className="text-3xl font-bold text-white">
+      <div className="min-h-screen bg-gray-50 px-4 py-6 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <header className="mb-6">
+            <h1 className="text-3xl font-bold text-gray-900">
               Knowledge Prerequisite Graph
             </h1>
-            <h6 className="mt-2 text-sm text-white">
+            <p className="mt-2 text-gray-600 text-sm max-w-2xl">
               Visualize how different modules build upon each other. Click on any module to highlight its learning chain.
             </h6>
           </motion.header>
 
-          <motion.div className="w-full h-[75vh] rounded-lg overflow-hidden bg-white border shadow" {...getAnimationProps(0.2)}>
+          <div className="w-full h-[75vh] rounded-lg overflow-hidden bg-white border shadow">
             <ReactFlowProvider>
               <GraphInner />
             </ReactFlowProvider>

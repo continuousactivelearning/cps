@@ -3,6 +3,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 export interface IAchievement extends Document {
   name: string;
   description: string;
+  imageUrl: string; // ✅ NEW FIELD
   isActive: boolean;
   condition: {
     field: string;
@@ -15,6 +16,7 @@ export interface IAchievement extends Document {
 const AchievementSchema = new Schema<IAchievement>({
   name: { type: String, required: true },
   description: { type: String, required: true },
+  imageUrl: { type: String, required: true }, // ✅ Add this line
   isActive: { type: Boolean, default: true },
   condition: {
     field: { type: String, required: true },
