@@ -1,0 +1,201 @@
+question_id,ground_truth,predicted,is_correct,match_type,timestamp
+0,Addition,Fractions (Specifically Halves),False,No Match,2025-06-20T15:23:12.740106
+1,Monetary Units (Cents And Dollars),Application Of Unit Rates,False,No Match,2025-06-20T15:23:23.905689
+2,Multiplication And Division Of Integers,Multiplication And Division Of Integers,True,Exact Match,2025-06-20T15:23:27.574068
+3,Multiplication,Interpreting Word Problems,False,No Match,2025-06-20T15:23:31.395602
+4,Number Of Weeks In A Year,Application Of Unit Rates,False,No Match,2025-06-20T15:23:35.040756
+5,Whole Number Subtraction,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:23:36.318895
+6,Multi-Step Problem Solving,Multiplication,False,No Match,2025-06-20T15:23:37.479859
+7,Addition And Subtraction Of Integers,Applying Multiple Steps In A Calculation,False,No Match,2025-06-20T15:23:38.724820
+8,Multi-Step Problem Solving,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:23:43.213745
+9,Application Of Unit Rates,Calculating Overtime Pay,False,No Match,2025-06-20T15:23:44.834997
+10,Age Calculation,Interpreting Word Problems,False,No Match,2025-06-20T15:23:46.264716
+11,Applying Multiple Steps In A Calculation,Decimal Numbers,False,No Match,2025-06-20T15:23:49.514944
+12,Multi-Step Problem Solving,Interpreting Word Problems,False,No Match,2025-06-20T15:23:51.785780
+13,Applying Multiple Steps In A Calculation,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:23:53.478911
+14,Converting Units (Minutes To Hours),Application Of Unit Rates,False,No Match,2025-06-20T15:23:55.018837
+15,Addition Of Multiple-Digit Numbers,Profit Calculation (Revenue - Cost),False,No Match,2025-06-20T15:23:56.620220
+16,Proportion,Ratio,False,No Match,2025-06-20T15:23:57.756844
+17,Working With Fractions,Multiplication And Division Of Integers,False,No Match,2025-06-20T15:23:59.107836
+18,Multiplication,Addition And Subtraction Of Time,False,No Match,2025-06-20T15:24:00.466844
+19,Application Of Unit Rates,Application Of Unit Rates,True,Exact Match,2025-06-20T15:24:01.694707
+20,Multi-Step Problem Solving,Interpreting Word Problems,False,No Match,2025-06-20T15:24:03.952457
+21,Whole Number Addition,Whole Number Multiplication,False,No Match,2025-06-20T15:24:05.665580
+22,Multiplication,Interpreting Word Problems,False,No Match,2025-06-20T15:24:06.595986
+23,Multiplication And Division Of Integers,Multi-Step Problem Solving,False,No Match,2025-06-20T15:24:07.666868
+24,Application Of Arithmetic Operations In Real-World Scenarios,Whole Number Subtraction,False,No Match,2025-06-20T15:24:08.709806
+25,Fraction Of A Quantity,Finding A Fraction Of A Quantity,True,Partial Match,2025-06-20T15:24:09.785931
+26,Application Of Arithmetic Operations In Real-World Scenarios,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:24:10.962977
+27,Problem Solving (Word Problems),Applying Percentages To A Base Value,False,No Match,2025-06-20T15:24:11.929426
+28,Multiplication,Multiplication,True,Exact Match,2025-06-20T15:24:12.817963
+29,Whole Number Addition,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:24:13.889144
+30,Applying Percentages To A Base Value,Applying Percentages To A Base Value,True,Exact Match,2025-06-20T15:24:14.838736
+31,Whole Number Addition,Multiplication,False,No Match,2025-06-20T15:24:15.743391
+32,Application Of Arithmetic Operations In Real-World Scenarios,Problem Solving Involving Multiple Steps,False,No Match,2025-06-20T15:24:16.801734
+33,Fractions (Specifically Halves),Fractions (Specifically Halves),True,Exact Match,2025-06-20T15:24:17.796706
+34,Interpreting Word Problems,Multiplication,False,No Match,2025-06-20T15:24:18.879946
+35,Interpreting Word Problems,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:24:20.047433
+36,Addition And Subtraction Of Integers,Subtraction,True,Partial Match,2025-06-20T15:24:21.168658
+37,Unit Rates,Multi-Step Problem Solving,False,No Match,2025-06-20T15:24:25.227207
+38,Multi-Step Problem Solving,Unit Rates,False,No Match,2025-06-20T15:24:26.268598
+39,Multi-Step Problem Solving,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:24:27.582816
+40,Multiplication And Division Of Integers,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:24:28.705404
+41,Applying Multiple Steps In A Calculation,Multiplication,False,No Match,2025-06-20T15:24:29.798773
+42,Applying Multiple Steps In A Calculation,Multiplication And Division Of Integers,False,No Match,2025-06-20T15:24:32.004359
+43,Addition,Geometric Sequence/Exponential Growth,False,No Match,2025-06-20T15:24:33.821494
+44,Fractions Of A Whole Number,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:24:35.398175
+45,Whole Number Addition,Multiplication,False,No Match,2025-06-20T15:24:36.465012
+46,Time Units And Conversions,Multiplication,False,No Match,2025-06-20T15:24:37.920721
+47,Application Of Unit Rates,Application Of Unit Rates,True,Exact Match,2025-06-20T15:24:39.172848
+48,Addition,Applying Multiple Steps In A Calculation,False,No Match,2025-06-20T15:24:40.548496
+49,Age Calculation,Applying Multiplication To Solve Word Problems,False,No Match,2025-06-20T15:24:41.639858
+50,Application Of Arithmetic Operations In Real-World Scenarios,Problem Solving Involving Multiple Steps,False,No Match,2025-06-20T15:24:42.751258
+51,Subtraction,Area Of A Rectangle,False,No Match,2025-06-20T15:24:43.812123
+52,Subtraction,Interpreting Word Problems,False,No Match,2025-06-20T15:24:44.922476
+53,Problem Solving (Word Problems),Subtraction,False,No Match,2025-06-20T15:24:45.924929
+54,Fractions,Fractions,True,Exact Match,2025-06-20T15:24:47.062832
+55,Multi-Step Problem Solving,Percentage Calculation,False,No Match,2025-06-20T15:24:48.109047
+56,Interpreting Word Problems,Interpreting Word Problems,True,Exact Match,2025-06-20T15:24:49.242709
+57,Fraction Addition And Subtraction,Multiplication Of Fractions,False,No Match,2025-06-20T15:24:50.374638
+58,Addition Of Fractions,Applying Multiplication To Solve Word Problems,False,No Match,2025-06-20T15:24:51.605370
+59,Addition And Subtraction Of Integers,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:24:52.838555
+60,Multi-Step Problem Solving,Multiplication,False,No Match,2025-06-20T15:24:54.072594
+61,Addition,Multi-Step Problem Solving,False,No Match,2025-06-20T15:24:55.223763
+62,Whole Number Subtraction,Whole Number Subtraction,True,Exact Match,2025-06-20T15:24:56.314836
+63,Fraction Addition And Subtraction,Addition And Subtraction Of Integers,False,No Match,2025-06-20T15:24:57.451790
+64,Application Of Arithmetic Operations In Real-World Scenarios,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:24:58.490856
+65,Monetary Units (Cents And Dollars),Multiplication,False,No Match,2025-06-20T15:24:59.509181
+66,Application Of Arithmetic Operations In Real-World Scenarios,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:25:00.599315
+67,Fraction Addition And Subtraction,Calculating Averages (Mean),False,No Match,2025-06-20T15:25:02.174449
+68,Multi-Step Problem Solving,Proportional Reasoning,False,No Match,2025-06-20T15:25:03.226930
+69,Whole Numbers,Addition,False,No Match,2025-06-20T15:25:04.089152
+70,Solving Multi-Step Word Problems,Fractions (Specifically Halves),False,No Match,2025-06-20T15:25:05.111383
+71,Addition,Whole Number Subtraction,False,No Match,2025-06-20T15:25:06.011845
+72,Multiplication,Fractions (Specifically Halves),False,No Match,2025-06-20T15:25:07.151587
+73,Addition,Multiplication,False,No Match,2025-06-20T15:25:08.066826
+74,Application Of Arithmetic Operations In Real-World Scenarios,Application Of Arithmetic Operations In Real-World Scenarios,True,Exact Match,2025-06-20T15:25:09.096934
+75,Monetary Units (Cents And Dollars),Monetary Units (Cents And Dollars),True,Exact Match,2025-06-20T15:25:10.175038
+76,Addition And Subtraction Of Integers,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:25:11.273197
+77,Whole Number Subtraction,Subtraction,True,Partial Match,2025-06-20T15:25:12.137789
+78,Whole Numbers,Interpreting Word Problems,False,No Match,2025-06-20T15:25:13.136964
+79,Time Units And Conversions,Interpreting Word Problems,False,No Match,2025-06-20T15:25:14.167664
+80,Interpreting Word Problems,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:25:15.219074
+81,Multiplication,Interpreting Word Problems,False,No Match,2025-06-20T15:25:16.350840
+82,Time Units And Conversions,Calculating Overtime Pay,False,No Match,2025-06-20T15:25:17.198836
+83,Addition,Addition Of Fractions With Different Denominators,True,Partial Match,2025-06-20T15:25:18.240552
+84,Whole Numbers,Multiplication,False,No Match,2025-06-20T15:25:19.134365
+85,Addition And Subtraction Of Integers,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:25:20.194156
+86,Addition And Subtraction Of Integers,Monetary Units (Cents And Dollars),False,No Match,2025-06-20T15:25:21.216411
+87,Addition And Subtraction Of Integers,Application Of Unit Rates,False,No Match,2025-06-20T15:25:22.187853
+88,Addition,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:25:23.218937
+89,Problem Solving (Word Problems),Application Of Unit Rates,False,No Match,2025-06-20T15:25:24.203829
+90,Fractions (Specifically Halves),Addition Of Fractions,False,No Match,2025-06-20T15:25:25.365349
+91,Addition,Calculating Hourly Rates,False,No Match,2025-06-20T15:25:26.319817
+92,Monetary Units (Cents And Dollars),Application Of Unit Rates,False,No Match,2025-06-20T15:25:27.265084
+93,Whole Number Addition,Application Of Unit Rates,False,No Match,2025-06-20T15:25:28.202358
+94,Applying Multiple Steps In A Calculation,Application Of Unit Rates,False,No Match,2025-06-20T15:25:29.182910
+95,Application Of Arithmetic Operations In Real-World Scenarios,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:25:30.272748
+96,Multiplication And Division Of Integers,Multiplication And Division Of Integers,True,Exact Match,2025-06-20T15:25:33.984741
+97,Multiplication And Division Of Integers,Interpreting Word Problems,False,No Match,2025-06-20T15:25:35.289798
+98,Multiplication,Interpreting Word Problems,False,No Match,2025-06-20T15:25:36.448762
+99,Application Of Arithmetic Operations In Real-World Scenarios,Application Of Unit Rates,False,No Match,2025-06-20T15:25:37.672490
+100,Percentage Calculation,Fractions,False,No Match,2025-06-20T15:25:38.688362
+101,Whole Number Addition,Multiplication,False,No Match,2025-06-20T15:25:39.656089
+102,Multi-Step Problem Solving,Multiplication,False,No Match,2025-06-20T15:25:40.688846
+103,Application Of Arithmetic Operations In Real-World Scenarios,Application Of Unit Rates,False,No Match,2025-06-20T15:25:41.861359
+104,Multiplication,Multiplication,True,Exact Match,2025-06-20T15:25:42.856078
+105,Addition,Interpreting Word Problems,False,No Match,2025-06-20T15:25:44.056492
+106,Interpreting Word Problems,Interpreting Word Problems,True,Exact Match,2025-06-20T15:25:45.217109
+107,Applying Percentages To A Base Value,Applying Percentages To A Base Value,True,Exact Match,2025-06-20T15:25:46.468577
+108,Decimal Numbers,Multi-Step Problem Solving,False,No Match,2025-06-20T15:25:47.555841
+109,Addition,Interpreting Word Problems,False,No Match,2025-06-20T15:25:48.527033
+110,Multiplication,Multiplication,True,Exact Match,2025-06-20T15:25:49.567550
+111,Addition And Subtraction Of Integers,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:25:50.709709
+112,Multi-Step Problem Solving,Multi-Step Problem Solving,True,Exact Match,2025-06-20T15:25:51.646928
+113,Whole Numbers,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:25:52.724598
+114,Application Of Arithmetic Operations In Real-World Scenarios,Application Of Arithmetic Operations In Real-World Scenarios,True,Exact Match,2025-06-20T15:25:53.711787
+115,Addition,Fractions,False,No Match,2025-06-20T15:25:54.738306
+116,Whole Number Addition,Interpreting Word Problems,False,No Match,2025-06-20T15:25:55.901417
+117,Solving Word Problems,Fraction Multiplication,False,No Match,2025-06-20T15:25:56.937888
+118,Multiplication,Arithmetic Sequences,False,No Match,2025-06-20T15:25:57.939109
+119,Application Of Arithmetic Operations In Real-World Scenarios,Application Of Arithmetic Operations In Real-World Scenarios,True,Exact Match,2025-06-20T15:25:59.121006
+120,Whole Number Addition,Application Of Unit Rates,False,No Match,2025-06-20T15:26:00.368940
+121,Rate,Application Of Unit Rates,True,Partial Match,2025-06-20T15:26:02.181323
+122,Interpreting Word Problems,Finding A Fraction Of A Quantity,False,No Match,2025-06-20T15:26:03.283487
+123,Rate,Application Of Unit Rates,True,Partial Match,2025-06-20T15:26:04.421837
+124,Subtraction,Multiplication,False,No Match,2025-06-20T15:26:05.415193
+125,Applying Multiple Steps In A Calculation,Applying Multiplication To Solve Word Problems,False,No Match,2025-06-20T15:26:06.490945
+126,Interpreting Word Problems,Interpreting Word Problems,True,Exact Match,2025-06-20T15:26:07.587898
+127,Applying Multiple Steps In A Calculation,"Understanding Of ""Twice As Frequently"" And ""One-Third The Frequency""",False,No Match,2025-06-20T15:26:08.813214
+128,Addition,Interpreting Word Problems,False,No Match,2025-06-20T15:26:09.753225
+129,Multiplication,Multi-Step Problem Solving,False,No Match,2025-06-20T15:26:10.787913
+130,Multi-Step Problem Solving,Division,False,No Match,2025-06-20T15:26:11.759835
+131,Reading Comprehension,Multiplication,False,No Match,2025-06-20T15:26:12.730199
+132,Application Of Unit Rates,Decimal Multiplication,False,No Match,2025-06-20T15:26:13.640075
+133,Addition,Fraction Of A Quantity,False,No Match,2025-06-20T15:26:14.643444
+134,Problem Solving (Word Problems),Applying Discounts,False,No Match,2025-06-20T15:26:15.610924
+135,Solving Word Problems,Interpreting Word Problems,False,No Match,2025-06-20T15:26:16.524558
+136,Application Of Arithmetic Operations In Real-World Scenarios,Multi-Step Problem Solving,False,No Match,2025-06-20T15:26:17.524488
+137,Whole Number Addition,Multi-Step Problem Solving,False,No Match,2025-06-20T15:26:18.535647
+138,Application Of Arithmetic Operations In Real-World Scenarios,Applying Discounts,False,No Match,2025-06-20T15:26:19.495682
+139,Addition And Subtraction Of Integers,Interpreting Word Problems,False,No Match,2025-06-20T15:26:20.517724
+140,Addition And Subtraction Of Integers,Interpreting Word Problems,False,No Match,2025-06-20T15:26:21.552782
+141,Addition And Subtraction Of Time,Addition Of Fractions,False,No Match,2025-06-20T15:26:22.528233
+142,Problem Solving (Word Problems),Interpreting Word Problems,False,No Match,2025-06-20T15:26:23.634910
+143,Addition,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:26:24.808850
+144,Whole Number Addition,Multiplication And Division Of Integers,False,No Match,2025-06-20T15:26:25.726500
+145,Multiplication Word Problems,Time Conversion (Minutes To Hours),False,No Match,2025-06-20T15:26:26.698160
+146,Time Units And Conversions,Addition And Subtraction Of Time,False,No Match,2025-06-20T15:26:27.729838
+147,Fractions,Subtraction,False,No Match,2025-06-20T15:26:28.806823
+148,Problem Solving Involving Multiple Steps,Problem Solving Involving Multiple Steps,True,Exact Match,2025-06-20T15:26:29.910163
+149,Addition,Interpreting Word Problems,False,No Match,2025-06-20T15:26:30.893447
+150,Addition And Subtraction Of Integers,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:26:31.962353
+151,Multi-Step Problem Solving,Interpreting Word Problems,False,No Match,2025-06-20T15:26:32.910408
+152,Addition,Applying Discounts,False,No Match,2025-06-20T15:26:34.602871
+153,Whole Number Subtraction,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:26:35.647280
+154,Simple Interest Calculation,Simple Interest Calculation,True,Exact Match,2025-06-20T15:26:36.727952
+155,Multi-Step Problem Solving,Application Of Unit Rates,False,No Match,2025-06-20T15:26:37.806830
+156,Applying Percentages To A Base Value,Applying Percentages To A Base Value,True,Exact Match,2025-06-20T15:26:38.977840
+157,Solving Word Problems,Applying Multiple Steps In A Calculation,False,No Match,2025-06-20T15:26:40.253853
+158,Multiplication And Division By 2 (Halving),Multiplication And Division By 2 (Halving),True,Exact Match,2025-06-20T15:26:41.329429
+159,Multiplication,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:26:42.333873
+160,Whole Number Addition,Multi-Step Problem Solving,False,No Match,2025-06-20T15:26:43.446478
+161,Multiplication,Fractions (Specifically Halves And Quarters),False,No Match,2025-06-20T15:26:44.557988
+162,Problem Solving (Word Problems),Applying Percentages To A Base Value,False,No Match,2025-06-20T15:26:45.567213
+163,Addition,Multiplication And Division Of Integers,False,No Match,2025-06-20T15:26:46.597590
+164,Subtraction,Subtraction,True,Exact Match,2025-06-20T15:26:47.557666
+165,Time Conversion (Minutes To Hours),Applying The Formula Distance = Speed × Time,False,No Match,2025-06-20T15:26:48.706177
+166,Fractions,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:26:49.932214
+167,Addition And Subtraction Of Time,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:26:50.952391
+168,Multiplication,Calculating A Percentage Of A Number,False,No Match,2025-06-20T15:26:52.124987
+169,Problem Solving Involving Multiple Steps,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:26:53.388934
+170,Interpreting Word Problems,Interpreting Word Problems,True,Exact Match,2025-06-20T15:26:54.504460
+171,Multiplication,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:26:55.619860
+172,Fractions Of A Whole Number,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:26:56.720864
+173,Addition And Subtraction Of Time,Applying The Formula Distance = Speed × Time,False,No Match,2025-06-20T15:26:57.824311
+174,Decimal Numbers,Interpreting Word Problems,False,No Match,2025-06-20T15:26:58.849600
+175,Understanding Fractions,Understanding Fractions,True,Exact Match,2025-06-20T15:26:59.876352
+176,Unit Conversion (Grams To Kilograms),Unit Conversion (Grams To Kilograms),True,Exact Match,2025-06-20T15:27:01.045570
+177,Applying Multiplication To Solve Word Problems,Applying Percentages To A Base Value,False,No Match,2025-06-20T15:27:02.257428
+178,Addition And Subtraction Of Integers,Applying Discounts,False,No Match,2025-06-20T15:27:03.413886
+179,Multiplication,Addition And Subtraction Of Integers,False,No Match,2025-06-20T15:27:04.607114
+180,Whole Number Subtraction,Multi-Step Problem Solving,False,No Match,2025-06-20T15:27:05.680997
+181,Understanding Averages,Compound Growth,False,No Match,2025-06-20T15:27:07.113663
+182,Interpreting Word Problems,Interpreting Word Problems,True,Exact Match,2025-06-20T15:27:08.455662
+183,Whole Number Subtraction,Multi-Step Problem Solving,False,No Match,2025-06-20T15:27:09.779838
+184,Multiplication,Interpreting Word Problems,False,No Match,2025-06-20T15:27:10.929029
+185,Application Of Arithmetic Operations In Real-World Scenarios,Multiplication,False,No Match,2025-06-20T15:27:11.989986
+186,Addition,Conversion Between Units Of Length (Feet To Inches),False,No Match,2025-06-20T15:27:13.257804
+187,Fractions,Fractions,True,Exact Match,2025-06-20T15:27:14.279626
+188,Application Of Arithmetic Operations In Real-World Scenarios,Multiplication,False,No Match,2025-06-20T15:27:15.419331
+189,Age Calculation,Times As Old As,False,No Match,2025-06-20T15:27:16.622669
+190,Multiplication,Application Of Arithmetic Operations In Real-World Scenarios,False,No Match,2025-06-20T15:27:17.904508
+191,Multiplication,Application Of Unit Rates,False,No Match,2025-06-20T15:27:18.933621
+192,Monetary Units (Cents And Dollars),Calculating Averages (Mean),False,No Match,2025-06-20T15:27:20.064433
+193,Applying Percentages To A Base Value,Interpreting Word Problems,False,No Match,2025-06-20T15:27:21.113271
+194,Problem Solving (Word Problems),Applying Multiple Steps In A Calculation,False,No Match,2025-06-20T15:27:22.286599
+195,Multi-Step Problem Solving,Addition And Subtraction Of Integers,False,No Match,2025-06-20T15:27:23.366616
+196,Age Calculation,Age Calculation,True,Exact Match,2025-06-20T15:27:24.312481
+197,Addition,Addition Of Fractions,True,Partial Match,2025-06-20T15:27:25.582836
+198,Applying The Formula Distance = Speed × Time,Application Of Unit Rates,False,No Match,2025-06-20T15:27:26.829316
+199,Whole Number Subtraction,Division,False,No Match,2025-06-20T15:27:28.035606
