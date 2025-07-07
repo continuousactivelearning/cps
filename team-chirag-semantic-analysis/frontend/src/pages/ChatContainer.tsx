@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Header from '../components/Header'; // Make sure you have this import
 import { Message } from '../components/Message';
-import { MessageInput } from '../components/MessageInput';
 import { Sidebar } from '../components/Sidebar';
-import { TypingIndicator } from '../components/TypingIndicator';
 import { useToast } from '../components/ToastProvider';
+import { TypingIndicator } from '../components/TypingIndicator';
 import type { LinkPreview, Message as MessageType } from '../types/chat';
 import { extractUrls, fetchLinkPreview } from '../utils/linkUtils';
 
@@ -63,6 +62,7 @@ export const ChatContainer: React.FC = () => {
   const [activeChatId, setActiveChatId] = useState('chat-1');
   const [isTyping, setIsTyping] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [inputValue, setInputValue] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { showSuccess, showError, showInfo } = useToast();
 
@@ -334,23 +334,48 @@ export const ChatContainer: React.FC = () => {
             <div ref={messagesEndRef} />
           </div>
           {/* Footer is now fixed at the bottom of the window */}
+          
+          {/* Floating Query Input */}
           <div
-            className="fixed bottom-0 right-0 z-30 w-full"
+            className="fixed bottom-6 left-1/2 z-40"
             style={{
-              left: sidebarCollapsed ? '4rem' : '16rem',
-              height: `${FOOTER_HEIGHT}px`,
-              background: 'inherit',
-              width: `calc(100vw - ${sidebarCollapsed ? '4rem' : '16rem'})`,
-              transition: 'left 0.3s, width 0.3s',
+              transform: "translateX(-50%)",
+              width: "100%",
+              pointerEvents: "none",
             }}
           >
-            <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 px-4 py-3 h-full flex items-center">
-              <div className="max-w-4xl mx-auto w-full">
-                <MessageInput
-                  onSendMessage={handleSendMessage}
-                  disabled={isTyping}
+            <div className="max-w-2xl mx-auto w-full px-2 pointer-events-auto">
+              <div className="relative">
+                <input
+                  type="text"
+                  className="pl-5 pr-14 py-4 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 text-base w-full"
                   placeholder="Type your DSA topic or question..."
+                  value={inputValue}
+                  onChange={e => setInputValue(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === "Enter" && inputValue.trim()) {
+                      handleSendMessage(inputValue.trim());
+                      setInputValue("");
+                    }
+                  }}
+                  disabled={isTyping}
                 />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 bg-gradient-to-br from-blue-500 to-green-400 hover:from-green-400 hover:to-blue-500 text-white rounded-full p-2 shadow-md transition-all duration-200 flex items-center justify-center"
+                  onClick={() => {
+                    if (inputValue.trim()) {
+                      handleSendMessage(inputValue.trim());
+                      setInputValue("");
+                    }
+                  }}
+                  disabled={isTyping || !inputValue.trim()}
+                  title="Send"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
