@@ -17,6 +17,8 @@ import type {
 import dagre from "dagre";
 import "reactflow/dist/style.css";
 import Layout from "./Layout";
+import { useTheme } from "../contexts/ThemeContext";
+import { motion } from "framer-motion";
 
 type ModuleNode = {
   id: string;
@@ -28,7 +30,7 @@ type ModuleNode = {
 const NODE_WIDTH = 180;
 const NODE_HEIGHT = 60;
 
-const completedModuleIds: string[] = ["Math", "Recursion", "Arrays"];
+const completedModuleIds: string[] = [];
 
 const modules: ModuleNode[] = [
   { id: "Math", label: "Mathematics", prerequisites: [], description: "Basic math concepts used in CS." },
@@ -199,24 +201,33 @@ const GraphInner: React.FC = () => {
 };
 
 const KnowledgeGraphPage: React.FC = () => {
+    const getAnimationProps = (delay = 0) => ({
+    initial: { opacity: 0, y: 40 },
+    animate: { opacity: 1, y: 0 },
+    transition: {
+      delay,
+      duration: 0.6,
+      type: "spring" as const,
+    },
+  });
   return (
     <Layout>
-      <div className="min-h-screen bg-gray-50 px-4 py-6 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <header className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900">
+      <div className={`min-h-screen px-4 py-6 sm:px-6 lg:px-8  content-wrapper bg-gray-900`}>
+        <div className={`max-w-7xl mx-auto`}>
+          <motion.header className="mb-6" {...getAnimationProps(0.1)}>
+            <h1 className="text-3xl font-bold text-white">
               Knowledge Prerequisite Graph
             </h1>
-            <p className="mt-2 text-gray-600 text-sm max-w-2xl">
+            <h6 className="mt-2 text-sm text-white">
               Visualize how different modules build upon each other. Click on any module to highlight its learning chain.
-            </p>
-          </header>
+            </h6>
+          </motion.header>
 
-          <div className="w-full h-[75vh] rounded-lg overflow-hidden bg-white border shadow">
+          <motion.div className="w-full h-[75vh] rounded-lg overflow-hidden bg-white border shadow" {...getAnimationProps(0.2)}>
             <ReactFlowProvider>
               <GraphInner />
             </ReactFlowProvider>
-          </div>
+          </motion.div>
         </div>
       </div>
     </Layout>
