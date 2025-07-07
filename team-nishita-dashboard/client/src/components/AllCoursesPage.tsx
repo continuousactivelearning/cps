@@ -7,7 +7,7 @@ import { getAllCourses } from '../api/api';
 import type { Course } from '../api/api';
 import Layout from './Layout';
 
-const UserHome: React.FC = () => {
+const AllCoursesPage: React.FC = () => {
   const { darkMode } = useTheme();
   const navigate = useNavigate();
   const [courses, setCourses] = useState<Course[]>([]);
@@ -130,4 +130,4 @@ const UserHome: React.FC = () => {
   );
 };
 
-export default UserHome;
+export default AllCoursesPage;

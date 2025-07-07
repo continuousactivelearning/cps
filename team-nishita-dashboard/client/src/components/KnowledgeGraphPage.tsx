@@ -208,16 +208,16 @@ const KnowledgeGraphPage: React.FC = () => {
     <Layout>
       <div className="min-h-screen bg-gray-50 px-4 py-6 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <header className="mb-6">
+          <motion.header className="mb-6">
             <h1 className="text-3xl font-bold text-gray-900">
               Knowledge Prerequisite Graph
             </h1>
-            <p className="mt-2 text-gray-600 text-sm max-w-2xl">
+            <h6 className="mt-2 text-gray-600 text-sm max-w-2xl">
               Visualize how different modules build upon each other. Click on any module to highlight its learning chain.
             </h6>
           </motion.header>
 
-          <div className="w-full h-[75vh] rounded-lg overflow-hidden bg-white border shadow">
+          <motion.div className="w-full h-[75vh] rounded-lg overflow-hidden bg-white border shadow">
             <ReactFlowProvider>
               <GraphInner />
             </ReactFlowProvider>
