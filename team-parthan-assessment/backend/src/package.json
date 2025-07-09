@@ -1,0 +1,19 @@
+//this file is to setup api for groq ai quiz generation
+//Developed by Srishti Koni
+
+{
+  "name": "quiz-api",
+  "version": "1.0.0",
+  "description": "Quiz generation API using Groq",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Build complete'",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "openai": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
