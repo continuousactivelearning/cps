@@ -43,7 +43,7 @@ export async function downloadSubtitles(
  const tryDownload = async (lang: string, maxRetries = 3): Promise<string | null> => {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      await execa.execa('./bin/yt-dlp', ['--sub-lang', lang, ...buildCommonArgs()]);
+      await execa('./bin/yt-dlp', ['--sub-lang', lang, ...buildCommonArgs()]);
 
       const match = lang === 'en' ? '.en.vtt' : '.vtt';
       const subtitleFile = fs
