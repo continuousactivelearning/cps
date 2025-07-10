@@ -1,5 +1,5 @@
 // Developed by Manjistha Bidkar
-import { execa } from 'execa';
+import execa from 'execa';
 import * as fs from 'fs';
 import * as path from 'path';
 import { config } from '../config';
@@ -43,7 +43,7 @@ export async function downloadSubtitles(
  const tryDownload = async (lang: string, maxRetries = 3): Promise<string | null> => {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      await execa('./bin/yt-dlp', ['--sub-lang', lang, ...buildCommonArgs()]);
+      await execa.execa('./bin/yt-dlp', ['--sub-lang', lang, ...buildCommonArgs()]);
 
       const match = lang === 'en' ? '.en.vtt' : '.vtt';
       const subtitleFile = fs
