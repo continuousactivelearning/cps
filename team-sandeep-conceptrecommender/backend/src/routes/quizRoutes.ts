@@ -1,3 +1,4 @@
+//Author: Nabarupa Banik
 import express from 'express';
 import { getTopicQuiz, submitQuiz, createQuiz, getRandomQuizQuestions } from '../controllers/quizController';
 import { auth, adminAuth } from '../middleware/auth';
