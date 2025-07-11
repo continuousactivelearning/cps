@@ -1,3 +1,4 @@
+// Author: Mondi Sai Lokesh
 import React from 'react';
 import { Topic } from '../types';
 import { TopicCard } from './TopicCard';
