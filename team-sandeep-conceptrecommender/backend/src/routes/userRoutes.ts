@@ -1,3 +1,4 @@
+// Author: @B V Sai Pranav
 import express from 'express';
 import { register, login, getProfile, updateProfile, verifyToken, uploadProfileImage, getSecurityQuestion, verifySecurityAnswer, resetPassword } from '../controllers/userController';
 import { auth, authenticateToken } from '../middleware/auth';
