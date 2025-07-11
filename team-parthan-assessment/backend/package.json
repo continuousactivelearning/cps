@@ -30,6 +30,7 @@
     "sharp": "^0.34.2",
     "tesseract.js": "^6.0.1",
     "ts-node": "^10.9.2",
+    "uuid": "^11.1.0",
     "xlsx": "^0.18.5",
     "youtube-dl-exec": "^3.0.22",
     "zod": "^3.25.67"
@@ -46,6 +47,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/pdf-parse": "^1.1.5",
     "@types/sharp": "^0.32.0",
-    "@types/tesseract.js": "^2.0.0"
+    "@types/tesseract.js": "^2.0.0",
+    "@types/uuid": "^10.0.0"
   }
 }
