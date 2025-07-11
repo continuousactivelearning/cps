@@ -1,3 +1,4 @@
+//Author: Nabarupa Banik
 import React from 'react';
 import { Code, Mail, Phone, MapPin, ArrowLeft } from 'lucide-react';
 
