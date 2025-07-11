@@ -1215,7 +1215,7 @@ const MainPage: React.FC = () => {
       </button>
 
       {/* Image Button commented out */}
-      {/* <button
+      <button
 
         onClick={() => setUploadType("image")}
         className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "image"
@@ -1226,7 +1226,7 @@ const MainPage: React.FC = () => {
         <Image className="w-6 h-6 md:w-8 md:h-8 text-blue-500 mx-auto mb-2" />
         <div className="text-xs md:text-sm font-medium">Image</div>
       </button> 
-      */}
+     
       
     </div>
   </div>
