@@ -1,6 +1,7 @@
 import React from "react";
 import type { Topic } from "../interface/types";
 import { CheckCircle } from "lucide-react";
+import api from "../services/api";
 
 type Concepts = {
   mainTopic: string[];
@@ -46,12 +47,10 @@ const ConceptAnalyzer: React.FC<Props> = ({
 
     setLoading(true);
     try {
-      const res = await fetch("https://cps-rnku.onrender.com/api/analyze", {
-        method: "POST",
-        body: formData,
-      });
-      if (!res.ok) throw new Error("Failed to analyze file");
-      const data = await res.json();
+      
+      const res = await api.post("/analyze", formData)
+      if (res.status < 200 || res.status >= 300) throw new Error("Failed to analyze file");
+      const data = res.data;
       console.log(data);
       setConcepts(data);
     } catch (err) {
