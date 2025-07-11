@@ -1,4 +1,5 @@
- # STEP 1: Install required packages
+#Author: Snehasis Mukhopadhyay
+# STEP 1: Install required packages
 !pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 !pip install torch-scatter torch-sparse torch-geometric -f https://data.pyg.org/whl/torch-2.0.0+cu118.html
 !pip install networkx matplotlib
