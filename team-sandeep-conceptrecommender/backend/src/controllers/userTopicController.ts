@@ -1,3 +1,4 @@
+// author:@B V Sai Pranav
 import { Request, Response } from 'express';
 import { UserTopic } from '../models/UserTopic';
 import { Topic } from '../models/Topic';
