@@ -604,9 +604,13 @@ const LearnPage: React.FC = () => {
                                 onClick={() =>
                                   downloadMaterial(module.id, module.title)
                                 }
-                                className="bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-600 text-white text-xs py-2 px-3 rounded transition-colors"
+                                className="bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-600 text-white text-xs py-2 px-2 rounded transition-colors"
                               >
-                                <Download className="h-3 w-3" />
+                                {isDownloading[module.id] ? (
+                                  <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+                                ) : (
+                                  <Download className="h-3 w-3 mx-1" />
+                                )}
                               </button>
                             )}
                           </div>

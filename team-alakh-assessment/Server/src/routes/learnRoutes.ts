@@ -161,37 +161,8 @@ Return only the raw JSON array.
     const topicDoc = await LearningModule.create({ topic, modules });
     return topicDoc;
   } catch (err) {
-    console.error("GROQ error or JSON parse fail:\n", err);
-
-    const fallback = {
-      id: "fallback-module",
-      title: `Introduction to ${topic} (Fallback Content)`,
-      content: `# Introduction to ${topic} (Fallback Content)
-
-This module provides a basic overview of ${topic}. Due to an issue with content generation, detailed information is not available at this moment. Please try again later.
-
-## What is ${topic}?
-${topic} is a broad field focusing on [add a general description here].
-
-### Importance
-It plays a crucial role in [mention key areas of application].
-
-\`\`\`javascript
-// Fallback code example
-function understandingTopic() {
-  console.log("This is a placeholder for detailed code related to ${topic}.");
-}
-understandingTopic();
-\`\`\`
-
-*For more information*, please consult external resources.`,
-      duration: "20 min",
-      type: "text",
-      downloadUrl: `/api/learn/download/${encodeURIComponent(topic)}/fallback-module`,
-    };
-
-    const fallbackDoc = await LearningModule.create({ topic, modules: [fallback] });
-    return fallbackDoc;
+    console.error("Error generating learning modules:", err);
+    throw new Error("Failed to generate learning modules");
   }
 }
 
