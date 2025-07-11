@@ -1,3 +1,4 @@
+//Author: Pentapati V V Satya Pavan Sandeep
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface ITopic extends Document {
