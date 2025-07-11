@@ -4,19 +4,36 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs-extra';
 import { config } from '../config';
+import { auth, AuthRequest } from '../middlewares/authMiddleware';
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
-router.post('/upload-cookies', upload.single('cookie'), async (req: Request & { file?: Express.Multer.File }, res: express.Response): Promise<void> => {
-  if (!req.file) {
-    res.status(400).send('No file uploaded.');
-    return;
-  }
+// Authenticated upload route for cookies
+router.post(
+  '/upload-cookies',
+  auth,
+  upload.single('cookie'),
+  async (req: AuthRequest & { file?: Express.Multer.File }, res: express.Response): Promise<void> => {
+    try {
+      if (!req.file || !req.userId) {
+        res.status(400).send('No file or user.');
+        return;
+      }
 
-  const targetPath = path.resolve(config.COOKIES_PATH);
-  await fs.move(req.file.path, targetPath, { overwrite: true });
-  res.send('Cookies file updated successfully.');
-});
+      const userCookiesDir = path.join(process.cwd(), 'cookies');
+      if (!fs.existsSync(userCookiesDir)) {
+        fs.mkdirSync(userCookiesDir);
+      }
+
+      const targetPath = path.join(userCookiesDir, `${req.userId}.txt`);
+      await fs.move(req.file.path, targetPath, { overwrite: true });
+
+      res.send('Cookies file uploaded for user: ' + req.userId);
+    } catch (error) {
+      res.status(500).send('Server error during upload.');
+    }
+  }
+);
 
 export default router;
