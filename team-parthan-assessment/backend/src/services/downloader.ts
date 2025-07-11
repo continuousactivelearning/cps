@@ -1,5 +1,5 @@
 // Developed by Manjistha Bidkar
-import { execa } from 'execa';
+import execa from 'execa';
 import * as fs from 'fs';
 import * as path from 'path';
 import { config } from '../config';
