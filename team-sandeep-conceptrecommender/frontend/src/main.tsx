@@ -1,3 +1,4 @@
+//Author: Pentapati V V Satya Pavan Sandeep
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
