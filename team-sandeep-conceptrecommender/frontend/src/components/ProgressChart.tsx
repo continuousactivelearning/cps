@@ -1,4 +1,4 @@
-Author: @B V Sai Pranav
+// Author: @B V Sai Pranav
 import React from 'react';
 import { ProgressData } from '../types';
 import { TrendingUp, BarChart3, ArrowDown } from 'lucide-react';
