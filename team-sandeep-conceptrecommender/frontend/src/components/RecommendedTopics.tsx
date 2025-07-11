@@ -1,3 +1,4 @@
+// Author: Mondi Sai Lokesh
 import React from 'react';
 import { Topic, AIRecommendation } from '../types';
 import { Code, Sparkles, TrendingUp } from 'lucide-react';
