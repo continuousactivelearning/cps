@@ -1,3 +1,4 @@
+//Author: Nabarupa Banik
 import React from 'react';
 import { Code, Scale, AlertTriangle, BookOpen, Shield, Users, FileText, ArrowLeft } from 'lucide-react';
 
