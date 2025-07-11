@@ -1,3 +1,4 @@
+// Author: Mondi Sai Lokesh
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IQuizQuestion {
