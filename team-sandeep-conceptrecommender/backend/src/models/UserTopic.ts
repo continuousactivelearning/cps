@@ -1,3 +1,4 @@
+//Author: Pentapati V V Satya Pavan Sandeep
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IUserTopic extends Document {
