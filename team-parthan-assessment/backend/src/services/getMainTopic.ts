@@ -53,7 +53,7 @@ export default async function getMainTopic(
       if(videoId)
       {
 
-      const transcript = await processTranscript(videoId);
+      const transcript = await processTranscript(videoId, req.userId!);
       //console.log(`\n✅ Transcript :\n${transcript}\n`);
       const matchedConcepts = identifyConcepts(transcript, conceptsList);
       return matchedConcepts;
