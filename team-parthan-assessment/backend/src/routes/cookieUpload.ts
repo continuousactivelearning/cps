@@ -11,7 +11,7 @@ const upload = multer({ dest: 'uploads/' });
 
 // Authenticated upload route for cookies
 router.post(
-  '/upload-cookies',
+  '/',
   auth,
   upload.single('cookie'),
   async (req: AuthRequest & { file?: Express.Multer.File }, res: express.Response): Promise<void> => {

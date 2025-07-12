@@ -1267,7 +1267,7 @@ const MainPage: React.FC = () => {
                         formData.append('cookie', file);
 
                         try {
-                          const res = await api.post('https://youtube-topic-extractor-1.onrender.com/upload-cookies',
+                          const res = await api.post('https://cps-rnku.onrender.com/api/upload-cookies',
                             formData
                           );
 
