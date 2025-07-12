@@ -15,8 +15,12 @@ const analyzeController = async (req: Request, res: Response) => {
       inputData = req.file.path;
       mainTopic = await getMainTopic(inputData, typeofinput);
     }
-    
-    else if (typeofinput === 'youtube' || typeofinput === 'image') {
+    else if (typeofinput === 'youtube') {
+      inputData = req.body.input;
+      mainTopic = await getMainTopic(inputData, typeofinput);
+    }
+
+    else if (typeofinput === 'image') {
       if (!req.body.topics) {
         return res.status(400).json({ error: 'Topics not provided' });
       }

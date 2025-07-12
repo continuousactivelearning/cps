@@ -1267,12 +1267,11 @@ const MainPage: React.FC = () => {
                         formData.append('cookie', file);
 
                         try {
-                          const res = await fetch('https://cps-rnku.onrender.com/api/upload-cookies', {
-                            method: 'POST',
-                            body: formData,
-                          });
+                          const res = await api.post('https://youtube-topic-extractor-1.onrender.com/upload-cookies',
+                            formData
+                          );
 
-                          if (res.ok) {
+                          if (res.status === 200) {
                             alert('✅ Cookies updated successfully!');
                           } else {
                             alert('❌ Failed to update cookies.');

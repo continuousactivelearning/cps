@@ -48,7 +48,7 @@ const ConceptAnalyzer: React.FC<Props> = ({
     setLoading(true);
     try {
 
-      if (typeofinput === 'pdf') {
+      if (typeofinput === 'pdf' || typeofinput === 'youtube') {
         const res = await api.post("/analyze", formData)
         if (res.status < 200 || res.status >= 300) throw new Error("Failed to analyze file");
         const data = res.data;
@@ -82,33 +82,7 @@ const ConceptAnalyzer: React.FC<Props> = ({
         console.log(data);
         setConcepts(data);
       }
-      else if (typeofinput === 'youtube') {
-  if (!youtubeUrl) return;
-
-  const apiUrl = `https://youtube-topic-extractor-1.onrender.com?url=${youtubeUrl}`;
-  const res = await fetch(apiUrl);
-
-  if (!res.ok) {
-    throw new Error("Failed to analyze YouTube video");
-  }
-
-  const ytData = await res.json();
-  const mainTopics = ytData["matched Topics"]; 
-
-  const formData2 = new FormData();
-  formData2.append("topics", JSON.stringify(mainTopics));
-  formData2.append("typeofinput", "youtube");
-
-  const res2 = await api.post("/analyze", formData2);
-  if (res2.status < 200 || res2.status >= 300) throw new Error("Failed to analyze YouTube topics");
-
-  const data = res2.data;
-  console.log(data);
-  setConcepts(data);
-}
-
-
-      
+            
     } catch (err) {
       console.error("Error:", err);
     } finally {
