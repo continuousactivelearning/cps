@@ -13,7 +13,11 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 export async function processTranscript(videoId: string, p0: any): Promise<string> {
-  const tempDir = path.join('/tmp', 'temp_subtitles');
+  //const tempDir = path.join('/tmp', 'temp_subtitles');
+  const tempDir = path.join(process.cwd(), 'temp_subtitles');
+  if (fs.existsSync(tempDir)) {
+    await fs.remove(tempDir); // Clean up any existing temp files
+  }
   await fs.ensureDir(tempDir);
 
   try {
@@ -22,6 +26,7 @@ export async function processTranscript(videoId: string, p0: any): Promise<strin
     
     // Step 2: Parse and clean transcript text from .vtt file
     const rawTranscript = await parseVttFile(filePath);
+    
 
     // Step 3: If not in English, translate to English
     // Detect language based on langCode 
@@ -34,6 +39,7 @@ export async function processTranscript(videoId: string, p0: any): Promise<strin
 
     return finalTranscript;
   } catch (err) {
+    console.error(`❌ Error processing transcript for ${videoId}:`, err);
     return '';
   } finally {
      // Step 4: Clean up temporary subtitle files

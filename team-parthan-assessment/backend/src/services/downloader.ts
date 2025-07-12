@@ -24,6 +24,8 @@ export async function downloadSubtitles(
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
+  console.log("Files in outputDir:", fs.readdirSync(outputDir));
+
 
   const buildCommonArgs = (): string[] => {
     const userAgent = getRandomUserAgent();
@@ -46,7 +48,12 @@ export async function downloadSubtitles(
   const tryDownload = async (lang: string, maxRetries = 3): Promise<string | null> => {
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        await execa('./bin/yt-dlp', ['--sub-lang', lang, ...buildCommonArgs()]);
+        const ytDlpBinary = process.platform === 'win32'
+  ? path.resolve(__dirname, '../../bin/yt-dlp.exe')
+  : path.resolve(__dirname, '../../bin/yt-dlp');
+
+await execa(ytDlpBinary, ['--sub-lang', lang, ...buildCommonArgs()]);
+
 
         const match = lang === 'en' ? '.en.vtt' : '.vtt';
         const subtitleFile = fs
@@ -77,5 +84,7 @@ export async function downloadSubtitles(
     return { filePath: path.join(outputDir, fallbackSubtitle), langCode: detectedLang };
   }
 
-  throw new Error(`No subtitles found for video: ${videoId}`);
+  //throw new Error(`No subtitles found for video: ${videoId}`);
+  throw new Error(`No subtitles found for video: ${videoId}. Tried files: ${fs.readdirSync(outputDir).join(', ')}`);
+
 }
