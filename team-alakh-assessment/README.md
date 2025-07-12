@@ -724,7 +724,7 @@ We welcome contributions! Please follow these steps:
 - **Team Lead**: Alakh Mathur (mathur.alakh2004@gmail.com)
 - **GitHub Issues**: For bug reports and feature requests
 - **Documentation**: Comprehensive guides and API docs
-- **Community**: Join our Discord for discussions
+
 
 
 ---
