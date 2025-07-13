@@ -41,7 +41,7 @@ const MainPage: React.FC = () => {
   // const [showProfile, setShowProfile] = useState(false);
   const [showLoader, setLoader] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
-  const [uploadType, setUploadType] = useState<'youtube' | 'pdf' | 'image'>('youtube');
+  const [uploadType, setUploadType] = useState<'youtube' | 'pdf' | 'image'>('pdf');
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [customContents, setCustomContents] = useState<CustomContent[]>([]);
   const [generatedQuizzes, setGeneratedQuizzes] = useState<Quiz[]>([]);
@@ -1189,7 +1189,7 @@ const MainPage: React.FC = () => {
     <div className="grid grid-cols-3 gap-3">
 
       {/* YouTube Button commented out */}
-      <button
+      {/* <button
 
         onClick={() => setUploadType("youtube")}
         className={`p-3 md:p-4 rounded-lg border-2 transition-all ${uploadType === "youtube"
@@ -1200,7 +1200,7 @@ const MainPage: React.FC = () => {
         <Youtube className="w-6 h-6 md:w-8 md:h-8 text-red-500 mx-auto mb-2" />
         <div className="text-xs md:text-sm font-medium">YouTube</div>
 
-      </button>
+      </button> */}
       
 
       <button
@@ -1214,7 +1214,7 @@ const MainPage: React.FC = () => {
         <div className="text-xs md:text-sm font-medium">PDF</div>
       </button>
 
-      {/* Image Button commented out */}
+      
       <button
 
         onClick={() => setUploadType("image")}
@@ -1355,7 +1355,7 @@ const MainPage: React.FC = () => {
     </div>
   )}
 
-  {/* Image Upload - Commented Out */}
+  {/* Image Upload*/}
  
   {uploadType === "image" && (
     <div>
