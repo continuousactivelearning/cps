@@ -95,3 +95,10 @@ npm start
 * **AI/LLM**: GPT-4o via OpenRouter
 * **Graph Rendering**: vis-network
 * **Environment Management**: dotenv
+
+ ## Team Members
+ K. Sai Sahithya
+ A. Meghana
+ G. Pradeep Kumar
+ D. Siva Sai
+
