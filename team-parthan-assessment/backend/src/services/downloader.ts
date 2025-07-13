@@ -21,8 +21,14 @@ export async function downloadSubtitles(
   const userCookiePath = path.join(process.cwd(), 'cookies', `${userId}.txt`);
   const cookiesFile = fs.existsSync(userCookiePath) ? userCookiePath : config.COOKIES_PATH;
 
+  console.log(`[DEBUG] videoId: ${videoId}`);
+  console.log(`[DEBUG] cookies path used: ${cookiesFile}`);
+  console.log(`[DEBUG] output template: ${output}`);
+  console.log(`[DEBUG] outputDir exists: ${fs.existsSync(outputDir)}`);
+  
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
+    console.log(`[INFO] Created output directory: ${outputDir}`);
   }
   console.log("Files in outputDir:", fs.readdirSync(outputDir));
 
@@ -53,6 +59,7 @@ export async function downloadSubtitles(
   : path.resolve(__dirname, '../../bin/yt-dlp');
 
 await execa(ytDlpBinary, ['--sub-lang', lang, ...buildCommonArgs()]);
+console.log(`[INFO] Running yt-dlp [${lang}] (attempt ${attempt}): ${ytDlpBinary}`);
 
 
         const match = lang === 'en' ? '.en.vtt' : '.vtt';
@@ -60,8 +67,14 @@ await execa(ytDlpBinary, ['--sub-lang', lang, ...buildCommonArgs()]);
           .readdirSync(outputDir)
           .find(f => f.startsWith(videoId) && f.endsWith(match));
 
-        if (subtitleFile) return subtitleFile;
+        if (subtitleFile) {
+          console.log(`[SUCCESS] Found subtitle file: ${subtitleFile}`);
+          return subtitleFile;
+        } else {
+          console.warn(`[WARN] Subtitle file not found after yt-dlp ran for lang=${lang}`);
+        }
       } catch (err: any) {
+        console.warn(`[ERROR] yt-dlp failed on attempt ${attempt} for lang=${lang}: ${err.message}`);
         if (attempt === maxRetries) {
           throw new Error(`Failed to download subtitles after ${maxRetries} attempts: ${err.message}`);
         }
@@ -77,6 +90,7 @@ await execa(ytDlpBinary, ['--sub-lang', lang, ...buildCommonArgs()]);
     return { filePath: path.join(outputDir, enSubtitle), langCode: 'en' };
   }
 
+  console.log(`[INFO] English subtitles not found. Trying fallback language...`);
   const fallbackSubtitle = await tryDownload('best');
   if (fallbackSubtitle) {
     const langMatch = fallbackSubtitle.match(/\.(\w+)\.vtt$/);
@@ -85,6 +99,10 @@ await execa(ytDlpBinary, ['--sub-lang', lang, ...buildCommonArgs()]);
   }
 
   //throw new Error(`No subtitles found for video: ${videoId}`);
-  throw new Error(`No subtitles found for video: ${videoId}. Tried files: ${fs.readdirSync(outputDir).join(', ')}`);
+  //console.error(`[FATAL] No subtitles found. Files present: ${finalFiles.join(', ')}`);
+  //throw new Error(`No subtitles found for video: ${videoId}. Tried files: ${fs.readdirSync(outputDir).join(', ')}`);
+const finalFiles = fs.readdirSync(outputDir);
+console.error(`[FATAL] No subtitles found. Files present: ${finalFiles.join(', ')}`);
+throw new Error(`No subtitles found for video: ${videoId}. Tried files: ${finalFiles.join(', ')}`);
 
 }
