@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduVLM-Bench - Admin Panel</title>
+    <meta name="description" content="Admin panel for managing annotations in the EduVLM-Bench project.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=stylesheet" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-white font-inter antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-semibold text-academic-blue">
+                        EduVLM-Bench
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="nav-link">Research</a>
+                    <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+                    <a href="annotator.html" class="nav-link">Annotator</a>
+                    <a href="admin.html" id="admin-nav-link" class="nav-link active" data-admin-only>Admin</a>
+                </div>
+                
+                <!-- Desktop Download Button & Auth -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <button onclick="downloadPaper()" class="bg-accent-amber text-white hover:bg-yellow-500 transition-colors font-medium px-4 py-2 rounded-md flex items-center text-sm">
+                        <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Download
+                    </button>
+                    <!-- Authentication Section -->
+                    <div id="authContainer" class="auth-container flex space-x-2">
+                        <button id="login-btn" class="auth-btn login-btn bg-academic-blue text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</button>
+                        <button id="signup-btn" class="auth-btn register-btn bg-white text-academic-blue border border-academic-blue hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors">Sign Up</button>
+                    </div>
+                    
+                    <!-- User Info Section (hidden by default) -->
+                    <div id="user-info" class="user-info hidden">
+                        <!-- User info will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-slate-grey hover:text-academic-blue focus:outline-none">
+                        <svg id="mobile-menu-icon" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 py-4">
+                <div class="space-y-3">
+                    <a href="index.html" class="block nav-link-mobile">Research</a>
+                    <a href="leaderboard.html" class="block nav-link-mobile">Leaderboard</a>
+                    <a href="annotator.html" class="block nav-link-mobile">Annotator</a>
+                    <a href="admin.html" id="mobile-admin-nav-link" class="block nav-link-mobile active" data-admin-only>Admin</a>
+                    <!-- Mobile Auth Buttons -->
+                    <button id="mobile-login-btn" class="block w-full bg-academic-blue text-white hover:bg-blue-700 transition-colors font-medium px-4 py-2 rounded-md text-center text-sm">
+                        Login
+                    </button>
+                    <button id="mobile-signup-btn" class="block w-full border border-academic-blue text-academic-blue hover:bg-gray-50 transition-colors font-medium px-4 py-2 rounded-md text-center text-sm">
+                        Sign Up
+                    </button>
+                    <button onclick="downloadPaper()" class="w-full bg-accent-amber text-white hover:bg-yellow-500 transition-colors font-medium px-4 py-2 rounded-md flex items-center justify-center text-sm mt-4">
+                        <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Download Paper
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Panel Content -->
+    <div id="admin-page" class="page-content py-16">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl md:text-4xl font-bold font-crimson mb-8 text-center text-academic-blue">
+                Admin Panel
+            </h1>
+            <p class="text-lg max-w-3xl mx-auto leading-relaxed text-slate-grey mb-6 text-center">
+                Manage annotations submitted by users. View all annotations and generate a report of the dataset.
+            </p>
+            <div class="bg-white shadow-sm rounded-lg p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-semibold font-crimson text-dark-slate">Annotations</h2>
+                    <button id="generate-report-btn" class="bg-academic-blue text-white hover:bg-blue-700 transition-colors font-medium px-6 py-2 rounded-md flex items-center">
+                        <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Generate Report
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table id="admin-annotations" class="min-w-full bg-white border border-gray-200">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-dark-slate">Question ID</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-dark-slate">Question</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-dark-slate">Prerequisite</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-dark-slate">Annotator</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-dark-slate">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-annotations-body">
+                            <!-- Annotations will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- About Section -->
+                <div class="col-span-2">
+                    <h3 class="text-lg font-semibold mb-4 text-academic-blue">
+                        EduVLM-Bench
+                    </h3>
+                    <p class="text-sm leading-relaxed mb-4 text-slate-grey">
+                        A multimodal benchmark for evaluating educational concept understanding in Vision-Language Models. 
+                        Our framework focuses on identifying prerequisite concepts and bridging the gap between confusion and conceptual clarity.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4 text-dark-slate">
+                        Quick Links
+                    </h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="index.html" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">
+                                Research Paper
+                            </a>
+                        </li>
+                        <li>
+                            <a href="leaderboard.html" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">
+                                Model Leaderboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="annotator.html" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">
+                                Annotator
+                            </a>
+                        </li>
+                        <li>
+                            <a href="admin.html" id="footer-admin-link" class="text-sm text-slate-grey hover:text-academic-blue transition-colors hidden" data-admin-only>
+                                Admin
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Authors -->
+                <div>
+                    <h4 class="text-sm font-semibold mb-4 text-dark-slate">
+                        Authors
+                    </h4>
+                    <ul class="space-y-2">
+                        <li class="text-sm text-slate-grey">Arka Mukerjee</li>
+                        <li class="text-sm text-slate-grey">Sriram P</li>
+                        <li class="text-sm text-slate-grey">Abhisekh Padhy</li>
+                        <li class="text-sm text-slate-grey">Nilam Bhojwani</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-300 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-sm text-slate-grey">
+                    © <span id="current-year"></span> EduVLM-Bench. All rights reserved.
+                </p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">
+                        Privacy Policy
+                    </a>
+                    <a href="#" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">
+                        Terms of Use
+                    </a>
+                    <a href="#" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="auth-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold">Login to EduVLM-Bench</h2>
+                <button class="close-modal text-2xl cursor-pointer" onclick="document.getElementById('login-modal').classList.add('hidden')">×</button>
+            </div>
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label for="login-email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="login-email" name="email" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="login-password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="login-password" name="password" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div id="login-error" class="text-red-500 text-sm hidden"></div>
+                <button type="submit" id="login-submit" class="w-full bg-academic-blue text-white p-2 rounded-md hover:bg-blue-700">Login</button>
+                <p class="text-center text-sm">Don't have an account? <a href="#" onclick="switchToSignup()" class="text-academic-blue hover:underline">Sign up</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="signup-modal" class="auth-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold">Sign Up for EduVLM-Bench</h2>
+                <button class="close-modal text-2xl cursor-pointer" onclick="document.getElementById('signup-modal').classList.add('hidden')">×</button>
+            </div>
+            <form id="signup-form" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="signup-firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                        <input type="text" id="signup-firstName" name="firstName" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label for="signup-lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input type="text" id="signup-lastName" name="lastName" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <div>
+                    <label for="signup-username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <input type="text" id="signup-username" name="username" required minlength="3" maxlength="20" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="signup-email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="signup-email" name="email" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="signup-password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="signup-password" name="password" required minlength="6" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="signup-confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" name="confirmPassword" required minlength="6" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div id="signup-error" class="text-red-500 text-sm hidden"></div>
+                <button type="submit" id="signup-submit" class="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600">Register</button>
+                <p class="text-center text-sm">Already have an account? <a href="#" onclick="switchToLogin()" class="text-academic-blue hover:underline">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Update current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+Flask>=2.0.0
+flask-cors>=3.0.10
+python-dotenv>=0.21.0
+google-generativeai>=0.2.0
+datasets>=2.18.0

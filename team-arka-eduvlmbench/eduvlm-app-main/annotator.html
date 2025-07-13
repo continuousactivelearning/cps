@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduVLM-Bench - Question Annotator</title>
+    <meta name="description" content="Select and annotate prerequisite concepts for educational questions.">
+
+    <!-- Tailwind CSS (Development only) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=stylesheet">
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-white font-inter antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-xl font-semibold text-academic-blue">
+                        EduVLM-Bench
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="nav-link">Research</a>
+                    <a href="leaderboard.html" class="nav-link">Leaderboard</a>
+                    <a href="annotator.html" class="nav-link active">Annotator</a>
+                </div>
+
+                <!-- Desktop Download Button & Auth -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <button onclick="downloadPaper()" class="bg-accent-amber text-white hover:bg-yellow-500 transition-colors font-medium px-4 py-2 rounded-md flex items-center text-sm">
+                        <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Download
+                    </button>
+                    <!-- Authentication Section -->
+                    <div id="authContainer" class="auth-container flex space-x-2">
+                        <button id="showLoginBtn" class="auth-btn login-btn bg-academic-blue text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</button>
+                        <button id="showRegisterBtn" class="auth-btn register-btn bg-white text-academic-blue border border-academic-blue hover:bg-gray-50 px-3 py-2 rounded-md text-sm font-medium transition-colors">Sign Up</button>
+                    </div>
+
+                    <!-- User Info Section (hidden by default) -->
+                    <div id="userInfo" class="user-info" style="display: none;">
+                        <!-- User info will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-slate-grey hover:text-academic-blue focus:outline-none">
+                        <svg id="mobile-menu-icon" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="md:hidden hidden border-t border-gray-200 py-4">
+                <div class="space-y-3">
+                    <a href="index.html" class="block nav-link-mobile">Research</a>
+                    <a href="leaderboard.html" class="block nav-link-mobile">Leaderboard</a>
+                    <a href="annotator.html" class="block nav-link-mobile active">Annotator</a>
+                    <!-- Mobile Auth Buttons -->
+                    <button id="mobileLoginBtn" onclick="document.getElementById('loginModal').style.display='flex'" class="block w-full bg-academic-blue text-white hover:bg-blue-700 transition-colors font-medium px-4 py-2 rounded-md text-center text-sm">
+                        Login
+                    </button>
+                    <button id="mobileRegisterBtn" onclick="document.getElementById('registerModal').style.display='flex'" class="block w-full border border-academic-blue text-academic-blue hover:bg-gray-50 transition-colors font-medium px-4 py-2 rounded-md text-center text-sm">
+                        Sign Up
+                    </button>
+                    <button onclick="downloadPaper()" class="w-full bg-accent-amber text-white hover:bg-yellow-500 transition-colors font-medium px-4 py-2 rounded-md flex items-center justify-center text-sm mt-4">
+                        <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Download Paper
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Annotator Page -->
+    <div id="annotator-page" class="page-content">
+        <!-- Header Section -->
+        <section class="bg-white py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl md:text-5xl font-bold font-crimson mb-6 text-academic-blue">
+                        Question Annotator
+                    </h1>
+                    <p class="text-lg max-w-4xl mx-auto leading-relaxed text-slate-grey">
+                        Select and annotate prerequisite concepts for educational questions.
+                    </p>
+                </div>
+
+                <!-- Pipeline Overview -->
+                <div class="bg-white shadow-sm rounded-lg p-6 mb-8">
+                    <h3 class="text-xl font-semibold text-dark-slate mb-2">How This Annotator Works</h3>
+                    <p class="text-sm text-slate-grey leading-relaxed">
+                    This annotator tool is part of the EduVLM-Bench framework, designed to allow users to manually annotate prerequisite concepts for math word problems. 
+                    The process begins with selecting the number of questions to annotate, followed by loading questions (typically from the GSM8K dataset) along with their correct and incorrect answers. Users then select the most relevant prerequisite concept from a pre-generated list.
+                    Annotations are submitted to the server for research purposes, enabling the refinement of educational models. The tool ensures transparency by leveraging open-source data and providing clear feedback on each step.
+                    </p>
+                </div>
+
+                <!-- Question Number Selection -->
+                <div id="question-number-selection" class="bg-light-grey rounded-lg p-6 md:p-8 mb-6 hidden">
+                    <h3 class="text-base font-semibold text-dark-slate mb-4">Select Dataset and Number of Questions</h3>
+                    <div class="mb-4">
+                        <label for="dataset-type" class="block text-sm font-medium text-dark-slate mb-2">Dataset Type</label>
+                        <select id="dataset-type" class="border border-gray-300 rounded-md p-2 w-full max-w-xs">
+                            <option value="unimodal">Unimodal (GSM-8K)</option>
+                            <option value="multimodal">Multimodal (With Images)</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="num-questions" class="block text-sm font-medium text-dark-slate mb-2">Number of Questions</label>
+                        <select id="num-questions" class="border border-gray-300 rounded-md p-2 w-full max-w-xs">
+                            <option value="1">1</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                    <button id="start-annotation" class="bg-academic-blue text-white hover:bg-blue-700 transition-colors font-medium px-6 py-3 rounded-md mt-4">
+                        Start Annotating
+                    </button>
+                </div>
+
+                <!-- Annotator Interface -->
+                <div id="annotator-content" class="bg-light-grey rounded-lg p-6 md:p-8 hidden">
+                    <div id="progress" class="text-sm text-slate-grey mb-4"></div>
+                    <div id="loading" class="text-center text-slate-grey">Loading questions...</div>
+                    <div id="question-container" class="hidden">
+                        <div id="question-id" class="text-sm text-slate-grey mb-2"></div>
+                        <div id="question-text" class="text-lg font-medium text-dark-slate mb-4"></div>
+                        
+                        <!-- Image Section for Multimodal -->
+                        <div id="image-section" class="mb-4 hidden">
+                            <h3 class="text-base font-semibold text-dark-slate mb-2">Associated Image</h3>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <img id="question-image" class="max-w-full h-auto rounded-lg mb-2" alt="Question image">
+                                <p id="image-caption" class="text-sm text-slate-grey italic"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex mb-4 space-x-4">
+                            <div class="w-1/2 bg-green-200 p-4 rounded-lg">
+                                <h3 class="text-base font-semibold text-dark-slate mb-2">Correct Answer</h3>
+                                <p id="correct-answer" class="text-sm text-slate-grey"></p>
+                            </div>
+                            <div class="w-1/2 bg-red-200 p-4 rounded-lg">
+                                <h3 class="text-base font-semibold text-dark-slate mb-2">Incorrect Answer</h3>
+                                <p id="incorrect-answer" class="text-sm text-slate-grey"></p>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <h3 class="text-base font-semibold text-dark-slate mb-2">Select Prerequisite Concept</h3>
+                            <select id="prerequisite-select" class="border border-gray-300 rounded-md p-2 w-full max-w-xs">
+                                <option value="">Select a prerequisite</option>
+                            </select>
+                        </div>
+                        <button id="submit-annotation" class="bg-academic-blue text-white hover:bg-blue-700 transition-colors font-medium px-6 py-3 rounded-md">
+                            Submit Annotation
+                        </button>
+                        <button id="next-question" class="bg-gray-300 text-dark-slate hover:bg-gray-400 transition-colors font-medium px-6 py-3 rounded-md ml-4">
+                            Next Question
+                        </button>
+                    </div>
+                    <div id="error-message" class="hidden text-red-600 text-center mt-4"></div>
+                </div>
+
+                <!-- Login Prompt -->
+                <div id="login-prompt" class="text-center bg-light-grey rounded-lg p-6 md:p-8">
+                    <p class="text-lg text-slate-grey">Please <button id="promptLoginBtn" class="text-academic-blue hover:underline">Login</button> or <button id="promptRegisterBtn" class="text-academic-blue hover:underline">Register</button> to start annotating.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light-grey border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="col-span-2">
+                    <h3 class="text-lg font-semibold mb-4 text-academic-blue">
+                        EduVLM-Bench
+                    </h3>
+                    <p class="text-sm leading-relaxed mb-4 text-slate-grey">
+                        A multimodal benchmark for evaluating educational concept understanding in Vision-Language Models. 
+                        Our framework focuses on identifying prerequisite concepts and bridging the gap between confusion and conceptual clarity.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4 text-dark-slate">
+                        Quick Links
+                    </h4>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">Research Paper</a></li>
+                        <li><a href="leaderboard.html" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">Model Leaderboard</a></li>
+                        <li><a href="annotator.html" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">Annotator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4 text-dark-slate">
+                        Authors
+                    </h4>
+                    <ul class="space-y-2">
+                        <li class="text-sm text-slate-grey">Arka Mukerjee</li>
+                        <li class="text-sm text-slate-grey">Sriram P</li>
+                        <li class="text-sm text-slate-grey">Abhishekh Padhypalli</li>
+                        <li class="text-sm text-slate-grey">Nilam Bhojwani</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-300 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-sm text-slate-grey">
+                    © <span id="current-year"></span> EduVLM-Bench. All rights reserved. This annotator uses Gemini 1.5 Flash for prerequisite suggestions.
+                </p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">Terms of Use</a>
+                    <a href="#" class="text-sm text-slate-grey hover:text-academic-blue transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="auth-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold">Login to EduVLM-Bench</h2>
+                <button class="close-modal text-2xl cursor-pointer" onclick="document.getElementById('loginModal').classList.add('hidden')">×</button>
+            </div>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label for="loginEmail" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="loginEmail" name="email" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="loginPassword" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="loginPassword" name="password" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <button type="submit" class="w-full bg-academic-blue text-white p-2 rounded-md hover:bg-blue-700">Login</button>
+                <p class="text-center text-sm">Don't have an account? <a href="#" id="switchToRegister" class="text-academic-blue hover:underline">Sign up</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="auth-modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold">Sign Up for EduVLM-Bench</h2>
+                <button class="close-modal text-2xl cursor-pointer" onclick="document.getElementById('registerModal').classList.add('hidden')">×</button>
+            </div>
+            <form id="registerForm" class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <input type="text" id="username" name="username" required minlength="3" maxlength="20" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="registerEmail" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="registerEmail" name="email" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="registerPassword" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="registerPassword" name="password" required minlength="6" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                </div>
+                <button type="submit" class="w-full bg-green-500 text-white p-2 rounded-md hover:bg-green-600">Register</button>
+                <p class="text-center text-sm">Already have an account? <a href="#" id="switchToLogin" class="text-academic-blue hover:underline">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Ensure Feather Icons are initialized
+        feather.replace();
+
+        // Update current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Authentication and question handling
+        let currentQuestionIndex = 0;
+        let questions = [];
+        let maxQuestions = 0;
+        let selectedDataset = 'unimodal';
+
+        // Shuffle array function
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/user', { credentials: 'include' });
+                console.log('Auth response status:', response.status);
+                if (response.ok) {
+                    const data = await response.json();
+                    window.currentUser = data.user; // Assign to global window object
+                    document.getElementById('authContainer').style.display = 'none';
+                    document.getElementById('userInfo').style.display = 'flex';
+                    document.getElementById('userInfo').innerHTML = `
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-gray-300 w-8 h-8 flex items-center justify-center rounded-full">${data.user.firstName[0]}${data.user.lastName[0]}</span>
+                            <span class="text-sm font-medium">Welcome, ${data.user.username}</span>
+                        </div>
+                        <button id="logoutBtn" class="ml-2 text-sm text-academic-blue hover:underline">Logout</button>
+                    `;
+                    document.getElementById('logoutBtn').addEventListener('click', logout);
+                    document.getElementById('login-prompt').classList.add('hidden');
+                    document.getElementById('question-number-selection').classList.remove('hidden');
+                } else {
+                    document.getElementById('login-prompt').classList.remove('hidden');
+                    document.getElementById('question-number-selection').classList.add('hidden');
+                    document.getElementById('annotator-content').classList.add('hidden');
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                document.getElementById('login-prompt').classList.remove('hidden');
+                document.getElementById('question-number-selection').classList.add('hidden');
+                document.getElementById('annotator-content').classList.add('hidden');
+                document.getElementById('error-message').classList.remove('hidden');
+                document.getElementById('error-message').textContent = `Authentication error: ${error.message}`;
+            }
+        }
+
+        async function login(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, password })
+                });
+                if (response.ok) {
+                    document.getElementById('loginModal').classList.add('hidden');
+                    await checkAuth();
+                } else {
+                    const errorText = await response.text();
+                    showNotification(`Login failed: ${errorText}`, 'error');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showNotification('Server error during login', 'error');
+            }
+        }
+
+        async function signup(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ firstName, lastName, username, email, password })
+                });
+                if (response.ok) {
+                    document.getElementById('registerModal').classList.add('hidden');
+                    await checkAuth();
+                } else {
+                    const errorText = await response.text();
+                    showNotification(`Registration failed: ${errorText}`, 'error');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                showNotification('Server error during registration', 'error');
+            }
+        }
+
+        function logout() {
+            fetch('/api/logout', { method: 'POST', credentials: 'include' })
+                .then(response => {
+                    if (response.ok) {
+                        window.currentUser = null;
+                        document.getElementById('userInfo').style.display = 'none';
+                        document.getElementById('authContainer').style.display = 'flex';
+                        document.getElementById('annotator-content').classList.add('hidden');
+                        document.getElementById('question-number-selection').classList.add('hidden');
+                        document.getElementById('login-prompt').classList.remove('hidden');
+                        showNotification('Logged out successfully', 'success');
+                    }
+                })
+                .catch(error => {
+                    console.error('Logout error:', error);
+                    showNotification('Error logging out', 'error');
+                });
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', login);
+        document.getElementById('registerForm').addEventListener('submit', signup);
+        document.getElementById('showLoginBtn').addEventListener('click', () => document.getElementById('loginModal').classList.remove('hidden'));
+        document.getElementById('showRegisterBtn').addEventListener('click', () => document.getElementById('registerModal').classList.remove('hidden'));
+        document.getElementById('mobileLoginBtn').addEventListener('click', () => document.getElementById('loginModal').classList.remove('hidden'));
+        document.getElementById('mobileRegisterBtn').addEventListener('click', () => document.getElementById('registerModal').classList.remove('hidden'));
+        document.getElementById('switchToRegister').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('loginModal').classList.add('hidden');
+            document.getElementById('registerModal').classList.remove('hidden');
+        });
+        document.getElementById('switchToLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('registerModal').classList.add('hidden');
+            document.getElementById('loginModal').classList.remove('hidden');
+        });
+        document.getElementById('promptLoginBtn').addEventListener('click', () => document.getElementById('loginModal').classList.remove('hidden'));
+        document.getElementById('promptRegisterBtn').addEventListener('click', () => document.getElementById('registerModal').classList.remove('hidden'));
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.className = `fixed bottom-4 right-4 p-3 rounded-md shadow-lg ${type === 'success' ? 'bg-green-500' : 'bg-red-500'} text-white text-sm`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        document.getElementById('start-annotation').addEventListener('click', () => {
+            maxQuestions = parseInt(document.getElementById('num-questions').value);
+            selectedDataset = document.getElementById('dataset-type').value;
+            if (!window.currentUser) {
+                document.getElementById('error-message').classList.remove('hidden');
+                document.getElementById('error-message').textContent = 'Please log in to start annotating.';
+                return;
+            }
+            document.getElementById('question-number-selection').classList.add('hidden');
+            document.getElementById('annotator-content').classList.remove('hidden');
+            loadQuestions();
+        });
+
+        async function loadQuestions() {
+            try {
+                const response = await fetch(`/api/questions?dataset=${selectedDataset}`, { credentials: 'include' });
+                console.log('API response status:', response.status);
+                if (!response.ok) throw new Error(`Failed to fetch questions: ${await response.text()}`);
+                const data = await response.json();
+                console.log('Questions fetched:', data);
+                if (!Array.isArray(data) || data.length === 0) {
+                    throw new Error(`No ${selectedDataset} questions available from the server.`);
+                }
+                // Shuffle the questions array and take the desired number
+                const shuffledQuestions = shuffleArray([...data]);
+                questions = shuffledQuestions.slice(0, maxQuestions);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('question-container').classList.remove('hidden');
+                updateProgress();
+                displayQuestion();
+            } catch (error) {
+                console.error('Load questions error:', error);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('error-message').classList.remove('hidden');
+                document.getElementById('error-message').textContent = `Error loading ${selectedDataset} questions: ${error.message}. Please try again or check your login.`;
+            }
+        }
+
+        function updateProgress() {
+            document.getElementById('progress').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        }
+
+        function displayQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                document.getElementById('question-container').classList.add('hidden');
+                document.getElementById('loading').textContent = 'No more questions to annotate';
+                return;
+            }
+
+            const question = questions[currentQuestionIndex];
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('question-container').classList.remove('hidden');
+            document.getElementById('question-id').textContent = `Question ID: ${question.question_id} (${question.dataset_type || 'unknown'})`;
+            document.getElementById('question-text').textContent = question.question;
+            document.getElementById('correct-answer').textContent = question.correct_answer || 'Not available';
+            document.getElementById('incorrect-answer').textContent = question.wrong_answer || 'Not available';
+
+            // Handle image display for multimodal questions
+            const imageSection = document.getElementById('image-section');
+            const questionImage = document.getElementById('question-image');
+            const imageCaption = document.getElementById('image-caption');
+            
+            if (question.dataset_type === 'multimodal' && question.image_url) {
+                imageSection.classList.remove('hidden');
+                questionImage.src = question.image_url;
+                questionImage.alt = question.image_caption || 'Question image';
+                imageCaption.textContent = question.image_caption || 'No caption available';
+            } else {
+                imageSection.classList.add('hidden');
+            }
+
+            const prerequisiteSelect = document.getElementById('prerequisite-select');
+            prerequisiteSelect.innerHTML = '<option value="">Select a prerequisite</option>';
+            question.all_prerequisites.forEach(prereq => {
+                const trimmedPrereq = prereq.trim().replace(/['"]/g, ''); // Remove single and double quotes
+                if (trimmedPrereq) {
+                    const option = document.createElement('option');
+                    option.value = trimmedPrereq;
+                    option.textContent = trimmedPrereq;
+                    prerequisiteSelect.appendChild(option);
+                }
+            });
+            updateProgress();
+        }
+
+        document.getElementById('submit-annotation').addEventListener('click', async () => {
+            const selectedPrerequisite = document.getElementById('prerequisite-select').value;
+            if (!selectedPrerequisite) {
+                document.getElementById('error-message').classList.remove('hidden');
+                document.getElementById('error-message').textContent = 'Please select a prerequisite concept';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/annotations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                        question_id: questions[currentQuestionIndex].question_id,
+                        question: questions[currentQuestionIndex].question,
+                        annotated_prerequisite: selectedPrerequisite,
+                        annotator_name: window.currentUser ? window.currentUser.username : 'Anonymous',
+                        dataset_type: questions[currentQuestionIndex].dataset_type || selectedDataset,
+                        image_url: questions[currentQuestionIndex].image_url || null
+                    })
+                });
+
+                if (!response.ok) throw new Error(`Failed to submit annotation: ${await response.text()}`);
+                currentQuestionIndex++;
+                document.getElementById('error-message').classList.add('hidden');
+                displayQuestion();
+                showNotification('Annotation submitted successfully', 'success');
+            } catch (error) {
+                console.error('Submit annotation error:', error);
+                document.getElementById('error-message').classList.remove('hidden');
+                document.getElementById('error-message').textContent = `Error submitting annotation: ${error.message}`;
+            }
+        });
+
+        document.getElementById('next-question').addEventListener('click', () => {
+            currentQuestionIndex++;
+            document.getElementById('error-message').classList.add('hidden');
+            displayQuestion();
+        });
+
+        function downloadPaper() {
+            alert('PDF download functionality would be implemented here.');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (mobileMenu && icon) {
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.remove('hidden');
+                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+                }
+            }
+        }
+
+        // Initial authentication check
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
+</body>
+</html>

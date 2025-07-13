@@ -1,0 +1,35 @@
+{
+  "name": "eduvlm-bench-auth",
+  "version": "1.0.0",
+  "description": "EduVLM-Bench website with authentication",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.2.0",
+    "dotenv": "^17.0.1",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.8.7",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sriram2226/eduvlm-frontpage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sriram2226/eduvlm-frontpage/issues"
+  },
+  "homepage": "https://github.com/Sriram2226/eduvlm-frontpage#readme"
+}
