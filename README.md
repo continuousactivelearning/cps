@@ -97,8 +97,8 @@ npm start
 * **Environment Management**: dotenv
 
  ## Team Members
- K. Sai Sahithya
- A. Meghana
- G. Pradeep Kumar
- D. Siva Sai
+* K. Sai Sahithya
+* A. Meghana
+* G. Pradeep Kumar
+* D. Siva Sai
 
