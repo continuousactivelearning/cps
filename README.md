@@ -6,6 +6,7 @@
 
 - **Website:** [cps-alpha.vercel.app](https://cps-alpha.vercel.app/)
 - **GitHub:** `team-nishita-dashboard` branch
+- **Demo Link: ** [T-6 video](https://drive.google.com/file/d/1PZpCr4Zq3fhli9lPgmKkBgw5NgsRAQOZ/view?usp=drive_link)
 
 ## 🎯 Project Overview
 
