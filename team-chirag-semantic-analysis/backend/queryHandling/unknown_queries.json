@@ -1,0 +1,39 @@
+{
+  "queries": [
+    {
+      "query": "suggest a random topic",
+      "timestamp": "2025-09-10T16:23:35.927Z",
+      "processed": false
+    },
+    {
+      "query": "arrats",
+      "timestamp": "2025-09-12T05:19:37.304Z",
+      "processed": false
+    },
+    {
+      "query": "i need trees",
+      "timestamp": "2025-09-12T05:33:07.777Z",
+      "processed": false
+    },
+    {
+      "query": "recursion ?",
+      "timestamp": "2025-09-12T05:33:33.151Z",
+      "processed": false
+    },
+    {
+      "query": "return statement",
+      "timestamp": "2025-09-12T05:34:54.365Z",
+      "processed": false
+    },
+    {
+      "query": "python return statements",
+      "timestamp": "2025-09-12T05:35:23.820Z",
+      "processed": false
+    },
+    {
+      "query": "give sample cpp code",
+      "timestamp": "2025-09-12T06:06:40.233Z",
+      "processed": false
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "default": {
+    "current_path": [
+      "Searching",
+      "Sorting",
+      "Dynamic Arrays",
+      "Hash Table",
+      "Dynamic Programming"
+    ],
+    "completed_topics": [
+      {
+        "topic": "Queue Using Arrays",
+        "completed_at": "2025-09-10T16:21:14.025Z"
+      },
+      {
+        "topic": "Stack",
+        "completed_at": "2025-09-12T05:32:30.795Z"
+      },
+      {
+        "topic": "Stack",
+        "completed_at": "2025-09-12T06:05:55.950Z"
+      }
+    ],
+    "current_step_index": 0,
+    "target_topic": "Dynamic Programming",
+    "session_started": "2025-09-10T16:19:25.898Z",
+    "last_updated": "2025-09-12T06:06:15.393Z"
+  }
+}

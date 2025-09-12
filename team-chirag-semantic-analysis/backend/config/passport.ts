@@ -1,17 +1,32 @@
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from '../models/User';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 
 dotenv.config();
 
-passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID!,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-  callbackURL: process.env.GOOGLE_REDIRECT_URI!,
-},
-  async (accessToken, refreshToken, profile, done) => {
+const googleClientId = process.env.GOOGLE_CLIENT_ID;
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
+
+if (!googleClientId || !googleClientSecret) {
+  throw new Error('Missing Google OAuth environment variables');
+}
+
+passport.use(new GoogleStrategy(
+  {
+    clientID: googleClientId,
+    clientSecret: googleClientSecret,
+    callbackURL: "http://localhost:5000/auth/google/callback",
+    passReqToCallback: true
+  },
+  async (
+    req: Express.Request,
+    accessToken: string,
+    refreshToken: string,
+    profile: any,
+    done: (error: any, user?: any) => void
+  ) => {
     try {
       const { id, displayName, emails, photos } = profile;
       const email = emails?.[0].value;
@@ -38,7 +53,8 @@ passport.use(new GoogleStrategy({
 
       return done(null, { ...user.toObject(), token, isFirstTime });
     } catch (error) {
-      return done(error);
+      console.error("Google OAuth error:", error);
+      return done(error, undefined);
     }
   }
 ));
