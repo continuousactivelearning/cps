@@ -86,13 +86,13 @@ const ProgressPage: React.FC = () => {
   return (
     <Layout>
       <div className="page-hero-container">
-        <IntroHeader 
+        <IntroHeader
           title="Your Learning Progress"
           tagline="Continue your learning journey and celebrate your achievements"
           icon={<TrendingUp />}
         />
       </div>
-      <div className="max-w-7xl mx-auto min-h-screen flex flex-col transition-colors duration-300"
+      <div className="flex flex-col mx-auto max-w-7xl min-h-screen transition-colors duration-300"
         style={{
           paddingTop: 64,
           paddingLeft: 48,
@@ -147,7 +147,7 @@ const ProgressPage: React.FC = () => {
                 textColorDark: 'text-yellow-100',
                 subTextColorDark: 'text-yellow-200',
               },
-            ].map((card, idx) => (
+            ].map((card) => (
               <div
                 key={card.label}
                 className={`progress-summary-card rounded-lg shadow-2xl p-10 flex flex-col items-center transition-colors duration-300 animate-fade-in \

@@ -48,9 +48,9 @@ const EmbeddedStreakCalendar: React.FC = () => {
     return new Date(year, month, 1).getDay();
   };
 
-  const isLoginDay = (day: number) => {
-    return calendarData?.loginDays.some(loginDay => loginDay.day === day) || false;
-  };
+  // const isLoginDay = (day: number) => {
+  //   return calendarData?.loginDays.some(loginDay => loginDay.day === day) || false;
+  // };
 
   const dummyCalendarData: CalendarData = {
     username: 'Demo User',
@@ -76,7 +76,7 @@ const EmbeddedStreakCalendar: React.FC = () => {
     // Sort days ascending
     const days = loginDaysArr.map(d => d.day).sort((a, b) => a - b);
     const today = new Date();
-    let streak = [];
+    const streak = [];
     for (let i = days.length - 1; i >= 0; i--) {
       if (
         days[i] === today.getDate() &&
