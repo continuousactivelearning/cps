@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "npm run build && node index.js",
     "build": "tsc",
+    "postinstall": "npm run build",
     "dev": "nodemon --watch . --ext ts --exec ts-node index.ts",
     "setup": "ts-node setup-typescript-chat.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
